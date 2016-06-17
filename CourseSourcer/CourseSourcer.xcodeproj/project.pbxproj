@@ -38,8 +38,10 @@
 		CB278FC61D0BD72200217EB3 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */; };
 		CB278FC81D0CBDEE00217EB3 /* JoinCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */; };
 		CB278FCA1D0CBEA200217EB3 /* NewCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */; };
-		CB278FCC1D0EE5A100217EB3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCB1D0EE5A100217EB3 /* HomeViewController.swift */; };
+		CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */; };
 		CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */; };
+		CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */; };
+		CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EB7931D142300000A58FD /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,8 +99,10 @@
 		CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinCourseViewController.swift; sourceTree = "<group>"; };
 		CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseViewController.swift; sourceTree = "<group>"; };
-		CB278FCB1D0EE5A100217EB3 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
+		CB8EB7931D142300000A58FD /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,10 +156,11 @@
 				CB278F671D0AE17C00217EB3 /* AppDelegate.swift */,
 				CB278FBD1D0AE7D300217EB3 /* Globals.swift */,
 				CB278FBF1D0AE7DB00217EB3 /* Network.swift */,
-				CB278FCB1D0EE5A100217EB3 /* HomeViewController.swift */,
+				CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */,
 				CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */,
 				CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */,
 				CB278FA01D0AE5E100217EB3 /* AboutViewController.swift */,
+				CB8EB7931D142300000A58FD /* HomeViewController.swift */,
 				CB278F981D0AE57B00217EB3 /* CoursesTableViewController.swift */,
 				CB278FAC1D0AE68F00217EB3 /* CourseTableViewCell.swift */,
 				CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */,
@@ -183,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				CB278F7F1D0AE17D00217EB3 /* CourseSourcerTests.swift */,
+				CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */,
 				CB278F811D0AE17D00217EB3 /* Info.plist */,
 			);
 			path = CourseSourcerTests;
@@ -361,11 +367,12 @@
 				CB278FA11D0AE5E100217EB3 /* AboutViewController.swift in Sources */,
 				CB278FBA1D0AE78F00217EB3 /* Assignment.swift in Sources */,
 				CB278F991D0AE57B00217EB3 /* CoursesTableViewController.swift in Sources */,
-				CB278FCC1D0EE5A100217EB3 /* HomeViewController.swift in Sources */,
+				CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */,
 				CB278FB01D0AE72300217EB3 /* Course.swift in Sources */,
 				CB278F681D0AE17C00217EB3 /* AppDelegate.swift in Sources */,
 				CB278FA31D0AE5F700217EB3 /* StaticNoteViewController.swift in Sources */,
 				CB278F9F1D0AE5D000217EB3 /* SettingsViewController.swift in Sources */,
+				CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */,
 				CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */,
 				CB278FA71D0AE62C00217EB3 /* ExamViewController.swift in Sources */,
 				CB278FC01D0AE7DB00217EB3 /* Network.swift in Sources */,
@@ -382,6 +389,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */,
 				CB278F801D0AE17D00217EB3 /* CourseSourcerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

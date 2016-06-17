@@ -9,7 +9,10 @@
 import UIKit
 
 class CourseTableViewCell: UITableViewCell {
-
+    @IBOutlet weak var course_pic: UIImageView!
+    @IBOutlet weak var term_field: UITextField!
+    @IBOutlet weak var course_label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

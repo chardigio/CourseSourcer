@@ -10,9 +10,13 @@ import UIKit
 
 class CoursesTableViewController: UITableViewController {
 
+    //var courses = [Course]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadCourses()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -25,6 +29,12 @@ class CoursesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Personal functions
+    
+    func loadCourses(){
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

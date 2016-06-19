@@ -1,0 +1,14 @@
+{
+  "name": "coursesourcer",
+  "version": "1.0.0",
+  "dependencies": {
+    "bcrypt": "^0.8.2",
+    "body-parser": "^1.12.4",
+    "express": "^4.12.3",
+    "lodash": "^3.6.0",
+    "mongoose": "^4.0.1",
+    "mongoose-id-validator": "^0.1.8",
+    "mongoose-timestamp": "^0.4.0",
+    "rekuire": "^0.1.9"
+  }
+}

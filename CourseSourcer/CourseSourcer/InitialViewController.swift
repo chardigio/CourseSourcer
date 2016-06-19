@@ -22,8 +22,9 @@ class InitialViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* uncomment to delete user info */ testNewUser()
+        /* uncomment to delete user info */ //testNewUser()
         print(4)
+        // comment this if-else block to override the credentials screen
         if USER_ID == nil {
             print("HomeToCredentials")
             performSegueWithIdentifier("HomeToCredentials", sender: nil)
@@ -34,6 +35,7 @@ class InitialViewController: UINavigationController {
         } else {
             print(USER_ID)
         }
+        
     }
 
     override func didReceiveMemoryWarning() {

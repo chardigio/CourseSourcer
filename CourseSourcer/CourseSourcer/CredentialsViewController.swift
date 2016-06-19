@@ -15,19 +15,18 @@ class CredentialsViewController: UIViewController {
     @IBOutlet weak var name_field: UITextField!
     @IBOutlet weak var login_button: UIButton!
     @IBOutlet weak var signup_button: UIButton!
-    var bottom_button_bounds: CGRect = CGRectZero
-    var upper_login_button_bounds: CGRect = CGRectZero
-    var upper_signup_button_bounds: CGRect = CGRectZero
+    
+    @IBOutlet weak var signup_button_top: NSLayoutConstraint!
+    @IBOutlet weak var signup_button_bottom: NSLayoutConstraint!
+    @IBOutlet weak var login_button_top: NSLayoutConstraint!
+    @IBOutlet weak var login_button_bottom: NSLayoutConstraint!
+    
     var logging_in: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.navigationBarHidden = true
-        
-        bottom_button_bounds = signup_button.bounds.offsetBy(dx: 0, dy: 0)
-        upper_login_button_bounds = login_button.bounds.offsetBy(dx: 0, dy: 0)
-        upper_signup_button_bounds = upper_login_button_bounds.offsetBy(dx: 0, dy: 48)
         
         profile_pic.layer.cornerRadius = 64
     }
@@ -52,7 +51,7 @@ class CredentialsViewController: UIViewController {
     }
     
     func enableSignupCheck(){
-        if logging_in {
+        if !logging_in {
             if email_field.text != nil &&
                password_field != nil &&
                name_field != nil &&
@@ -85,46 +84,40 @@ class CredentialsViewController: UIViewController {
         if logging_in {
             //send login info to server
         }else{
+            logging_in = true
+            
             UIView.animateWithDuration(0.5, animations: {
                     self.name_field.alpha = 0.9
                     self.profile_pic.alpha = 1
                     self.login_button.alpha = 0
                     self.signup_button.enabled = false
-                    //self.signup_button.constraints.append()
+                
                 }, completion: { (finished: Bool) -> Void in
                     print("complete login pressed when on bottom")
-                    self.login_button.bounds.offsetInPlace(dx: 0, dy: self.login_button.bounds.minY - self.bottom_button_bounds.minY)
-                    self.login_button.alpha = 1
+
             })
         }
     }
     
     @IBAction func signupButtonPressed(sender: AnyObject) {
         if logging_in {
-            print(self.upper_login_button_bounds)
-            print(self.upper_signup_button_bounds)
-            print(self.bottom_button_bounds)
+            logging_in = false
+            
             UIView.animateWithDuration(0.5, animations: {
-                self.name_field.alpha = 0.9
+                self.name_field.alpha = 0.9 // .9 is the standard field opacity so this is basically unhiding
                 self.profile_pic.alpha = 1
-                self.login_button.alpha = 0
+                
                 self.signup_button.enabled = false
-                print(self.signup_button.frame)
-                self.signup_button.frame = self.upper_signup_button_bounds
-                print(self.signup_button.frame)
-                //self.signup_button.bounds.offsetInPlace(dx: 0, dy: self.login_button.bounds.minY - self.bottom_button_bounds.minY)
+                
+                self.signup_button_bottom.active = false
+                self.signup_button_top.active = true
+                
+                self.login_button_top.active = false
+                self.login_button_bottom.active = true
             }, completion: { (finished: Bool) -> Void in
                 print("complete sigunp pressed when on bottom")
-                //self.login_button.bounds.offsetInPlace(dx: 0, dy: self.login_button.bounds.minY - self.bottom_button_bounds.minY)
-                //self.login_button.frame = self.bottom_button_bounds
-                self.login_button.alpha = 1
                 self.login_button.enabled = true
-                print(self.signup_button.frame)
-                print(self.upper_login_button_bounds)
-                print(self.upper_signup_button_bounds)
-                print(self.bottom_button_bounds)
             })
-            
         }else{
             //send signup info to server
         }

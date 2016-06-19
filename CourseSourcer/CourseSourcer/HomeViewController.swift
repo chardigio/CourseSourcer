@@ -9,11 +9,15 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-
+    @IBOutlet weak var courses_container: UIView!
+    @IBOutlet weak var schedule_container: UIView!
+    @IBOutlet weak var segment_controller: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureSegmentController()
+        self.navigationController!.navigationBar.layer.borderWidth = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +25,22 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: - Personal Functions
+    func configureSegmentController(){
+        //segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application) //FONT
+        segment_controller.addTarget(self, action: #selector(HomeViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
+    }
+    
+    func segmentChanged(gesture: UIGestureRecognizer){
+        if segment_controller.selectedSegmentIndex == 0 {
+            courses_container.hidden = false
+            schedule_container.hidden = true
+        }else{
+            courses_container.hidden = true
+            schedule_container.hidden = false
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

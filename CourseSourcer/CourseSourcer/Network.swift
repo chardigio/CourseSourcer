@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-/*import Alamofire
+import Alamofire
 import SwiftyJSON
 
 let env = "localhost"
@@ -55,4 +55,3 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
         }
     }
 }
-*/

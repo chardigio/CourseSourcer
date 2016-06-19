@@ -17,6 +17,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
+@testable import CourseSourcer
 
 var posts = 0
 var userid: String? = nil
@@ -47,12 +48,12 @@ func testRequests(){
     POST("/users", parameters: ["name":"Charlie", "email":"cdg@bing.edu", "password":"nsonat"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post user")
         if (err != nil) {print(err!)}
-        if (res != nil) {print(res!); userid = res!["user"]["id"].string; posts++; tryMore()}
+        if (res != nil) {print(res!); userid = res!["user"]["id"].string; posts += 1; tryMore()}
     })
     
     POST("/courses", parameters: ["name": "graph theory","term": "Fall 2015","school": "Binghamton"],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post course")
         if (err != nil) {print(err!)}
-        if (res != nil) {print(res!); courseid = res!["course"]["id"].string; posts++; tryMore()}
+        if (res != nil) {print(res!); courseid = res!["course"]["id"].string; posts += 1; tryMore()}
     })
 }

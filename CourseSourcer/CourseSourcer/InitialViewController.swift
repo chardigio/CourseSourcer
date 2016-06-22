@@ -10,32 +10,27 @@ import Foundation
 import UIKit
 
 class InitialViewController: UINavigationController {
-    //let prefs = NSUserDefaults.standardUserDefaults()
-    
-    func testNewUser(){
-        //prefs.setValue(nil, forKey: "userid")
-        print(3)
-        USER_ID = nil
-        CONFIRMED = false
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* uncomment to delete user info */ //testNewUser()
-        print(4)
+        
+        
+        //testNewUser() // ONLY FOR TESTING
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         // comment this if-else block to override the credentials screen
         if USER_ID == nil {
-            print("HomeToCredentials")
-            performSegueWithIdentifier("HomeToCredentials", sender: nil)
-        } else if !CONFIRMED {
+            print("InitialToCredentials")
+            performSegueWithIdentifier("InitialToCredentials", sender: nil)
+        } else if CONFIRMED == nil || !CONFIRMED! {
             print(USER_ID)
-            print("HomeToConfirm")
-            performSegueWithIdentifier("HomeToConfirm", sender: nil)
+            print("InitialToConfirm")
+            performSegueWithIdentifier("InitialToConfirm", sender: nil)
         } else {
             print(USER_ID)
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +38,15 @@ class InitialViewController: UINavigationController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: - Testing
+    
+    func testNewUser(){
+        PREFS!.setValue(nil, forKey: "userId")
+        PREFS!.setValue(nil, forKey: "emailConfirmed")
+        USER_ID = nil
+        CONFIRMED = false
+    }
+    
     /*
     // MARK: - Navigation
 

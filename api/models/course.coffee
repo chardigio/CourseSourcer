@@ -18,6 +18,7 @@ schema.set 'toJSON', transform: (doc, ret, options) ->
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
 
+###
 #validation
 schema.path('name').required(true, 'Course name is required.')
 
@@ -32,15 +33,16 @@ schema.path('term').validate(function(val) {
 }, 'Term is too many characters.')
 
 #this should eventually be a regular expression (regex) that checks that there is a '.'
-/*schema.path('domain').validate(function(val) {
+schema.path('domain').validate(function(val) {
   return /\S+@\S+\.\S+/.test(val)
-}, 'Invalid domain.')*/
+}, 'Invalid domain.')
 
 schema.path('domain').required(true, 'Domain is required.')
 
 schema.path('domain').validate(function(val) {
   return (val != null ? val.length : void 0) <= 100
 }, 'Domain is too many characters.')
+###
 
 #export Model
 module.exports = Course = mongoose.model 'course', schema

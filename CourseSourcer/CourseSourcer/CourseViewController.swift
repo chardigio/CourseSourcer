@@ -1,20 +1,20 @@
 //
-//  ConfirmViewController.swift
+//  CourseViewController.swift
 //  CourseSourcer
 //
-//  Created by Charlie on 6/13/16.
+//  Created by Charlie on 6/20/16.
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
 import UIKit
-import SwiftyJSON
 
-class ConfirmViewController: UIViewController {
-
+class CourseViewController: UITabBarController {
+    var course: Course? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        confirmationCheck()
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,23 +22,7 @@ class ConfirmViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Personal
-    
-    func confirmationCheck() {
-        GET("/users/\(USER_ID!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if res?["user"]["confirmed"] == true {
-                PREFS!.setValue(true, forKey: "emailConfirmed")
-                CONFIRMED = true
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }else{
-                sleep(2)
-                self.confirmationCheck()
-            }
-        })
-    }
-    
-    
+
     /*
     // MARK: - Navigation
 

@@ -16,11 +16,11 @@ schema.set 'toJSON', transform: (doc, ret, options) ->
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
-
+###
 #validations
 schema.path('text').validate(function(val) {
   return (val != null ? val.length : void 0) <= 10000
 }, 'Text cannot exceed 10000 characters.')
-
+###
 #export Model
 module.exports = Message = mongoose.model 'message', schema

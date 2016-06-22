@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyJSON
+import RealmSwift
 
 class CredentialsViewController: UIViewController {
     @IBOutlet weak var profile_pic: UIImageView!
@@ -28,7 +30,7 @@ class CredentialsViewController: UIViewController {
         
         navigationController?.navigationBarHidden = true
         
-        profile_pic.layer.cornerRadius = 64
+        //profile_pic.layer.cornerRadius = 64
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,7 +41,7 @@ class CredentialsViewController: UIViewController {
     func enableLoginCheck(){
         if logging_in {
             if email_field.text != nil &&
-               password_field != nil &&
+               password_field.text != nil &&
                email_field.text!.containsString("@") &&
                email_field.text!.containsString(".edu") &&
                password_field.text!.characters.count >= 6 {
@@ -47,14 +49,16 @@ class CredentialsViewController: UIViewController {
             }else{
                 login_button.enabled = false
             }
+        }else{
+            login_button.enabled = true
         }
     }
     
     func enableSignupCheck(){
         if !logging_in {
             if email_field.text != nil &&
-               password_field != nil &&
-               name_field != nil &&
+               password_field.text != nil &&
+               name_field.text != nil &&
                email_field.text!.containsString("@") &&
                email_field.text!.containsString(".edu") &&
                password_field.text!.characters.count >= 6 &&
@@ -63,20 +67,21 @@ class CredentialsViewController: UIViewController {
             }else{
                 signup_button.enabled = false
             }
+        }else{
+            signup_button.enabled = true
         }
     }
     
-    @IBAction func emailFieldChanged(sender: AnyObject) {
+    @IBAction func emailFieldEditingChanged(sender: AnyObject) {
         enableLoginCheck()
         enableSignupCheck()
     }
     
-    @IBAction func passwordFieldChanged(sender: AnyObject) {
+    @IBAction func passwordFieldEditingChanged(sender: AnyObject) {
         enableLoginCheck()
         enableSignupCheck()
     }
-    
-    @IBAction func nameFieldChanged(sender: AnyObject) {
+    @IBAction func nameFieldEditingChanged(sender: AnyObject) {
         enableSignupCheck()
     }
     
@@ -109,17 +114,39 @@ class CredentialsViewController: UIViewController {
                 
                 self.signup_button.enabled = false
                 
-                self.signup_button_bottom.active = false
+                /*self.signup_button_bottom.active = false
                 self.signup_button_top.active = true
                 
                 self.login_button_top.active = false
-                self.login_button_bottom.active = true
+                self.login_button_bottom.active = true*/
             }, completion: { (finished: Bool) -> Void in
                 print("complete sigunp pressed when on bottom")
                 self.login_button.enabled = true
             })
         }else{
-            //send signup info to server
+            POST("/users", parameters: ["name":name_field.text!, "password":password_field.text!, "email":email_field.text!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                print("POST /users")
+                if (err != nil) {
+                    showError(self)
+                }else if (res != nil) {
+                    let id  = res!["user"]["id"].string
+                    
+                    PREFS!.setValue(id, forKey: "userId")
+                    USER_ID = id
+                    
+                    let user = User()
+                    user.name = res!["user"]["name"].stringValue
+                    user.email = res!["user"]["email"].stringValue
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(user)
+                    }
+                    print("now dismiss")
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    print("boom")
+                }
+            })
         }
     }
     

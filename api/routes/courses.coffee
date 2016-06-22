@@ -29,13 +29,13 @@ router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPL
 
 #get all courses for user
 router.get '/:userid', (req, res, next) ->
-	User.findById(req.params.userid).populate('courses').exec (err, user) ->
-		if err then next err
-		else res.status(200).send courses: user.courses
+  User.findById(req.params.userid).populate('courses').exec (err, user) ->
+    if err then next err
+    else res.status(200).send courses: user.courses
 
 #add user to course's blocked list
 router.put '/block', (req, res, next) ->
-  Course.findByIdAndUpdate({_id: req.body.courseid}, {$addToSet: {blocked: req.body.userid}}, (err, course) ->
+  Course.findByIdAndUpdate {_id: req.body.courseid}, {$addToSet: {blocked: req.body.userid}}, (err, course) ->
     if err then next err
     else res.status(200).send course: course
 

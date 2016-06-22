@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import RealmSwift
+
+class User: Object {
+    dynamic var name: String = ""
+    dynamic var email: String = ""
+    
+    var admin_of = List<Course>()
+    
+    override static func primaryKey() -> String {
+        return "email"
+    }
+}

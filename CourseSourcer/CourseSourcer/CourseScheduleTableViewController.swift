@@ -1,14 +1,14 @@
 //
-//  ScheduleTableViewController.swift
+//  CourseScheduleTableViewController.swift
 //  CourseSourcer
 //
-//  Created by Charlie on 6/10/16.
+//  Created by Charlie on 6/20/16.
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
 import UIKit
 
-class ScheduleTableViewController: UITableViewController {
+class CourseScheduleTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

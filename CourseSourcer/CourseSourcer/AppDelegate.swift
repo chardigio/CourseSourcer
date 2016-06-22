@@ -8,24 +8,40 @@
 
 import UIKit
 import CoreData
-//import RealmSwift
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        print(1)
-        /*
-        if USER_ID == nil {
-            let realm = try! Realm()
+        
+        initGlobals()
+        
+        return true
+    }
+    
+    func initGlobals(){
+        PREFS = NSUserDefaults.standardUserDefaults()
+        USER_ID = PREFS!.stringForKey("userId")
+        CONFIRMED = PREFS!.boolForKey("emailConfirmed")
+        
+        //USER_ID = nil // ONLY FOR TESTING
+        
+        let realm = try! Realm()
+        if USER_ID != nil {
+            USER = realm.objects(User).map { $0 } [0]
+        }else{
+            CONFIRMED = nil // SANITY CHECK
+
             try! realm.write {
                 realm.deleteAll()
+                print("Realm database wiped.")
+                for course in realm.objects(Course){
+                    print(course.name)
+                }
             }
         }
-        */
-        print(2)
-        return true
     }
 
     func applicationWillResignActive(application: UIApplication) {

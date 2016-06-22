@@ -2,9 +2,9 @@ _ = require 'lodash'
 router = (require 'express').Router()
 mongoose = require 'mongoose'
 rek = require 'rekuire'
-Note = 'models/note'
-Course = 'models/course'
-server = 'components/server'
+Note = rek 'models/note'
+Course = rek 'models/course'
+server = rek 'components/server'
 
 #post note
 router.post '/', (req, res, next) ->
@@ -15,42 +15,42 @@ router.post '/', (req, res, next) ->
     else res.status(201).send note: note
 
 #get all notes for a course
-router.get '/bare/:courseId', server.loadUser, (req, res, next) ->
-	Note.find(course: req.params.courseId).sort('-created_at').exec (err, notes) ->
+router.get '/bare/:courseId', (req, res, next) -> #should be server.loadUser
+  Note.find(course: req.params.courseId).sort('-created_at').exec (err, notes) ->
     if err then next err
     else
-    	for note in notes #not deepcopy, fix
-    		note.text = null
-    		note.couse = null
-    		note.score = null
-    		note.user = null #if admin dont null it
-    	res.send notes: notes
+      for note in notes #not deepcopy, fix
+        note.text = null
+        note.couse = null
+        note.score = null
+        note.user = null #if admin dont null it
+      res.send notes: notes
 
 router.get '/:noteId', (req, res, next) ->
-	Note.findById req.params.noteId, (err, note) ->
-		if err then next err
-		else
-			note.user = null
-			res.send note: note
+  Note.findById req.params.noteId, (err, note) ->
+    if err then next err
+    else
+      note.user = null
+      res.send note: note
 
 #like note
 router.put '/like', (req, res,next) ->
-	Note.findByIdreq.body.note_id, (err, ogNote) ->
-		if err then next err
+  Note.findById req.body.note_id, (err, ogNote) ->
+    if err then next err
     else
-  		ogNote.score++
-  		ogNote.save (err, note) ->
-  			if err then next err
-  			else res.status(200).send note: note
+      ogNote.score++
+      ogNote.save (err, note) ->
+        if err then next err
+        else res.status(200).send note: note
 
 #dislike note
 router.put '/dislike', (req, res,next) ->
-	Note.findById(req.body.note_id, (err, note) ->
-		if err then next err
+  Note.findById req.body.note_id, (err, note) ->
+    if err then next err
     else
-  		note.score--
-  		note.save (err, note) ->
-  			if err then next err
-  			else res.status(200).send note: note
+      note.score--
+      note.save (err, note) ->
+        if err then next err
+        else res.status(200).send note: note
 
 module.exports = router

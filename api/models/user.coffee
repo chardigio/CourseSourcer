@@ -12,7 +12,7 @@ schema = mongoose.Schema
   admin_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
   courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
 
-schema.set'toJSON', transform: (doc, ret, options) ->
+schema.set 'toJSON', transform: (doc, ret, options) ->
   _.pick doc, 'id', 'name', 'email', 'confirmed', 'admin_of', 'courses'
 
 schema.pre 'save', (next) ->
@@ -23,7 +23,7 @@ schema.pre 'save', (next) ->
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
-
+###
 #validation
 schema.path('name').required(true, 'First name is required.')
 
@@ -64,7 +64,7 @@ schema.path('name').set(function(val) {
 schema.path('email').set(function(val) {
   return val.trim().toLowerCase()
 })
-
+###
 #export Model
 module.exports = User = mongoose.model 'user', schema
 

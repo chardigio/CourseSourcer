@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import RealmSwift
+//MAY HAVE TO HACK: PUT SEGMENT CONTROLLER IN EACH OF THE CONTAINER VIEWS
 class HomeViewController: UIViewController {
     @IBOutlet weak var courses_container: UIView!
     @IBOutlet weak var schedule_container: UIView!
@@ -16,8 +17,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //addTestUser() // ONLY FOR TESTING
         configureSegmentController()
-        self.navigationController!.navigationBar.layer.borderWidth = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +26,17 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Personal Functions
+    // MARK: - Testing
+    
+    func addTestUser(){
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(User(value: ["name": "Charlie DiGiovanna", "email": "cdigiov1@binghamton.edu"]))
+        }
+    }
+    
+    // MARK: - Personal
+    
     func configureSegmentController(){
         //segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application) //FONT
         segment_controller.addTarget(self, action: #selector(HomeViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
@@ -41,7 +52,14 @@ class HomeViewController: UIViewController {
         }
     }
     
-    /*
+    @IBAction func compose_button_pressed(sender: AnyObject) {
+        if segment_controller.selectedSegmentIndex == 0 { // Courses selected
+            performSegueWithIdentifier("HomeToCourseSearch", sender: nil)
+        }else{ // Schedule Selected
+            // present nib to create a new assignment/exam
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -49,6 +67,4 @@ class HomeViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
-
 }

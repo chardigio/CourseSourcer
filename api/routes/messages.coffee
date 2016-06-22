@@ -16,23 +16,23 @@ router.post '/', server.loadUser, (req, res, next) -> #load user and check for b
 
 #like message
 router.put '/like', (req, res,next) ->
-	Message.findById req.body.message_id, (err, msg) ->
-		if err then next err
+  Message.findById req.body.message_id, (err, msg) ->
+    if err then next err
     else
-		  msg.score++
-		  msg.save (err, message) ->
-			  if err then next err
-			  else res.status(200).send message: message
+      msg.score++
+      msg.save (err, message) ->
+        if err then next err
+        else res.status(200).send message: message
 
 #dislike message
 router.put '/dislike', (req, res,next) ->
-	Message.findById req.body.message_id, (err, msg) ->
-		if err then next err
+  Message.findById req.body.message_id, (err, msg) ->
+    if err then next err
     else
-  		msg.score--
-  		msg.save (err, message) ->
-  			if err then next err
-  			else res.status(200).send message: message
+      msg.score--
+      msg.save (err, message) ->
+        if err then next err
+        else res.status(200).send message: message
 
 #get messages for a course
 router.get '/:courseId', server.loadUser, (req, res, next) ->
@@ -54,18 +54,17 @@ router.get '/:courseId', server.loadUser, (req, res, next) ->
     Message.find(_id: $gt: lastId, course: req.params.courseId).sort('-created_at').limit(limit).populate('user').exec (err, nextMessages) ->
       if err then next err
       else
-      	if not admin
-	      	for (var i=0; i < nextMessages.length; i++){
+        if not admin
           for message in nextMessages #not deepcopy, fix
-	      		if message.user.id isnt req.user.id then message.user = null
-      	res.send messages: nextMessages.reverse()
+            if message.user.id isnt req.user.id then message.user = null
+        res.send messages: nextMessages.reverse()
   else
     Message.find(course: req.params.courseId).sort('-created_at').skip(offset).limit(limit).populate('user').exec (err, messages) ->
       if err then next err
       else
-      	if not admin
-	      	for message in messages #not deepcopy, fix
-	      		if message.user.id isnt req.user.id then message.user = null
-      	res.send messages: messages.reverse()
+        if not admin
+          for message in messages #not deepcopy, fix
+            if message.user.id isnt req.user.id then message.user = null
+        res.send messages: messages.reverse()
 
 module.exports = router

@@ -51,7 +51,7 @@ func testRequests(){
         if (res != nil) {print(res!); userid = res!["user"]["id"].string; posts += 1; tryMore()}
     })
     
-    POST("/courses", parameters: ["name": "graph theory","term": "Fall 2015","school": "Binghamton"],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+    POST("/courses", parameters: ["name": "Graph Theory","term": "Fall 2016","school": "Binghamton"],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post course")
         if (err != nil) {print(err!)}
         if (res != nil) {print(res!); courseid = res!["course"]["id"].string; posts += 1; tryMore()}

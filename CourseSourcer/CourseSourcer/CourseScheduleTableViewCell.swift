@@ -1,21 +1,18 @@
 //
-//  CourseTableViewCell.swift
+//  CourseScheduleTableViewCell.swift
 //  CourseSourcer
 //
-//  Created by Charlie on 6/10/16.
+//  Created by Charlie on 6/20/16.
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
 import UIKit
 
-class CourseTableViewCell: UITableViewCell {
-    @IBOutlet weak var course_pic: UIImageView!
-    @IBOutlet weak var term_field: UITextField!
-    @IBOutlet weak var course_label: UILabel!
-    @IBOutlet weak var subview: UIView!
-    
+class CourseScheduleTableViewCell: UITableViewCell {
+
     override func awakeFromNib() {
         super.awakeFromNib()
+        // Initialization code
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -14,22 +14,19 @@ class InitialViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        configureNavigationBar()
         
         //testNewUser() // ONLY FOR TESTING
     }
     
     override func viewDidAppear(animated: Bool) {
-        // comment this if-else block to override the credentials screen
-        if USER_ID == nil {
-            print("InitialToCredentials")
+        // comment out this if-else block to override the credentials screen
+        if USER == nil {
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
         } else if CONFIRMED == nil || !CONFIRMED! {
-            print(USER_ID)
-            print("InitialToConfirm")
             performSegueWithIdentifier("InitialToConfirm", sender: nil)
         } else {
-            print(USER_ID)
+            print("USER ID:", USER!.id!)
         }
     }
 
@@ -41,10 +38,15 @@ class InitialViewController: UINavigationController {
     // MARK: - Testing
     
     func testNewUser(){
-        PREFS!.setValue(nil, forKey: "userId")
         PREFS!.setValue(nil, forKey: "emailConfirmed")
-        USER_ID = nil
         CONFIRMED = false
+    }
+    
+    // MARK: - Personal
+
+    func configureNavigationBar() {
+        navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
     }
     
     /*

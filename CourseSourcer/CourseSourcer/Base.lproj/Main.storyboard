@@ -256,8 +256,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="CourseSourcer" id="cJD-ZI-Fmw">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="8m6-9K-r8h"/>
                         <barButtonItem key="leftBarButtonItem" title="Me" id="8wg-8C-INs">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="LeC-Xj-MBo" kind="presentation" id="7zs-7c-xsj"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="9tD-74-xFZ">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -268,11 +272,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="courses_container" destination="xP9-db-aK3" id="PoH-ry-SoW"/>
+                        <outlet property="me_bar_button" destination="8wg-8C-INs" id="ci2-ZT-nkX"/>
                         <outlet property="schedule_container" destination="F6z-Vu-PRD" id="T6z-nD-gBc"/>
                         <outlet property="segment_controller" destination="u8d-JI-bxG" id="0YT-kD-5H1"/>
                         <segue destination="KwM-J2-cFr" kind="show" identifier="HomeToJoinCourse" id="MSr-BX-Pt0"/>
                         <segue destination="OY2-hE-7Ui" kind="show" identifier="HomeToCourse" id="8Sm-mA-bws"/>
-                        <segue destination="LeC-Xj-MBo" kind="show" identifier="HomeToAbout" id="y9d-Vq-MGf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ixw-2i-zYk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -322,46 +326,47 @@
         <scene sceneID="j12-BG-NBS">
             <objects>
                 <tableViewController title="Courses" id="ZCr-5D-onn" userLabel="CoursesTableViewController" customClass="CoursesTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="QLf-Q5-UVa">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="QLf-Q5-UVa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CourseCell" id="mwx-Or-Wr7" customClass="CourseTableViewCell" customModule="CourseSourcer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CourseCell" id="mwx-Or-Wr7" customClass="CourseTableViewCell" customModule="CourseSourcer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mwx-Or-Wr7" id="O91-sK-JgW">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Fall 2016" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H7a-eT-qXx">
-                                            <rect key="frame" x="118" y="53" width="61" height="20"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Course Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOz-Sf-pd0">
-                                            <rect key="frame" x="118" y="8" width="222" height="50"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="36"/>
+                                            <rect key="frame" x="80" y="8" width="512" height="47"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="34"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s0z-24-SUt">
-                                            <rect key="frame" x="18" y="10" width="80" height="80"/>
+                                            <rect key="frame" x="8" y="8" width="64" height="64"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="80" id="ekY-19-uNO"/>
-                                                <constraint firstAttribute="width" constant="80" id="j7l-za-QQ0"/>
+                                                <constraint firstAttribute="height" constant="64" id="ekY-19-uNO"/>
+                                                <constraint firstAttribute="width" constant="64" id="j7l-za-QQ0"/>
                                             </constraints>
                                         </imageView>
+                                        <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Fall 2016" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H7a-eT-qXx">
+                                            <rect key="frame" x="80" y="50" width="61" height="20"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <color key="backgroundColor" red="0.90588235289999997" green="0.71017481388502168" blue="0.79162215708030281" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstItem="H7a-eT-qXx" firstAttribute="leading" secondItem="s0z-24-SUt" secondAttribute="trailing" constant="20" id="IHK-4E-6bf"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dOz-Sf-pd0" secondAttribute="trailing" id="1cm-pH-91r"/>
+                                        <constraint firstItem="H7a-eT-qXx" firstAttribute="leading" secondItem="s0z-24-SUt" secondAttribute="trailing" constant="8" id="IHK-4E-6bf"/>
                                         <constraint firstItem="H7a-eT-qXx" firstAttribute="top" secondItem="dOz-Sf-pd0" secondAttribute="bottom" constant="-5" id="QUt-F3-Wtc"/>
-                                        <constraint firstItem="s0z-24-SUt" firstAttribute="leading" secondItem="O91-sK-JgW" secondAttribute="leadingMargin" constant="10" id="RlD-S1-zbJ"/>
+                                        <constraint firstItem="s0z-24-SUt" firstAttribute="leading" secondItem="O91-sK-JgW" secondAttribute="leadingMargin" id="RlD-S1-zbJ"/>
                                         <constraint firstItem="s0z-24-SUt" firstAttribute="centerY" secondItem="O91-sK-JgW" secondAttribute="centerY" id="lPR-8I-j6r"/>
                                         <constraint firstAttribute="topMargin" secondItem="dOz-Sf-pd0" secondAttribute="top" id="qYA-hc-iXd"/>
-                                        <constraint firstItem="dOz-Sf-pd0" firstAttribute="leading" secondItem="s0z-24-SUt" secondAttribute="trailing" constant="20" id="w87-al-KR7"/>
+                                        <constraint firstItem="dOz-Sf-pd0" firstAttribute="leading" secondItem="s0z-24-SUt" secondAttribute="trailing" constant="8" id="w87-al-KR7"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -443,7 +448,7 @@
                             <outlet property="delegate" destination="emL-OH-Tgh" id="678-pF-0GK"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="V9h-h0-vhe"/>
+                    <tabBarItem key="tabBarItem" systemItem="contacts" id="V9h-h0-vhe"/>
                     <navigationItem key="navigationItem" title="Classmates" id="t9p-kJ-B9c"/>
                     <connections>
                         <segue destination="qW3-vf-sOM" kind="show" identifier="ClassmatesToClassmate" id="NKS-Ah-nRm"/>
@@ -529,7 +534,7 @@
                             <outlet property="delegate" destination="Uxo-kd-xWu" id="h07-Aq-a3B"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="Xb9-vg-Kvo"/>
+                    <tabBarItem key="tabBarItem" systemItem="mostViewed" id="Xb9-vg-Kvo"/>
                     <navigationItem key="navigationItem" title="Static Notes" id="CMr-5L-FIT"/>
                     <connections>
                         <segue destination="25C-aC-ZaE" kind="show" identifier="StaticNotesToStaticNote" id="HZ6-iR-0VP"/>
@@ -684,7 +689,7 @@
                             <outlet property="delegate" destination="X0P-QV-Hse" id="gj1-4Q-DcY"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" id="oe7-iV-1TF"/>
+                    <tabBarItem key="tabBarItem" systemItem="history" id="oe7-iV-1TF"/>
                     <navigationItem key="navigationItem" title="Schedule" id="oFN-GX-owx"/>
                     <connections>
                         <segue destination="zQj-BQ-hUc" kind="show" identifier="ScheduleToExam" id="slF-xb-dBd"/>
@@ -745,7 +750,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="3zN-Bk-FSc"/>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="3zN-Bk-FSc"/>
                     <navigationItem key="navigationItem" title="Group Messages" id="Hoi-xC-eiZ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIJ-xv-Ivy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -760,13 +765,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="nac-ez-atx" kind="relationship" relationship="viewControllers" id="g5F-jt-ocI"/>
                         <segue destination="Uxo-kd-xWu" kind="relationship" relationship="viewControllers" id="Le5-tf-Aut"/>
                         <segue destination="X0P-QV-Hse" kind="relationship" relationship="viewControllers" id="ukC-LD-Qii"/>
-                        <segue destination="NQZ-dH-zBa" kind="relationship" relationship="viewControllers" id="var-13-A7o"/>
                         <segue destination="emL-OH-Tgh" kind="relationship" relationship="viewControllers" id="fyk-Nj-e2e"/>
+                        <segue destination="NQZ-dH-zBa" kind="relationship" relationship="viewControllers" id="var-13-A7o"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFJ-tp-lto" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -780,6 +786,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="eFM-cE-8rA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -812,7 +819,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="J3Y-7b-4Ub"/>
+                    <tabBarItem key="tabBarItem" systemItem="more" id="J3Y-7b-4Ub"/>
                     <navigationItem key="navigationItem" title="Settings" id="7qI-w8-dFK"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nhk-e9-gcs" userLabel="First Responder" sceneMemberID="firstResponder"/>

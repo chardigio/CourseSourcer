@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var courses_container: UIView!
     @IBOutlet weak var schedule_container: UIView!
     @IBOutlet weak var segment_controller: UISegmentedControl!
+    @IBOutlet weak var me_bar_button: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,7 @@ class HomeViewController: UIViewController {
     
     // MARK: - Personal
     
-    func configureSegmentController(){
+    func configureSegmentController() {
         //segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application) //FONT
         segment_controller.addTarget(self, action: #selector(HomeViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
     }
@@ -64,7 +65,10 @@ class HomeViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "HomeToCourse" {
+            let vc = segue.destinationViewController as! CourseViewController
+            vc.course = sender as? Course
+            print("COURSE:", (vc.course?.name)!)
+        }
     }
 }

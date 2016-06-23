@@ -10,9 +10,13 @@ import Foundation
 import RealmSwift
 
 class User: Object {
+    dynamic var id: String? = nil
+    dynamic var me: Bool = false
     dynamic var name: String = ""
     dynamic var email: String = ""
+    dynamic var last_spoke: NSDate? = nil
     
+    var courses = List<Course>()
     var admin_of = List<Course>()
     
     override static func primaryKey() -> String {

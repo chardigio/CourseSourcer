@@ -14,7 +14,8 @@ class CourseViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureNavigationBar()
+        configureTabBar()
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,7 +23,24 @@ class CourseViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
+    }
+    
+    // MARK: - Personal
+    
+    func configureNavigationBar() {
+        navigationItem.title = course!.name
+        
+//        UIView.animateWithDuration(0.2, animations: {
+            self.navigationController?.navigationBar.barTintColor = pastelFromString(self.course!.color)
+//        })
+    }
 
+    func configureTabBar() {
+        UITabBar.appearance().tintColor = pastelFromString(course!.color)
+    }
+    
     /*
     // MARK: - Navigation
 

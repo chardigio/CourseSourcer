@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ClassmatesTableViewController: UITableViewController {
-
+    var course: Course? = nil
+    var data = [[User()], [], []]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadClassmates()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,7 +29,41 @@ class ClassmatesTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // MARK: - Testing
+    
+    func loadTestClassmates() {
+        //load test classmates
+    }
+    
+    // MARK: - Personal
+    
+    func configureCourse() {
+        if let parent = tabBarController as? CourseViewController {
+            course = parent.course
+        }
+    }
+    
+    func loadClassmates() {
+        loadTestClassmates() // ONLY FOR TESTING
+        loadRealmClassmates()
+        loadNetworkClassmates()
+    }
+    
+    func loadRealmClassmates() {
+        let recent_classmates = course!.users.sorted("last_spoke").map { $0 }
+        for i in [0...5] {
+            data[1][i] = recent_classmates[i]
+        }
+        
+        let all_classmates = course!.users.sorted("name").map { $0 }
+        data[2] = all_classmates
+    }
+    
+    func loadNetworkClassmates() {
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

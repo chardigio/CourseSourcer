@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 var PREFS: NSUserDefaults? = nil
-var USER_ID: String? = nil
-var CONFIRMED: Bool? = nil
-var LOGGED_IN: Bool = (USER_ID != nil && CONFIRMED != nil && CONFIRMED!)
 var USER: User? = nil
+var CONFIRMED: Bool? = nil
+var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
+
 
 let PASTELS = ["light pink", "light orange", "light beige", "light yellow", "light blue"]
+let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00) 
 
 func pastelFromString(color: String) -> UIColor {
     switch color {

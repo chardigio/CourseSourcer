@@ -16,33 +16,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        initStatusBarStyle()
         initGlobals()
         
         return true
     }
     
+    // MARK: - Personal
+    
     func initGlobals(){
         PREFS = NSUserDefaults.standardUserDefaults()
-        USER_ID = PREFS!.stringForKey("userId")
         CONFIRMED = PREFS!.boolForKey("emailConfirmed")
         
-        //USER_ID = nil // ONLY FOR TESTING
-        
+        print("REALM FILE:", Realm.Configuration.defaultConfiguration.fileURL!)
         let realm = try! Realm()
-        if USER_ID != nil {
-            USER = realm.objects(User).map { $0 } [0]
+        
+        let users_that_are_me = realm.objects(User).filter("me == true")
+        
+        if users_that_are_me.count > 0 {
+            USER = users_that_are_me[0]
         }else{
             CONFIRMED = nil // SANITY CHECK
 
             try! realm.write {
                 realm.deleteAll()
                 print("Realm database wiped.")
-                for course in realm.objects(Course){
-                    print(course.name)
-                }
             }
         }
     }
+    
+    func initStatusBarStyle() {
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+    }
+    
+    // MARK: - Stock
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

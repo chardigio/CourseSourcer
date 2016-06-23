@@ -129,22 +129,17 @@ class CredentialsViewController: UIViewController {
                 if (err != nil) {
                     showError(self)
                 }else if (res != nil) {
-                    let id  = res!["user"]["id"].string
-                    
-                    PREFS!.setValue(id, forKey: "userId")
-                    USER_ID = id
-                    
-                    let user = User()
-                    user.name = res!["user"]["name"].stringValue
-                    user.email = res!["user"]["email"].stringValue
+                    USER!.id = res!["user"]["id"].string
+                    USER!.me = true
+                    USER!.name = res!["user"]["name"].stringValue
+                    USER!.email = res!["user"]["email"].stringValue
                     
                     let realm = try! Realm()
                     try! realm.write {
-                        realm.add(user)
+                        realm.add(USER!, update: true)
                     }
-                    print("now dismiss")
+                    
                     self.dismissViewControllerAnimated(true, completion: nil)
-                    print("boom")
                 }
             })
         }

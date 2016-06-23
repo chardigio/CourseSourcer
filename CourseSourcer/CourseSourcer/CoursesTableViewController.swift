@@ -11,9 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 class CoursesTableViewController: UITableViewController {
-    var containerViewControlller: UIViewController? = nil
     var courses = [Course]()
-    var user: User = User()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,23 +35,21 @@ class CoursesTableViewController: UITableViewController {
     func loadTestUserAndCourses() {
         let realm = try! Realm()
 
-        let users = realm.objects(User).map { $0 }
-        if users.count == 0 {
+        let users_that_are_me = realm.objects(User).filter("me == true")
+        if users_that_are_me.count == 0 {
             try! realm.write {
-                user = User(value: ["name": "Charlie DiGiovanna", "email": "cdigiov1@binghamton.edu"])
-                realm.add(user)
+                USER = User(value: ["me": true, "name": "Charlie DiGiovanna", "email": "cdigiov1@binghamton.edu"])
+                realm.add(USER!)
             }
-        }else{
-            user = users[0]
         }
         
         courses = realm.objects(Course).map { $0 }
         if courses.count == 0 {
-            courses.append(Course(value: ["id":17822,"name":"Algorithms","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light blue", "user":user]))
-            courses.append(Course(value: ["id":17823,"name":"Graph Theory","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light pink", "user":user]))
-            courses.append(Course(value: ["id":17824,"name":"Operating Systems","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light orange", "user":user]))
-            courses.append(Course(value: ["id":17825,"name":"Machine Learning","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light beige", "user":user]))
-            courses.append(Course(value: ["id":17826,"name":"Philosophy","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light yellow", "user":user]))
+            courses.append(Course(value: ["id":"17822","name":"Algorithms","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light blue", "user":USER!]))
+            courses.append(Course(value: ["id":"17823","name":"Graph Theory","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light pink", "user":USER!]))
+            courses.append(Course(value: ["id":"17824","name":"Operating Systems","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light orange", "user":USER!]))
+            courses.append(Course(value: ["id":"17825","name":"Machine Learning","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light beige", "user":USER!]))
+            courses.append(Course(value: ["id":"17826","name":"Philosophy","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light yellow", "user":USER!]))
             
             try! realm.write {
                 for course in courses {
@@ -67,17 +63,12 @@ class CoursesTableViewController: UITableViewController {
     
     func loadCourses() {
         loadTestUserAndCourses() // ONLY FOR TESTING
-        loadRealmUserAndCourses()
+        loadRealmCourses()
         loadNetworkUserAndCourses()
     }
     
-    func loadRealmUserAndCourses() {
+    func loadRealmCourses() {
         let realm = try! Realm()
-        
-        let users = realm.objects(User).map { $0 }
-        if users.count > 0 {
-            user = users[0]
-        }
         
         courses = realm.objects(Course).map { $0 }
     }
@@ -91,13 +82,14 @@ class CoursesTableViewController: UITableViewController {
                     let realm = try! Realm()
                     
                     let user = User()
+                    user.me = true
                     user.name = res!["user"]["name"].stringValue
                     user.email = res!["user"]["email"].stringValue
                     
                     if res!["user"]["courses"].dictionaryValue.count > 0 {
                         for i in 0...res!["user"]["courses"].dictionaryValue.count-1 {
                             let course = Course()
-                            course.id = res!["user"]["courses"][i]["id"].intValue
+                            course.id = res!["user"]["courses"][i]["id"].stringValue
                             course.name = res!["user"]["courses"][i]["name"].stringValue
                             course.term = res!["user"]["courses"][i]["term"].stringValue
                             course.school = res!["user"]["courses"][i]["school"].stringValue
@@ -179,10 +171,8 @@ class CoursesTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "HomeToCourse" {
-            let vc = segue.destinationViewController as! CourseViewController
-            vc.course = sender as? Course
-        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
 
 }

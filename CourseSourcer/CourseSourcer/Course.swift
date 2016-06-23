@@ -10,33 +10,26 @@ import Foundation
 import RealmSwift
 
 class Course: Object {
-    dynamic var id: Int = -1
+    dynamic var id: String = ""
     dynamic var name: String = ""
     dynamic var term: String = ""
     dynamic var school: String = ""
     dynamic var domain: String = ""
     dynamic var color: String = ""
     
-    func createdFirstMessage(x: GroupMessage, y: GroupMessage) -> Bool {
-        if x.created_at != nil && y.created_at != nil {
-            return (x.created_at!.compare(y.created_at!) == NSComparisonResult.OrderedAscending)
-        }
-        return true
-    }
+    let users = LinkingObjects(fromType: User.self, property: "courses")
     
-    var messages: [GroupMessage] {
-        return LinkingObjects(fromType: GroupMessage.self, property: "course").sort(createdFirstMessage)
-    }
+    let messages = LinkingObjects(fromType: GroupMessage.self, property: "course").sorted("created_first").map { $0 }
     
-    func noteCreatedFirst(x: StaticNote, y: StaticNote) -> Bool {
-        if x.created_at != nil && y.created_at != nil {
-            return x.created_at!.compare(y.created_at!) == NSComparisonResult.OrderedAscending
-        }
-        return true
-    }
+    let notes = LinkingObjects(fromType: StaticNote.self, property: "course").sorted("created_first").map { $0 }
     
-    var notes: [StaticNote] {
-        return LinkingObjects(fromType: StaticNote.self, property: "course").sort(noteCreatedFirst)
+    var events: [Object] {
+        var events = [Object]()
+        
+        events += LinkingObjects(fromType: Assignment.self, property: "course").map { $0 } as [Object]
+        events += LinkingObjects(fromType: Exam.self, property: "course").map { $0 } as [Object]
+        
+        return events.sort(earlierEvent)
     }
     
     // this is ratchet and should instead take advantage of inheritance
@@ -54,16 +47,8 @@ class Course: Object {
                 return a.time_begin!.compare(b.time_begin!) == NSComparisonResult.OrderedAscending
             }
         }
+        
         return true
-    }
-    
-    var events: [Object] {
-        var events: [Object] = []
-        
-        events += LinkingObjects(fromType: Assignment.self, property: "course").map { $0 } as [Object]
-        events += LinkingObjects(fromType: Exam.self, property: "course").map { $0 } as [Object]
-        
-        return events.sort(earlierEvent)
     }
     
     override static func primaryKey() -> String? {

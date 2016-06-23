@@ -15,6 +15,7 @@ class GroupMessage: Object {
     dynamic var text: String = ""
     dynamic var score: Int = 0
     
+    dynamic var user: User? = nil
     dynamic var course: Course? = nil
     
     override static func primaryKey() -> String {

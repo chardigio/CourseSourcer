@@ -15,8 +15,8 @@ class CoursesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        loadCourses()
+        
+        loadUserAndCourses()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,57 +37,100 @@ class CoursesTableViewController: UITableViewController {
 
         let users_that_are_me = realm.objects(User).filter("me == true")
         if users_that_are_me.count == 0 {
-            try! realm.write {
-                USER = User(value: ["me": true, "name": "Charlie DiGiovanna", "email": "cdigiov1@binghamton.edu"])
-                realm.add(USER!)
-            }
+            return
+        }else if USER == nil {
+            USER = users_that_are_me[0]
         }
         
         courses = realm.objects(Course).map { $0 }
         if courses.count == 0 {
-            courses.append(Course(value: ["id":"17822","name":"Algorithms","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light blue", "user":USER!]))
-            courses.append(Course(value: ["id":"17823","name":"Graph Theory","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light pink", "user":USER!]))
-            courses.append(Course(value: ["id":"17824","name":"Operating Systems","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light orange", "user":USER!]))
-            courses.append(Course(value: ["id":"17825","name":"Machine Learning","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light beige", "user":USER!]))
-            courses.append(Course(value: ["id":"17826","name":"Philosophy","term":"Fall 2016","school":"Binghamton University","domain":"@binghamton.edu","color":"light yellow", "user":USER!]))
-            
-            try! realm.write {
-                for course in courses {
-                    realm.add(course)
+            POST("/courses", parameters: ["name":"Algorithms", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                if (err != nil) {
+                    showError(self)
+                } else if (res != nil) {
+                    let course = Course()
+                    course.id = res!["course"]["id"].string!
+                    course.name = res!["course"]["name"].string!
+                    course.school = res!["course"]["school"].string!
+                    course.term = res!["course"]["term"].string!
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(course)
+                    }
+                    
+                    PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": course.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                        if (err != nil) {
+                            showError(self)
+                        }else if (res != nil) {
+                            try! realm.write {
+                                USER!.courses.append(course)
+                                realm.add(USER!, update:true)
+                            }
+                        }
+                    })
                 }
-            }
+            })
+            
+            POST("/courses", parameters: ["name":"Machine Learning", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                if (err != nil) {
+                    showError(self)
+                } else if (res != nil) {
+                    let course = Course()
+                    course.id = res!["course"]["id"].string!
+                    course.name = res!["course"]["name"].string!
+                    course.school = res!["course"]["school"].string!
+                    course.term = res!["course"]["term"].string!
+                    course.color = "light blue"
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        realm.add(course)
+                    }
+                    
+                    PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": course.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                        if (err != nil) {
+                            showError(self)
+                        }else if (res != nil) {
+                            try! realm.write {
+                                USER!.courses.append(course)
+                                realm.add(USER!, update:true)
+                            }
+                        }
+                    })
+                }
+            })
         }
     }
     
     // MARK: - Personal
     
-    func loadCourses() {
+    func loadUserAndCourses() {
         loadTestUserAndCourses() // ONLY FOR TESTING
-        loadRealmCourses()
-        loadNetworkUserAndCourses()
+        loadRealmUserAndCourses()
+        tableView.reloadData()
+        
+        loadNetworkUserAndCourses() {
+            self.loadRealmUserAndCourses()
+            self.tableView.reloadData()
+        }
+        
     }
     
-    func loadRealmCourses() {
+    func loadRealmUserAndCourses() {
         let realm = try! Realm()
         
         courses = realm.objects(Course).map { $0 }
     }
     
-    func loadNetworkUserAndCourses() {
-        if let id = PREFS!.stringForKey("userId") {
-            GET("/users/\(id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+    func loadNetworkUserAndCourses(callback: Void -> Void) {
+        if (USER != nil) {
+            GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {
                     showError(self)
                 } else if res != nil {
-                    let realm = try! Realm()
-                    
-                    let user = User()
-                    user.me = true
-                    user.name = res!["user"]["name"].stringValue
-                    user.email = res!["user"]["email"].stringValue
-                    
                     if res!["user"]["courses"].dictionaryValue.count > 0 {
-                        for i in 0...res!["user"]["courses"].dictionaryValue.count-1 {
+                        for i in 0...res!["user"]["courses"].dictionaryValue.count - 1 {
                             let course = Course()
                             course.id = res!["user"]["courses"][i]["id"].stringValue
                             course.name = res!["user"]["courses"][i]["name"].stringValue
@@ -98,12 +141,20 @@ class CoursesTableViewController: UITableViewController {
                         }
                     }
                     
+                    let realm = try! Realm()
                     try! realm.write {
-                        realm.add(user, update: true)
+                        USER!.name = res!["user"]["name"].stringValue
+                        
                         for course in self.courses {
                             realm.add(course, update: true)
+                            
+                            USER!.courses.append(course)
                         }
+                        
+                        realm.add(USER!, update: true)
                     }
+                    
+                    callback()
                 }
             })
         }
@@ -120,8 +171,7 @@ class CoursesTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "CourseCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! CourseTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as! CourseTableViewCell
         
         let course = courses[indexPath.row]
         cell.subview.backgroundColor = pastelFromString(course.color)

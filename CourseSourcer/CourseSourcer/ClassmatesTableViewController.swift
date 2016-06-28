@@ -8,14 +8,18 @@
 
 import UIKit
 import RealmSwift
+import SwiftyJSON
 
 class ClassmatesTableViewController: UITableViewController {
     var course: Course? = nil
-    var data = [[User()], [], []]
+    var group_chat_pseudo_classmate = User(value: ["id": "0", "name": "All Classmates", "bio": "Group chat with all classmates."])
+    var data: [[User]] = [[], [], []]
+    let section_titles = ["Group Chat", "Recents", "All Classmates"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        configureCourse()
         loadClassmates()
         
         // Uncomment the following line to preserve selection between presentations
@@ -46,54 +50,101 @@ class ClassmatesTableViewController: UITableViewController {
     
     func loadClassmates() {
         loadTestClassmates() // ONLY FOR TESTING
+        loadGroupChatPseudoClassmate()
         loadRealmClassmates()
-        loadNetworkClassmates()
+        tableView.reloadData()
+        
+        loadNetworkClassmates() {
+            self.loadRealmClassmates()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadGroupChatPseudoClassmate() {
+        data[0].append(group_chat_pseudo_classmate)
     }
     
     func loadRealmClassmates() {
-        let recent_classmates = course!.users.sorted("last_spoke").map { $0 }
-        for i in [0...5] {
-            data[1][i] = recent_classmates[i]
+        let recent_classmates = course!.users.filter("me == false").sorted("last_spoke").map { $0 }
+        
+        for i in [0, 1, 2] {
+            if (recent_classmates.count > i) {
+                data[1].append(recent_classmates[i])
+            }
         }
         
-        let all_classmates = course!.users.sorted("name").map { $0 }
+        let all_classmates = course!.users.filter("me == false").sorted("name").map { $0 }
         data[2] = all_classmates
     }
     
-    func loadNetworkClassmates() {
-        
+    func loadNetworkClassmates(callback: Void -> Void) {
+        GET("/users/of_course/\(self.course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            }else if res != nil {
+                var network_classmates = [User]()
+                for obj in res!["users"].arrayValue {
+                    let classmate = User()
+                    classmate.email = obj["email"].stringValue
+                    classmate.name = obj["name"].stringValue
+                    classmate.last_spoke = dateFromString(obj["last_spoke"].stringValue)
+                    classmate.courses.append(self.course!)
+                    
+                    network_classmates.append(classmate)
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    for classmate in network_classmates {
+                        realm.add(classmate, update: true)
+                    }
+                }
+                
+                callback()
+            }
+        })
     }
     
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+
+        return data[section].count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
+        let cell = tableView.dequeueReusableCellWithIdentifier("ClassmateCell", forIndexPath: indexPath) as! ClassmateTableViewCell
+        
+        let classmate = data[indexPath.section][indexPath.row]
+        cell.name_label.text = classmate.name
+        cell.bio_field.text = classmate.bio
 
         return cell
     }
-    */
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
-    */
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return section_titles[section]
+    }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            performSegueWithIdentifier("ClassmatesToGroupMessages", sender: course)
+        }else{
+            performSegueWithIdentifier("ClassmatesToDirectMessages", sender: course)
+        }
+    }
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -121,14 +172,16 @@ class ClassmatesTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ClassmatesToGroupMessages" {
+            let vc = segue.destinationViewController as! GroupMessagesViewController
+            vc.course = sender as? Course
+        }else if segue.identifier == "ClassmatesToDirectMessages" {
+            let vc = segue.destinationViewController as! DirectMessagesViewController
+            vc.course = sender as? Course
+        }
     }
-    */
-
 }

@@ -9,11 +9,12 @@ schema = mongoose.Schema
   email: String
   password: String
   confirmed: Boolean
+  bio: String
   admin_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
   courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
-  _.pick doc, 'id', 'name', 'email', 'confirmed', 'admin_of', 'courses'
+  _.pick doc, 'id', 'name', 'email', 'confirmed', 'bio', 'admin_of', 'courses'
 
 schema.pre 'save', (next) ->
   #hash password

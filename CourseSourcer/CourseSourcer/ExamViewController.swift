@@ -5,7 +5,17 @@
 //  Created by Charlie on 6/10/16.
 //  Copyright © 2016 cd17822. All rights reserved.
 //
-
+//
+//
+//
+//
+//              PROBABLY BEING DEPRECATED (lol v0 deprecation is lit)
+//
+//
+//
+//
+//
+/*
 import UIKit
 
 class ExamViewController: UIViewController {
@@ -33,3 +43,4 @@ class ExamViewController: UIViewController {
     */
 
 }
+*/

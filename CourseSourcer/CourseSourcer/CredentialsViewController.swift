@@ -38,19 +38,31 @@ class CredentialsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Personal
+    
+    func enableButton(button: UIButton) {
+        button.enabled = true
+        button.alpha = 1
+    }
+    
+    func disableButton(button: UIButton) {
+        button.enabled = false
+        button.alpha = 0.3
+    }
+    
     func enableLoginCheck(){
         if logging_in {
             if email_field.text != nil &&
                password_field.text != nil &&
                email_field.text!.containsString("@") &&
-               email_field.text!.containsString(".edu") &&
+               email_field.text!.hasSuffix(".edu") &&
                password_field.text!.characters.count >= 6 {
-                login_button.enabled = true
+                enableButton(login_button)
             }else{
-                login_button.enabled = false
+                disableButton(login_button)
             }
         }else{
-            login_button.enabled = true
+            enableButton(login_button)
         }
     }
     
@@ -60,15 +72,15 @@ class CredentialsViewController: UIViewController {
                password_field.text != nil &&
                name_field.text != nil &&
                email_field.text!.containsString("@") &&
-               email_field.text!.containsString(".edu") &&
+               email_field.text!.hasSuffix(".edu") &&
                password_field.text!.characters.count >= 6 &&
                name_field.text!.componentsSeparatedByString(" ").count >= 2 {
-                signup_button.enabled = true
+                enableButton(signup_button)
             }else{
-                signup_button.enabled = false
+                disableButton(signup_button)
             }
         }else{
-            signup_button.enabled = true
+            enableButton(signup_button)
         }
     }
     
@@ -94,12 +106,10 @@ class CredentialsViewController: UIViewController {
             UIView.animateWithDuration(0.5, animations: {
                     self.name_field.alpha = 0.9
                     self.profile_pic.alpha = 1
-                    self.login_button.alpha = 0
-                    self.signup_button.enabled = false
-                
+                    self.disableButton(self.login_button)
+                    self.enableButton(self.signup_button)
                 }, completion: { (finished: Bool) -> Void in
-                    print("complete login pressed when on bottom")
-
+                    //
             })
         }
     }
@@ -112,30 +122,25 @@ class CredentialsViewController: UIViewController {
                 self.name_field.alpha = 0.9 // .9 is the standard field opacity so this is basically unhiding
                 self.profile_pic.alpha = 1
                 
-                self.signup_button.enabled = false
-                
-                /*self.signup_button_bottom.active = false
-                self.signup_button_top.active = true
-                
-                self.login_button_top.active = false
-                self.login_button_bottom.active = true*/
+                self.enableButton(self.login_button)
+                self.disableButton(self.signup_button)
             }, completion: { (finished: Bool) -> Void in
-                print("complete sigunp pressed when on bottom")
-                self.login_button.enabled = true
+                self.login_button.frame.offsetInPlace(dx: 130, dy: 35)
             })
         }else{
             POST("/users", parameters: ["name":name_field.text!, "password":password_field.text!, "email":email_field.text!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                print("POST /users")
                 if (err != nil) {
                     showError(self)
                 }else if (res != nil) {
-                    USER!.id = res!["user"]["id"].string
-                    USER!.me = true
-                    USER!.name = res!["user"]["name"].stringValue
-                    USER!.email = res!["user"]["email"].stringValue
-                    
                     let realm = try! Realm()
                     try! realm.write {
+                        if USER == nil {
+                            USER = User()
+                        }
+                        
+                        USER!.id = res!["user"]["id"].stringValue
+                        USER!.me = true
+                        USER!.name = res!["user"]["name"].stringValue
                         realm.add(USER!, update: true)
                     }
                     

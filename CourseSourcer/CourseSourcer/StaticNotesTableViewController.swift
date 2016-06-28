@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
+import SwiftyJSON
 
 class StaticNotesTableViewController: UITableViewController {
-
+    var course: Course? = nil
+    var notes = [StaticNote]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureCourse()
+        loadNotes()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,35 +32,101 @@ class StaticNotesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Testing
+    
+    func loadTestNotes() {
+        let realm = try! Realm()
+        if realm.objects(StaticNote).count > 0 {
+            return
+        }
+        
+        POST("/static_notes", parameters: ["text": "Lorem ipsum in my cripsum", "subject":"Welcome", "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                let note = StaticNote()
+                note.id = res!["id"].stringValue
+                note.created_at = dateFromString(res!["created_at"].stringValue)
+                note.title = res!["subject"].stringValue
+                note.text = res!["text"].stringValue
+                
+                try! realm.write {
+                    realm.add(note)
+                }
+            }
+        })
+    }
+    
+    // MARK: - Personal
+    
+    func configureCourse() {
+        if let parent = tabBarController as? CourseViewController {
+            course = parent.course
+        }
+    }
+    
+    func loadNotes() {
+        //loadTestNotes() // ONLY FOR TESTING
+        loadRealmNotes()
+        tableView.reloadData()
+        
+        loadNetworkNotes() {
+            self.loadRealmNotes()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadRealmNotes() {
+        notes = course!.static_notes.sorted("created_at").map { $0 }
+    }
+    
+    func loadNetworkNotes(callback: Void -> Void) {
+        GET("/static_notes/of_course/\(self.course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            }else if res != nil {
+                for obj in res!["static_notes"].arrayValue {
+                    let note = StaticNote()
+                    note.id = obj["id"].stringValue
+                    note.created_at = dateFromString(obj["created_at"].stringValue)
+                    note.title = obj["subject"].stringValue
+                    
+                    self.notes.append(note)
+                }
+                
+                callback()
+            }
+        })
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        
+        return notes.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("StaticNoteCell", forIndexPath: indexPath) as! StaticNoteTableViewCell
 
-        // Configure the cell...
+        let note = notes[indexPath.row]
+        cell.title_label.text = note.title
+        cell.preview_textview.text = note.text
+        cell.date_label.text = note.created_at?.description
 
         return cell
     }
-    */
-
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
-    */
 
     /*
     // Override to support editing the table view.
@@ -82,7 +155,6 @@ class StaticNotesTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -90,6 +162,4 @@ class StaticNotesTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
-
 }

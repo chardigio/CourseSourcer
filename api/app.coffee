@@ -6,8 +6,9 @@ rek = require 'rekuire'
 usersRouter = rek 'routes/users'
 messagesRouter = rek 'routes/messages'
 coursesRouter = rek 'routes/courses'
-notesRouter = rek 'routes/notes'
+notesRouter = rek 'routes/static_notes'
 chatsRouter = rek 'routes/chats'
+assignmentsRouter = rek 'routes/assignments'
 configs = rek 'config'
 server = rek 'components/server'
 
@@ -23,8 +24,9 @@ app.use bodyParser.json()
 app.use '/users', usersRouter
 app.use '/messages', messagesRouter
 app.use '/courses', coursesRouter
-app.use '/notes', notesRouter
+app.use '/static_notes', notesRouter
 app.use '/chats', chatsRouter
+app.use '/assignments', assignmentsRouter
 
 # configure error handling
 app.use (err, req, res, next) ->
@@ -32,8 +34,8 @@ app.use (err, req, res, next) ->
     params = (param: param, message: info.message for param, info of err.errors)
     server.sendError res, 400, 'invalid_params', 'Invalid request.', params
   else
-    res.sendStatus 500
     console.error err
+    res.sendStatus 500
 
 # start server
 PORT = 3005

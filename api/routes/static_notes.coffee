@@ -2,7 +2,7 @@ _ = require 'lodash'
 router = (require 'express').Router()
 mongoose = require 'mongoose'
 rek = require 'rekuire'
-Note = rek 'models/note'
+Note = rek 'models/static_note'
 Course = rek 'models/course'
 server = rek 'components/server'
 
@@ -12,10 +12,10 @@ router.post '/', (req, res, next) ->
   note.score = 0
   note.save (err, note) ->
     if err then next err
-    else res.status(201).send note: note
+    else res.status(201).send static_note: note
 
 #get all notes for a course
-router.get '/bare/:courseId', (req, res, next) -> #should be server.loadUser
+router.get '/of_course/:courseId', (req, res, next) -> #should be server.loadUser
   Note.find(course: req.params.courseId).sort('-created_at').exec (err, notes) ->
     if err then next err
     else
@@ -24,14 +24,14 @@ router.get '/bare/:courseId', (req, res, next) -> #should be server.loadUser
         note.couse = null
         note.score = null
         note.user = null #if admin dont null it
-      res.send notes: notes
+      res.send static_notes: notes
 
 router.get '/:noteId', (req, res, next) ->
   Note.findById req.params.noteId, (err, note) ->
     if err then next err
     else
       note.user = null
-      res.send note: note
+      res.send static_note: note
 
 #like note
 router.put '/like', (req, res,next) ->
@@ -41,7 +41,7 @@ router.put '/like', (req, res,next) ->
       ogNote.score++
       ogNote.save (err, note) ->
         if err then next err
-        else res.status(200).send note: note
+        else res.status(200).send static_note: note
 
 #dislike note
 router.put '/dislike', (req, res,next) ->
@@ -51,6 +51,6 @@ router.put '/dislike', (req, res,next) ->
       note.score--
       note.save (err, note) ->
         if err then next err
-        else res.status(200).send note: note
+        else res.status(200).send static_note: note
 
 module.exports = router

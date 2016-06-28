@@ -9,7 +9,8 @@
 import UIKit
 
 class DirectMessagesViewController: UIViewController {
-
+    var course: Course? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,5 +32,4 @@ class DirectMessagesViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

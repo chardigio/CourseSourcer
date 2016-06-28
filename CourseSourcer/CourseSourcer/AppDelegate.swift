@@ -28,19 +28,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PREFS = NSUserDefaults.standardUserDefaults()
         CONFIRMED = PREFS!.boolForKey("emailConfirmed")
         
-        print("REALM FILE:", Realm.Configuration.defaultConfiguration.fileURL!)
+        print("REALM FILE:", Realm.Configuration.defaultConfiguration.fileURL!, "\n")
+        
         let realm = try! Realm()
         
         let users_that_are_me = realm.objects(User).filter("me == true")
         
-        if users_that_are_me.count > 0 {
-            USER = users_that_are_me[0]
+        if users_that_are_me.count > 0 && USER == nil {
+            //USER = users_that_are_me[0]
         }else{
             CONFIRMED = nil // SANITY CHECK
 
             try! realm.write {
                 realm.deleteAll()
-                print("Realm database wiped.")
+                print("REALM WIPED: SUCCESS")
             }
         }
     }

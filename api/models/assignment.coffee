@@ -4,8 +4,9 @@ timestamps = require 'mongoose-timestamp'
 idValidator = require 'mongoose-id-validator'
 
 schema = mongoose.Schema
-  subject: String
-  text: String
+  title: String
+  time_begin: Date
+  time_end: Date
   score: Number
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'course'}
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}
@@ -27,4 +28,4 @@ schema.path('text').validate(function(val) {
 }, 'Text cannot exceed 10000 characters.')
 ###
 #export Model
-module.exports = Note = mongoose.model 'note', schema
+module.exports = Assignment = mongoose.model 'assignment', schema

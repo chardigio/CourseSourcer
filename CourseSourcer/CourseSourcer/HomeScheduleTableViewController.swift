@@ -9,12 +9,12 @@
 import UIKit
 
 class HomeScheduleTableViewController: UITableViewController {
-    var events = [AnyObject]()
+    var assignments = [Assignment]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadEvents()
+        loadAssignments()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -28,21 +28,20 @@ class HomeScheduleTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Personal
+    // MARK: - Testing
     
-    func loadTestEvents() {
-        events.append(Assignment())
-        events.append(Assignment())
-        events.append(Exam())
-        events.append(Assignment())
-        events.append(Exam())
-        events.append(Assignment())
-        events.append(Assignment())
-        events.append(Exam())
+    func loadTestAssignments() {
+        assignments.append(Assignment())
+        assignments.append(Assignment())
+        assignments.append(Assignment())
+        assignments.append(Assignment())
+        assignments.append(Assignment())
     }
     
-    func loadEvents() {
-        loadTestEvents()
+    // MARK: - Personal
+    
+    func loadAssignments() {
+        loadTestAssignments()
     }
     
     // MARK: - Table view data source

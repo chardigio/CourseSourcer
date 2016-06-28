@@ -49,6 +49,8 @@
 		CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */; };
 		CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */; };
 		CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EB7931D142300000A58FD /* HomeViewController.swift */; };
+		CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */; };
+		CBF920421D2217AF00D2862D /* StaticNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +124,8 @@
 		CBB29CD21D15E8F900FBB9B4 /* CourseSourcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseSourcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB29CD31D15E8F900FBB9B4 /* CourseSourcerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseSourcerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB29CD41D15E8F900FBB9B4 /* CourseSourcerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseSourcerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmateTableViewCell.swift; sourceTree = "<group>"; };
+		CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticNoteTableViewCell.swift; sourceTree = "<group>"; };
 		CCE069AD784B89B981C487AE /* Pods-CourseSourcer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcer/Pods-CourseSourcer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,7 +214,9 @@
 				CB1183821D180A980064A693 /* CourseViewController.swift */,
 				CB278F9A1D0AE5B000217EB3 /* GroupMessagesViewController.swift */,
 				CB278FC31D0AEB7500217EB3 /* ClassmatesTableViewController.swift */,
+				CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */,
 				CB278FA81D0AE65100217EB3 /* StaticNotesTableViewController.swift */,
+				CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */,
 				CB278F9E1D0AE5CF00217EB3 /* SettingsViewController.swift */,
 				CB278F9C1D0AE5C000217EB3 /* DirectMessagesViewController.swift */,
 				CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */,
@@ -551,7 +557,9 @@
 				CB11838B1D180F3B0064A693 /* HomeScheduleTableViewCell.swift in Sources */,
 				CB278F9F1D0AE5D000217EB3 /* SettingsViewController.swift in Sources */,
 				CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */,
+				CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */,
 				CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */,
+				CBF920421D2217AF00D2862D /* StaticNoteTableViewCell.swift in Sources */,
 				CB278FA71D0AE62C00217EB3 /* ExamViewController.swift in Sources */,
 				CB278FC01D0AE7DB00217EB3 /* Network.swift in Sources */,
 				CB1183831D180A980064A693 /* CourseViewController.swift in Sources */,

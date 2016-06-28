@@ -8,7 +8,7 @@
 
 import UIKit
 import RealmSwift
-//MAY HAVE TO HACK: PUT SEGMENT CONTROLLER IN EACH OF THE CONTAINER VIEWS
+
 class HomeViewController: UIViewController {
     @IBOutlet weak var courses_container: UIView!
     @IBOutlet weak var schedule_container: UIView!

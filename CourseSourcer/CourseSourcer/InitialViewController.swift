@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
 class InitialViewController: UINavigationController {
 
@@ -21,11 +22,16 @@ class InitialViewController: UINavigationController {
     
     override func viewDidAppear(animated: Bool) {
         // comment out this if-else block to override the credentials screen
-        if USER == nil {
+        let realm = try! Realm()
+        
+        let users_that_are_me = realm.objects(User).filter("me == true")
+        
+        if users_that_are_me.count == 0 {
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
         } else if CONFIRMED == nil || !CONFIRMED! {
             performSegueWithIdentifier("InitialToConfirm", sender: nil)
         } else {
+            USER = users_that_are_me[0]
             print("USER ID:", USER!.id!)
         }
     }

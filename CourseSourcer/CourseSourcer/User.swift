@@ -15,6 +15,7 @@ class User: Object {
     dynamic var name: String = ""
     dynamic var email: String = ""
     dynamic var last_spoke: NSDate? = nil
+    dynamic var bio: String? = nil
     
     var courses = List<Course>()
     var admin_of = List<Course>()

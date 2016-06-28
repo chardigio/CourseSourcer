@@ -35,7 +35,7 @@ router.put '/dislike', (req, res,next) ->
         else res.status(200).send message: message
 
 #get messages for a course
-router.get '/:courseId', server.loadUser, (req, res, next) ->
+router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
   nullQuery = (query) -> query is '' or isNaN(+query) or Math.round(+query <= 0)
 
   limit = req.query.limit

@@ -8,7 +8,7 @@ server = rek 'components/server'
 
 #post user
 router.post '/', (req, res, next) ->
-  user = new User _.pick req.body, 'name', 'email', 'password', 'admin_of', 'courses'
+  user = new User _.pick req.body, 'name', 'email', 'password', 'bio', 'admin_of', 'courses'
   user.confirmed = false
   user.save (err, user) ->
     if err then next err
@@ -33,7 +33,7 @@ router.get '/:userid', (req, res, next) ->
     else res.status(200).send user: user
 
 #get classmates
-router.get '/classmates/:courseId', (req, res, next) -> #should have server.loadUser
+router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadUser
   User.find courses: $elemMatch: $eq: req.params.courseId, (err, users) ->
     if err then next err
     else

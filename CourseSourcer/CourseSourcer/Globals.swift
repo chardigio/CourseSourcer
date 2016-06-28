@@ -35,3 +35,17 @@ func showError(vc: UIViewController, message: String = "Could not connect to ser
     alertController.addAction(defaultAction)
     vc.presentViewController(alertController, animated: true, completion: nil)
 }
+
+func dateFromString(dateString: String) -> NSDate {
+    let dateFor: NSDateFormatter = NSDateFormatter()
+    dateFor.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSZZ"
+    
+    var date = dateFor.dateFromString(dateString)
+    
+    if (date == nil) {
+        print("ERROR:", "Couldn't parse date:", dateString)
+        date = NSDate()
+    }
+    
+    return date!
+}

@@ -17,39 +17,13 @@ class Course: Object {
     dynamic var domain: String = ""
     dynamic var color: String = ""
     
-    let users = LinkingObjects(fromType: User.self, property: "courses")
+    var users = LinkingObjects(fromType: User.self, property: "courses")
     
-    let messages = LinkingObjects(fromType: GroupMessage.self, property: "course").sorted("created_first").map { $0 }
+    var messages = LinkingObjects(fromType: GroupMessage.self, property: "course").sorted("created_first")
     
-    let notes = LinkingObjects(fromType: StaticNote.self, property: "course").sorted("created_first").map { $0 }
+    var static_notes = LinkingObjects(fromType: StaticNote.self, property: "course").sorted("created_first")
     
-    var events: [Object] {
-        var events = [Object]()
-        
-        events += LinkingObjects(fromType: Assignment.self, property: "course").map { $0 } as [Object]
-        events += LinkingObjects(fromType: Exam.self, property: "course").map { $0 } as [Object]
-        
-        return events.sort(earlierEvent)
-    }
-    
-    // this is ratchet and should instead take advantage of inheritance
-    func earlierEvent(x: Object, y: Object) -> Bool {
-        if let a = x as? Assignment {
-            if let b = y as? Assignment {
-                return a.time_begin!.compare(b.time_begin!) == NSComparisonResult.OrderedAscending
-            }else if let b = y as? Exam {
-                return a.time_begin!.compare(b.time_begin!) == NSComparisonResult.OrderedAscending
-            }
-        }else if let a = x as? Exam {
-            if let b = y as? Assignment {
-                return a.time_begin!.compare(b.time_begin!) == NSComparisonResult.OrderedAscending
-            }else if let b = y as? Exam {
-                return a.time_begin!.compare(b.time_begin!) == NSComparisonResult.OrderedAscending
-            }
-        }
-        
-        return true
-    }
+    var assignments = LinkingObjects(fromType: Assignment.self, property: "course").sorted("time_begin")
     
     override static func primaryKey() -> String? {
         return "id"

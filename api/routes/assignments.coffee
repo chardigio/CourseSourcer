@@ -3,7 +3,7 @@ router = (require 'express').Router()
 mongoose = require 'mongoose'
 rek = require 'rekuire'
 Assignment = rek 'models/static_note'
-Course = rek 'models/course'
+User = rek 'models/user'
 server = rek 'components/server'
 
 #post assignment
@@ -19,10 +19,20 @@ router.get '/of_course/:courseId', (req, res, next) ->
     if err then next err
     else
       for assignment in assignments #not deepcopy, fix
-        assignment.text = null
-        assignment.couse = null
-        assignment.score = null
         assignment.user = null #if admin dont null it
       res.send assignments: assignments
+
+router.get '/of_user/:userId', (req, res, next) ->
+  User.findById req.params.userid, (err, user) ->
+    if err then next err
+    else
+      or_query = $or: (course: course_id for course_id in user.courses)
+
+      Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
+        if err then next err
+        else
+          for assignment in assignments #not deepcopy, fix
+            assignment.user = null #if admin dont null it
+          res.send assignments: assignments
 
 module.exports = router

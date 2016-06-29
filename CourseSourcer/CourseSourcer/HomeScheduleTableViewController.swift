@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+import SwiftyJSON
 
 class HomeScheduleTableViewController: UITableViewController {
     var assignments = [Assignment]()
@@ -30,18 +32,67 @@ class HomeScheduleTableViewController: UITableViewController {
 
     // MARK: - Testing
     
-    func loadTestAssignments() {
-        assignments.append(Assignment())
-        assignments.append(Assignment())
-        assignments.append(Assignment())
-        assignments.append(Assignment())
-        assignments.append(Assignment())
+    func loadTestAssignments() { // SHOULD ONLY BE IN COURSESCHEDULE
+        /*
+        let now = NSDate()
+        
+        POST("/assignments", parameters: ["title": "Lab 1", "time_begin": stringFromDate(now.dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                /*
+                 let note = StaticNote()
+                 note.id = res!["id"].stringValue
+                 note.created_at = dateFromString(res!["created_at"].stringValue)
+                 note.title = res!["subject"].stringValue
+                 note.text = res!["text"].stringValue
+                 
+                 try! realm.write {
+                 realm.add(note)
+                 }
+                 */
+            }
+        })
+        */
     }
     
     // MARK: - Personal
     
     func loadAssignments() {
-        loadTestAssignments()
+        loadRealmAssignments()
+        tableView.reloadData()
+        
+        loadNetworkAssignments() {
+            self.loadRealmAssignments()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadRealmAssignments() {
+        let realm = try! Realm()
+        
+        assignments = realm.objects(Assignment).sorted("created_at").map { $0 }
+    }
+    
+    func loadNetworkAssignments(callback: Void -> Void) {
+        GET("/assignments/of_user/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            }else if res != nil {
+                for obj in res!["assignments"].arrayValue {
+                    let assignment = Assignment()
+                    assignment.id = obj["id"].stringValue
+                    assignment.title = obj["title"].stringValue
+                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
+                    assignment.time_end = dateFromString(obj["time_end"].string)
+                    assignment.course = courseFromString(obj["course"].stringValue)
+                    
+                    self.assignments.append(assignment)
+                }
+                
+                callback()
+            }
+        })
     }
     
     // MARK: - Table view data source

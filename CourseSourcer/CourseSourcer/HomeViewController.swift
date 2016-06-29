@@ -18,7 +18,6 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //addTestUser() // ONLY FOR TESTING
         configureSegmentController()
     }
 
@@ -27,19 +26,9 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Testing
-    
-    func addTestUser(){
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(User(value: ["name": "Charlie DiGiovanna", "email": "cdigiov1@binghamton.edu"]))
-        }
-    }
-    
     // MARK: - Personal
-    
     func configureSegmentController() {
-        //segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application) //FONT
+        segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application)
         segment_controller.addTarget(self, action: #selector(HomeViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
     }
     

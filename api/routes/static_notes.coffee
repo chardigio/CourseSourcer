@@ -20,9 +20,6 @@ router.get '/of_course/:courseId', (req, res, next) -> #should be server.loadUse
     if err then next err
     else
       for note in notes #not deepcopy, fix
-        note.text = null
-        note.couse = null
-        note.score = null
         note.user = null #if admin dont null it
       res.send static_notes: notes
 

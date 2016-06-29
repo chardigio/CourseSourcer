@@ -17,7 +17,7 @@ class InitialViewController: UINavigationController {
         
         configureNavigationBar()
         
-        //testNewUser() // ONLY FOR TESTING
+        // testNewUser()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -44,6 +44,8 @@ class InitialViewController: UINavigationController {
     // MARK: - Testing
     
     func testNewUser(){
+        USER = nil
+        
         PREFS!.setValue(nil, forKey: "emailConfirmed")
         CONFIRMED = false
     }

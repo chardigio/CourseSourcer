@@ -38,75 +38,83 @@ class CoursesTableViewController: UITableViewController {
         let users_that_are_me = realm.objects(User).filter("me == true")
         if users_that_are_me.count == 0 {
             return
-        }else if USER == nil {
-            USER = users_that_are_me[0]
         }
         
-        courses = realm.objects(Course).map { $0 }
-        if courses.count == 0 {
-            POST("/courses", parameters: ["name":"Algorithms", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                if (err != nil) {
-                    showError(self)
-                } else if (res != nil) {
-                    let course = Course()
-                    course.id = res!["course"]["id"].string!
-                    course.name = res!["course"]["name"].string!
-                    course.school = res!["course"]["school"].string!
-                    course.term = res!["course"]["term"].string!
-                    
-                    let realm = try! Realm()
-                    try! realm.write {
-                        realm.add(course)
-                    }
-                    
-                    PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": course.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                        if (err != nil) {
-                            showError(self)
-                        }else if (res != nil) {
-                            try! realm.write {
-                                USER!.courses.append(course)
-                                realm.add(USER!, update:true)
-                            }
-                        }
-                    })
-                }
-            })
-            
-            POST("/courses", parameters: ["name":"Machine Learning", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                if (err != nil) {
-                    showError(self)
-                } else if (res != nil) {
-                    let course = Course()
-                    course.id = res!["course"]["id"].string!
-                    course.name = res!["course"]["name"].string!
-                    course.school = res!["course"]["school"].string!
-                    course.term = res!["course"]["term"].string!
-                    course.color = "light blue"
-                    
-                    let realm = try! Realm()
-                    try! realm.write {
-                        realm.add(course)
-                    }
-                    
-                    PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": course.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                        if (err != nil) {
-                            showError(self)
-                        }else if (res != nil) {
-                            try! realm.write {
-                                USER!.courses.append(course)
-                                realm.add(USER!, update:true)
-                            }
-                        }
-                    })
-                }
-            })
+        USER = users_that_are_me[0]
+        
+        if realm.objects(Course).count > 0 {
+            return
         }
+        
+        POST("/courses", parameters: ["name":"Algorithms", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            } else if (res != nil) {
+                /*
+                 let course = Course()
+                 course.id = res!["course"]["id"].string!
+                 course.name = res!["course"]["name"].string!
+                 course.school = res!["course"]["school"].string!
+                 course.term = res!["course"]["term"].string!
+                 
+                 let realm = try! Realm()
+                 try! realm.write {
+                 realm.add(course)
+                 }
+                 */
+                PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                    if (err != nil) {
+                        showError(self)
+                    }else if (res != nil) {
+                        /*
+                         try! realm.write {
+                         USER!.courses.append(course)
+                         realm.add(USER!, update:true)
+                         }
+                         */
+                    }
+                })
+            }
+        })
+        
+        POST("/courses", parameters: ["name":"Machine Learning", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            } else if (res != nil) {
+                /*
+                 let course = Course()
+                 course.id = res!["course"]["id"].string!
+                 course.name = res!["course"]["name"].string!
+                 course.school = res!["course"]["school"].string!
+                 course.term = res!["course"]["term"].string!
+                 course.color = "light blue"
+                 
+                 let realm = try! Realm()
+                 try! realm.write {
+                 realm.add(course)
+                 }
+                 */
+                PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                    if (err != nil) {
+                        showError(self)
+                    }else if (res != nil) {
+                        /*
+                         try! realm.write {
+                         USER!.courses.append(course)
+                         realm.add(USER!, update:true)
+                         }
+                         */
+                    }
+                })
+            }
+        })
     }
     
     // MARK: - Personal
     
     func loadUserAndCourses() {
-        loadTestUserAndCourses() // ONLY FOR TESTING
+        if TESTING { loadTestUserAndCourses() }
+        
         loadRealmUserAndCourses()
         tableView.reloadData()
         
@@ -124,40 +132,45 @@ class CoursesTableViewController: UITableViewController {
     }
     
     func loadNetworkUserAndCourses(callback: Void -> Void) {
-        if (USER != nil) {
-            GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                if err != nil {
-                    showError(self)
-                } else if res != nil {
-                    if res!["user"]["courses"].dictionaryValue.count > 0 {
-                        for i in 0...res!["user"]["courses"].dictionaryValue.count - 1 {
-                            let course = Course()
-                            course.id = res!["user"]["courses"][i]["id"].stringValue
-                            course.name = res!["user"]["courses"][i]["name"].stringValue
-                            course.term = res!["user"]["courses"][i]["term"].stringValue
-                            course.school = res!["user"]["courses"][i]["school"].stringValue
-                            
-                            self.courses.append(course)
-                        }
-                    }
-                    
-                    let realm = try! Realm()
-                    try! realm.write {
-                        USER!.name = res!["user"]["name"].stringValue
-                        
-                        for course in self.courses {
-                            realm.add(course, update: true)
-                            
-                            USER!.courses.append(course)
-                        }
-                        
-                        realm.add(USER!, update: true)
-                    }
-                    
-                    callback()
-                }
-            })
+        if USER == nil {
+            print("DON'T HAVE A USER WUUUT I REALLY WANNA REMOVE THESE 4 LINES")
+            return
         }
+        
+        if TESTING { sleep(2) }
+        
+        GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            } else if res != nil {
+                if res!["user"]["courses"].dictionaryValue.count > 0 {
+                    for i in 0...res!["user"]["courses"].dictionaryValue.count - 1 {
+                        let course = Course()
+                        course.id = res!["user"]["courses"][i]["id"].stringValue
+                        course.name = res!["user"]["courses"][i]["name"].stringValue
+                        course.term = res!["user"]["courses"][i]["term"].stringValue
+                        course.school = res!["user"]["courses"][i]["school"].stringValue
+                        
+                        self.courses.append(course)
+                    }
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    USER!.name = res!["user"]["name"].stringValue
+                    
+                    for course in self.courses {
+                        realm.add(course, update: true)
+                        
+                        USER!.courses.append(course)
+                    }
+                    
+                    realm.add(USER!, update: true)
+                }
+                
+                callback()
+            }
+        })
     }
     
     // MARK: - Table view data source

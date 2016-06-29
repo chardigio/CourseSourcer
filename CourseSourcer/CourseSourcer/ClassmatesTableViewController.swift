@@ -37,7 +37,74 @@ class ClassmatesTableViewController: UITableViewController {
     // MARK: - Testing
     
     func loadTestClassmates() {
-        //load test classmates
+        let realm = try! Realm()
+        
+        if realm.objects(User).filter("me == false").count > 0 {
+            return
+        }
+        
+        POST("/users", parameters: ["name": "Becky Hammond", "password": "bbgirl123", "email": "bhammon1@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                TESTING_CLASSMATE_ID = res!["user"]["id"].stringValue
+                /*
+                let realm = try! Realm()
+                try! realm.write {
+                    if USER == nil {
+                        USER = User()
+                    }
+                    
+                    USER!.id = res!["user"]["id"].stringValue
+                    USER!.me = false
+                    USER!.name = res!["user"]["name"].stringValue
+                    realm.add(USER!, update: true)
+                }
+                */
+            }
+        })
+        
+        
+        POST("/users", parameters: ["name": "Grethward Mai", "password": "noragrets", "email": "gmai4@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                /*
+                let realm = try! Realm()
+                try! realm.write {
+                    if USER == nil {
+                        USER = User()
+                    }
+                    
+                    USER!.id = res!["user"]["id"].stringValue
+                    USER!.me = false
+                    USER!.name = res!["user"]["name"].stringValue
+                    realm.add(USER!, update: true)
+                }
+                */
+            }
+        })
+        
+        
+        POST("/users", parameters: ["name": "Henry Liebowitz", "password": "hlibbaby", "email": "hliebow1@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                /*
+                let realm = try! Realm()
+                try! realm.write {
+                    if USER == nil {
+                        USER = User()
+                    }
+                    
+                    USER!.id = res!["user"]["id"].stringValue
+                    USER!.me = false
+                    USER!.name = res!["user"]["name"].stringValue
+                    realm.add(USER!, update: true)
+                }
+                */
+            }
+        })
     }
     
     // MARK: - Personal
@@ -49,7 +116,8 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadClassmates() {
-        loadTestClassmates() // ONLY FOR TESTING
+        if TESTING { loadTestClassmates() }
+        
         loadGroupChatPseudoClassmate()
         loadRealmClassmates()
         tableView.reloadData()
@@ -78,6 +146,8 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadNetworkClassmates(callback: Void -> Void) {
+        if TESTING { sleep(2) }
+        
         GET("/users/of_course/\(self.course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

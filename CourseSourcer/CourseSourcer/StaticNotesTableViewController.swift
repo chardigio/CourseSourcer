@@ -44,6 +44,7 @@ class StaticNotesTableViewController: UITableViewController {
             if (err != nil) {
                 showError(self)
             }else if (res != nil) {
+                /*
                 let note = StaticNote()
                 note.id = res!["id"].stringValue
                 note.created_at = dateFromString(res!["created_at"].stringValue)
@@ -53,6 +54,7 @@ class StaticNotesTableViewController: UITableViewController {
                 try! realm.write {
                     realm.add(note)
                 }
+                */
             }
         })
     }
@@ -66,7 +68,8 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadNotes() {
-        //loadTestNotes() // ONLY FOR TESTING
+        if TESTING { loadTestNotes() }
+        
         loadRealmNotes()
         tableView.reloadData()
         
@@ -81,6 +84,8 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadNetworkNotes(callback: Void -> Void) {
+        if TESTING { sleep(2) }
+        
         GET("/static_notes/of_course/\(self.course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

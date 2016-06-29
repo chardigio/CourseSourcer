@@ -6,22 +6,6 @@
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
-//
-//
-//
-//
-//
-//
-//                 PROBABLY WILL BE DEPRECATED (lol still on v0 too)
-//
-//
-//
-//
-//
-//
-//
-//
-
 import UIKit
 import JSQMessagesViewController
 import SwiftyJSON
@@ -42,8 +26,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         configureBubbles()
         configureJSQ()
         
-        addTestMessages() // ONLY FOR TESTING
-        //tabBarController?.tabBar.hidden = true // ONLY FOR TESTING
+        loadMessages()
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,18 +36,54 @@ class GroupMessagesViewController: JSQMessagesViewController {
     
     // MARK: - Testing
     
-    func addTestMessages() {
+    func loadTestMessages() {
+        if course!.messages.count > 0 {
+            return
+        }
+        
+        POST("/messages", parameters: ["text":"First!", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }
+        })
+        POST("/messages", parameters: ["text":"Hey!", "course":course!.id, "user":TESTING_CLASSMATE_ID], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }
+        })
+        POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }
+        })
+        POST("/messages", parameters: ["text":"Isn't it??", "course":course!.id, "user":TESTING_CLASSMATE_ID], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }
+        })
+        POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }
+        })
+        
+        /*
         for i in 1...20 {
             let sender = (i%5 != 0) ? "Server" : self.senderId
             let messageContent = "Message #\(i)"
             let message = JSQMessage(senderId: sender, displayName: sender, text: messageContent)
             self.messages += [message]
         }
-        
+ 
         reloadMessagesView()
+         */
     }
     
     // MARK: - Personal
+    
+    func reloadMessagesView() {
+        collectionView?.reloadData()
+    }
     
     func configureCourse() {
         if let parent = tabBarController as? CourseViewController {
@@ -88,9 +107,60 @@ class GroupMessagesViewController: JSQMessagesViewController {
         reloadMessagesView()
     }
     
-    func reloadMessagesView() {
-        collectionView?.reloadData()
+    func loadMessages() {
+        if TESTING { loadTestMessages() }
+        
+        loadRealmMessages()
+        reloadMessagesView()
+        
+        while true {
+            loadNetworkMessages() {
+                self.loadRealmMessages()
+                self.reloadMessagesView()
+            }
+            
+            sleep(1)
+        }
     }
+    
+    func loadRealmMessages() {
+        messages.removeAll()
+        
+        if course?.messages == nil || course?.messages.count == 0 {
+            return
+        }
+        
+        for realm_message in (course?.messages.sorted("created_at"))! {
+            let message = JSQMessage(senderId: realm_message.user?.id ?? "", displayName: realm_message.user?.name, text: realm_message.text)
+            
+            messages.append(message)
+        }
+        
+        finishReceivingMessage()
+    }
+    
+    func loadNetworkMessages(callback: Void -> Void) {
+        if TESTING { sleep(2) }
+        
+        GET("/chats/\(USER!.email)?userid=\(USER!.id!)&lastId=\((course?.messages.sorted("created_at").last?.id)!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                for json_message in res!["chats"] {
+                    let sender_id = (json_message.1["from"].stringValue == USER!.id!) ? USER!.id! : ""
+                    let sender_name = sender_id == "" ? "" : USER!.name
+                    let date = dateFromString(json_message.1["created_at"].stringValue)
+                    
+                    let message = JSQMessage(senderId: sender_id, senderDisplayName: sender_name, date: date, text: json_message.1["text"].stringValue)
+                    
+                    self.messages.append(message)
+                }
+                
+                callback()
+            }
+        })
+    }
+    
     
     // MARK: - JSQ
     

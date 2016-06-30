@@ -17,6 +17,8 @@ class CourseScheduleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+        
         configureCourse()
         loadAssignments()
         
@@ -119,12 +121,21 @@ class CourseScheduleTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return assignments.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
+        
+        cell.subview.backgroundColor = pastelFromString(assignments[indexPath.row].course!.color)
+        //cell.assignment_pic = nil
+        cell.title_label.text = assignments[indexPath.row].title
+        
+        if assignments[indexPath.row].time_end == nil {
+            cell.date_label.text = assignments[indexPath.row].time_begin!.description
+        }else{
+            cell.date_label.text = assignments[indexPath.row].time_begin!.description + " - " +
+                assignments[indexPath.row].time_end!.description
+        }
+        
         return cell
     }
 

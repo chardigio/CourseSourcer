@@ -94,12 +94,16 @@ class HomeScheduleTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
 
-        cell.subview.backgroundColor = pastelForString(assignments[indexPath.row].course.color)
+        cell.subview.backgroundColor = pastelFromString(assignments[indexPath.row].course!.color)
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         
-        //SPECIAL ATTENTION
-        //cell.date_label.text = assignments[indexPath.row].time_begin
+        if assignments[indexPath.row].time_end == nil {
+            cell.date_label.text = assignments[indexPath.row].time_begin!.description
+        }else{
+            cell.date_label.text = assignments[indexPath.row].time_begin!.description + " - " +
+                                   assignments[indexPath.row].time_end!.description
+        }
 
         return cell
     }

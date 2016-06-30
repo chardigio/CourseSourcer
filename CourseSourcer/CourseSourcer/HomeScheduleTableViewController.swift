@@ -16,6 +16,8 @@ class HomeScheduleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+        
         loadAssignments()
         
         // Uncomment the following line to preserve selection between presentations
@@ -28,32 +30,6 @@ class HomeScheduleTableViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    // MARK: - Testing
-    
-    func loadTestAssignments() { // SHOULD ONLY BE IN COURSESCHEDULE
-        /*
-        let now = NSDate()
-        
-        POST("/assignments", parameters: ["title": "Lab 1", "time_begin": stringFromDate(now.dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
-                showError(self)
-            }else if (res != nil) {
-                /*
-                 let note = StaticNote()
-                 note.id = res!["id"].stringValue
-                 note.created_at = dateFromString(res!["created_at"].stringValue)
-                 note.title = res!["subject"].stringValue
-                 note.text = res!["text"].stringValue
-                 
-                 try! realm.write {
-                 realm.add(note)
-                 }
-                 */
-            }
-        })
-        */
     }
     
     // MARK: - Personal
@@ -79,15 +55,25 @@ class HomeScheduleTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
+                let realm = try! Realm()
+                
+                var network_assignments = [Assignment]()
+                
                 for obj in res!["assignments"].arrayValue {
                     let assignment = Assignment()
                     assignment.id = obj["id"].stringValue
                     assignment.title = obj["title"].stringValue
                     assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
                     assignment.time_end = dateFromString(obj["time_end"].string)
-                    assignment.course = courseFromString(obj["course"].stringValue)
+                    assignment.course = realm.objectForPrimaryKey(Course.self, key: obj["course"].stringValue)
                     
-                    self.assignments.append(assignment)
+                    network_assignments.append(assignment)
+                }
+                
+                try! realm.write {
+                    for assignment in network_assignments {
+                        realm.add(assignment)
+                    }
                 }
                 
                 callback()
@@ -98,25 +84,26 @@ class HomeScheduleTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return assignments.count
     }
-
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
 
-        // Configure the cell...
+        cell.subview.backgroundColor = pastelForString(assignments[indexPath.row].course.color)
+        //cell.assignment_pic = nil
+        cell.title_label.text = assignments[indexPath.row].title
+        
+        //SPECIAL ATTENTION
+        //cell.date_label.text = assignments[indexPath.row].time_begin
 
         return cell
     }
-    */
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

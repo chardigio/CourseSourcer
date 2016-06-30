@@ -7,12 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
+import SwiftyJSON
 
 class CourseScheduleTableViewController: UITableViewController {
-
+    var assignments = [Assignment]()
+    var course: Course? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        configureCourse()
+        loadAssignments()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -24,20 +31,95 @@ class CourseScheduleTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: - Testing
+    
+    func postTestAssignments() {
+        let now = NSDate()
+        
+        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(now.dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self)
+            }else if (res != nil) {
+                /*
+                 let note = StaticNote()
+                 note.id = res!["id"].stringValue
+                 note.created_at = dateFromString(res!["created_at"].stringValue)
+                 note.title = res!["subject"].stringValue
+                 note.text = res!["text"].stringValue
+                 
+                 try! realm.write {
+                 realm.add(note)
+                 }
+                 */
+            }
+        })
+    }
+    
+    // MARK: - Personal
+    
+    func configureCourse() {
+        if let parent = tabBarController as? CourseViewController {
+            course = parent.course
+        }
+    }
+    
+    func loadAssignments() {
+        loadRealmAssignments()
+        tableView.reloadData()
+        
+        loadNetworkAssignments() {
+            self.loadRealmAssignments()
+            self.tableView.reloadData()
+        }
+    }
+    
+    func loadRealmAssignments() {
+        let realm = try! Realm()
+        
+        assignments = realm.objects(Assignment).sorted("created_at").map { $0 }
+    }
+    
+    func loadNetworkAssignments(callback: Void -> Void) {
+        GET("/assignments/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            }else if res != nil {
+                var network_assignments = [Assignment]()
+                
+                for obj in res!["assignments"].arrayValue {
+                    let assignment = Assignment()
+                    assignment.id = obj["id"].stringValue
+                    assignment.title = obj["title"].stringValue
+                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
+                    assignment.time_end = dateFromString(obj["time_end"].string)
+                    assignment.course = self.course
+                    
+                    network_assignments.append(assignment)
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    for assignment in network_assignments {
+                        realm.add(assignment, update: true)
+                    }
+                }
 
+                callback()
+            }
+        })
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return assignments.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
@@ -45,7 +127,6 @@ class CourseScheduleTableViewController: UITableViewController {
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.

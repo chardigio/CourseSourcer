@@ -36,7 +36,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     
     // MARK: - Testing
     
-    func loadTestMessages() {
+    func postTestMessages() {
         if course!.messages.count > 0 {
             return
         }
@@ -108,7 +108,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func loadMessages() {
-        if TESTING { loadTestMessages() }
+        if TESTING { postTestMessages() }
         
         loadRealmMessages()
         reloadMessagesView()
@@ -146,14 +146,25 @@ class GroupMessagesViewController: JSQMessagesViewController {
             if (err != nil) {
                 showError(self)
             }else if (res != nil) {
+                var network_messages = [GroupMessage]()
+                
                 for json_message in res!["chats"] {
-                    let sender_id = (json_message.1["from"].stringValue == USER!.id!) ? USER!.id! : ""
-                    let sender_name = sender_id == "" ? "" : USER!.name
-                    let date = dateFromString(json_message.1["created_at"].stringValue)
+                    let message = GroupMessage()
+                    message.id = json_message.1["id"].stringValue
+                    message.text = json_message.1["text"].stringValue
+                    message.score = json_message.1["score"].intValue
+                    message.course = self.course
+                    message.created_at = dateFromString(json_message.1["created_at"].stringValue)
+                    message.user = json_message.1["user"].string == nil ? nil : USER!
                     
-                    let message = JSQMessage(senderId: sender_id, senderDisplayName: sender_name, date: date, text: json_message.1["text"].stringValue)
-                    
-                    self.messages.append(message)
+                    network_messages.append(message)
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    for message in network_messages {
+                        realm.add(message, update: true)
+                    }
                 }
                 
                 callback()

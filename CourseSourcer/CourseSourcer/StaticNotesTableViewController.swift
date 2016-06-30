@@ -34,7 +34,7 @@ class StaticNotesTableViewController: UITableViewController {
 
     // MARK: - Testing
     
-    func loadTestNotes() {
+    func postTestNotes() {
         let realm = try! Realm()
         if realm.objects(StaticNote).count > 0 {
             return
@@ -68,7 +68,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadNotes() {
-        if TESTING { loadTestNotes() }
+        if TESTING { postTestNotes() }
         
         loadRealmNotes()
         tableView.reloadData()
@@ -90,13 +90,22 @@ class StaticNotesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
+                var network_notes = [StaticNote]()
+                
                 for obj in res!["static_notes"].arrayValue {
                     let note = StaticNote()
                     note.id = obj["id"].stringValue
                     note.created_at = dateFromString(obj["created_at"].stringValue)
                     note.title = obj["subject"].stringValue
                     
-                    self.notes.append(note)
+                    network_notes.append(note)
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    for note in network_notes {
+                        realm.add(note, update: true)
+                    }
                 }
                 
                 callback()

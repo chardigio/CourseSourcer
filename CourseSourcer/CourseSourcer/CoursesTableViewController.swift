@@ -32,15 +32,15 @@ class CoursesTableViewController: UITableViewController {
 
     // MARK: - Testing
     
-    func loadTestUserAndCourses() {
+    func postTestUserAndCourses() {
         let realm = try! Realm()
 
-        let users_that_are_me = realm.objects(User).filter("me == true")
-        if users_that_are_me.count == 0 {
-            return
+        if USER == nil {
+            let users_that_are_me = realm.objects(User).filter("me == true")
+            
+            USER = users_that_are_me[0]
         }
         
-        USER = users_that_are_me[0]
         
         if realm.objects(Course).count > 0 {
             return
@@ -113,7 +113,7 @@ class CoursesTableViewController: UITableViewController {
     // MARK: - Personal
     
     func loadUserAndCourses() {
-        if TESTING { loadTestUserAndCourses() }
+        if TESTING { postTestUserAndCourses() }
         
         loadRealmUserAndCourses()
         tableView.reloadData()
@@ -143,6 +143,8 @@ class CoursesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             } else if res != nil {
+                var network_courses = [Course]()
+                
                 if res!["user"]["courses"].dictionaryValue.count > 0 {
                     for i in 0...res!["user"]["courses"].dictionaryValue.count - 1 {
                         let course = Course()
@@ -151,7 +153,7 @@ class CoursesTableViewController: UITableViewController {
                         course.term = res!["user"]["courses"][i]["term"].stringValue
                         course.school = res!["user"]["courses"][i]["school"].stringValue
                         
-                        self.courses.append(course)
+                        network_courses.append(course)
                     }
                 }
                 
@@ -159,7 +161,7 @@ class CoursesTableViewController: UITableViewController {
                 try! realm.write {
                     USER!.name = res!["user"]["name"].stringValue
                     
-                    for course in self.courses {
+                    for course in network_courses {
                         realm.add(course, update: true)
                         
                         USER!.courses.append(course)

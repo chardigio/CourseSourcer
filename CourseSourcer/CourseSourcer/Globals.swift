@@ -28,7 +28,7 @@ func pastelFromString(color: String) -> UIColor {
         case "light beige":  return UIColor(red:0.91, green:0.87, blue:0.76, alpha:1.00);
         case "light yellow": return UIColor(red:1.00, green:0.93, blue:0.58, alpha:1.00);
         case "light blue":   return UIColor(red:0.77, green:1.00, blue:0.96, alpha:1.00);
-        default: return UIColor(red:0.91, green:0.87, blue:0.76, alpha:1.00);
+        default:             return UIColor(red:0.91, green:0.87, blue:0.76, alpha:1.00);
     }
 }
 

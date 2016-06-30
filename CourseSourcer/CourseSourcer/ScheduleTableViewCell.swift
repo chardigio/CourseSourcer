@@ -1,5 +1,5 @@
 //
-//  HomeScheduleTableViewCell.swift
+//  ScheduleTableViewCell.swift
 //  CourseSourcer
 //
 //  Created by Charlie on 6/20/16.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class HomeScheduleTableViewCell: UITableViewCell {
-    @IBOutlet weak var subview: UIView!
+class ScheduleTableViewCell: UITableViewCell {
     @IBOutlet weak var date_label: UITextField!
     @IBOutlet weak var title_label: UILabel!
-    @IBOutlet weak var course_pic: UIImageView!
+    @IBOutlet weak var subview: UIView!
+    @IBOutlet weak var assignment_pic: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

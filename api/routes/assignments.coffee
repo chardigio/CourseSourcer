@@ -23,7 +23,7 @@ router.get '/of_course/:courseId', (req, res, next) ->
       res.send assignments: assignments
 
 router.get '/of_user/:userId', (req, res, next) ->
-  User.findById req.params.userid, (err, user) ->
+  User.findById req.params.userId, (err, user) ->
     if err then next err
     else
       or_query = $or: (course: course_id for course_id in user.courses)

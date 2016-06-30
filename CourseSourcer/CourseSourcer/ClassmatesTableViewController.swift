@@ -36,7 +36,7 @@ class ClassmatesTableViewController: UITableViewController {
     
     // MARK: - Testing
     
-    func loadTestClassmates() {
+    func postTestClassmates() {
         let realm = try! Realm()
         
         if realm.objects(User).filter("me == false").count > 0 {
@@ -116,7 +116,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadClassmates() {
-        if TESTING { loadTestClassmates() }
+        if TESTING { postTestClassmates() }
         
         loadGroupChatPseudoClassmate()
         loadRealmClassmates()
@@ -153,6 +153,7 @@ class ClassmatesTableViewController: UITableViewController {
                 showError(self)
             }else if res != nil {
                 var network_classmates = [User]()
+                
                 for obj in res!["users"].arrayValue {
                     let classmate = User()
                     classmate.email = obj["email"].stringValue

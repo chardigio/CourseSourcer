@@ -51,63 +51,24 @@ class CoursesTableViewController: UITableViewController {
         }
         
         POST("/courses", parameters: ["name":"Algorithms", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
-            } else if (res != nil) {
-                /*
-                 let course = Course()
-                 course.id = res!["course"]["id"].string!
-                 course.name = res!["course"]["name"].string!
-                 course.school = res!["course"]["school"].string!
-                 course.term = res!["course"]["term"].string!
-                 
-                 let realm = try! Realm()
-                 try! realm.write {
-                 realm.add(course)
-                 }
-                 */
+            } else if res != nil {
                 PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                    if (err != nil) {
+                    if err != nil {
                         showError(self)
-                    }else if (res != nil) {
-                        /*
-                         try! realm.write {
-                         USER!.courses.append(course)
-                         realm.add(USER!, update:true)
-                         }
-                         */
                     }
                 })
             }
         })
         
         POST("/courses", parameters: ["name":"Machine Learning", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
-            } else if (res != nil) {
-                /*
-                 let course = Course()
-                 course.id = res!["course"]["id"].string!
-                 course.name = res!["course"]["name"].string!
-                 course.school = res!["course"]["school"].string!
-                 course.term = res!["course"]["term"].string!
-                 course.color = "light blue"
-                 
-                 let realm = try! Realm()
-                 try! realm.write {
-                 realm.add(course)
-                 }
-                 */
+            } else if res != nil {
                 PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                    if (err != nil) {
+                    if err != nil {
                         showError(self)
-                    }else if (res != nil) {
-                        /*
-                         try! realm.write {
-                         USER!.courses.append(course)
-                         realm.add(USER!, update:true)
-                         }
-                         */
                     }
                 })
             }
@@ -156,9 +117,9 @@ class CoursesTableViewController: UITableViewController {
                     course.name = network_course["name"].stringValue
                     course.term = network_course["term"].stringValue
                     course.school = network_course["school"].stringValue
-                    if realm.objectForPrimaryKey(Course.self, key: course.id) == nil {
-                        course.color = getLeastUsedColor()
-                    }
+                    
+                    let saved_course = realm.objectForPrimaryKey(Course.self, key: course.id)
+                    course.color = (saved_course == nil) ? getLeastUsedColor() : saved_course!.color
                     
                     network_courses.append(course)
                 }

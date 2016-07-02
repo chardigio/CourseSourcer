@@ -38,7 +38,6 @@ router.get '/of_user/:userId', (req, res, next) ->
         else
           for assignment in assignments #not deepcopy, fix
             assignment.user = null #if admin dont null it (or if it's you ?)
-            console.log assignment.time_begin
           res.send assignments: assignments
 
 module.exports = router

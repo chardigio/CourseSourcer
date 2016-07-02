@@ -42,9 +42,9 @@ class CourseScheduleTableViewController: UITableViewController {
         }
         
         POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
-            }else if (res != nil) {
+            }else if res != nil {
                 /*
                  let note = StaticNote()
                  note.id = res!["id"].stringValue
@@ -80,11 +80,7 @@ class CourseScheduleTableViewController: UITableViewController {
         }
     }
     
-    func loadRealmAssignments() {
-        if course?.assignments.count == 0 {
-            print("DOES IT BREAK WHEN THERE ARE NO ASSIGNMENTS YET?")
-        }
-        
+    func loadRealmAssignments() {        
         assignments = (course?.assignments.sorted("created_at").map { $0 })!
     }
     

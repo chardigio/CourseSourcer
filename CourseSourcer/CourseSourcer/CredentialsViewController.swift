@@ -129,9 +129,9 @@ class CredentialsViewController: UIViewController {
             })
         }else{
             POST("/users", parameters: ["name":name_field.text!, "password":password_field.text!, "email":email_field.text!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                if (err != nil) {
+                if err != nil {
                     showError(self)
-                }else if (res != nil) {
+                }else if res != nil {
                     let realm = try! Realm()
                     try! realm.write {
                         if USER == nil {

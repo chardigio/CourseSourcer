@@ -27,19 +27,19 @@ func tryMore(){
     if posts == 2 {
         POST("/static_notes", parameters: ["text": "texty","title": "titley","course": courseid!,"user": userid!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             print("post notes")
-            if (err != nil) {print(err!)}
-            if (res != nil) {print(res!)}
+            if err != nil {print(err!)}
+            if res != nil {print(res!)}
             GET("/static_notes/\(courseid!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 print("get notes")
-                if (err != nil) {print(err!)}
-                if (res != nil) {print(res!)}
+                if err != nil {print(err!)}
+                if res != nil {print(res!)}
             })
         })
         
         PUT("/users/addCourse", parameters: ["user_id": userid!, "course_id": courseid!],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             print("put course in user")
-            if (err != nil) {print(err!)}
-            if (res != nil) {print(res!)}
+            if err != nil {print(err!)}
+            if res != nil {print(res!)}
         })
     }
 }
@@ -47,13 +47,13 @@ func tryMore(){
 func testRequests(){
     POST("/users", parameters: ["name":"Charlie", "email":"cdg@bing.edu", "password":"nsonat"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post user")
-        if (err != nil) {print(err!)}
-        if (res != nil) {print(res!); userid = res!["user"]["id"].string; posts += 1; tryMore()}
+        if err != nil {print(err!)}
+        if res != nil {print(res!); userid = res!["user"]["id"].string; posts += 1; tryMore()}
     })
     
     POST("/courses", parameters: ["name": "Graph Theory","term": "Fall 2016","school": "Binghamton"],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post course")
-        if (err != nil) {print(err!)}
-        if (res != nil) {print(res!); courseid = res!["course"]["id"].string; posts += 1; tryMore()}
+        if err != nil {print(err!)}
+        if res != nil {print(res!); courseid = res!["course"]["id"].string; posts += 1; tryMore()}
     })
 }

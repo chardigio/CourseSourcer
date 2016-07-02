@@ -57,15 +57,21 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
       else
         if not admin
           for message in nextMessages #not deepcopy, fix
-            message.user = null #if message.user.id isnt req.user.id
-        res.send messages: nextMessages.reverse()
+            if req.user and message.user.id isnt req.user.id
+              message.user = null
+            else
+              message.user = req.user.id
+        res.send messages: nextMessages #.reverse()
   else
     Message.find(course: req.params.courseId).sort('-created_at').skip(offset).limit(limit).populate('user').exec (err, messages) ->
       if err then next err
       else
         if not admin
           for message in messages #not deepcopy, fix
-            message.user = null #if message.user.id isnt req.user.id
+            if req.user and message.user.id isnt req.user.id
+              message.user = null
+            else
+              message.user = req.user.id
         res.send messages: messages #.reverse()
 
 module.exports = router

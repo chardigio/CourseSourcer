@@ -32,7 +32,7 @@ class ConfirmViewController: UIViewController {
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             }else{
-                sleep(0)
+                sleep(2)
                 self.confirmationCheck()
             }
         })

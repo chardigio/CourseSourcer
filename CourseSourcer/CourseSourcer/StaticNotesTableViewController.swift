@@ -40,9 +40,9 @@ class StaticNotesTableViewController: UITableViewController {
         }
         
         POST("/static_notes", parameters: ["text": "Lorem ipsum in my cripsum", "subject":"Welcome", "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
-            }else if (res != nil) {
+            }else if res != nil {
                 /*
                 let note = StaticNote()
                 note.id = res!["id"].stringValue
@@ -96,6 +96,7 @@ class StaticNotesTableViewController: UITableViewController {
                     note.id = obj["id"].stringValue
                     note.created_at = dateFromString(obj["created_at"].stringValue)
                     note.title = obj["subject"].stringValue
+                    note.course = self.course
                     
                     network_notes.append(note)
                 }

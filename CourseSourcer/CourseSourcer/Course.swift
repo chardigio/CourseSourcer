@@ -19,11 +19,11 @@ class Course: Object {
     
     var users = LinkingObjects(fromType: User.self, property: "courses")
     
-    var messages = LinkingObjects(fromType: GroupMessage.self, property: "course").sorted("created_first")
+    var messages = LinkingObjects(fromType: GroupMessage.self, property: "course") //.sorted("created_at")
     
-    var static_notes = LinkingObjects(fromType: StaticNote.self, property: "course").sorted("created_first")
+    var static_notes = LinkingObjects(fromType: StaticNote.self, property: "course") //.sorted("created_at")
     
-    var assignments = LinkingObjects(fromType: Assignment.self, property: "course").sorted("time_begin")
+    var assignments = LinkingObjects(fromType: Assignment.self, property: "course") //.sorted("time_begin")
     
     override static func primaryKey() -> String? {
         return "id"

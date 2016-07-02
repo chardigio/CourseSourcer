@@ -24,7 +24,7 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
             }
             break
         case .Failure(let error):
-            print("ERROR:", error)
+            print("NETWORK ERROR:", response.result)
             callback(err: ["error": error], res: nil)
         }
     }
@@ -41,7 +41,7 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
             }
             break
         case .Failure(let error):
-            print("ERROR:", error)
+            print("NETWORK ERROR:", response.result)
             callback(err: ["error": error], res: nil)
         }
     }
@@ -58,7 +58,7 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
             }
             break
         case .Failure(let error):
-            print("ERROR:", error)
+            print("NETWORK ERROR:", response.result)
             callback(err: ["error": error], res: nil)
         }
     }

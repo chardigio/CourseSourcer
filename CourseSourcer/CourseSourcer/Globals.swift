@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 
 let TESTING = true
-var TESTING_CLASSMATE_ID = ""
+var TESTING_CLASSMATE_ID = "57765bee7cf69056b8c10285"
 
 var PREFS: NSUserDefaults? = nil
 var USER: User? = nil
@@ -94,11 +94,11 @@ func dateFromString(dateString: String?) -> NSDate? {
     var date = dateFormatter.dateFromString(dateString!)
     
     if (date == nil) {
-        print("ERROR:", "Could not parse date:", dateString!, ". Using NOW as date")
-        date = NSDate()
+        print("ERROR:", "Could not parse date:", dateString!) //, ". Using NOW as date")
+        date = nil
     }
     
-    return date!
+    return date
 }
 
 func stringFromDate(date: NSDate) -> String {

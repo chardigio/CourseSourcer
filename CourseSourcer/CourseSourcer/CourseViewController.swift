@@ -24,6 +24,10 @@ class CourseViewController: UITabBarController {
     }
     
     override func viewWillDisappear(animated: Bool) {
+        //self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
+    }
+    
+    override func willMoveToParentViewController(parent: UIViewController?) {
         self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
     }
     
@@ -32,9 +36,7 @@ class CourseViewController: UITabBarController {
     func configureNavigationBar() {
         navigationItem.title = course!.name
         
-//        UIView.animateWithDuration(0.2, animations: {
-            self.navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
-//        })
+        self.navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
     }
 
     func configureTabBar() {

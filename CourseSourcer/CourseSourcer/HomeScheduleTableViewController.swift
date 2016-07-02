@@ -64,7 +64,6 @@ class HomeScheduleTableViewController: UITableViewController {
                 var network_assignments = [Assignment]()
                 
                 for obj in res!["assignments"].arrayValue {
-                    print(obj)
                     let assignment = Assignment()
                     assignment.id = obj["id"].stringValue
                     assignment.title = obj["title"].stringValue

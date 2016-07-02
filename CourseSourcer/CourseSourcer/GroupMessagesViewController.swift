@@ -42,27 +42,27 @@ class GroupMessagesViewController: JSQMessagesViewController {
         }
         
         POST("/messages", parameters: ["text":"First!", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Hey!", "course":course!.id, "user":TESTING_CLASSMATE_ID], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+        POST("/messages", parameters: ["text":"Hey!", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
                 showError(self)
             }
         })
         POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Isn't it??", "course":course!.id, "user":TESTING_CLASSMATE_ID], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+        POST("/messages", parameters: ["text":"Isn't it??", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
                 showError(self)
             }
         })
         POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
             }
         })
@@ -92,13 +92,13 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureSender() {
-        senderId = USER!.id!
+        senderId = USER!.id! // UIDevice.currentDevice().identifierForVendor?.UUIDString
         senderDisplayName = USER!.name
     }
     
     func configureBubbles() {
         outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(course!.color))
-        incomingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+        incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
     }
     
     func configureJSQ() {
@@ -108,8 +108,8 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func loadMessages() {
-        if TESTING { print("POSTING"); postTestMessages() }
-        print("DONE POSTING")
+        if TESTING { postTestMessages() }
+        
         loadRealmMessages()
         reloadMessagesView()
         
@@ -126,20 +126,19 @@ class GroupMessagesViewController: JSQMessagesViewController {
     func loadRealmMessages() {
         messages.removeAll()
         
-        print(course?.messages)
-        
-        if course?.messages == nil || course?.messages.count == 0 {
-            print("What")
-            return
-        }
+        let realm = try! Realm()
         
         for realm_message in (course?.messages.sorted("created_at"))! {
-            let message = JSQMessage(senderId: realm_message.user?.id ?? "", displayName: realm_message.user?.name, text: realm_message.text)
+            var message: JSQMessage {
+                if realm_message.user != nil {
+                    return JSQMessage(senderId: senderId, displayName: senderDisplayName, text: realm_message.text) // add date param
+                }else{
+                    return JSQMessage(senderId: "Server", displayName: "Server", text: realm_message.text) // add date param
+                }
+            }
             
             messages.append(message)
         }
-        
-        print("JSQ MESSAGES:", messages.count)
         
         finishReceivingMessage()
     }
@@ -149,10 +148,10 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/messages/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+        GET("/messages/of_course/\(course!.id)/?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
                 showError(self)
-            }else if (res != nil) {
+            }else if res != nil {
                 var network_messages = [GroupMessage]()
                 
                 for json_message in res!["messages"].arrayValue {
@@ -163,7 +162,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
                     message.course = self.course
                     message.created_at = dateFromString(json_message["created_at"].stringValue)
                     message.user = json_message["user"].string == nil ? nil : USER!
-                    print(message)
+                    
                     network_messages.append(message)
                 }
                 
@@ -214,9 +213,9 @@ class GroupMessagesViewController: JSQMessagesViewController {
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         POST("/messages", parameters: ["text":text, "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self)
-            }else if (res != nil) {
+            }else if res != nil {
                 let realm = try! Realm()
                 let json_message = res!["message"]
                 

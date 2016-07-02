@@ -16,7 +16,6 @@ router.post '/', (req, res, next) ->
 
 #add course to user
 router.put '/addCourse', (req, res, next) ->
-  console.log req.body
   User.findByIdAndUpdate req.body.user_id, $addToSet: courses: req.body.course_id, (err, user) ->
     if err then next err
     else res.status(200).send user: user

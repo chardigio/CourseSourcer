@@ -48,17 +48,17 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
           if err then next err
           else
             for chat in nextChats #not deepcopy, fix
-              if chat.to is req.user.id then chat.from = null
-              else chat.to = null
-            res.send chats: nextChats.reverse()
+              chat.to = chat.to.email
+              chat.from = chat.from.email
+            res.send chats: nextChats #.reverse()
       else
         Chat.find(search).sort('-created_at').skip(offset).limit(limit).exec (err, chats) ->
           if err then next err
           else
             for chat in chats #not deepcopy, fix
-              if chat.to is req.user.id then chat.from = null
-              else chat.to = null
+              chat.to = chat.to.email
+              chat.from = chat.from.email
 
-            res.send chats: chats.reverse()
+            res.send chats: chats #.reverse()
 
 module.exports = router

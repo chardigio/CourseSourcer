@@ -20,6 +20,8 @@ class User: Object {
     var courses = List<Course>()
     var admin_of = List<Course>()
     
+    var messages = LinkingObjects(fromType: DirectMessage.self, property: "user")
+    
     override static func primaryKey() -> String {
         return "email"
     }

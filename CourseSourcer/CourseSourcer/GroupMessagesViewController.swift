@@ -211,6 +211,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         return nil
     }
     
+    //DOESNT WORK
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         POST("/messages", parameters: ["text":text, "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {

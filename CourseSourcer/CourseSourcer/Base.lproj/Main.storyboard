@@ -109,7 +109,7 @@
                                     <constraint firstAttribute="width" constant="228" id="ndV-7N-kRf"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <connections>
                                     <action selector="passwordFieldEditingChanged:" destination="anh-3h-oJu" eventType="editingChanged" id="TcP-XE-ubQ"/>
                                 </connections>
@@ -502,14 +502,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Igo-2u-36u">
-                                            <rect key="frame" x="8" y="33" width="544" height="58"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
-                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        </textView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subject" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L1e-g0-2WL">
                                             <rect key="frame" x="8" y="8" width="544" height="33"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
@@ -522,22 +514,30 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
+                                            <rect key="frame" x="8" y="45" width="544" height="42"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Igo-2u-36u" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="-8" id="EHj-IN-je4"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="rt7-cO-y5n" secondAttribute="trailing" constant="40" id="Fhr-I9-6ki"/>
-                                        <constraint firstItem="Igo-2u-36u" firstAttribute="leading" secondItem="L1e-g0-2WL" secondAttribute="leading" id="Fra-bf-2X3"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="L1e-g0-2WL" secondAttribute="trailing" constant="40" id="MD4-MW-Qmc"/>
-                                        <constraint firstItem="Igo-2u-36u" firstAttribute="top" secondItem="rt7-cO-y5n" secondAttribute="bottom" constant="-4" id="UR7-WQ-v22"/>
                                         <constraint firstAttribute="topMargin" secondItem="L1e-g0-2WL" secondAttribute="top" id="XsX-SJ-apL"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="Igo-2u-36u" secondAttribute="bottom" id="kFB-fs-ohT"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dQJ-ot-KW0" secondAttribute="trailing" constant="40" id="ZZS-jl-8gP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dQJ-ot-KW0" secondAttribute="bottom" constant="4" id="ZeT-oM-BXF"/>
+                                        <constraint firstAttribute="leadingMargin" secondItem="dQJ-ot-KW0" secondAttribute="leading" id="eza-R7-UeQ"/>
+                                        <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="rt7-cO-y5n" secondAttribute="bottom" constant="8" id="jZR-hK-qK2"/>
+                                        <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="4" id="rXI-RQ-ITz"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="L1e-g0-2WL" secondAttribute="leading" id="wmI-Da-Xtn"/>
-                                        <constraint firstItem="Igo-2u-36u" firstAttribute="width" secondItem="L1e-g0-2WL" secondAttribute="width" id="xhG-gH-47K"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="date_label" destination="rt7-cO-y5n" id="ope-bS-Zjv"/>
-                                    <outlet property="preview_textview" destination="Igo-2u-36u" id="NJi-sB-l0o"/>
+                                    <outlet property="preview_textview" destination="dQJ-ot-KW0" id="Fj5-x3-IIT"/>
                                     <outlet property="title_label" destination="L1e-g0-2WL" id="nmk-k2-fbT"/>
                                 </connections>
                             </tableViewCell>
@@ -630,6 +630,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Static Note" id="zd8-eE-D7A"/>
+                    <connections>
+                        <outlet property="content_textview" destination="FMX-oj-EN6" id="o34-ub-9QA"/>
+                        <outlet property="date_label" destination="47y-r7-3yL" id="Nmb-UA-3qU"/>
+                        <outlet property="score_label" destination="pd9-Nu-5Qa" id="ILO-l8-2kl"/>
+                        <outlet property="subject_label" destination="2LS-dA-wT9" id="fJ4-4c-UsL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NAX-si-DEd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -639,7 +645,7 @@
         <scene sceneID="w78-UN-dnH">
             <objects>
                 <tableViewController id="X0P-QV-Hse" userLabel="Course Schedule" customClass="CourseScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

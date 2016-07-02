@@ -41,6 +41,9 @@ class ClassmatesTableViewController: UITableViewController {
             return
         }
         
+        let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
+        srand(time)
+        
         POST("/users", parameters: ["name": "Becky Hammond", "password": "bbgirl123", "email": "bhammon\(rand() % 10000)@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

@@ -42,18 +42,6 @@ class StaticNotesTableViewController: UITableViewController {
         POST("/static_notes", parameters: ["text": "Lorem ipsum in my cripsum", "subject":"Welcome", "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
-            }else if res != nil {
-                /*
-                let note = StaticNote()
-                note.id = res!["id"].stringValue
-                note.created_at = dateFromString(res!["created_at"].stringValue)
-                note.title = res!["subject"].stringValue
-                note.text = res!["text"].stringValue
-                
-                try! realm.write {
-                    realm.add(note)
-                }
-                */
             }
         })
     }
@@ -96,6 +84,7 @@ class StaticNotesTableViewController: UITableViewController {
                     note.id = obj["id"].stringValue
                     note.created_at = dateFromString(obj["created_at"].stringValue)
                     note.title = obj["subject"].stringValue
+                    note.text = obj["text"].stringValue
                     note.course = self.course
                     
                     network_notes.append(note)
@@ -135,13 +124,11 @@ class StaticNotesTableViewController: UITableViewController {
 
         return cell
     }
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return false
-    }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("StaticNotesToStaticNote", sender: notes[indexPath.row])
+    }
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -173,7 +160,10 @@ class StaticNotesTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "StaticNotesToStaticNote" {
+            let vc = segue.destinationViewController as! StaticNoteViewController
+            vc.course = sender as? Course
+            vc.note = sender as? StaticNote
+        }
     }
 }

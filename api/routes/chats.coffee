@@ -43,7 +43,7 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
         ]}
       ]}
 
-      if lastId isnt null and lastId isnt ''
+      if lastId and lastId isnt null and lastId isnt ''
         Chat.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).exec (err, nextChats) ->
           if err then next err
           else

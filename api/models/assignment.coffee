@@ -12,7 +12,7 @@ schema = mongoose.Schema
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
-  _.pick doc, 'id', 'created_at', 'subject', 'text', 'score', 'course', 'user'
+  _.pick doc, 'id', 'created_at', 'title', 'score', 'course', 'time_begin', 'time_end'
 
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'

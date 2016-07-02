@@ -15,7 +15,7 @@ class Course: Object {
     dynamic var term: String = ""
     dynamic var school: String = ""
     dynamic var domain: String = ""
-    dynamic var color: String = ""
+    dynamic var color: Int = 0 // (PASTELS enum)
     
     var users = LinkingObjects(fromType: User.self, property: "courses")
     

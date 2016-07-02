@@ -15,9 +15,9 @@ class CoursesTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        loadUserAndCourses()
 
+        loadUserAndCourses()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,7 +29,7 @@ class CoursesTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Testing
     
     func postTestUserAndCourses() {
@@ -37,6 +37,10 @@ class CoursesTableViewController: UITableViewController {
 
         if USER == nil {
             let users_that_are_me = realm.objects(User).filter("me == true")
+            
+            if users_that_are_me.count == 0 {
+                return
+            }
             
             USER = users_that_are_me[0]
         }
@@ -133,31 +137,32 @@ class CoursesTableViewController: UITableViewController {
     
     func loadNetworkUserAndCourses(callback: Void -> Void) {
         if USER == nil {
-            print("DON'T HAVE A USER WUUUT I REALLY WANNA REMOVE THESE 4 LINES")
             return
         }
         
-        if TESTING { sleep(2) }
+        if TESTING { sleep(0) }
         
         GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
+                let realm = try! Realm()
+                
                 var network_courses = [Course]()
                 
-                if res!["user"]["courses"].dictionaryValue.count > 0 {
-                    for i in 0...res!["user"]["courses"].dictionaryValue.count - 1 {
-                        let course = Course()
-                        course.id = res!["user"]["courses"][i]["id"].stringValue
-                        course.name = res!["user"]["courses"][i]["name"].stringValue
-                        course.term = res!["user"]["courses"][i]["term"].stringValue
-                        course.school = res!["user"]["courses"][i]["school"].stringValue
-                        
-                        network_courses.append(course)
+                for network_course in res!["user"]["courses"].arrayValue {
+                    let course = Course()
+                    course.id = network_course["id"].stringValue
+                    course.name = network_course["name"].stringValue
+                    course.term = network_course["term"].stringValue
+                    course.school = network_course["school"].stringValue
+                    if realm.objectForPrimaryKey(Course.self, key: course.id) == nil {
+                        course.color = getLeastUsedColor()
                     }
+                    
+                    network_courses.append(course)
                 }
                 
-                let realm = try! Realm()
                 try! realm.write {
                     USER!.name = res!["user"]["name"].stringValue
                     
@@ -189,7 +194,7 @@ class CoursesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as! CourseTableViewCell
         
         let course = courses[indexPath.row]
-        cell.subview.backgroundColor = pastelFromString(course.color)
+        cell.subview.backgroundColor = pastelFromInt(course.color)
         cell.course_label.text = course.name
         cell.term_field.text = course.term
         

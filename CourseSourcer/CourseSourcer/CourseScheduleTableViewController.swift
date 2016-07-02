@@ -37,9 +37,11 @@ class CourseScheduleTableViewController: UITableViewController {
     // MARK: - Testing
     
     func postTestAssignments() {
-        let now = NSDate()
+        if course?.assignments.count > 0 {
+            return
+        }
         
-        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(now.dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self)
             }else if (res != nil) {
@@ -67,6 +69,8 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func loadAssignments() {
+        if TESTING { postTestAssignments() }
+        
         loadRealmAssignments()
         tableView.reloadData()
         
@@ -77,9 +81,11 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func loadRealmAssignments() {
-        let realm = try! Realm()
+        if course?.assignments.count == 0 {
+            print("DOES IT BREAK WHEN THERE ARE NO ASSIGNMENTS YET?")
+        }
         
-        assignments = realm.objects(Assignment).sorted("created_at").map { $0 }
+        assignments = (course?.assignments.sorted("created_at").map { $0 })!
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
@@ -125,7 +131,7 @@ class CourseScheduleTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
         
-        cell.subview.backgroundColor = pastelFromString(assignments[indexPath.row].course!.color)
+        cell.subview.backgroundColor = pastelFromInt(assignments[indexPath.row].course!.color)
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         

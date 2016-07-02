@@ -35,8 +35,7 @@ class StaticNotesTableViewController: UITableViewController {
     // MARK: - Testing
     
     func postTestNotes() {
-        let realm = try! Realm()
-        if realm.objects(StaticNote).count > 0 {
+        if course?.static_notes.count > 0 {
             return
         }
         
@@ -84,7 +83,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadNetworkNotes(callback: Void -> Void) {
-        if TESTING { sleep(2) }
+        if TESTING { sleep(0) }
         
         GET("/static_notes/of_course/\(self.course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {

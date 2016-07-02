@@ -41,7 +41,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
             return
         }
         
-        POST("/messages", parameters: ["text":"First!", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/messages", parameters: ["text":"First!", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self)
             }
@@ -51,7 +51,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self)
             }
@@ -61,7 +61,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self)
             }
@@ -97,7 +97,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureBubbles() {
-        outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromString(course!.color))
+        outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(course!.color))
         incomingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
     }
     
@@ -108,25 +108,28 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func loadMessages() {
-        if TESTING { postTestMessages() }
-        
+        if TESTING { print("POSTING"); postTestMessages() }
+        print("DONE POSTING")
         loadRealmMessages()
         reloadMessagesView()
         
-        while true {
+        
             loadNetworkMessages() {
                 self.loadRealmMessages()
                 self.reloadMessagesView()
             }
             
             sleep(1)
-        }
+        
     }
     
     func loadRealmMessages() {
         messages.removeAll()
         
+        print(course?.messages)
+        
         if course?.messages == nil || course?.messages.count == 0 {
+            print("What")
             return
         }
         
@@ -136,27 +139,31 @@ class GroupMessagesViewController: JSQMessagesViewController {
             messages.append(message)
         }
         
+        print("JSQ MESSAGES:", messages.count)
+        
         finishReceivingMessage()
     }
     
     func loadNetworkMessages(callback: Void -> Void) {
-        if TESTING { sleep(2) }
+        if TESTING { sleep(0) }
         
-        GET("/chats/\(USER!.email)?userid=\(USER!.id!)&lastId=\((course?.messages.sorted("created_at").last?.id)!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
+        
+        GET("/messages/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self)
             }else if (res != nil) {
                 var network_messages = [GroupMessage]()
                 
-                for json_message in res!["chats"] {
+                for json_message in res!["messages"].arrayValue {
                     let message = GroupMessage()
-                    message.id = json_message.1["id"].stringValue
-                    message.text = json_message.1["text"].stringValue
-                    message.score = json_message.1["score"].intValue
+                    message.id = json_message["id"].stringValue
+                    message.text = json_message["text"].stringValue
+                    message.score = json_message["score"].intValue
                     message.course = self.course
-                    message.created_at = dateFromString(json_message.1["created_at"].stringValue)
-                    message.user = json_message.1["user"].string == nil ? nil : USER!
-                    
+                    message.created_at = dateFromString(json_message["created_at"].stringValue)
+                    message.user = json_message["user"].string == nil ? nil : USER!
+                    print(message)
                     network_messages.append(message)
                 }
                 

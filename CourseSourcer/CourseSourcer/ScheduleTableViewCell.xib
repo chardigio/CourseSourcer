@@ -30,7 +30,7 @@
                                                     <constraint firstAttribute="height" constant="64" id="T0x-Ha-VTz"/>
                                                 </constraints>
                                             </imageView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="September 27, 2016 11:30 - 12:30" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-kF-2xB">
+                                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="September 27, 2016 11:30 - 12:30" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nCS-kF-2xB">
                                                 <rect key="frame" x="86" y="54" width="219" height="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
@@ -68,9 +68,7 @@
             </constraints>
             <connections>
                 <outlet property="assignment_pic" destination="hQ9-Ru-KaP" id="v3V-I9-AxN"/>
-                <outlet property="course_pic" destination="hQ9-Ru-KaP" id="65w-xN-gdi"/>
                 <outlet property="date_label" destination="nCS-kF-2xB" id="dBm-E2-zWy"/>
-                <outlet property="event_pic" destination="hQ9-Ru-KaP" id="gsg-gL-GE4"/>
                 <outlet property="subview" destination="dWv-Fg-u7V" id="WtY-OI-YFc"/>
                 <outlet property="title_label" destination="IG5-u4-XUF" id="RGP-C5-BLI"/>
             </connections>

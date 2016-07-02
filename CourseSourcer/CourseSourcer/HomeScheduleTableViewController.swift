@@ -51,6 +51,10 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
+        if USER == nil {
+            return
+        }
+        
         GET("/assignments/of_user/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -60,6 +64,7 @@ class HomeScheduleTableViewController: UITableViewController {
                 var network_assignments = [Assignment]()
                 
                 for obj in res!["assignments"].arrayValue {
+                    print(obj)
                     let assignment = Assignment()
                     assignment.id = obj["id"].stringValue
                     assignment.title = obj["title"].stringValue
@@ -72,7 +77,7 @@ class HomeScheduleTableViewController: UITableViewController {
                 
                 try! realm.write {
                     for assignment in network_assignments {
-                        realm.add(assignment)
+                        realm.add(assignment, update: true)
                     }
                 }
                 
@@ -94,7 +99,7 @@ class HomeScheduleTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
 
-        cell.subview.backgroundColor = pastelFromString(assignments[indexPath.row].course!.color)
+        cell.subview.backgroundColor = pastelFromInt(assignments[indexPath.row].course!.color)
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         

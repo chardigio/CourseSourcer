@@ -8,7 +8,7 @@ server = rek 'server'
 router.post '/', server.loadUser, (req, res, next) -> #load user and check for by_admin
   msg = new Message _.pick req.body, 'text', 'course', 'user'
   msg.score = 0
-  msg.by_admin = (req.user.admin_of.indexOf msg.course > -1)
+  # msg.by_admin = (req.user.admin_of.indexOf msg.course > -1)
 
   msg.save (err, message) ->
     if err then next err
@@ -48,15 +48,16 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
 
   if nullQuery offset then offset = 0
 
-  admin = (req.user.admin_of.indexOf req.params.courseId > -1)
+  #admin = (req.user.admin_of.indexOf req.params.courseId > -1)
+  admin = no
 
-  if lastId isnt null and lastId isnt ''
+  if lastId and lastId isnt null and lastId isnt ''
     Message.find(_id: $gt: lastId, course: req.params.courseId).sort('-created_at').limit(limit).populate('user').exec (err, nextMessages) ->
       if err then next err
       else
         if not admin
           for message in nextMessages #not deepcopy, fix
-            if message.user.id isnt req.user.id then message.user = null
+            message.user = null #if message.user.id isnt req.user.id
         res.send messages: nextMessages.reverse()
   else
     Message.find(course: req.params.courseId).sort('-created_at').skip(offset).limit(limit).populate('user').exec (err, messages) ->
@@ -64,7 +65,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
       else
         if not admin
           for message in messages #not deepcopy, fix
-            if message.user.id isnt req.user.id then message.user = null
-        res.send messages: messages.reverse()
+            message.user = null #if message.user.id isnt req.user.id
+        res.send messages: messages #.reverse()
 
 module.exports = router

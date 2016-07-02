@@ -13,7 +13,7 @@ class CourseTableViewCell: UITableViewCell {
     @IBOutlet weak var term_field: UITextField!
     @IBOutlet weak var course_label: UILabel!
     @IBOutlet weak var subview: UIView!
-    
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
     }

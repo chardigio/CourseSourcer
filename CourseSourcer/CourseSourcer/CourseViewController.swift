@@ -33,12 +33,12 @@ class CourseViewController: UITabBarController {
         navigationItem.title = course!.name
         
 //        UIView.animateWithDuration(0.2, animations: {
-            self.navigationController?.navigationBar.barTintColor = pastelFromString(self.course!.color)
+            self.navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
 //        })
     }
 
     func configureTabBar() {
-        UITabBar.appearance().tintColor = pastelFromString(course!.color)
+        UITabBar.appearance().tintColor = pastelFromInt(course!.color)
     }
     
     /*

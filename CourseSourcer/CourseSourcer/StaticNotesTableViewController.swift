@@ -120,7 +120,7 @@ class StaticNotesTableViewController: UITableViewController {
         let note = notes[indexPath.row]
         cell.title_label.text = note.title
         cell.preview_textview.text = note.text
-        cell.date_label.text = note.created_at?.description
+        cell.date_label.text = note.created_at?.prettyDescription
 
         return cell
     }

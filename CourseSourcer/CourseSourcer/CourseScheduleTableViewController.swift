@@ -132,10 +132,10 @@ class CourseScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignments[indexPath.row].title
         
         if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.description
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription
         }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.description + " - " +
-                assignments[indexPath.row].time_end!.description
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription + " - " +
+                assignments[indexPath.row].time_end!.prettyDescription
         }
         
         return cell

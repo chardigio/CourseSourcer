@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import RealmSwift
 
+// MARK: - Misc
+
 let TESTING = true
 var TESTING_CLASSMATE_ID = "57765bee7cf69056b8c10285"
 
@@ -17,6 +19,8 @@ var PREFS: NSUserDefaults? = nil
 var USER: User? = nil
 var CONFIRMED: Bool? = nil
 var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
+
+let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 
 enum PASTELS: Int {
     case PINK   = 0,
@@ -31,7 +35,7 @@ enum PASTELS: Int {
     }
 }
 
-let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00) 
+// MARK: - Functions
 
 func pastelFromInt(color: Int) -> UIColor {
     switch color {
@@ -71,18 +75,6 @@ func showError(vc: UIViewController, message: String = "Could not connect to ser
     vc.presentViewController(alertController, animated: true, completion: nil)
 }
 
-func courseFromString(courseString: String) -> Course? {
-    let realm = try! Realm()
-    let courses_that_are_the_actual_course = realm.objects(Course).filter("id == \(courseString)")
-    
-    if courses_that_are_the_actual_course.count > 0 {
-        return courses_that_are_the_actual_course[0]
-    }else{
-        print("ERROR:", "Could not parse course:", courseString, ".")
-        return nil
-    }
-}
-
 func dateFromString(dateString: String?) -> NSDate? {
     if dateString == nil {
         return nil
@@ -106,4 +98,17 @@ func stringFromDate(date: NSDate) -> String {
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSZZ"
     
     return dateFormatter.stringFromDate(date)
+}
+
+// MARK: - Extensions
+
+extension NSDate {
+    var prettyDescription: String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.timeStyle = .ShortStyle
+        
+        let date_and_time = formatter.stringFromDate(self).componentsSeparatedByString(" at ")
+        return date_and_time[1] + " " + date_and_time[0]
+    }
 }

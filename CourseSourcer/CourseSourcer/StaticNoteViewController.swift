@@ -33,7 +33,7 @@ class StaticNoteViewController: UIViewController {
     func configureFields() {
         score_label.text = note?.score.description
         content_textview.text = note?.text
-        date_label.text = note?.created_at?.description
+        date_label.text = note?.created_at?.prettyDescription
         subject_label.text = note?.title
     }
 

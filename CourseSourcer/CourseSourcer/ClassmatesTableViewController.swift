@@ -186,9 +186,9 @@ class ClassmatesTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            performSegueWithIdentifier("ClassmatesToGroupMessages", sender: course)
+            performSegueWithIdentifier("ClassmatesToGroupMessages", sender: nil)
         }else{
-            performSegueWithIdentifier("ClassmatesToDirectMessages", sender: course)
+            performSegueWithIdentifier("ClassmatesToDirectMessages", sender: data[indexPath.section][indexPath.row])
         }
     }
     
@@ -225,10 +225,11 @@ class ClassmatesTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ClassmatesToGroupMessages" {
             let vc = segue.destinationViewController as! GroupMessagesViewController
-            vc.course = sender as? Course
+            vc.course = course
         }else if segue.identifier == "ClassmatesToDirectMessages" {
             let vc = segue.destinationViewController as! DirectMessagesViewController
-            vc.course = sender as? Course
+            vc.course = course
+            vc.classmate = sender as? User
         }
     }
 }

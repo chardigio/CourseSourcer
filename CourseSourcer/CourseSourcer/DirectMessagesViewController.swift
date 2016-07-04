@@ -149,7 +149,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/chats/\(classmate?.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/chats/\((classmate?.email)!)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

@@ -6,15 +6,17 @@ User = rek 'models/user'
 server = rek 'components/server'
 
 #post chat
-router.post '/', server.loadUser, (req, res, next) ->
+router.post '/', (req, res, next) -> #server.loadUser was here
   User.findOne email: req.body.to, (err, partner) ->
+    console.log "partner:", partner
     if err then next err
     else
       chat = new Chat _.pick req.body, 'text', 'course'
-      chat.from = req.user.id
+      chat.from = req.body.user
       chat.to = partner.id
 
       chat.save (err, chat) ->
+        console.log "chat:", chat
         if err then next err
         else res.status(201).send 'chat': chat
 

@@ -12,13 +12,15 @@ import RealmSwift
 
 // MARK: - Misc
 
-let TESTING = true
-var TESTING_CLASSMATE_ID = "57765bee7cf69056b8c10285"
+let TESTING: Bool = true
+var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285"
 
 var PREFS: NSUserDefaults? = nil
 var USER: User? = nil
 var CONFIRMED: Bool? = nil
 var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
+
+var ERROR_MESSAGE_SHOWN: Bool = false
 
 let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 
@@ -44,7 +46,8 @@ func pastelFromInt(color: Int) -> UIColor {
         case PASTELS.BEIGE.hashValue:  return UIColor(red:0.91, green:0.87, blue:0.76, alpha:1.00);
         case PASTELS.YELLOW.hashValue: return UIColor(red:1.00, green:0.93, blue:0.58, alpha:1.00);
         case PASTELS.BLUE.hashValue:   return UIColor(red:0.77, green:1.00, blue:0.96, alpha:1.00);
-        default:                       return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00); // SHOULD NEVER DEFAULT
+        default:                       return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00);
+        // SHOULD NEVER DEFAULT
     }
 }
 
@@ -68,7 +71,13 @@ func getLeastUsedColor() -> Int {
     return lowestIndex
 }
 
-func showError(vc: UIViewController, message: String = "Could not connect to server.") {
+func showError(vc: UIViewController, overrideAndShow: Bool = false, message: String = "Could not connect to server.") {
+    if ERROR_MESSAGE_SHOWN && !overrideAndShow {
+        return
+    }else {
+        ERROR_MESSAGE_SHOWN = true
+    }
+    
     let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
     let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
     alertController.addAction(defaultAction)

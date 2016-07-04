@@ -114,13 +114,10 @@ class GroupMessagesViewController: JSQMessagesViewController {
         reloadMessagesView()
         
         
-            loadNetworkMessages() {
-                self.loadRealmMessages()
-                self.reloadMessagesView()
-            }
-            
-            sleep(1)
-        
+        loadNetworkMessages() {
+            self.loadRealmMessages()
+            self.reloadMessagesView()
+        }
     }
     
     func loadRealmMessages() {
@@ -211,32 +208,18 @@ class GroupMessagesViewController: JSQMessagesViewController {
         return nil
     }
     
-    //DOESNT WORK
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        POST("/messages", parameters: ["text":text, "course":course!.id, "user":PREFS!.stringForKey("userId")!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
+        self.messages.append(message)
+        
+        self.finishSendingMessage()
+        
+        POST("/messages", parameters: ["text":text, "course":course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
-                showError(self)
-            }else if res != nil {
-                let realm = try! Realm()
-                let json_message = res!["message"]
-                
-                let realm_message = GroupMessage()
-                realm_message.id = json_message["id"].stringValue
-                realm_message.text = json_message["text"].stringValue
-                realm_message.score = json_message["score"].intValue
-                realm_message.course = self.course!
-                realm_message.created_at = NSDate()
-                realm_message.user = USER
-                
-                try! realm.write {
-                    realm.add(realm_message)
-                }
-                
-                let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-                self.messages += [message]
-                
-                self.finishSendingMessage()
+                showError(self, overrideAndShow: true)
             }
+            
+            self.loadMessages()
         })
     }
     

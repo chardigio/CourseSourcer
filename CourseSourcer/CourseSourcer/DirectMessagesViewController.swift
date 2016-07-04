@@ -37,6 +37,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     // MARK: - Testing
     
+    // DOESNT WORK
     func postTestMessages() {
         if course!.messages.count > 0 {
             return
@@ -119,9 +120,6 @@ class DirectMessagesViewController: JSQMessagesViewController {
             self.loadRealmMessages()
             self.reloadMessagesView()
         }
-        
-        sleep(1)
-        
     }
     
     func loadRealmMessages() {
@@ -149,7 +147,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/chats/\((classmate?.email)!)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/chats/\(classmate!.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -161,10 +159,10 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     let message = DirectMessage()
                     message.id = json_message["id"].stringValue
                     message.text = json_message["text"].stringValue
-                    message.course = self.course
                     message.created_at = dateFromString(json_message["created_at"].stringValue)
-                    
-                    message.user = (json_message["to"].stringValue == USER!.email) ? realm.objectForPrimaryKey(User.self, key: json_message["from"].string) : realm.objectForPrimaryKey(User.self, key: json_message["to"].string)
+                    message.from_me = (json_message["from"].stringValue == USER!.email)
+                    message.user = self.classmate
+                    message.course = self.course
                     
                     network_messages.append(message)
                 }
@@ -213,31 +211,18 @@ class DirectMessagesViewController: JSQMessagesViewController {
         return nil
     }
     
-    //DOESNT WORK
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        POST("/chats", parameters: ["text":text, "course":course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
+        self.messages.append(message)
+        
+        self.finishSendingMessage()
+        
+        POST("/chats", parameters: ["text":text, "course":course!.id, "user":USER!.id!, "to":classmate!.email], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
-                showError(self)
-            }else if res != nil {
-                let realm = try! Realm()
-                let json_message = res!["chat"]
-                
-                let realm_message = GroupMessage()
-                realm_message.id = json_message["id"].stringValue
-                realm_message.text = json_message["text"].stringValue
-                realm_message.course = self.course!
-                realm_message.created_at = NSDate()
-                realm_message.user = USER
-                
-                try! realm.write {
-                    realm.add(realm_message)
-                }
-                
-                let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-                self.messages += [message]
-                
-                self.finishSendingMessage()
+                showError(self, overrideAndShow: true)
             }
+            
+            self.loadMessages()
         })
     }
     
@@ -252,5 +237,4 @@ class DirectMessagesViewController: JSQMessagesViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    
 }

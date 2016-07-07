@@ -34,6 +34,10 @@ class ClassmatesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
+    }
+    
     // MARK: - Testing
     
     func postTestClassmates() {

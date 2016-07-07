@@ -8,7 +8,6 @@ server = rek 'components/server'
 #post chat
 router.post '/', (req, res, next) -> #server.loadUser was here
   User.findOne email: req.body.to, (err, partner) ->
-    console.log "partner:", partner
     if err then next err
     else
       chat = new Chat _.pick req.body, 'text', 'course'
@@ -16,7 +15,6 @@ router.post '/', (req, res, next) -> #server.loadUser was here
       chat.to = partner.id
 
       chat.save (err, chat) ->
-        console.log "chat:", chat
         if err then next err
         else res.status(201).send 'chat': chat
 
@@ -52,7 +50,7 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
             for chat in nextChats #not deepcopy, fix
               chat.to = chat.to.email
               chat.from = chat.from.email
-            res.send chats: nextChats #.reverse()
+            res.send chats: nextChats
       else
         Chat.find(search).sort('-created_at').skip(offset).limit(limit).exec (err, chats) ->
           if err then next err
@@ -61,6 +59,6 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
               chat.to = chat.to.email
               chat.from = chat.from.email
 
-            res.send chats: chats #.reverse()
+            res.send chats: chats
 
 module.exports = router

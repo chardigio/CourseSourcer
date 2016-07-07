@@ -509,26 +509,26 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 27, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rt7-cO-y5n">
-                                            <rect key="frame" x="424" y="17" width="128" height="20"/>
+                                            <rect key="frame" x="464" y="17" width="128" height="20"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
-                                            <rect key="frame" x="8" y="45" width="544" height="42"/>
+                                            <rect key="frame" x="8" y="45" width="584" height="46"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                            <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="rt7-cO-y5n" secondAttribute="trailing" constant="40" id="Fhr-I9-6ki"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="rt7-cO-y5n" secondAttribute="trailing" id="Fhr-I9-6ki"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="L1e-g0-2WL" secondAttribute="trailing" constant="40" id="MD4-MW-Qmc"/>
                                         <constraint firstAttribute="topMargin" secondItem="L1e-g0-2WL" secondAttribute="top" id="XsX-SJ-apL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="dQJ-ot-KW0" secondAttribute="trailing" constant="40" id="ZZS-jl-8gP"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="dQJ-ot-KW0" secondAttribute="bottom" constant="4" id="ZeT-oM-BXF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dQJ-ot-KW0" secondAttribute="trailing" id="ZZS-jl-8gP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dQJ-ot-KW0" secondAttribute="bottom" id="ZeT-oM-BXF"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="dQJ-ot-KW0" secondAttribute="leading" id="eza-R7-UeQ"/>
                                         <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="rt7-cO-y5n" secondAttribute="bottom" constant="8" id="jZR-hK-qK2"/>
                                         <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="4" id="rXI-RQ-ITz"/>
@@ -629,7 +629,9 @@
                             <constraint firstItem="qL0-XB-JzU" firstAttribute="top" secondItem="FMX-oj-EN6" secondAttribute="bottom" id="wUl-b9-9h2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Static Note" id="zd8-eE-D7A"/>
+                    <navigationItem key="navigationItem" title="Static Note" id="zd8-eE-D7A">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="1DV-xV-p7d"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="content_textview" destination="FMX-oj-EN6" id="o34-ub-9QA"/>
                         <outlet property="date_label" destination="47y-r7-3yL" id="Nmb-UA-3qU"/>
@@ -791,6 +793,7 @@
                         <segue destination="X0P-QV-Hse" kind="relationship" relationship="viewControllers" id="ukC-LD-Qii"/>
                         <segue destination="emL-OH-Tgh" kind="relationship" relationship="viewControllers" id="fyk-Nj-e2e"/>
                         <segue destination="NQZ-dH-zBa" kind="relationship" relationship="viewControllers" id="var-13-A7o"/>
+                        <segue destination="0yx-Jl-9kS" kind="show" identifier="CourseToNewNote" id="fqg-md-3Jh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFJ-tp-lto" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -922,6 +925,73 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yjm-dj-OHN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-654" y="1243"/>
+        </scene>
+        <!--New Note-->
+        <scene sceneID="JDG-5v-x9U">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fk5-zd-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="0yx-Jl-9kS" userLabel="New Note" customClass="NewNoteViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c4r-RB-k7e"/>
+                        <viewControllerLayoutGuide type="bottom" id="mXV-SC-PFG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qHq-QJ-box">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="September 27, 2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHh-x7-PWd">
+                                <rect key="frame" x="20" y="125" width="128" height="20"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X4k-op-51A">
+                                <rect key="frame" x="0.0" y="154" width="600" height="2"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.71017481390000003" blue="0.79162215709999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="mH1-Oq-cZJ"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Abd-jG-Ac4">
+                                <rect key="frame" x="20" y="76" width="98" height="41"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" text="Course Name - Date" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BzX-lD-Azj">
+                                <rect key="frame" x="20" y="164" width="560" height="379"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="Abd-jG-Ac4" secondAttribute="leading" id="8GJ-Gf-3f9"/>
+                            <constraint firstItem="Abd-jG-Ac4" firstAttribute="top" secondItem="c4r-RB-k7e" secondAttribute="bottom" constant="12" id="DNh-Pb-30h"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BzX-lD-Azj" secondAttribute="trailing" id="RCR-IJ-ifU"/>
+                            <constraint firstItem="X4k-op-51A" firstAttribute="top" secondItem="c4r-RB-k7e" secondAttribute="bottom" constant="90" id="Tsf-lb-gyg"/>
+                            <constraint firstItem="BzX-lD-Azj" firstAttribute="top" secondItem="X4k-op-51A" secondAttribute="bottom" constant="8" id="a0Z-In-7Pm"/>
+                            <constraint firstItem="mXV-SC-PFG" firstAttribute="top" secondItem="BzX-lD-Azj" secondAttribute="bottom" constant="8" id="c7u-IN-eLf"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="XHh-x7-PWd" secondAttribute="leading" id="dQy-yd-gCA"/>
+                            <constraint firstItem="X4k-op-51A" firstAttribute="leading" secondItem="qHq-QJ-box" secondAttribute="leadingMargin" constant="-20" id="eNl-of-6LC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BzX-lD-Azj" secondAttribute="trailing" id="iXr-jd-IeF"/>
+                            <constraint firstItem="X4k-op-51A" firstAttribute="top" secondItem="XHh-x7-PWd" secondAttribute="bottom" constant="9" id="s1H-8d-o8c"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Abd-jG-Ac4" secondAttribute="trailing" id="tRJ-LH-rT6"/>
+                            <constraint firstItem="X4k-op-51A" firstAttribute="width" secondItem="qHq-QJ-box" secondAttribute="width" id="w7B-B2-SAg"/>
+                            <constraint firstItem="BzX-lD-Azj" firstAttribute="leading" secondItem="qHq-QJ-box" secondAttribute="leadingMargin" id="zmm-zq-Lry"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Note" id="7UA-SG-zp4">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="sXX-hy-a2m"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="content_textview" destination="BzX-lD-Azj" id="g53-EK-8h7"/>
+                        <outlet property="date_label" destination="XHh-x7-PWd" id="7vp-cD-x4i"/>
+                        <outlet property="subject_textfield" destination="Abd-jG-Ac4" id="Cq3-Mc-Plh"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3219" y="384"/>
         </scene>
     </scenes>
     <resources>

@@ -32,6 +32,10 @@ class HomeScheduleTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Personal
     
     func loadAssignments() {
@@ -103,10 +107,10 @@ class HomeScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignments[indexPath.row].title
         
         if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription
         }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription + " - " +
-                                   assignments[indexPath.row].time_end!.prettyDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription + " - " +
+                                   assignments[indexPath.row].time_end!.prettyDateTimeDescription
         }
 
         return cell

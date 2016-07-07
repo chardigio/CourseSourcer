@@ -24,6 +24,10 @@ var ERROR_MESSAGE_SHOWN: Bool = false
 
 let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 
+var COURSE_ITEM_TAB = COURSE_ITEM_TABS.STATIC_NOTES
+
+// MARK: - Enums
+
 enum PASTELS: Int {
     case PINK   = 0,
          ORANGE = 1,
@@ -35,6 +39,13 @@ enum PASTELS: Int {
         return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
                                           // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
     }
+}
+
+enum COURSE_ITEM_TABS: Int {
+    case STATIC_NOTES,
+         SCHEDULE,
+         CLASSMATES,
+         SETTINGS
 }
 
 // MARK: - Functions
@@ -112,12 +123,19 @@ func stringFromDate(date: NSDate) -> String {
 // MARK: - Extensions
 
 extension NSDate {
-    var prettyDescription: String {
+    var prettyDateTimeDescription: String {
         let formatter = NSDateFormatter()
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
         formatter.timeStyle = .ShortStyle
         
         let date_and_time = formatter.stringFromDate(self).componentsSeparatedByString(" at ")
         return date_and_time[1] + " " + date_and_time[0]
+    }
+    
+    var prettyDateDescription: String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        
+        return formatter.stringFromDate(self)
     }
 }

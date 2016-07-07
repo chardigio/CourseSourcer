@@ -30,6 +30,10 @@ class CoursesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
     // MARK: - Testing
     
     func postTestUserAndCourses() {

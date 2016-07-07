@@ -36,21 +36,30 @@ class CourseViewController: UITabBarController {
     func configureNavigationBar() {
         navigationItem.title = course!.name
         
-        self.navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
+        navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
+
+        navigationItem.backBarButtonItem?.title = "Home" // DOESNT WORK
     }
 
-    func configureTabBar() {
+    func configureTabBar(){
         UITabBar.appearance().tintColor = pastelFromInt(course!.color)
     }
     
-    /*
+    func addTapped() {
+        if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
+            performSegueWithIdentifier("CourseToNewNote", sender: nil)
+        }
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "CourseToNewNote" {
+            let vc = segue.destinationViewController as! NewNoteViewController
+            vc.course = course
+        }
     }
-    */
-
 }

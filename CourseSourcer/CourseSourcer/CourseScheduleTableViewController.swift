@@ -34,6 +34,10 @@ class CourseScheduleTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        COURSE_ITEM_TAB = COURSE_ITEM_TABS.SCHEDULE
+    }
+    
     // MARK: - Testing
     
     func postTestAssignments() {
@@ -132,10 +136,10 @@ class CourseScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignments[indexPath.row].title
         
         if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription
         }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDescription + " - " +
-                assignments[indexPath.row].time_end!.prettyDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription + " - " +
+                assignments[indexPath.row].time_end!.prettyDateTimeDescription
         }
         
         return cell

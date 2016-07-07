@@ -47,6 +47,7 @@
 		CB278FCA1D0CBEA200217EB3 /* NewCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */; };
 		CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */; };
 		CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */; };
+		CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */; };
 		CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */; };
 		CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EB7931D142300000A58FD /* HomeViewController.swift */; };
 		CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */; };
@@ -120,6 +121,7 @@
 		CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseViewController.swift; sourceTree = "<group>"; };
 		CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 		CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		CB8EB7931D142300000A58FD /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CBB29CD21D15E8F900FBB9B4 /* CourseSourcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseSourcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -224,6 +226,7 @@
 				CB278F9C1D0AE5C000217EB3 /* DirectMessagesViewController.swift */,
 				CB11838C1D180F4A0064A693 /* CourseScheduleTableViewCell.swift */,
 				CB278FA21D0AE5F700217EB3 /* StaticNoteViewController.swift */,
+				CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */,
 				CB278FA41D0AE61B00217EB3 /* AssignmentViewController.swift */,
 				CB278FA61D0AE62C00217EB3 /* ExamViewController.swift */,
 				CB278FAE1D0AE6AC00217EB3 /* RealmModels */,
@@ -555,6 +558,7 @@
 				CB278F991D0AE57B00217EB3 /* CoursesTableViewController.swift in Sources */,
 				CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */,
 				CB278FB01D0AE72300217EB3 /* Course.swift in Sources */,
+				CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */,
 				CB1183871D180F170064A693 /* CourseScheduleTableViewController.swift in Sources */,
 				CB278F681D0AE17C00217EB3 /* AppDelegate.swift in Sources */,
 				CB278FA31D0AE5F700217EB3 /* StaticNoteViewController.swift in Sources */,

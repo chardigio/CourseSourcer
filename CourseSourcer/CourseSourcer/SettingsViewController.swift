@@ -21,6 +21,10 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        COURSE_ITEM_TAB = COURSE_ITEM_TABS.SETTINGS
+    }
+    
     /*
     // MARK: - Navigation
 

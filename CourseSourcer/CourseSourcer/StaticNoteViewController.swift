@@ -16,11 +16,13 @@ class StaticNoteViewController: UIViewController {
     @IBOutlet weak var content_textview: UITextView!
     @IBOutlet weak var date_label: UILabel!
     @IBOutlet weak var subject_label: UILabel!
+    @IBOutlet weak var delimiter_view: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureFields()
+        configureDelimiter()
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +37,10 @@ class StaticNoteViewController: UIViewController {
         content_textview.text = note?.text
         date_label.text = note?.created_at?.prettyDateTimeDescription
         subject_label.text = note?.title
+    }
+    
+    func configureDelimiter() {
+        delimiter_view.backgroundColor = pastelFromInt(course!.color)
     }
 
     /*

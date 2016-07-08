@@ -33,7 +33,7 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        tableView.reloadData()
+        loadAssignments()
     }
     
     // MARK: - Personal

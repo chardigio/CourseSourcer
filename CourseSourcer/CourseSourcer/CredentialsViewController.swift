@@ -28,9 +28,9 @@ class CredentialsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBarHidden = true
-        
-        //profile_pic.layer.cornerRadius = 64
+        configureNavigationBar()
+        configureProfilePic()
+        disableButton(login_button)
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,6 +39,20 @@ class CredentialsViewController: UIViewController {
     }
     
     // MARK: - Personal
+    
+    func configureNavigationBar() {
+        navigationController?.navigationBarHidden = true
+    }
+    
+    func configureProfilePic() {
+        profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
+        profile_pic.layer.borderWidth = 1
+        
+        profile_pic.layer.cornerRadius = profile_pic.frame.height / 2
+        
+        profile_pic.layer.masksToBounds = false
+        profile_pic.clipsToBounds = true
+    }
     
     func enableButton(button: UIButton) {
         button.enabled = true
@@ -104,13 +118,11 @@ class CredentialsViewController: UIViewController {
             logging_in = true
             
             UIView.animateWithDuration(0.5, animations: {
-                    self.name_field.alpha = 0.9
-                    self.profile_pic.alpha = 1
+                    self.name_field.alpha = 0
+                    self.profile_pic.alpha = 0
                     self.disableButton(self.login_button)
                     self.enableButton(self.signup_button)
-                }, completion: { (finished: Bool) -> Void in
-                    //
-            })
+                }, completion: nil)
         }
     }
     
@@ -124,9 +136,7 @@ class CredentialsViewController: UIViewController {
                 
                 self.enableButton(self.login_button)
                 self.disableButton(self.signup_button)
-            }, completion: { (finished: Bool) -> Void in
-                self.login_button.frame.offsetInPlace(dx: 130, dy: 35)
-            })
+            }, completion: nil)
         }else{
             POST("/users", parameters: ["name":name_field.text!, "password":password_field.text!, "email":email_field.text!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {

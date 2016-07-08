@@ -31,7 +31,7 @@ class CoursesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        tableView.reloadData()
+        loadUserAndCourses()
     }
     
     // MARK: - Testing

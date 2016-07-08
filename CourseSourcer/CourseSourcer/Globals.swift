@@ -128,8 +128,7 @@ extension NSDate {
         formatter.dateStyle = NSDateFormatterStyle.LongStyle
         formatter.timeStyle = .ShortStyle
         
-        let date_and_time = formatter.stringFromDate(self).componentsSeparatedByString(" at ")
-        return date_and_time[1] + " " + date_and_time[0]
+        return formatter.stringFromDate(self).componentsSeparatedByString(" at ").joinWithSeparator(" ")
     }
     
     var prettyDateDescription: String {

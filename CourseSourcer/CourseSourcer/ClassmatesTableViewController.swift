@@ -36,6 +36,7 @@ class ClassmatesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
+        loadClassmates()
     }
     
     // MARK: - Testing
@@ -107,6 +108,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadGroupChatPseudoClassmate() {
+        data[0].removeAll()
         data[0].append(group_chat_pseudo_classmate)
     }
     

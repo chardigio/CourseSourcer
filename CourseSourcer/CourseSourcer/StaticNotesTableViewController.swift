@@ -34,6 +34,7 @@ class StaticNotesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = COURSE_ITEM_TABS.STATIC_NOTES
+        loadNotes()
     }
 
     // MARK: - Testing
@@ -123,9 +124,10 @@ class StaticNotesTableViewController: UITableViewController {
 
         let note = notes[indexPath.row]
         cell.title_label.text = note.title
+        cell.date_label.text = note.created_at?.prettyDateDescription
         cell.preview_textview.text = note.text
-        cell.date_label.text = note.created_at?.prettyDateTimeDescription
-
+        cell.preview_textview.setContentOffset(CGPointZero, animated: false)
+        
         return cell
     }
 

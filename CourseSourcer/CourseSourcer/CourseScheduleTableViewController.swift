@@ -36,6 +36,7 @@ class CourseScheduleTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = COURSE_ITEM_TABS.SCHEDULE
+        loadAssignments()
     }
     
     // MARK: - Testing

@@ -24,28 +24,30 @@ var ERROR_MESSAGE_SHOWN: Bool = false
 
 let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 
-var COURSE_ITEM_TAB = COURSE_ITEM_TABS.STATIC_NOTES
+var COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
 
 // MARK: - Enums
 
+enum COURSE_ITEM_TABS {
+    case
+        CLASSMATES,
+        SCHEDULE,
+        STATIC_NOTES,
+        SETTINGS
+}
+
 enum PASTELS: Int {
-    case PINK   = 0,
-         ORANGE = 1,
-         BEIGE  = 2,
-         YELLOW = 3,
-         BLUE   = 4
+    case
+        PINK   = 0,
+        ORANGE = 1,
+        BEIGE  = 2,
+        YELLOW = 3,
+        BLUE   = 4
     
     static var count: Int {
         return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
                                           // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
     }
-}
-
-enum COURSE_ITEM_TABS: Int {
-    case STATIC_NOTES,
-         SCHEDULE,
-         CLASSMATES,
-         SETTINGS
 }
 
 // MARK: - Functions

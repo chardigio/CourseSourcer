@@ -9,11 +9,13 @@
 import UIKit
 
 class AboutViewController: UIViewController {
+    @IBOutlet weak var name_field: UITextField!
+    @IBOutlet weak var bio_field: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        configureFields()
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,7 +23,17 @@ class AboutViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: - Personal
+    
+    func configureFields() {
+        name_field.text = USER!.name
+        bio_field.text = USER!.bio
+    }
+    
+    @IBAction func homeButtonPressed(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

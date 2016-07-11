@@ -37,6 +37,8 @@ class NewNoteViewController: UIViewController {
         navigationItem.setHidesBackButton(true, animated: true)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneTapped))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelTapped))
     }
     
     func configureDate() {
@@ -87,6 +89,23 @@ class NewNoteViewController: UIViewController {
         }
         
         presentViewController(alert!, animated: true, completion: nil)
+    }
+    
+    func cancelTapped() {
+        if (subject_textfield.text == nil || subject_textfield.text == "") &&
+           (content_textview.text  == nil || content_textview.text  == "") {
+            self.navigationController?.popViewControllerAnimated(true)
+        }else{
+            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to discard all changes?", preferredStyle: UIAlertControllerStyle.Alert)
+            
+            alert.addAction(UIAlertAction(title: "Discard Changes", style: UIAlertActionStyle.Destructive, handler: {action in
+                self.navigationController?.popViewControllerAnimated(true)
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            
+            presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     /*

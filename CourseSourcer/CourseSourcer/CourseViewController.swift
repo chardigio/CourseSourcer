@@ -23,12 +23,11 @@ class CourseViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
-        //self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
-    }
-    
     override func willMoveToParentViewController(parent: UIViewController?) {
         self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
+        
+        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        navigationController!.navigationBar.shadowImage = UIImage()
     }
     
     // MARK: - Personal
@@ -45,6 +44,10 @@ class CourseViewController: UITabBarController {
 
     func configureTabBar(){
         UITabBar.appearance().tintColor = pastelFromInt(course!.color)
+        
+        
+        navigationController!.navigationBar.setBackgroundImage(nil, forBarMetrics: .Default)
+        navigationController!.navigationBar.shadowImage = nil
     }
     
     func addTapped() {

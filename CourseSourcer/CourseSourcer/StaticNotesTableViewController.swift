@@ -168,7 +168,8 @@ class StaticNotesTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "StaticNotesToStaticNote" {
             let vc = segue.destinationViewController as! StaticNoteViewController
-            vc.course = sender as? Course
+            
+            vc.course = course
             vc.note = sender as? StaticNote
         }
     }

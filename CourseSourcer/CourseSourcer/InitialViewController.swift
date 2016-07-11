@@ -53,9 +53,32 @@ class InitialViewController: UINavigationController {
     // MARK: - Personal
 
     func configureNavigationBar() {
-        navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        // set title font
+        navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 24)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        
+        // set Me font
         UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
+        
+        hideHairline()
     }
+    
+    func hideHairline() {
+        navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        navigationBar.shadowImage = UIImage()
+    }
+    
+    /*
+    // Seems to make the bar have a weird tint after going to a different vc and returning
+    func hideHairline() {
+        for parent in navigationBar.subviews {
+            for child in parent.subviews {
+                if child is UIImageView {
+                    child.removeFromSuperview()
+                }
+            }
+        }
+    }
+    */
     
     /*
     // MARK: - Navigation

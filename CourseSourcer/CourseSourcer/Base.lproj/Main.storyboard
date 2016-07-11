@@ -17,9 +17,72 @@
                     <view key="view" contentMode="scaleToFill" id="u2S-d4-Jes">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headshot" translatesAutoresizingMaskIntoConstraints="NO" id="2RA-jz-AL5">
+                                <rect key="frame" x="268" y="100" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="Zn0-yz-nai"/>
+                                    <constraint firstAttribute="height" constant="64" id="z5w-LW-jZ2"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="This will be some kind of bio" placeholder="Bio" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a29-Su-5Dw">
+                                <rect key="frame" x="0.0" y="216" width="600" height="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CourseSourcer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijU-22-Iiy">
+                                <rect key="frame" x="143" y="366" width="315" height="66"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="48"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cd17822" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEz-ZA-NoB">
+                                <rect key="frame" x="267" y="432" width="66" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Charles DiGiovanna" placeholder="Full Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MtR-hO-4cM">
+                                <rect key="frame" x="210" y="180" width="181" height="28"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHU-6A-OcZ">
+                                <rect key="frame" x="20" y="40" width="41" height="30"/>
+                                <state key="normal" title="Home">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="homeButtonPressed:" destination="LeC-Xj-MBo" eventType="touchUpInside" id="Azl-fl-dCq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="2RA-jz-AL5" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="059-mP-xjg"/>
+                            <constraint firstItem="a29-Su-5Dw" firstAttribute="top" secondItem="MtR-hO-4cM" secondAttribute="bottom" constant="8" id="0RU-ef-9Xm"/>
+                            <constraint firstItem="SBI-UL-sSW" firstAttribute="top" secondItem="PEz-ZA-NoB" secondAttribute="bottom" constant="103" id="Lqt-mA-ocL"/>
+                            <constraint firstItem="MtR-hO-4cM" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="QiV-O2-9w5"/>
+                            <constraint firstItem="a29-Su-5Dw" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="UZ7-cW-7X0"/>
+                            <constraint firstItem="a29-Su-5Dw" firstAttribute="width" secondItem="u2S-d4-Jes" secondAttribute="width" id="XO4-8I-ing"/>
+                            <constraint firstItem="HHU-6A-OcZ" firstAttribute="top" secondItem="ybN-7L-Lb9" secondAttribute="bottom" constant="20" id="XXm-nx-IzK"/>
+                            <constraint firstItem="PEz-ZA-NoB" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="Ync-49-iU6"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="HHU-6A-OcZ" secondAttribute="leading" id="ZcW-f3-Oqb"/>
+                            <constraint firstItem="PEz-ZA-NoB" firstAttribute="top" secondItem="ijU-22-Iiy" secondAttribute="bottom" id="aDL-UY-uQO"/>
+                            <constraint firstItem="MtR-hO-4cM" firstAttribute="top" secondItem="2RA-jz-AL5" secondAttribute="bottom" constant="16" id="dFR-Wd-j1f"/>
+                            <constraint firstItem="ijU-22-Iiy" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="nTl-tn-9Ei"/>
+                            <constraint firstItem="2RA-jz-AL5" firstAttribute="top" secondItem="ybN-7L-Lb9" secondAttribute="bottom" constant="80" id="tyz-LA-IeZ"/>
+                        </constraints>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="About" id="hUW-zt-zkW"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="bio_field" destination="a29-Su-5Dw" id="zfQ-V9-k8m"/>
+                        <outlet property="name_field" destination="MtR-hO-4cM" id="y6Q-tb-k2V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="45d-XB-qEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -209,7 +272,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3y-pL-iOj">
+                            <navigationBar clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B3y-pL-iOj">
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <color key="barTintColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
                             </navigationBar>
@@ -813,7 +876,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Lsv-Ac-AZm">
+                    <toolbar key="toolbar" hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Lsv-Ac-AZm">
                         <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
@@ -851,7 +914,7 @@
         <scene sceneID="Fh5-pK-guu">
             <objects>
                 <tableViewController id="SFZ-Wt-Ndg" userLabel="Home Schedule" customClass="HomeScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

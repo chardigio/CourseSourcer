@@ -7,6 +7,16 @@
 //
 
 import UIKit
+import SwiftyJSON
+
+enum AssignmentType {
+    case
+        Homework,
+        Paper,
+        Labwork,
+        Exam,
+        Quiz
+}
 
 class NewAssignmentViewController: UIViewController {
     var course: Course? = nil
@@ -23,11 +33,15 @@ class NewAssignmentViewController: UIViewController {
     @IBOutlet weak var date_picker: UIDatePicker!
     @IBOutlet weak var type_picker: UIPickerView!
 
+    var assignment_type: AssignmentType = AssignmentType.Homework
+    var date_due: NSDate? = nil
+    var date_ends: NSDate? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureNavigationBar()
+        configureLabelOutlets()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,22 +59,38 @@ class NewAssignmentViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelTapped))
     }
     
+    func configureLabelOutlets() {
+        date_due_label.addGestureRecognizer(/*uhh idk*/)
+    }
+    
     func doneTapped() {
         var alert: UIAlertController? = nil
         
         if title_field.text == nil || title_field.text == "" {
-            alert = UIAlertController(title: "Error", message: "Please enter a subject for your note.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter a title for your assignment.", preferredStyle: .Alert)
             
             alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        }else if date_due == nil && isTakeHomeAssignment() {
+            alert = UIAlertController(title: "Error", message: "Please enter a due date/time for your assignment.", preferredStyle: .Alert)
             
+            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        }else if date_due == nil && !isTakeHomeAssignment() {
+            alert = UIAlertController(title: "Error", message: "Please enter a start date/time for your assignment.", preferredStyle: .Alert)
+            
+            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        }else if date_ends == nil && !isTakeHomeAssignment() {
+            alert = UIAlertController(title: "Error", message: "Please enter an end date/time for your assignment.", preferredStyle: .Alert)
+            
+            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         }else{
             alert = UIAlertController(title: "Exit", message: "Do you wish to save this note and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
             
             alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
                 POST("/static_notes", parameters:
-                    ["text": self.content_textview.text!,
-                        "subject": self.subject_textfield.text!,
-                        "course": self.course!.id,
+                       ["title": self.title_field.text!,
+                        "time_begin": self.date_due!.description,
+                        "time_end": self.date_ends?.description ?? "",
+                        "course": self.course!.name,
                         "user": USER!.id!],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
@@ -81,9 +111,14 @@ class NewAssignmentViewController: UIViewController {
         presentViewController(alert!, animated: true, completion: nil)
     }
     
+    func isTakeHomeAssignment() -> Bool {
+        return  assignment_type == AssignmentType.Homework ||
+                assignment_type == AssignmentType.Labwork  ||
+                assignment_type == AssignmentType.Paper
+    }
+    
     func cancelTapped() {
-        if (subject_textfield.text == nil || subject_textfield.text == "") &&
-            (content_textview.text  == nil || content_textview.text  == "") {
+        if title_field.text == nil || title_field.text == "" {
             self.navigationController?.popViewControllerAnimated(true)
         }else{
             let alert = UIAlertController(title: "Exit", message: "Are you sure you want to discard all changes?", preferredStyle: UIAlertControllerStyle.Alert)

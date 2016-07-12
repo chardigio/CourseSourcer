@@ -10,6 +10,7 @@
 		651032F4A3496E6AF82410AB /* Pods_CourseSourcerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A951AACE67CDF2040C8BF95 /* Pods_CourseSourcerTests.framework */; };
 		7959EC4C1094E1CF9B44AC8B /* Pods_CourseSourcerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327F7D93FFA3D46230379829 /* Pods_CourseSourcerUITests.framework */; };
 		87B73F5BA9683BC32FB69575 /* Pods_CourseSourcer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47418466D3F3DE07BB73FECA /* Pods_CourseSourcer.framework */; };
+		CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */; };
 		CB1183831D180A980064A693 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183821D180A980064A693 /* CourseViewController.swift */; };
 		CB1183871D180F170064A693 /* CourseScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */; };
 		CB1183891D180F250064A693 /* HomeScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */; };
@@ -81,6 +82,7 @@
 		7F2146F7C1C9CFF2FBDE5502 /* Pods-CourseSourcerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcerUITests/Pods-CourseSourcerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9328EAC5D4205E6EB5DE3AA2 /* Pods-CourseSourcerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcerTests/Pods-CourseSourcerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A951AACE67CDF2040C8BF95 /* Pods_CourseSourcerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseSourcerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAssignmentViewController.swift; sourceTree = "<group>"; };
 		CB1183821D180A980064A693 /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CourseScheduleTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScheduleTableViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				CB278FA21D0AE5F700217EB3 /* StaticNoteViewController.swift */,
 				CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */,
 				CB278FA41D0AE61B00217EB3 /* AssignmentViewController.swift */,
+				CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */,
 				CB278FA61D0AE62C00217EB3 /* ExamViewController.swift */,
 				CB278FAE1D0AE6AC00217EB3 /* RealmModels */,
 				CB278F6B1D0AE17C00217EB3 /* Main.storyboard */,
@@ -552,6 +555,7 @@
 				CB278FA91D0AE65100217EB3 /* StaticNotesTableViewController.swift in Sources */,
 				CB278F701D0AE17C00217EB3 /* CourseSourcer.xcdatamodeld in Sources */,
 				CB278FCA1D0CBEA200217EB3 /* NewCourseViewController.swift in Sources */,
+				CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */,
 				CB1183891D180F250064A693 /* HomeScheduleTableViewController.swift in Sources */,
 				CB278FA11D0AE5E100217EB3 /* AboutViewController.swift in Sources */,
 				CB278FBA1D0AE78F00217EB3 /* Assignment.swift in Sources */,

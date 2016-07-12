@@ -9,7 +9,10 @@
 import UIKit
 
 class AssignmentViewController: UIViewController {
-
+    var course: Course? = nil
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

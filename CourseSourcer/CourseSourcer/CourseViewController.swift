@@ -51,7 +51,9 @@ class CourseViewController: UITabBarController {
     }
     
     func addTapped() {
-        if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
+        if COURSE_ITEM_TAB == COURSE_ITEM_TABS.SCHEDULE {
+            performSegueWithIdentifier("CourseToNewAssignment", sender: nil)
+        }else if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
             performSegueWithIdentifier("CourseToNewNote", sender: nil)
         }
     }

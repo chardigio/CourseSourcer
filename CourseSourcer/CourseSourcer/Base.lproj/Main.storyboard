@@ -781,7 +781,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLU-TQ-Jb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1604" y="1117"/>
+            <point key="canvasLocation" x="1692" y="1117"/>
         </scene>
         <!--Assignment-->
         <scene sceneID="MPZ-Qb-yAb">
@@ -857,6 +857,7 @@
                         <segue destination="X0P-QV-Hse" kind="relationship" relationship="viewControllers" id="P5b-uD-29f"/>
                         <segue destination="Uxo-kd-xWu" kind="relationship" relationship="viewControllers" id="clh-Vl-yYG"/>
                         <segue destination="NQZ-dH-zBa" kind="relationship" relationship="viewControllers" id="VfG-Xi-Ibw"/>
+                        <segue destination="dQO-Hd-je7" kind="show" identifier="CourseToNewAssignment" id="Sdz-Ah-Ray"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DFJ-tp-lto" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1056,6 +1057,114 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fk5-zd-GB4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3219" y="384"/>
+        </scene>
+        <!--New Assignment View Controller-->
+        <scene sceneID="LB3-S9-gdo">
+            <objects>
+                <viewController id="dQO-Hd-je7" customClass="NewAssignmentViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zme-bR-BJh"/>
+                        <viewControllerLayoutGuide type="bottom" id="y7O-Xs-nrg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bTK-ef-ZfH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mfl-Ik-dyZ">
+                                <rect key="frame" x="20" y="88" width="63" height="41"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="nJm-Fa-YPt">
+                                <rect key="frame" x="20" y="322" width="560" height="235"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="235" id="vt0-jM-hgl"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="490018201.91655803">
+                                    <!--2016-07-12 12:10:01 +0000-->
+                                </date>
+                            </datePicker>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntT-mZ-zNN">
+                                <rect key="frame" x="20" y="322" width="560" height="229"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="229" id="NYF-hJ-fW7"/>
+                                </constraints>
+                            </pickerView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZY-jR-Jg1">
+                                <rect key="frame" x="20" y="146" width="51" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eZF-dv-DHU">
+                                <rect key="frame" x="20" y="196" width="45" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZX-om-I7V">
+                                <rect key="frame" x="20" y="246" width="53" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:00 AM September 27, 2016" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hw4-Tx-C9f">
+                                <rect key="frame" x="332" y="254" width="248" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9:35 AM September 27, 2016 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NvX-wU-PvI">
+                                <rect key="frame" x="337" y="204" width="243" height="25"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Assignment" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lz1-ce-H5G">
+                                <rect key="frame" x="454" y="146" width="126" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="24"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BZX-om-I7V" firstAttribute="leading" secondItem="eZF-dv-DHU" secondAttribute="leading" id="0cd-5X-FJS"/>
+                            <constraint firstItem="NvX-wU-PvI" firstAttribute="bottom" secondItem="eZF-dv-DHU" secondAttribute="bottom" id="2AX-zQ-50f"/>
+                            <constraint firstItem="hZY-jR-Jg1" firstAttribute="top" secondItem="Mfl-Ik-dyZ" secondAttribute="bottom" constant="17" id="3NE-b2-gVF"/>
+                            <constraint firstItem="hZY-jR-Jg1" firstAttribute="leading" secondItem="Mfl-Ik-dyZ" secondAttribute="leading" id="3TI-i8-eNP"/>
+                            <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="nJm-Fa-YPt" secondAttribute="bottom" constant="-6" id="6SR-VD-PDO"/>
+                            <constraint firstItem="Mfl-Ik-dyZ" firstAttribute="top" secondItem="zme-bR-BJh" secondAttribute="bottom" constant="24" id="AQr-pC-gVE"/>
+                            <constraint firstItem="eZF-dv-DHU" firstAttribute="leading" secondItem="hZY-jR-Jg1" secondAttribute="leading" id="AgQ-pZ-KxQ"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Mfl-Ik-dyZ" secondAttribute="leading" id="Iz6-SK-qSZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ntT-mZ-zNN" secondAttribute="trailing" id="KBK-Td-NsC"/>
+                            <constraint firstItem="eZF-dv-DHU" firstAttribute="top" secondItem="hZY-jR-Jg1" secondAttribute="bottom" constant="17" id="Kf3-md-ZGz"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="nJm-Fa-YPt" secondAttribute="leading" id="NPr-yg-BJl"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="ntT-mZ-zNN" secondAttribute="leading" id="ROC-dr-fLy"/>
+                            <constraint firstItem="hw4-Tx-C9f" firstAttribute="bottom" secondItem="BZX-om-I7V" secondAttribute="bottom" id="U1f-bu-duG"/>
+                            <constraint firstItem="lz1-ce-H5G" firstAttribute="centerY" secondItem="hZY-jR-Jg1" secondAttribute="centerY" id="aHf-Iw-0C3"/>
+                            <constraint firstItem="hw4-Tx-C9f" firstAttribute="trailing" secondItem="NvX-wU-PvI" secondAttribute="trailing" id="fvT-I3-MQK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="m9c-lG-y4b"/>
+                            <constraint firstItem="NvX-wU-PvI" firstAttribute="trailing" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="s0V-sr-CwG"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nJm-Fa-YPt" secondAttribute="trailing" id="wSm-T9-uDL"/>
+                            <constraint firstItem="BZX-om-I7V" firstAttribute="top" secondItem="eZF-dv-DHU" secondAttribute="bottom" constant="17" id="y7M-aO-FzY"/>
+                            <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="ntT-mZ-zNN" secondAttribute="bottom" id="zAi-ZF-q6E"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="date_due_label" destination="NvX-wU-PvI" id="K5h-0N-Ibp"/>
+                        <outlet property="date_ends_label" destination="hw4-Tx-C9f" id="mx1-JW-9gv"/>
+                        <outlet property="date_picker" destination="nJm-Fa-YPt" id="det-KM-RNL"/>
+                        <outlet property="due_label" destination="eZF-dv-DHU" id="WQ5-qR-WgN"/>
+                        <outlet property="ends_label" destination="BZX-om-I7V" id="p47-Np-k3c"/>
+                        <outlet property="title_field" destination="Mfl-Ik-dyZ" id="Ol5-X2-OTg"/>
+                        <outlet property="type_label" destination="lz1-ce-H5G" id="2ea-NI-uep"/>
+                        <outlet property="type_picker" destination="ntT-mZ-zNN" id="l7D-Zx-QDB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chP-Cb-kE9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3219" y="1117"/>
         </scene>
     </scenes>
     <resources>

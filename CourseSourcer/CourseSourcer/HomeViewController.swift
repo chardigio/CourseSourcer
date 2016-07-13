@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
     // MARK: - Personal
     func configureSegmentController() {
         segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application)
-        segment_controller.addTarget(self, action: #selector(HomeViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
+        segment_controller.addTarget(self, action: #selector(segmentChanged), forControlEvents: .ValueChanged)
     }
     
     func segmentChanged(gesture: UIGestureRecognizer){

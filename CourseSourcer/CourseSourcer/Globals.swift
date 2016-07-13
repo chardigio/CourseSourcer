@@ -36,13 +36,13 @@ enum COURSE_ITEM_TABS {
         SETTINGS
 }
 
-enum PASTELS: Int {
+enum PASTELS{
     case
-        PINK   = 0,
-        ORANGE = 1,
-        BEIGE  = 2,
-        YELLOW = 3,
-        BLUE   = 4
+        PINK,
+        ORANGE,
+        BEIGE,
+        YELLOW,
+        BLUE
     
     static var count: Int {
         return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE

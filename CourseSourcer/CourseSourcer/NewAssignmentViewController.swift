@@ -9,16 +9,18 @@
 import UIKit
 import SwiftyJSON
 
-enum AssignmentType {
+enum AssignmentType: String {
     case
-        Homework,
-        Paper,
-        Labwork,
-        Exam,
-        Quiz
+        Homework = "Homework",
+        Paper    = "Paper",
+        Labwork  = "Labwork",
+        Exam     = "Exam",
+        Quiz     = "Quiz"
+    
+    static let values = [Homework, Paper, Labwork, Exam, Quiz]
 }
 
-class NewAssignmentViewController: UIViewController {
+class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var course: Course? = nil
     
     @IBOutlet weak var title_field: UITextField!
@@ -30,8 +32,9 @@ class NewAssignmentViewController: UIViewController {
     @IBOutlet weak var date_due_label: UILabel!
     @IBOutlet weak var date_ends_label: UILabel!
     
-    @IBOutlet weak var date_picker: UIDatePicker!
     @IBOutlet weak var type_picker: UIPickerView!
+    @IBOutlet weak var date_due_picker: UIDatePicker!
+    @IBOutlet weak var date_ends_picker: UIDatePicker!
 
     var assignment_type: AssignmentType = AssignmentType.Homework
     var date_due: NSDate? = nil
@@ -39,8 +42,10 @@ class NewAssignmentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureNavigationBar()
+        configurePickerView()
+        configureLabels()
         configureLabelOutlets()
     }
 
@@ -59,8 +64,57 @@ class NewAssignmentViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelTapped))
     }
     
+    func configurePickerView() {
+        type_picker.dataSource = self
+        type_picker.delegate = self
+    }
+    
+    func configureLabels() {
+        type_label.text = assignment_type.rawValue
+        date_due_label.text = date_due_picker.date.prettyDateTimeDescription
+        date_ends_label.text = date_ends_picker.date.prettyDateTimeDescription
+    }
+    
     func configureLabelOutlets() {
-        date_due_label.addGestureRecognizer(/*uhh idk*/)
+        type_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(typeLabelTapped)))
+        date_due_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dateDueLabelTapped)))
+        date_ends_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dateEndsLabelTapped)))
+    }
+    
+    func typeLabelTapped() {
+        view.endEditing(true)
+        hidePickers()
+        type_picker.hidden = false
+    }
+
+    func dateDueLabelTapped() {
+        view.endEditing(true)
+        hidePickers()
+        date_due_picker.hidden = false
+    }
+    
+    func dateEndsLabelTapped() {
+        view.endEditing(true)
+        hidePickers()
+        date_ends_picker.hidden = false
+    }
+    
+    func hidePickers() {
+        type_picker.hidden = true
+        date_due_picker.hidden = true
+        date_ends_picker.hidden = true
+    }
+    
+    @IBAction func titleFieldDidBeginEditing(sender: AnyObject) {
+        hidePickers()
+    }
+    
+    @IBAction func dateDuePickerValueChanged(sender: AnyObject) {
+        configureLabels()
+    }
+    
+    @IBAction func dateEndsPickerValueChanged(sender: AnyObject) {
+        configureLabels()
     }
     
     func doneTapped() {
@@ -130,6 +184,33 @@ class NewAssignmentViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
             
             presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - PickerView delegate methods
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return AssignmentType.values.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return AssignmentType.values[row].rawValue
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        assignment_type = AssignmentType.values[row]
+        type_label.text = assignment_type.rawValue
+        
+        if isTakeHomeAssignment() {
+            ends_label.hidden = true
+            date_ends_label.hidden = true
+        }else{
+            ends_label.hidden = false
+            date_ends_label.hidden = false
         }
     }
     

@@ -1074,6 +1074,9 @@
                                 <rect key="frame" x="20" y="88" width="63" height="41"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="titleFieldDidBeginEditing:" destination="dQO-Hd-je7" eventType="editingDidBegin" id="kpf-Rc-zIC"/>
+                                </connections>
                             </textField>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="nJm-Fa-YPt">
                                 <rect key="frame" x="20" y="322" width="560" height="235"/>
@@ -1083,6 +1086,9 @@
                                 <date key="date" timeIntervalSinceReferenceDate="490018201.91655803">
                                     <!--2016-07-12 12:10:01 +0000-->
                                 </date>
+                                <connections>
+                                    <action selector="dateDuePickerValueChanged:" destination="dQO-Hd-je7" eventType="valueChanged" id="c8y-gx-OdU"/>
+                                </connections>
                             </datePicker>
                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntT-mZ-zNN">
                                 <rect key="frame" x="20" y="322" width="560" height="229"/>
@@ -1126,6 +1132,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="k5G-a0-Jhr">
+                                <rect key="frame" x="20" y="335" width="560" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="cBh-Ti-EUT"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="490103723.17648602">
+                                    <!--2016-07-13 11:55:23 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateEndsPickerValueChanged:" destination="dQO-Hd-je7" eventType="valueChanged" id="4wX-z4-rCA"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1139,12 +1157,15 @@
                             <constraint firstAttribute="leadingMargin" secondItem="Mfl-Ik-dyZ" secondAttribute="leading" id="Iz6-SK-qSZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ntT-mZ-zNN" secondAttribute="trailing" id="KBK-Td-NsC"/>
                             <constraint firstItem="eZF-dv-DHU" firstAttribute="top" secondItem="hZY-jR-Jg1" secondAttribute="bottom" constant="17" id="Kf3-md-ZGz"/>
+                            <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="k5G-a0-Jhr" secondAttribute="bottom" id="MB0-NT-Bnb"/>
                             <constraint firstAttribute="leadingMargin" secondItem="nJm-Fa-YPt" secondAttribute="leading" id="NPr-yg-BJl"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="k5G-a0-Jhr" secondAttribute="leading" id="Qzf-4c-GZM"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ntT-mZ-zNN" secondAttribute="leading" id="ROC-dr-fLy"/>
                             <constraint firstItem="hw4-Tx-C9f" firstAttribute="bottom" secondItem="BZX-om-I7V" secondAttribute="bottom" id="U1f-bu-duG"/>
                             <constraint firstItem="lz1-ce-H5G" firstAttribute="centerY" secondItem="hZY-jR-Jg1" secondAttribute="centerY" id="aHf-Iw-0C3"/>
                             <constraint firstItem="hw4-Tx-C9f" firstAttribute="trailing" secondItem="NvX-wU-PvI" secondAttribute="trailing" id="fvT-I3-MQK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="m9c-lG-y4b"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="k5G-a0-Jhr" secondAttribute="trailing" id="pRl-k7-jNQ"/>
                             <constraint firstItem="NvX-wU-PvI" firstAttribute="trailing" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="s0V-sr-CwG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nJm-Fa-YPt" secondAttribute="trailing" id="wSm-T9-uDL"/>
                             <constraint firstItem="BZX-om-I7V" firstAttribute="top" secondItem="eZF-dv-DHU" secondAttribute="bottom" constant="17" id="y7M-aO-FzY"/>
@@ -1153,8 +1174,9 @@
                     </view>
                     <connections>
                         <outlet property="date_due_label" destination="NvX-wU-PvI" id="K5h-0N-Ibp"/>
+                        <outlet property="date_due_picker" destination="nJm-Fa-YPt" id="ILk-WE-Odh"/>
                         <outlet property="date_ends_label" destination="hw4-Tx-C9f" id="mx1-JW-9gv"/>
-                        <outlet property="date_picker" destination="nJm-Fa-YPt" id="det-KM-RNL"/>
+                        <outlet property="date_ends_picker" destination="k5G-a0-Jhr" id="DqG-Dn-Tcy"/>
                         <outlet property="due_label" destination="eZF-dv-DHU" id="WQ5-qR-WgN"/>
                         <outlet property="ends_label" destination="BZX-om-I7V" id="p47-Np-k3c"/>
                         <outlet property="title_field" destination="Mfl-Ik-dyZ" id="Ol5-X2-OTg"/>

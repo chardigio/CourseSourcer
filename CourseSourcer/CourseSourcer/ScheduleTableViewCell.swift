@@ -24,5 +24,20 @@ class ScheduleTableViewCell: UITableViewCell {
         
         super.setSelected(selected, animated: animated)
     }
-
+    
+    // MARK: - Personal
+    
+    func populateDateLabel(timeBegin:NSDate, timeEnd: NSDate?) {
+        if timeEnd == nil {
+            date_label.text = "Due: " + timeBegin.prettyButShortDateTimeDescription
+        }else{
+            if timeBegin.prettyDateDescription != timeEnd?.prettyDateDescription {
+                date_label.text = "When: " + timeBegin.prettyButShortDateTimeDescription + " - " +
+                    timeEnd!.prettyButShortDateTimeDescription
+            }else{
+                date_label.text = "When: " + timeBegin.prettyButShortDateTimeDescription + " - " +
+                    timeEnd!.prettyTimeDescription
+            }
+        }
+    }
 }

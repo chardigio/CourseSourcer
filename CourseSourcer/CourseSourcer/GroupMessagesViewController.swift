@@ -66,17 +66,6 @@ class GroupMessagesViewController: JSQMessagesViewController {
                 showError(self)
             }
         })
-        
-        /*
-        for i in 1...20 {
-            let sender = (i%5 != 0) ? "Server" : self.senderId
-            let messageContent = "Message #\(i)"
-            let message = JSQMessage(senderId: sender, displayName: sender, text: messageContent)
-            self.messages += [message]
-        }
- 
-        reloadMessagesView()
-         */
     }
     
     // MARK: - Personal
@@ -92,7 +81,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureSender() {
-        senderId = USER!.id! // UIDevice.currentDevice().identifierForVendor?.UUIDString
+        senderId = USER!.id!
         senderDisplayName = USER!.name
     }
     
@@ -141,7 +130,6 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func loadNetworkMessages(callback: Void -> Void) {
-        if TESTING { sleep(0) }
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         

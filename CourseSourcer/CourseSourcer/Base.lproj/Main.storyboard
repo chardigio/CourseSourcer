@@ -1078,6 +1078,12 @@
                                     <action selector="titleFieldDidBeginEditing:" destination="dQO-Hd-je7" eventType="editingDidBegin" id="kpf-Rc-zIC"/>
                                 </connections>
                             </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Notes: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uMa-w1-vFV">
+                                <rect key="frame" x="20" y="302" width="560" height="249"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                             <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="nJm-Fa-YPt">
                                 <rect key="frame" x="20" y="322" width="560" height="235"/>
                                 <constraints>
@@ -1151,12 +1157,6 @@
                                     <constraint firstAttribute="height" constant="2" id="tAp-Vb-75Q"/>
                                 </constraints>
                             </view>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Notes: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uMa-w1-vFV">
-                                <rect key="frame" x="20" y="302" width="560" height="249"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

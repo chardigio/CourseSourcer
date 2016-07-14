@@ -156,12 +156,7 @@ class CourseScheduleTableViewController: UITableViewController {
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         
-        if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription
-        }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription + " - " +
-                assignments[indexPath.row].time_end!.prettyButShortDateTimeDescription
-        }
+        cell.populateDateLabel(assignments[indexPath.row].time_begin!, timeEnd: assignments[indexPath.row].time_end)
         
         return cell
     }

@@ -37,48 +37,12 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     // MARK: - Testing
     
-    // DOESNT WORK
     func postTestMessages() {
         if course!.messages.count > 0 {
             return
         }
-        /*
-        POST("/messages", parameters: ["text":"First!", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        POST("/messages", parameters: ["text":"Hey!", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        POST("/messages", parameters: ["text":"Isn't it??", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        */
-        /*
-         for i in 1...20 {
-         let sender = (i%5 != 0) ? "Server" : self.senderId
-         let messageContent = "Message #\(i)"
-         let message = JSQMessage(senderId: sender, displayName: sender, text: messageContent)
-         self.messages += [message]
-         }
-         
-         reloadMessagesView()
-         */
+        
+        // TODO?
     }
     
     // MARK: - Personal
@@ -94,7 +58,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func configureSender() {
-        senderId = USER!.id! // UIDevice.currentDevice().identifierForVendor?.UUIDString
+        senderId = USER!.id!
         senderDisplayName = USER!.name
     }
     
@@ -143,8 +107,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func loadNetworkMessages(callback: Void -> Void) {
-        if TESTING { sleep(0) }
-        
+
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
         GET("/chats/\(classmate!.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
@@ -171,6 +134,12 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     for message in network_messages {
                         realm.add(message, update: true)
                     }
+                    
+                    // SHOULD THIS BE LAST OR FIRST??
+                    print(network_messages)
+                    print(network_messages.last)
+                    print("This should be the most recent message^")
+                    self.classmate!.last_spoke = network_messages.last?.created_at
                 }
                 
                 callback()

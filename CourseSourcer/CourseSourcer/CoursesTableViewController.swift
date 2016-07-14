@@ -105,8 +105,6 @@ class CoursesTableViewController: UITableViewController {
             return
         }
         
-        if TESTING { sleep(0) }
-        
         GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

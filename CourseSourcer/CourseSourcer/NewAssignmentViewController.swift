@@ -11,13 +11,13 @@ import SwiftyJSON
 
 enum AssignmentType: String {
     case
-        Homework = "Homework",
         Paper    = "Paper",
         Labwork  = "Labwork",
+        Homework = "Homework",
         Exam     = "Exam",
         Quiz     = "Quiz"
     
-    static let values = [Homework, Paper, Labwork, Exam, Quiz]
+    static let values = [Paper, Labwork, Homework, Exam, Quiz]
 }
 
 class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
@@ -73,6 +73,8 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     func configurePickerView() {
         type_picker.dataSource = self
         type_picker.delegate = self
+        
+        type_picker.selectRow(2, inComponent: 0, animated: false)
     }
     
     func configureDates() {
@@ -184,9 +186,9 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func isTakeHomeAssignment() -> Bool {
-        return  assignment_type == AssignmentType.Homework ||
-                assignment_type == AssignmentType.Labwork  ||
-                assignment_type == AssignmentType.Paper
+        return assignment_type == AssignmentType.Labwork  ||
+               assignment_type == AssignmentType.Paper    ||
+               assignment_type == AssignmentType.Homework
     }
     
     func cancelTapped() {

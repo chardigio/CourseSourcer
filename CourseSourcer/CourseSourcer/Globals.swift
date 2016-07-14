@@ -150,6 +150,13 @@ extension NSDate {
         
         return formatter.stringFromDate(self)
     }
+    
+    var prettyTimeDescription: String {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .ShortStyle
+        
+        return formatter.stringFromDate(self)
+    }
 }
 
 extension UIImageView {

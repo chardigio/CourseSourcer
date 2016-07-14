@@ -22,7 +22,7 @@ router.put '/addCourse', (req, res, next) ->
 
 #update name of user
 router.put '/:userid', (req, res, next) -> # make sure this double update works (gonna also need pic handling)
-  User.findByIdAndUpdate req.params.userid, {name: req.body.name, bio: req.body.bio}, (err, user) ->
+  User.findByIdAndUpdate req.params.userid, {$set: {name: req.body.name, bio: req.body.bio}}, (err, user) ->
     if err then next err
     else res.status(200).send user: user
 

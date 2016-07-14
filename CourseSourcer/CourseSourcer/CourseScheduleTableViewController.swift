@@ -21,6 +21,7 @@ class CourseScheduleTableViewController: UITableViewController {
         
         configureCourse()
         loadAssignments()
+        configureContentOffset()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -46,7 +47,7 @@ class CourseScheduleTableViewController: UITableViewController {
             return
         }
         
-        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(60*60*24*10)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -85,8 +86,10 @@ class CourseScheduleTableViewController: UITableViewController {
         }
     }
     
-    func loadRealmAssignments() {        
-        assignments = (course?.assignments.sorted("created_at").map { $0 })!
+    func loadRealmAssignments() {
+        let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
+        
+        assignments = (course?.assignments.filter(predicate).sorted("created_at").reverse().map { $0 })!
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
@@ -102,6 +105,7 @@ class CourseScheduleTableViewController: UITableViewController {
                     assignment.title = obj["title"].stringValue
                     assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
                     assignment.time_end = dateFromString(obj["time_end"].string)
+                    assignment.notes = obj["notes"].string
                     assignment.course = self.course
                     
                     network_assignments.append(assignment)
@@ -117,6 +121,22 @@ class CourseScheduleTableViewController: UITableViewController {
                 callback()
             }
         })
+    }
+    
+    func configureContentOffset() {
+        if assignments.count == 0 {
+            return
+        }
+        
+        var overdue_assignments = 0
+        
+        for assignment in assignments {
+            if assignment.time_begin!.compare(NSDate()) == .OrderedAscending {
+                overdue_assignments += 1
+            }
+        }
+        
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
     }
     
     // MARK: - Table view data source
@@ -137,10 +157,10 @@ class CourseScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignments[indexPath.row].title
         
         if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription
         }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription + " - " +
-                assignments[indexPath.row].time_end!.prettyDateTimeDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription + " - " +
+                assignments[indexPath.row].time_end!.prettyButShortDateTimeDescription
         }
         
         return cell
@@ -181,13 +201,13 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     */
 
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "CourseScheduleToNewAssignment" {
-            let vc = segue.destinationViewController as! NewAssignmentViewController
-            
-            vc.course = course
-        }
-    }
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }

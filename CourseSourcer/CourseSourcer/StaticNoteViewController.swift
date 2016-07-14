@@ -20,8 +20,7 @@ class StaticNoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(course)
-        print(note)
+        
         configureFields()
         configureDelimiter()
     }
@@ -41,9 +40,6 @@ class StaticNoteViewController: UIViewController {
     }
     
     func configureDelimiter() {
-        while(course == nil) {
-            
-        }
         delimiter_view.backgroundColor = pastelFromInt(course!.color)
     }
 

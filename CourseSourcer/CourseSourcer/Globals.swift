@@ -24,6 +24,9 @@ var ERROR_MESSAGE_SHOWN: Bool = false
 
 let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 
+let TEN_DAYS : Double = 60*60*24*10
+let TWO_WEEKS: Double = 60*60*24*14
+
 var COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
 
 // MARK: - Enums
@@ -125,9 +128,17 @@ func stringFromDate(date: NSDate) -> String {
 // MARK: - Extensions
 
 extension NSDate {
+    var prettyButShortDateTimeDescription: String {
+        let formatter = NSDateFormatter()
+        formatter.dateStyle = .ShortStyle
+        formatter.timeStyle = .ShortStyle
+        
+        return formatter.stringFromDate(self).componentsSeparatedByString(" at ").joinWithSeparator(" ")
+    }
+    
     var prettyDateTimeDescription: String {
         let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.dateStyle = .LongStyle
         formatter.timeStyle = .ShortStyle
         
         return formatter.stringFromDate(self).componentsSeparatedByString(" at ").joinWithSeparator(" ")
@@ -135,8 +146,17 @@ extension NSDate {
     
     var prettyDateDescription: String {
         let formatter = NSDateFormatter()
-        formatter.dateStyle = NSDateFormatterStyle.LongStyle
+        formatter.dateStyle = .LongStyle
         
         return formatter.stringFromDate(self)
+    }
+}
+
+extension UIImageView {
+    func asACircle() {
+        self.layer.cornerRadius = self.frame.height / 2
+        
+        self.layer.masksToBounds = false
+        self.clipsToBounds = true
     }
 }

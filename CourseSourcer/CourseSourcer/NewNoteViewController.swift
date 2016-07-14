@@ -81,7 +81,7 @@ class NewNoteViewController: UIViewController {
                 })
             }))
             
-            alert!.addAction(UIAlertAction(title: "Discard Changes", style: UIAlertActionStyle.Destructive, handler: {action in
+            alert!.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.Destructive, handler: {action in
                 self.navigationController?.popViewControllerAnimated(true)
             }))
             
@@ -96,9 +96,9 @@ class NewNoteViewController: UIViewController {
            (content_textview.text  == nil || content_textview.text  == "") {
             self.navigationController?.popViewControllerAnimated(true)
         }else{
-            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to discard all changes?", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this note?", preferredStyle: UIAlertControllerStyle.Alert)
             
-            alert.addAction(UIAlertAction(title: "Discard Changes", style: UIAlertActionStyle.Destructive, handler: {action in
+            alert.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.Destructive, handler: {action in
                 self.navigationController?.popViewControllerAnimated(true)
             }))
             

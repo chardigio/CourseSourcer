@@ -65,6 +65,9 @@ class CourseViewController: UITabBarController {
         if segue.identifier == "CourseToNewNote" {
             let vc = segue.destinationViewController as! NewNoteViewController
             vc.course = course
+        }else if segue.identifier == "CourseToNewAssignment" {
+            let vc = segue.destinationViewController as! NewAssignmentViewController
+            vc.course = course
         }
     }
 }

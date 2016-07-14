@@ -8,7 +8,7 @@ server = rek 'components/server'
 
 #post assignment
 router.post '/', (req, res, next) ->
-  assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'course', 'user'
+  assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'notes', 'course', 'user'
   assignment.score = 0
   assignment.save (err, assignment) ->
     if err then next err

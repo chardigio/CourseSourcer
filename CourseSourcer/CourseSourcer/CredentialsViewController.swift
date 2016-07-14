@@ -45,13 +45,9 @@ class CredentialsViewController: UIViewController {
     }
     
     func configureProfilePic() {
+        profile_pic.asACircle()
         profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
         profile_pic.layer.borderWidth = 1
-        
-        profile_pic.layer.cornerRadius = profile_pic.frame.height / 2
-        
-        profile_pic.layer.masksToBounds = false
-        profile_pic.clipsToBounds = true
     }
     
     func enableButton(button: UIButton) {
@@ -151,6 +147,7 @@ class CredentialsViewController: UIViewController {
                         USER!.id = res!["user"]["id"].stringValue
                         USER!.me = true
                         USER!.name = res!["user"]["name"].stringValue
+                        USER!.bio = res!["user"]["bio"].string
                         realm.add(USER!, update: true)
                     }
                     

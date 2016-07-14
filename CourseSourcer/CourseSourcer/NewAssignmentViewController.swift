@@ -32,6 +32,10 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBOutlet weak var date_due_label: UILabel!
     @IBOutlet weak var date_ends_label: UILabel!
     
+    @IBOutlet weak var delimiter_view: UIView!
+    
+    @IBOutlet weak var notes_textview: UITextView!
+    
     @IBOutlet weak var type_picker: UIPickerView!
     @IBOutlet weak var date_due_picker: UIDatePicker!
     @IBOutlet weak var date_ends_picker: UIDatePicker!
@@ -45,6 +49,8 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         
         configureNavigationBar()
         configurePickerView()
+        configureDates()
+        configureDelimiter()
         configureLabels()
         configureLabelOutlets()
     }
@@ -69,10 +75,19 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         type_picker.delegate = self
     }
     
+    func configureDates() {
+        date_due = date_due_picker.date
+        date_ends = date_ends_picker.date
+    }
+    
+    func configureDelimiter() {
+        delimiter_view.backgroundColor = pastelFromInt(course!.color)
+    }
+    
     func configureLabels() {
         type_label.text = assignment_type.rawValue
-        date_due_label.text = date_due_picker.date.prettyDateTimeDescription
-        date_ends_label.text = date_ends_picker.date.prettyDateTimeDescription
+        date_due_label.text = date_due!.prettyDateTimeDescription
+        date_ends_label.text = date_ends!.prettyDateTimeDescription
     }
     
     func configureLabelOutlets() {
@@ -110,10 +125,12 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     @IBAction func dateDuePickerValueChanged(sender: AnyObject) {
+        configureDates()
         configureLabels()
     }
     
     @IBAction func dateEndsPickerValueChanged(sender: AnyObject) {
+        configureDates()
         configureLabels()
     }
     
@@ -137,15 +154,16 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
             
             alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         }else{
-            alert = UIAlertController(title: "Exit", message: "Do you wish to save this note and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert = UIAlertController(title: "Exit", message: "Do you wish to save this assignment and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
             
             alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
-                POST("/static_notes", parameters:
-                       ["title": self.title_field.text!,
-                        "time_begin": self.date_due!.description,
-                        "time_end": self.date_ends?.description ?? "",
-                        "course": self.course!.name,
-                        "user": USER!.id!],
+                POST("/assignments", parameters:
+                       ["title"      : self.title_field.text!,
+                        "time_begin" : self.date_due!.description,
+                        "time_end"   : self.date_ends?.description ?? "",
+                        "notes"      : self.notes_textview.text ?? "",
+                        "course"     : self.course!.id,
+                        "user"       : USER!.id!],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
                             showError(self)
@@ -155,7 +173,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
                 })
             }))
             
-            alert!.addAction(UIAlertAction(title: "Discard Changes", style: UIAlertActionStyle.Destructive, handler: {action in
+            alert!.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.Destructive, handler: {action in
                 self.navigationController?.popViewControllerAnimated(true)
             }))
             
@@ -175,9 +193,9 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         if title_field.text == nil || title_field.text == "" {
             self.navigationController?.popViewControllerAnimated(true)
         }else{
-            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to discard all changes?", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this assignment?", preferredStyle: UIAlertControllerStyle.Alert)
             
-            alert.addAction(UIAlertAction(title: "Discard Changes", style: UIAlertActionStyle.Destructive, handler: {action in
+            alert.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.Destructive, handler: {action in
                 self.navigationController?.popViewControllerAnimated(true)
             }))
             

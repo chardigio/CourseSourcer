@@ -7,6 +7,7 @@ schema = mongoose.Schema
   title: String
   time_begin: Date
   time_end: Date
+  notes: String
   score: Number
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'course'}
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}

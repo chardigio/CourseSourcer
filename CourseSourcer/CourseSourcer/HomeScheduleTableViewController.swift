@@ -19,6 +19,7 @@ class HomeScheduleTableViewController: UITableViewController {
         tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
         
         loadAssignments()
+        configureContentOffset()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -51,7 +52,9 @@ class HomeScheduleTableViewController: UITableViewController {
     func loadRealmAssignments() {
         let realm = try! Realm()
         
-        assignments = realm.objects(Assignment).sorted("created_at").map { $0 }
+        let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
+        
+        assignments = realm.objects(Assignment).filter(predicate).sorted("created_at").reverse().map { $0 }
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
@@ -73,6 +76,7 @@ class HomeScheduleTableViewController: UITableViewController {
                     assignment.title = obj["title"].stringValue
                     assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
                     assignment.time_end = dateFromString(obj["time_end"].string)
+                    assignment.notes = obj["notes"].string
                     assignment.course = realm.objectForPrimaryKey(Course.self, key: obj["course"].stringValue)
                     
                     network_assignments.append(assignment)
@@ -87,6 +91,22 @@ class HomeScheduleTableViewController: UITableViewController {
                 callback()
             }
         })
+    }
+    
+    func configureContentOffset() {
+        if assignments.count == 0 {
+            return
+        }
+        
+        var num_overdue_assignments = 0
+        
+        for assignment in assignments {
+            if assignment.time_begin!.compare(NSDate()) == .OrderedAscending {
+                num_overdue_assignments += 1
+            }
+        }
+        
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
     }
     
     // MARK: - Table view data source
@@ -107,10 +127,10 @@ class HomeScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignments[indexPath.row].title
         
         if assignments[indexPath.row].time_end == nil {
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription
         }else{
-            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyDateTimeDescription + " - " +
-                                   assignments[indexPath.row].time_end!.prettyDateTimeDescription
+            cell.date_label.text = assignments[indexPath.row].time_begin!.prettyButShortDateTimeDescription + " - " +
+                                   assignments[indexPath.row].time_end!.prettyButShortDateTimeDescription
         }
 
         return cell

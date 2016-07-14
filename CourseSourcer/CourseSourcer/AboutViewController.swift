@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class AboutViewController: UIViewController {
     @IBOutlet weak var name_field: UITextField!
     @IBOutlet weak var bio_field: UITextField!
+    @IBOutlet weak var profile_pic: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureFields()
+        configurePic()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,7 +33,17 @@ class AboutViewController: UIViewController {
         bio_field.text = USER!.bio
     }
     
-    @IBAction func homeButtonPressed(sender: AnyObject) {
+    func configurePic() {
+        profile_pic.asACircle()
+    }
+    
+    @IBAction func homeButtonPressed(sender: AnyObject) { // WILL EVENTUALLY BE ABLE TO UPDATE PIC HERE
+        PUT("/users/\(USER!.id!)", parameters: ["name": name_field.text!, "bio": bio_field.text ?? ""],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if (err != nil) {
+                showError(self, overrideAndShow: true, message: "Could not update account info.")
+            }
+        })
+        
         dismissViewControllerAnimated(true, completion: nil)
     }
     

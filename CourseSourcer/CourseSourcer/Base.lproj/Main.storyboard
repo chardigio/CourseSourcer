@@ -49,11 +49,10 @@
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHU-6A-OcZ">
-                                <rect key="frame" x="20" y="40" width="41" height="30"/>
-                                <state key="normal" title="Home">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHU-6A-OcZ">
+                                <rect key="frame" x="20" y="40" width="50" height="37"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
+                                <state key="normal" title="Home"/>
                                 <connections>
                                     <action selector="homeButtonPressed:" destination="LeC-Xj-MBo" eventType="touchUpInside" id="Azl-fl-dCq"/>
                                 </connections>
@@ -82,6 +81,7 @@
                     <connections>
                         <outlet property="bio_field" destination="a29-Su-5Dw" id="zfQ-V9-k8m"/>
                         <outlet property="name_field" destination="MtR-hO-4cM" id="y6Q-tb-k2V"/>
+                        <outlet property="profile_pic" destination="2RA-jz-AL5" id="7lK-NX-l1S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="45d-XB-qEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -709,7 +709,7 @@
         <scene sceneID="w78-UN-dnH">
             <objects>
                 <tableViewController id="X0P-QV-Hse" userLabel="Course Schedule" customClass="CourseScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -718,11 +718,11 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qzs-ZW-ahN" id="1Ld-r8-65F">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOj-Ks-EO4">
-                                            <rect key="frame" x="8" y="16" width="584" height="83"/>
+                                            <rect key="frame" x="8" y="16" width="584" height="84"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MGp-if-nYL">
                                                     <rect key="frame" x="8" y="10" width="64" height="64"/>
@@ -915,7 +915,7 @@
         <scene sceneID="Fh5-pK-guu">
             <objects>
                 <tableViewController id="SFZ-Wt-Ndg" userLabel="Home Schedule" customClass="HomeScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -924,11 +924,11 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Ms-A0-s0c" id="C0q-1n-IDt">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-ra-K48">
-                                            <rect key="frame" x="8" y="16" width="584" height="83"/>
+                                            <rect key="frame" x="8" y="16" width="584" height="84"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqt-G8-23r">
                                                     <rect key="frame" x="8" y="10" width="64" height="64"/>
@@ -1071,14 +1071,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mfl-Ik-dyZ">
-                                <rect key="frame" x="20" y="88" width="63" height="41"/>
+                                <rect key="frame" x="20" y="88" width="560" height="41"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="titleFieldDidBeginEditing:" destination="dQO-Hd-je7" eventType="editingDidBegin" id="kpf-Rc-zIC"/>
                                 </connections>
                             </textField>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="nJm-Fa-YPt">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="nJm-Fa-YPt">
                                 <rect key="frame" x="20" y="322" width="560" height="235"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="235" id="vt0-jM-hgl"/>
@@ -1088,6 +1088,18 @@
                                 </date>
                                 <connections>
                                     <action selector="dateDuePickerValueChanged:" destination="dQO-Hd-je7" eventType="valueChanged" id="c8y-gx-OdU"/>
+                                </connections>
+                            </datePicker>
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="k5G-a0-Jhr">
+                                <rect key="frame" x="20" y="335" width="560" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="cBh-Ti-EUT"/>
+                                </constraints>
+                                <date key="date" timeIntervalSinceReferenceDate="490103723.17648602">
+                                    <!--2016-07-13 11:55:23 +0000-->
+                                </date>
+                                <connections>
+                                    <action selector="dateEndsPickerValueChanged:" destination="dQO-Hd-je7" eventType="valueChanged" id="4wX-z4-rCA"/>
                                 </connections>
                             </datePicker>
                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntT-mZ-zNN">
@@ -1132,26 +1144,30 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="k5G-a0-Jhr">
-                                <rect key="frame" x="20" y="335" width="560" height="216"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yXa-7A-ZUu">
+                                <rect key="frame" x="0.0" y="292" width="600" height="2"/>
+                                <color key="backgroundColor" red="0.90588235289999997" green="0.71017481390000003" blue="0.79162215709999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="216" id="cBh-Ti-EUT"/>
+                                    <constraint firstAttribute="height" constant="2" id="tAp-Vb-75Q"/>
                                 </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="490103723.17648602">
-                                    <!--2016-07-13 11:55:23 +0000-->
-                                </date>
-                                <connections>
-                                    <action selector="dateEndsPickerValueChanged:" destination="dQO-Hd-je7" eventType="valueChanged" id="4wX-z4-rCA"/>
-                                </connections>
-                            </datePicker>
+                            </view>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Notes: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="uMa-w1-vFV">
+                                <rect key="frame" x="20" y="302" width="560" height="249"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BZX-om-I7V" firstAttribute="leading" secondItem="eZF-dv-DHU" secondAttribute="leading" id="0cd-5X-FJS"/>
                             <constraint firstItem="NvX-wU-PvI" firstAttribute="bottom" secondItem="eZF-dv-DHU" secondAttribute="bottom" id="2AX-zQ-50f"/>
+                            <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="uMa-w1-vFV" secondAttribute="bottom" id="2B3-Kz-qig"/>
                             <constraint firstItem="hZY-jR-Jg1" firstAttribute="top" secondItem="Mfl-Ik-dyZ" secondAttribute="bottom" constant="17" id="3NE-b2-gVF"/>
                             <constraint firstItem="hZY-jR-Jg1" firstAttribute="leading" secondItem="Mfl-Ik-dyZ" secondAttribute="leading" id="3TI-i8-eNP"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="uMa-w1-vFV" secondAttribute="leading" id="49q-hf-1o3"/>
                             <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="nJm-Fa-YPt" secondAttribute="bottom" constant="-6" id="6SR-VD-PDO"/>
+                            <constraint firstItem="yXa-7A-ZUu" firstAttribute="top" secondItem="BZX-om-I7V" secondAttribute="bottom" constant="13" id="9JC-yr-fnO"/>
                             <constraint firstItem="Mfl-Ik-dyZ" firstAttribute="top" secondItem="zme-bR-BJh" secondAttribute="bottom" constant="24" id="AQr-pC-gVE"/>
                             <constraint firstItem="eZF-dv-DHU" firstAttribute="leading" secondItem="hZY-jR-Jg1" secondAttribute="leading" id="AgQ-pZ-KxQ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="Mfl-Ik-dyZ" secondAttribute="leading" id="Iz6-SK-qSZ"/>
@@ -1161,13 +1177,18 @@
                             <constraint firstAttribute="leadingMargin" secondItem="nJm-Fa-YPt" secondAttribute="leading" id="NPr-yg-BJl"/>
                             <constraint firstAttribute="leadingMargin" secondItem="k5G-a0-Jhr" secondAttribute="leading" id="Qzf-4c-GZM"/>
                             <constraint firstAttribute="leadingMargin" secondItem="ntT-mZ-zNN" secondAttribute="leading" id="ROC-dr-fLy"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Mfl-Ik-dyZ" secondAttribute="trailing" id="RnB-ql-GPE"/>
                             <constraint firstItem="hw4-Tx-C9f" firstAttribute="bottom" secondItem="BZX-om-I7V" secondAttribute="bottom" id="U1f-bu-duG"/>
+                            <constraint firstItem="yXa-7A-ZUu" firstAttribute="centerX" secondItem="bTK-ef-ZfH" secondAttribute="centerX" id="VzX-tr-AC4"/>
                             <constraint firstItem="lz1-ce-H5G" firstAttribute="centerY" secondItem="hZY-jR-Jg1" secondAttribute="centerY" id="aHf-Iw-0C3"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="uMa-w1-vFV" secondAttribute="trailing" id="ewA-Wg-4kS"/>
                             <constraint firstItem="hw4-Tx-C9f" firstAttribute="trailing" secondItem="NvX-wU-PvI" secondAttribute="trailing" id="fvT-I3-MQK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="m9c-lG-y4b"/>
+                            <constraint firstItem="uMa-w1-vFV" firstAttribute="top" secondItem="yXa-7A-ZUu" secondAttribute="bottom" constant="8" id="mb0-2q-Lat"/>
                             <constraint firstAttribute="trailingMargin" secondItem="k5G-a0-Jhr" secondAttribute="trailing" id="pRl-k7-jNQ"/>
                             <constraint firstItem="NvX-wU-PvI" firstAttribute="trailing" secondItem="lz1-ce-H5G" secondAttribute="trailing" id="s0V-sr-CwG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nJm-Fa-YPt" secondAttribute="trailing" id="wSm-T9-uDL"/>
+                            <constraint firstItem="yXa-7A-ZUu" firstAttribute="width" secondItem="bTK-ef-ZfH" secondAttribute="width" id="wW2-Ta-sLk"/>
                             <constraint firstItem="BZX-om-I7V" firstAttribute="top" secondItem="eZF-dv-DHU" secondAttribute="bottom" constant="17" id="y7M-aO-FzY"/>
                             <constraint firstItem="y7O-Xs-nrg" firstAttribute="top" secondItem="ntT-mZ-zNN" secondAttribute="bottom" id="zAi-ZF-q6E"/>
                         </constraints>
@@ -1177,8 +1198,10 @@
                         <outlet property="date_due_picker" destination="nJm-Fa-YPt" id="ILk-WE-Odh"/>
                         <outlet property="date_ends_label" destination="hw4-Tx-C9f" id="mx1-JW-9gv"/>
                         <outlet property="date_ends_picker" destination="k5G-a0-Jhr" id="DqG-Dn-Tcy"/>
+                        <outlet property="delimiter_view" destination="yXa-7A-ZUu" id="dle-6S-y08"/>
                         <outlet property="due_label" destination="eZF-dv-DHU" id="WQ5-qR-WgN"/>
                         <outlet property="ends_label" destination="BZX-om-I7V" id="p47-Np-k3c"/>
+                        <outlet property="notes_textview" destination="uMa-w1-vFV" id="soP-ao-s4c"/>
                         <outlet property="title_field" destination="Mfl-Ik-dyZ" id="Ol5-X2-OTg"/>
                         <outlet property="type_label" destination="lz1-ce-H5G" id="2ea-NI-uep"/>
                         <outlet property="type_picker" destination="ntT-mZ-zNN" id="l7D-Zx-QDB"/>

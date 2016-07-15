@@ -74,7 +74,7 @@ class HomeScheduleTableViewController: UITableViewController {
                     let assignment = Assignment()
                     assignment.id = obj["id"].stringValue
                     assignment.title = obj["title"].stringValue
-                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
+                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)!
                     assignment.time_end = dateFromString(obj["time_end"].string)
                     assignment.notes = obj["notes"].string
                     assignment.course = realm.objectForPrimaryKey(Course.self, key: obj["course"].stringValue)
@@ -101,7 +101,7 @@ class HomeScheduleTableViewController: UITableViewController {
         var num_overdue_assignments = 0
         
         for assignment in assignments {
-            if assignment.time_begin!.compare(NSDate()) == .OrderedAscending {
+            if assignment.time_begin.compare(NSDate()) == .OrderedAscending {
                 num_overdue_assignments += 1
             }
         }
@@ -126,9 +126,13 @@ class HomeScheduleTableViewController: UITableViewController {
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         
-        cell.populateDateLabel(assignments[indexPath.row].time_begin!, timeEnd: assignments[indexPath.row].time_end)
+        cell.populateDateLabel(assignments[indexPath.row].time_begin, timeEnd: assignments[indexPath.row].time_end)
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        parentViewController?.performSegueWithIdentifier("HomeToAssignment", sender: assignments[indexPath.row])
     }
     
     /*

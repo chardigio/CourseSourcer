@@ -39,6 +39,17 @@ enum COURSE_ITEM_TABS {
         SETTINGS
 }
 
+enum ASSIGNMENT_TYPES: String {
+    case
+    PAPER    = "Paper",
+    LABWORK  = "Labwork",
+    HOMEWORK = "Homework",
+    EXAM     = "Exam",
+    QUIZ     = "Quiz"
+    
+    static let values = [PAPER, LABWORK, HOMEWORK, EXAM, QUIZ]
+}
+
 enum PASTELS{
     case
         PINK,

@@ -91,7 +91,6 @@ class CoursesTableViewController: UITableViewController {
             self.loadRealmUserAndCourses()
             self.tableView.reloadData()
         }
-        
     }
     
     func loadRealmUserAndCourses() {

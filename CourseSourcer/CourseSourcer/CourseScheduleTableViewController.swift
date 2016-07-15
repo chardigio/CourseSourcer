@@ -47,7 +47,7 @@ class CourseScheduleTableViewController: UITableViewController {
             return
         }
         
-        POST("/assignments/", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/assignments", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -103,7 +103,7 @@ class CourseScheduleTableViewController: UITableViewController {
                     let assignment = Assignment()
                     assignment.id = obj["id"].stringValue
                     assignment.title = obj["title"].stringValue
-                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)
+                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)!
                     assignment.time_end = dateFromString(obj["time_end"].string)
                     assignment.notes = obj["notes"].string
                     assignment.course = self.course
@@ -131,7 +131,7 @@ class CourseScheduleTableViewController: UITableViewController {
         var overdue_assignments = 0
         
         for assignment in assignments {
-            if assignment.time_begin!.compare(NSDate()) == .OrderedAscending {
+            if assignment.time_begin.compare(NSDate()) == .OrderedAscending {
                 overdue_assignments += 1
             }
         }
@@ -139,7 +139,7 @@ class CourseScheduleTableViewController: UITableViewController {
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
     }
     
-    // MARK: - Table view data source
+    // MARK: - TableView delegate functions
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -156,53 +156,23 @@ class CourseScheduleTableViewController: UITableViewController {
         //cell.assignment_pic = nil
         cell.title_label.text = assignments[indexPath.row].title
         
-        cell.populateDateLabel(assignments[indexPath.row].time_begin!, timeEnd: assignments[indexPath.row].time_end)
+        cell.populateDateLabel(assignments[indexPath.row].time_begin, timeEnd: assignments[indexPath.row].time_end)
         
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("selected")
+        performSegueWithIdentifier("CourseScheduleToAssignment", sender: assignments[indexPath.row])
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "CourseScheduleToAssignment" {
+            let vc = segue.destinationViewController as! AssignmentViewController
+            
+            vc.assignment = sender as? Assignment
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
 }

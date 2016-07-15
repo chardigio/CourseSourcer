@@ -58,6 +58,9 @@ class HomeViewController: UIViewController {
             let vc = segue.destinationViewController as! CourseViewController
             vc.course = sender as? Course
             print("COURSE:", (vc.course?.name)!)
+        }else if segue.identifier == "HomeToAssignment" {
+            let vc = segue.destinationViewController as! AssignmentViewController
+            vc.assignment = sender as? Assignment
         }
     }
 }

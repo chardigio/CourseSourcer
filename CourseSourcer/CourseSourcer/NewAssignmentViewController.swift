@@ -9,17 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-enum AssignmentType: String {
-    case
-        Paper    = "Paper",
-        Labwork  = "Labwork",
-        Homework = "Homework",
-        Exam     = "Exam",
-        Quiz     = "Quiz"
-    
-    static let values = [Paper, Labwork, Homework, Exam, Quiz]
-}
-
 class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     var course: Course? = nil
     
@@ -40,7 +29,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBOutlet weak var date_due_picker: UIDatePicker!
     @IBOutlet weak var date_ends_picker: UIDatePicker!
 
-    var assignment_type: AssignmentType = AssignmentType.Homework
+    var assignment_type: ASSIGNMENT_TYPES = ASSIGNMENT_TYPES.HOMEWORK
     var date_due: NSDate? = nil
     var date_ends: NSDate? = nil
     
@@ -161,6 +150,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
             alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
                 POST("/assignments", parameters:
                        ["title"      : self.title_field.text!,
+                        "type"       : self.assignment_type.rawValue,
                         "time_begin" : self.date_due!.description,
                         "time_end"   : self.date_ends?.description ?? "",
                         "notes"      : self.notes_textview.text ?? "",
@@ -186,9 +176,9 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func isTakeHomeAssignment() -> Bool {
-        return assignment_type == AssignmentType.Labwork  ||
-               assignment_type == AssignmentType.Paper    ||
-               assignment_type == AssignmentType.Homework
+        return assignment_type == ASSIGNMENT_TYPES.LABWORK  ||
+               assignment_type == ASSIGNMENT_TYPES.PAPER    ||
+               assignment_type == ASSIGNMENT_TYPES.HOMEWORK
     }
     
     func cancelTapped() {
@@ -214,15 +204,15 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return AssignmentType.values.count
+        return ASSIGNMENT_TYPES.values.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return AssignmentType.values[row].rawValue
+        return ASSIGNMENT_TYPES.values[row].rawValue
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        assignment_type = AssignmentType.values[row]
+        assignment_type = ASSIGNMENT_TYPES.values[row]
         type_label.text = assignment_type.rawValue
         
         if isTakeHomeAssignment() {

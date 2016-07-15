@@ -13,7 +13,8 @@ class Assignment: Object {
     dynamic var id: String = ""
     dynamic var created_at: NSDate? = nil
     dynamic var title: String = ""
-    dynamic var time_begin: NSDate? = nil // also due date
+    dynamic var type: String = ""
+    dynamic var time_begin: NSDate = NSDate() // also due date
     dynamic var time_end: NSDate? = nil // will be nil for assignments but not exams
     dynamic var notes: String? = nil
     dynamic var score: Int = 0

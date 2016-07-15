@@ -135,11 +135,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
                         realm.add(message, update: true)
                     }
                     
-                    // SHOULD THIS BE LAST OR FIRST??
-                    print(network_messages)
-                    print(network_messages.last)
-                    print("This should be the most recent message^")
-                    self.classmate!.last_spoke = network_messages.last?.created_at
+                    self.classmate!.last_spoke = network_messages.first?.created_at
                 }
                 
                 callback()

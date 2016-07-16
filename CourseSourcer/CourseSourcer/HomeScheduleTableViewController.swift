@@ -19,7 +19,6 @@ class HomeScheduleTableViewController: UITableViewController {
         tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
         
         loadAssignments()
-        configureContentOffset()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -42,10 +41,12 @@ class HomeScheduleTableViewController: UITableViewController {
     func loadAssignments() {
         loadRealmAssignments()
         tableView.reloadData()
+        configureContentOffset()
         
         loadNetworkAssignments() {
             self.loadRealmAssignments()
             self.tableView.reloadData()
+            self.configureContentOffset()
         }
     }
     
@@ -54,7 +55,7 @@ class HomeScheduleTableViewController: UITableViewController {
         
         let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
         
-        assignments = realm.objects(Assignment).filter(predicate).sorted("created_at").reverse().map { $0 }
+        assignments = realm.objects(Assignment).filter(predicate).sorted("time_begin").map { $0 }
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {

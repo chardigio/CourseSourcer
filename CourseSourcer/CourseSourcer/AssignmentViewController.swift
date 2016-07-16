@@ -26,6 +26,7 @@ class AssignmentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureNavigationBar()
         configureOutlettedContent()
     }
 
@@ -35,6 +36,12 @@ class AssignmentViewController: UIViewController {
     }
     
     // MARK: - Personal
+    
+    func configureNavigationBar() {
+        navigationItem.title = assignment!.course!.name
+        
+        navigationController?.navigationBar.barTintColor = pastelFromInt(assignment!.course!.color) // DOESNT WORK
+    }
     
     func configureOutlettedContent() {
         title_field.text = assignment!.title

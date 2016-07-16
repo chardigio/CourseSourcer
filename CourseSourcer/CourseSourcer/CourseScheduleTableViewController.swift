@@ -21,7 +21,6 @@ class CourseScheduleTableViewController: UITableViewController {
         
         configureCourse()
         loadAssignments()
-        configureContentOffset()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -79,10 +78,12 @@ class CourseScheduleTableViewController: UITableViewController {
         
         loadRealmAssignments()
         tableView.reloadData()
+        configureContentOffset()
         
         loadNetworkAssignments() {
             self.loadRealmAssignments()
             self.tableView.reloadData()
+            self.configureContentOffset()
         }
     }
     

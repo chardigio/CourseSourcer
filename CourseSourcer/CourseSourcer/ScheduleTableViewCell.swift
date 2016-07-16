@@ -17,6 +17,7 @@ class ScheduleTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        selectionStyle = UITableViewCellSelectionStyle.None // don't know why this doesn't work non-programatically
         subview.layer.cornerRadius = 30
     }
 

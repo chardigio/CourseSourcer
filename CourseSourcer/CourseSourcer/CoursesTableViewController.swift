@@ -127,6 +127,7 @@ class CoursesTableViewController: UITableViewController {
                 
                 try! realm.write {
                     USER!.name = res!["user"]["name"].stringValue
+                    USER!.bio  = res!["user"]["bio"].string
                     
                     for course in network_courses {
                         realm.add(course, update: true)

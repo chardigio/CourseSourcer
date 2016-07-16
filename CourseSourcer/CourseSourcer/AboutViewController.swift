@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import SwiftyJSON
 
 class AboutViewController: UIViewController {
@@ -17,8 +18,10 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureFields()
-        configurePic()
+        loadNetworkUser() {
+            self.configureFields()
+            self.configurePic()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,6 +30,27 @@ class AboutViewController: UIViewController {
     }
     
     // MARK: - Personal
+    
+    func loadNetworkUser(callback: Void -> Void) {
+        GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            } else if res != nil {
+                let realm = try! Realm()
+
+                // get pic also
+                
+                try! realm.write {
+                    USER!.name = res!["user"]["name"].stringValue
+                    USER!.bio  = res!["user"]["bio"].string
+                    
+                    realm.add(USER!, update: true)
+                }
+                
+                callback()
+            }
+        })
+    }
     
     func configureFields() {
         name_field.text = USER!.name
@@ -41,6 +65,8 @@ class AboutViewController: UIViewController {
         PUT("/users/\(USER!.id!)", parameters: ["name": name_field.text!, "bio": bio_field.text ?? ""],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self, overrideAndShow: true, message: "Could not update account info.")
+            }else{
+                print("amazing")
             }
         })
         

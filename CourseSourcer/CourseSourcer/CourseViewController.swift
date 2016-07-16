@@ -24,7 +24,7 @@ class CourseViewController: UITabBarController {
     }
     
     override func willMoveToParentViewController(parent: UIViewController?) {
-        self.navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
+        navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
         
         navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
         navigationController!.navigationBar.shadowImage = UIImage()
@@ -35,7 +35,7 @@ class CourseViewController: UITabBarController {
     func configureNavigationBar() {
         navigationItem.title = course!.name
         
-        navigationController?.navigationBar.barTintColor = pastelFromInt(self.course!.color)
+        navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
 
@@ -44,7 +44,6 @@ class CourseViewController: UITabBarController {
 
     func configureTabBar(){
         UITabBar.appearance().tintColor = pastelFromInt(course!.color)
-        
         
         navigationController!.navigationBar.setBackgroundImage(nil, forBarMetrics: .Default)
         navigationController!.navigationBar.shadowImage = nil

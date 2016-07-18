@@ -541,7 +541,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="MJy-BD-My9"/>
-                    <navigationItem key="navigationItem" title="Classmate" id="mEt-eK-42l"/>
+                    <navigationItem key="navigationItem" title="Classmate" id="mEt-eK-42l">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="qCS-8H-6Fb"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pnV-tf-Er2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -795,7 +797,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="3zN-Bk-FSc"/>
-                    <navigationItem key="navigationItem" title="Group Messages" id="Hoi-xC-eiZ"/>
+                    <navigationItem key="navigationItem" title="Group Messages" id="Hoi-xC-eiZ">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="xOA-S7-dEB"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jIJ-xv-Ivy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

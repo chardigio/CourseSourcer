@@ -62,11 +62,11 @@ class AboutViewController: UIViewController {
     }
     
     @IBAction func homeButtonPressed(sender: AnyObject) { // WILL EVENTUALLY BE ABLE TO UPDATE PIC HERE
-        PUT("/users/\(USER!.id!)", parameters: ["name": name_field.text!, "bio": bio_field.text ?? ""],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        PUT("/users/\(USER!.id!)", parameters: ["name": name_field.text!,
+                                                "bio": bio_field.text ?? ""],
+                                   callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {
                 showError(self, overrideAndShow: true, message: "Could not update account info.")
-            }else{
-                print("amazing")
             }
         })
         

@@ -134,7 +134,11 @@ class CredentialsViewController: UIViewController {
                 self.disableButton(self.signup_button)
             }, completion: nil)
         }else{
-            POST("/users", parameters: ["name":name_field.text!, "password":password_field.text!, "email":email_field.text!, "bio":"New to CourseSourcer!"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            POST("/users", parameters: ["name":name_field.text!,
+                                        "password":password_field.text!,
+                                        "email":email_field.text!,
+                                        "bio":"New to CourseSourcer!"],
+                           callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {
                     showError(self)
                 }else if res != nil {

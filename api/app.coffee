@@ -4,10 +4,10 @@ mongoose = require 'mongoose'
 bodyParser = require 'body-parser'
 rek = require 'rekuire'
 usersRouter = rek 'routes/users'
-messagesRouter = rek 'routes/messages'
+groupMessagesRouter = rek 'routes/group_messages'
 coursesRouter = rek 'routes/courses'
-notesRouter = rek 'routes/static_notes'
-chatsRouter = rek 'routes/chats'
+staticNotesRouter = rek 'routes/static_notes'
+directMessagesRouter = rek 'routes/direct_messages'
 assignmentsRouter = rek 'routes/assignments'
 configs = rek 'config'
 server = rek 'components/server'
@@ -22,10 +22,10 @@ app.use bodyParser.json()
 
 #configure routes
 app.use '/users', usersRouter
-app.use '/messages', messagesRouter
+app.use '/group_messages', groupMessagesRouter
 app.use '/courses', coursesRouter
-app.use '/static_notes', notesRouter
-app.use '/chats', chatsRouter
+app.use '/static_notes', staticNotesRouter
+app.use '/direct_messages', directMessagesRouter
 app.use '/assignments', assignmentsRouter
 
 # configure error handling

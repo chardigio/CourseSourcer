@@ -19,7 +19,7 @@ router.get '/of_course/:courseId', (req, res, next) ->
   Assignment.find(course: req.params.courseId).sort('-time_begin').exec (err, assignments) ->
     if err then next err
     else
-      for assignment in assignments #not deepcopy, fix
+      for assignment in assignments
         assignment.user = null #if admin dont null it
       res.send assignments: assignments
 
@@ -36,7 +36,7 @@ router.get '/of_user/:userId', (req, res, next) ->
       Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
         if err then next err
         else
-          for assignment in assignments #not deepcopy, fix
+          for assignment in assignments
             assignment.user = null #if admin dont null it (or if it's you ?)
           res.send assignments: assignments
 

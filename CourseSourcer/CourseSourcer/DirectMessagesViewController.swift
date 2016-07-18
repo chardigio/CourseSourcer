@@ -23,6 +23,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         super.viewDidLoad()
         
         configureCourse()
+        configureNavigationBar()
         configureSender()
         configureBubbles()
         configureJSQ()
@@ -57,6 +58,12 @@ class DirectMessagesViewController: JSQMessagesViewController {
         }
     }
     
+    func configureNavigationBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        
+        navigationItem.title = classmate!.name
+    }
+    
     func configureSender() {
         senderId = USER!.id!
         senderDisplayName = USER!.name
@@ -69,6 +76,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     func configureJSQ() {
         automaticallyScrollsToMostRecentMessage = true
+        inputToolbar.contentView.leftBarButtonItem = nil // hides attachment button
         
         reloadMessagesView()
     }
@@ -110,7 +118,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
 
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/chats/\(classmate!.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/direct_messages/\(classmate!.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -118,12 +126,12 @@ class DirectMessagesViewController: JSQMessagesViewController {
                 
                 var network_messages = [DirectMessage]()
                 
-                for json_message in res!["chats"].arrayValue {
+                for network_message in res!["direct_messages"].arrayValue {
                     let message = DirectMessage()
-                    message.id = json_message["id"].stringValue
-                    message.text = json_message["text"].stringValue
-                    message.created_at = dateFromString(json_message["created_at"].stringValue)
-                    message.from_me = (json_message["from"].stringValue == USER!.email)
+                    message.id = network_message["id"].stringValue
+                    message.text = network_message["text"].stringValue
+                    message.created_at = dateFromString(network_message["created_at"].stringValue)
+                    message.from_me = (network_message["from"].stringValue == USER!.email)
                     message.user = self.classmate
                     message.course = self.course
                     
@@ -182,7 +190,11 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         self.finishSendingMessage()
         
-        POST("/chats", parameters: ["text":text, "course":course!.id, "user":USER!.id!, "to":classmate!.email], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/direct_messages", parameters: ["text": text,
+                                              "course":course!.id,
+                                              "user":USER!.id!,
+                                              "to":classmate!.email],
+                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)
             }

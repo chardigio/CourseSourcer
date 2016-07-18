@@ -27,6 +27,7 @@ class CourseViewController: UITabBarController {
         navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
         
         navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        
         navigationController!.navigationBar.shadowImage = UIImage()
     }
     
@@ -39,7 +40,7 @@ class CourseViewController: UITabBarController {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
 
-        navigationItem.backBarButtonItem?.title = "Home" // DOESNT WORK
+        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "Home", style: .Plain, target: self, action: #selector(homeTapped))
     }
 
     func configureTabBar(){
@@ -55,6 +56,11 @@ class CourseViewController: UITabBarController {
         }else if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
             performSegueWithIdentifier("CourseToNewNote", sender: nil)
         }
+    }
+    
+    func homeTapped() {
+        print("something")
+        navigationController?.popViewControllerAnimated(true)
     }
     
     // MARK: - Navigation

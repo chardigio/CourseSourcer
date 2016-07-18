@@ -22,6 +22,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         super.viewDidLoad()
         
         configureCourse()
+        configureNavigationBar()
         configureSender()
         configureBubbles()
         configureJSQ()
@@ -41,27 +42,46 @@ class GroupMessagesViewController: JSQMessagesViewController {
             return
         }
         
-        POST("/messages", parameters: ["text":"First!", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/group_messages", parameters: ["text":"Hey",
+                                             "course":course!.id,
+                                             "user": USER!.id!],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Hey!", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        
+        POST("/group_messages", parameters: ["text":"Hola!",
+                                             "course":course!.id,
+                                             "user":"5777d51dde21d034fb98dc0b"],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"This is gonna be great", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        
+        POST("/group_messages", parameters: ["text":"Whatsup",
+                                             "course":course!.id,
+                                             "user": USER!.id!],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Isn't it??", "course":course!.id, "user":"5777d51dde21d034fb98dc0b"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        
+        POST("/group_messages", parameters: ["text":"Nm yo",
+                                             "course":course!.id,
+                                             "user":"5777d51dde21d034fb98dc0b"],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }
         })
-        POST("/messages", parameters: ["text":"Fursher", "course":course!.id, "user": USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        
+        POST("/group_messages", parameters: ["text":"Hello",
+                                             "course":course!.id,
+                                             "user": USER!.id!],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }
@@ -78,6 +98,12 @@ class GroupMessagesViewController: JSQMessagesViewController {
         if let parent = tabBarController as? CourseViewController {
             course = parent.course
         }
+    }
+    
+    func configureNavigationBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        
+        navigationItem.title = course!.name
     }
     
     func configureSender() {
@@ -133,20 +159,20 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/messages/of_course/\(course!.id)/?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/group_messages/of_course/\(course!.id)/?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
                 var network_messages = [GroupMessage]()
                 
-                for json_message in res!["messages"].arrayValue {
+                for network_message in res!["group_messages"].arrayValue {
                     let message = GroupMessage()
-                    message.id = json_message["id"].stringValue
-                    message.text = json_message["text"].stringValue
-                    message.score = json_message["score"].intValue
+                    message.id = network_message["id"].stringValue
+                    message.text = network_message["text"].stringValue
+                    message.score = network_message["score"].intValue
                     message.course = self.course
-                    message.created_at = dateFromString(json_message["created_at"].stringValue)
-                    message.user = json_message["user"].string == nil ? nil : USER!
+                    message.created_at = dateFromString(network_message["created_at"].stringValue)
+                    message.user = network_message["user"].string == nil ? nil : USER!
                     
                     network_messages.append(message)
                 }
@@ -202,7 +228,10 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         self.finishSendingMessage()
         
-        POST("/messages", parameters: ["text":text, "course":course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/group_messages", parameters: ["text":text,
+                                             "course":course!.id,
+                                             "user":USER!.id!],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)
             }

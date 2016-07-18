@@ -6,6 +6,14 @@
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// *                                                           * //
+// *                                                           * //
+// *  THIS IS PRETTY MUCH TOTALLY DEPRECATED BY IN-FILE TESTS  * //
+// *                                                           * //
+// *                                                           * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
 /*  Tests account for the following endpoints:
     POST /users
     POST /courses

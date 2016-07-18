@@ -17,8 +17,7 @@ class CourseScheduleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
-        
+        configureTableView()
         configureCourse()
         loadAssignments()
         
@@ -46,26 +45,22 @@ class CourseScheduleTableViewController: UITableViewController {
             return
         }
         
-        POST("/assignments", parameters: ["title": "Lab 1", "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)), "course":self.course!.id, "user":USER!.id!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/assignments", parameters: ["title": "Lab 1",
+                                          "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)),
+                                          "course":self.course!.id,
+                                          "user":USER!.id!],
+                             callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
-            }else if res != nil {
-                /*
-                 let note = StaticNote()
-                 note.id = res!["id"].stringValue
-                 note.created_at = dateFromString(res!["created_at"].stringValue)
-                 note.title = res!["subject"].stringValue
-                 note.text = res!["text"].stringValue
-                 
-                 try! realm.write {
-                 realm.add(note)
-                 }
-                 */
             }
         })
     }
     
     // MARK: - Personal
+    
+    func configureTableView() {
+        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+    }
     
     func configureCourse() {
         if let parent = tabBarController as? CourseViewController {

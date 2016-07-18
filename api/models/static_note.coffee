@@ -4,21 +4,21 @@ timestamps = require 'mongoose-timestamp'
 idValidator = require 'mongoose-id-validator'
 
 schema = mongoose.Schema
-  subject: String
+  title: String
   text: String
   score: Number
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'course'}
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
-  _.pick doc, 'id', 'created_at', 'subject', 'text', 'score', 'course', 'user'
+  _.pick doc, 'id', 'created_at', 'title', 'text', 'score', 'course', 'user'
 
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
 ###
 #validation
-schema.path('subject').validate(function(val) {
+schema.path('title').validate(function(val) {
   return (val != null ? val.length : void 0) <= 250
 }, 'Subject cannot exceed 250 characters.')
 

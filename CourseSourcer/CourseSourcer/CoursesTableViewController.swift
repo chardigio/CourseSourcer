@@ -54,11 +54,17 @@ class CoursesTableViewController: UITableViewController {
             return
         }
         
-        POST("/courses", parameters: ["name":"Algorithms", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/courses", parameters: ["name":"Algorithms",
+                                      "school":"Binghamton",
+                                      "term":"Fall 2016",
+                                      "domain":"@binghamton.edu"],
+                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["user_id": USER!.id!,
+                                                     "course_id": res!["course"]["id"].string!],
+                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -66,11 +72,17 @@ class CoursesTableViewController: UITableViewController {
             }
         })
         
-        POST("/courses", parameters: ["name":"Machine Learning", "school":"Binghamton", "term":"Fall 2016", "domain":"@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/courses", parameters: ["name":"Machine Learning",
+                                      "school":"Binghamton",
+                                      "term":"Fall 2016",
+                                      "domain":"@binghamton.edu"],
+                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": USER!.id!, "course_id": res!["course"]["id"].string!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["user_id": USER!.id!,
+                                                     "course_id": res!["course"]["id"].string!],
+                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }

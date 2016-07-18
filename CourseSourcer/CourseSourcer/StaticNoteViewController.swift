@@ -21,6 +21,7 @@ class StaticNoteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureNavigationBar()
         configureFields()
         configureDelimiter()
     }
@@ -31,6 +32,10 @@ class StaticNoteViewController: UIViewController {
     }
     
     // MARK: - Personal
+    
+    func configureNavigationBar() {
+        navigationItem.title = course!.name
+    }
     
     func configureFields() {
         score_label.text = note?.score.description

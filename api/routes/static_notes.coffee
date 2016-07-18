@@ -8,7 +8,7 @@ server = rek 'components/server'
 
 #post note
 router.post '/', (req, res, next) ->
-  note = new Note _.pick req.body, 'subject', 'text', 'course', 'user'
+  note = new Note _.pick req.body, 'title', 'text', 'course', 'user'
   note.score = 0
   note.save (err, note) ->
     if err then next err
@@ -19,7 +19,7 @@ router.get '/of_course/:courseId', (req, res, next) -> #should be server.loadUse
   Note.find(course: req.params.courseId).sort('-created_at').exec (err, notes) ->
     if err then next err
     else
-      for note in notes #not deepcopy, fix
+      for note in notes
         note.user = null #if admin dont null it
       res.send static_notes: notes
 

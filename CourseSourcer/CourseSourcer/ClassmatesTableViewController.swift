@@ -49,7 +49,27 @@ class ClassmatesTableViewController: UITableViewController {
         let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
         srand(time)
         
-        POST("/users", parameters: ["name": "Becky Hammond", "password": "bbgirl123", "email": "bhammon\(rand() % 10000)@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/users", parameters: ["name": "Becky Hammond",
+                                    "password": "bbgirl123",
+                                    "email": "bhammon\(rand() % 10000)@binghamton.edu"],
+                       callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self)
+            }else if res != nil {
+                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue,
+                                                     "course_id": self.course!.id],
+                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                    if err != nil {
+                        showError(self)
+                    }
+                })
+            }
+        })
+        
+        POST("/users", parameters: ["name": "Grethward Mai",
+                                    "password": "noragrets",
+                                    "email": "gmai\(rand() % 10000)@binghamton.edu"],
+                       callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -61,23 +81,16 @@ class ClassmatesTableViewController: UITableViewController {
             }
         })
         
-        POST("/users", parameters: ["name": "Grethward Mai", "password": "noragrets", "email": "gmai\(rand() % 10000)@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/users", parameters: ["name": "Henry Liebowitz",
+                                    "password": "hlibbaby",
+                                    "email": "hliebow\(rand() % 10000)@binghamton.edu"],
+                       callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue, "course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                    if err != nil {
-                        showError(self)
-                    }
-                })
-            }
-        })
-        
-        POST("/users", parameters: ["name": "Henry Liebowitz", "password": "hlibbaby", "email": "hliebow\(rand() % 10000)@binghamton.edu"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue, "course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue,
+                                                     "course_id": self.course!.id],
+                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }

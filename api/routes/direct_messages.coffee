@@ -1,22 +1,22 @@
 _ = require 'lodash'
 router = (require 'express').Router()
 rek = require 'rekuire'
-Chat = rek 'models/chat'
+DirectMessage = rek 'models/direct_message'
 User = rek 'models/user'
 server = rek 'components/server'
 
-#post chat
+#post dm
 router.post '/', (req, res, next) -> #server.loadUser was here
   User.findOne email: req.body.to, (err, partner) ->
     if err then next err
     else
-      chat = new Chat _.pick req.body, 'text', 'course'
-      chat.from = req.body.user
-      chat.to = partner.id
+      direct_message = new DirectMessage _.pick req.body, 'text', 'course'
+      direct_message.from = req.body.user
+      direct_message.to = partner.id
 
-      chat.save (err, chat) ->
+      direct_message.save (err, directMessage) ->
         if err then next err
-        else res.status(201).send 'chat': chat
+        else res.status(201).send direct_message: directMessage
 
 router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
   User.findOne email: req.params.partnerEmail, (err, partner) ->
@@ -44,21 +44,21 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
       ]}
 
       if lastId and lastId isnt null and lastId isnt ''
-        Chat.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).exec (err, nextChats) ->
+        DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).exec (err, nextDirectMessages) ->
           if err then next err
           else
-            for chat in nextChats #not deepcopy, fix
-              chat.to = chat.to.email
-              chat.from = chat.from.email
-            res.send chats: nextChats
+            for direct_message in nextDirectMessages
+              direct_message.to = direct_message.to.email
+              direct_message.from = direct_message.from.email
+            res.send direct_messages: nextDirectMessages
       else
-        Chat.find(search).sort('-created_at').skip(offset).limit(limit).exec (err, chats) ->
+        DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).exec (err, directMessages) ->
           if err then next err
           else
-            for chat in chats #not deepcopy, fix
-              chat.to = chat.to.email
-              chat.from = chat.from.email
+            for direct_message in directMessages
+              direct_message.to = direct_message.to.email
+              direct_message.from = direct_message.from.email
 
-            res.send chats: chats
+            res.send direct_messages: directMessages
 
 module.exports = router

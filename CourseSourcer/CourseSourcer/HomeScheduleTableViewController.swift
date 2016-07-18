@@ -16,8 +16,7 @@ class HomeScheduleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
-        
+        configureTableView()
         loadAssignments()
         
         // Uncomment the following line to preserve selection between presentations
@@ -37,6 +36,10 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     // MARK: - Personal
+    
+    func configureTableView() {
+        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+    }
     
     func loadAssignments() {
         loadRealmAssignments()

@@ -38,6 +38,8 @@ class AssignmentViewController: UIViewController {
     // MARK: - Personal
     
     func configureNavigationBar() {
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        
         navigationItem.title = assignment!.course!.name
         
         navigationController?.navigationBar.barTintColor = pastelFromInt(assignment!.course!.color) // DOESNT WORK

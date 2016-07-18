@@ -17,8 +17,7 @@ class ScheduleTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        selectionStyle = UITableViewCellSelectionStyle.None // don't know why this doesn't work non-programatically
-        subview.layer.cornerRadius = 30
+        configureStyling()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -27,6 +26,11 @@ class ScheduleTableViewCell: UITableViewCell {
     }
     
     // MARK: - Personal
+    
+    func configureStyling() {
+        selectionStyle = UITableViewCellSelectionStyle.None // don't know why this doesn't work non-programatically
+        subview.layer.cornerRadius = 30
+    }
     
     func populateDateLabel(timeBegin:NSDate, timeEnd: NSDate?) {
         if timeEnd == nil {

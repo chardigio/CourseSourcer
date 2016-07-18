@@ -21,7 +21,7 @@ router.put '/addCourse', (req, res, next) ->
     else res.status(200).send user: user
 
 #update name of user
-router.put '/:userid', (req, res, next) -> # make sure this double update works (gonna also need pic handling)
+router.put '/:userid', (req, res, next) -> # also needs pic handling
   User.findByIdAndUpdate req.params.userid, {$set: {name: req.body.name, bio: req.body.bio}}, (err, user) ->
     if err then next err
     else res.status(200).send user: user
@@ -38,15 +38,19 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
     if err then next err
     else
       index_of_me = -1
-      for user, index in users #not deepcopy fix
-        if user.id is req.query.userid then index_of_me = index
+      for user, index in users
+        if not user then break # this shouldnt have to exist
+
+        index_of_me = index if user.id is req.query.userid
+        users.splice(index_of_me, 1) if index_of_me isnt -1
+        #what is splice doing, removing me?
+        #i hope it's removing me and not splitting@index
+
         user.id = null
         user.created_at = null
         user.admin_of = null
         user.courses = null
         user.confirmed = null
-
-      if index_of_me isnt -1 then users.splice index_of_me, 1
 
       res.send users: users
 

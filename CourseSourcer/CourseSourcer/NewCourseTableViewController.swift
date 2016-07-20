@@ -32,6 +32,13 @@ class NewCourseTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        if DISMISS_JOIN_COURSE_CONTROLLER == true {
+            DISMISS_JOIN_COURSE_CONTROLLER = false
+            navigationController?.popViewControllerAnimated(true)
+        }
+    }
+    
     // MARK: - Personal
     
     func configureSearchController() {
@@ -44,25 +51,23 @@ class NewCourseTableViewController: UITableViewController {
     }
     
     func getNetworkCourses(query: String) {
-        var search_query = query
-        
-        // this shouldn't need to be here
-        if USER!.email.containsString("@") {
-            search_query += " " + USER!.email.componentsSeparatedByString("@")[1]
-        }else{
-            print("BAD EMAIL:", USER!.email)
-        }
-        
-        POST("/courses/search", parameters: ["term": search_query], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/courses/search", parameters: ["course_name": query,
+                                             "domain": userDomain()],
+                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)
             }else if res != nil {
                 self.network_courses = res!["courses"].arrayValue
+                print(self.network_courses)
                 self.tableView.reloadData()
             }
         })
     }
 
+    @IBAction func composeButtonPressed(sender: AnyObject) {
+        performSegueWithIdentifier("NewCourseToStartCourse", sender: nil)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

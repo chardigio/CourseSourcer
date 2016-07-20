@@ -29,6 +29,10 @@ let TWO_WEEKS: Double = 60*60*24*14
 
 var COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
 
+// MARK: - Hacky vars
+
+var DISMISS_JOIN_COURSE_CONTROLLER: Bool = false
+
 // MARK: - Enums
 
 enum COURSE_ITEM_TABS {
@@ -141,18 +145,22 @@ func currentTerm() -> String {
     print("monthyeararray")
     print(month_year_array)
     
-    // would look so much nicer as a switch
-    if month_year_array.month == 12 || month_year_array == 1 {
+    switch month_year_array.month {
+    case 12, 1:
         return "Winter " + String(month_year_array.year)
-    }else if month_year_array.month >= 2 && month_year_array.month <= 5 {
+    case 2, 3, 4, 5:
         return "Spring " + String(month_year_array.year)
-    }else if month_year_array.month >= 6 && month_year_array.month <= 7 {
+    case 6, 7:
         return "Summer " + String(month_year_array.year)
-    }else if month_year_array.month >= 8 && month_year_array.month <= 11 {
+    case 8, 9, 10, 11:
         return "Fall " + String(month_year_array.year)
-    }else{
+    default:
         return ""
     }
+}
+
+func userDomain() -> String {
+    return USER?.email.componentsSeparatedByString("@")[1] ?? ""
 }
 
 // MARK: - Extensions

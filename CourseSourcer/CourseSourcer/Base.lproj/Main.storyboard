@@ -235,7 +235,6 @@
                             <constraint firstItem="UkJ-58-91n" firstAttribute="top" secondItem="UyQ-TB-p5W" secondAttribute="bottom" constant="86" id="KfJ-xf-yga"/>
                             <constraint firstItem="SwT-Os-VYX" firstAttribute="centerY" secondItem="UkJ-58-91n" secondAttribute="centerY" id="Ovs-jR-a8Z"/>
                             <constraint firstItem="OcY-HD-4bW" firstAttribute="top" secondItem="5mW-gB-vsb" secondAttribute="bottom" constant="8" id="R8j-kf-nID"/>
-                            <constraint firstItem="5mW-gB-vsb" firstAttribute="leading" secondItem="zOd-5d-A30" secondAttribute="trailing" constant="151" id="T1W-5N-ldE"/>
                             <constraint firstItem="4Wp-Oq-Cbs" firstAttribute="top" secondItem="UyQ-TB-p5W" secondAttribute="bottom" constant="20" id="T5W-EC-IEf"/>
                             <constraint firstItem="5mW-gB-vsb" firstAttribute="centerY" secondItem="zOd-5d-A30" secondAttribute="centerY" id="T7h-8C-GsB"/>
                             <constraint firstItem="UkJ-58-91n" firstAttribute="centerX" secondItem="pBg-vH-bfJ" secondAttribute="centerX" id="kcC-P9-fYF"/>
@@ -779,7 +778,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="term" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uv3-y0-2bO">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="course name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uv3-y0-2bO">
                                 <rect key="frame" x="225" y="162" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="GBN-FD-wWA"/>
@@ -787,15 +786,9 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="domain" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBc-4r-dYu">
-                                <rect key="frame" x="225" y="200" width="150" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="HwT-AT-rPc"/>
-                                    <constraint firstAttribute="height" constant="30" id="lvl-lf-ulU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="courseNameEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="zYf-s0-8Ec"/>
+                                </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Course" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkg-yf-EhO">
                                 <rect key="frame" x="93" y="20" width="414" height="58"/>
@@ -812,13 +805,6 @@
                                     </mask>
                                 </variation>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headshot" translatesAutoresizingMaskIntoConstraints="NO" id="wst-p6-2Qb">
-                                <rect key="frame" x="20" y="128" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="A4F-oN-hg2"/>
-                                    <constraint firstAttribute="height" constant="64" id="KbC-Pg-5dd"/>
-                                </constraints>
-                            </imageView>
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="school" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SJO-jB-1va">
                                 <rect key="frame" x="225" y="86" width="150" height="30"/>
                                 <constraints>
@@ -827,18 +813,24 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="schoolEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="xc9-MQ-LID"/>
+                                </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="course name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-Wm-ySX">
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="term" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-Wm-ySX">
                                 <rect key="frame" x="225" y="124" width="150" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="mez-Uh-fFX"/>
                                     <constraint firstAttribute="height" constant="30" id="qA5-M2-fjL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="termEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="eox-NM-vx1"/>
+                                </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-1g-Zjt">
-                                <rect key="frame" x="529" y="145" width="45" height="30"/>
+                            <button opaque="NO" multipleTouchEnabled="YES" alpha="0.29999999999999999" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-1g-Zjt">
+                                <rect key="frame" x="529" y="124" width="45" height="30"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="NO"/>
                                 </accessibility>
@@ -853,31 +845,47 @@
                                     <action selector="createButtonPressed:" destination="F0U-dP-I2N" eventType="touchUpInside" id="nFC-u3-jeM"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headshot" translatesAutoresizingMaskIntoConstraints="NO" id="wst-p6-2Qb">
+                                <rect key="frame" x="20" y="107" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="A4F-oN-hg2"/>
+                                    <constraint firstAttribute="height" constant="64" id="KbC-Pg-5dd"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kWF-6h-0Gs">
+                                <rect key="frame" x="20" y="20" width="30" height="30"/>
+                                <state key="normal" title="X">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonTapped:" destination="F0U-dP-I2N" eventType="touchUpInside" id="813-Vy-dhw"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="uv3-y0-2bO" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="6gG-Cw-k2N"/>
                             <constraint firstItem="w3C-Wm-ySX" firstAttribute="top" secondItem="SJO-jB-1va" secondAttribute="bottom" constant="8" id="8KD-lW-0Tn"/>
                             <constraint firstItem="SJO-jB-1va" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="EEy-B3-jbQ"/>
-                            <constraint firstItem="vBc-4r-dYu" firstAttribute="top" secondItem="uv3-y0-2bO" secondAttribute="bottom" constant="8" id="HjO-LD-jAX"/>
                             <constraint firstItem="wst-p6-2Qb" firstAttribute="leading" secondItem="rAk-dk-Ij9" secondAttribute="leadingMargin" id="JKn-Xo-3Fn"/>
+                            <constraint firstItem="wst-p6-2Qb" firstAttribute="centerY" secondItem="w3C-Wm-ySX" secondAttribute="centerY" id="Jdy-c9-je4"/>
                             <constraint firstItem="Wkg-yf-EhO" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="PnA-s6-gdE"/>
                             <constraint firstItem="uv3-y0-2bO" firstAttribute="top" secondItem="w3C-Wm-ySX" secondAttribute="bottom" constant="8" id="RJm-5N-Oow"/>
                             <constraint firstItem="cDg-1g-Zjt" firstAttribute="centerY" secondItem="wst-p6-2Qb" secondAttribute="centerY" id="VhO-G0-ACz"/>
-                            <constraint firstItem="vBc-4r-dYu" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="XhF-1B-zHw"/>
-                            <constraint firstItem="wst-p6-2Qb" firstAttribute="top" secondItem="w3C-Wm-ySX" secondAttribute="top" constant="4" id="agH-uO-PNb"/>
+                            <constraint firstItem="kWF-6h-0Gs" firstAttribute="top" secondItem="Wkg-yf-EhO" secondAttribute="top" id="X9J-l7-bzo"/>
                             <constraint firstItem="Wkg-yf-EhO" firstAttribute="top" secondItem="vhP-Kw-8qO" secondAttribute="bottom" id="cv7-Bu-6El"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="kWF-6h-0Gs" secondAttribute="leading" id="dXl-lh-Feu"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cDg-1g-Zjt" secondAttribute="trailing" constant="6" id="pt3-ey-PLE"/>
                             <constraint firstItem="w3C-Wm-ySX" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="y2K-9C-LWo"/>
                             <constraint firstItem="SJO-jB-1va" firstAttribute="top" secondItem="Wkg-yf-EhO" secondAttribute="bottom" constant="8" id="y46-dV-SvX"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="course_name_field" destination="w3C-Wm-ySX" id="hWa-6W-K4r"/>
+                        <outlet property="course_name_field" destination="uv3-y0-2bO" id="Gfu-xA-pic"/>
                         <outlet property="course_pic" destination="wst-p6-2Qb" id="lUU-uH-7po"/>
-                        <outlet property="domain_field" destination="vBc-4r-dYu" id="Dly-no-i4Y"/>
+                        <outlet property="create_button" destination="cDg-1g-Zjt" id="Qoo-m4-Fc5"/>
                         <outlet property="school_field" destination="SJO-jB-1va" id="dHe-r3-7Qd"/>
-                        <outlet property="term_field" destination="uv3-y0-2bO" id="5Ac-LB-qsJ"/>
+                        <outlet property="term_field" destination="w3C-Wm-ySX" id="ew4-ug-7iw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jj0-LQ-2mv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -929,7 +937,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Join Course" id="Iy1-tR-Isv">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="TRD-do-9iJ"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="TRD-do-9iJ">
+                            <connections>
+                                <action selector="composeButtonPressed:" destination="b5P-hf-fmX" id="K2L-NS-b96"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>

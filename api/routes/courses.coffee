@@ -25,7 +25,9 @@ router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPL
 
   Course.find(search).limit(15).sort('-created_at').exec (err, courses) ->
     if err then next err
-    else res.send courses: courses
+    else
+      console.log courses£
+      res.send courses: courses
 
 #get all courses for user
 router.get '/:userid', (req, res, next) ->

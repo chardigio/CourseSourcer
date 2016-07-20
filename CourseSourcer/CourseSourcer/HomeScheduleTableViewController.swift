@@ -32,7 +32,6 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        print("charlie")
         loadAssignments()
     }
     
@@ -43,7 +42,7 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     func loadAssignments() {
-        loadRealmAssignments()
+        /*loadRealmAssignments()
         tableView.reloadData()
         configureContentOffset()
         
@@ -51,7 +50,7 @@ class HomeScheduleTableViewController: UITableViewController {
             self.loadRealmAssignments()
             self.tableView.reloadData()
             self.configureContentOffset()
-        }
+        }*/
     }
     
     func loadRealmAssignments() {

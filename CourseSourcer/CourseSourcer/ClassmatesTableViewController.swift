@@ -11,7 +11,8 @@ import RealmSwift
 import SwiftyJSON
 
 class ClassmatesTableViewController: UITableViewController {
-    var course: Course? = nil
+    var course: Course?
+    
     var group_chat_pseudo_classmate = User(value: ["id": "0", "name": "All Classmates", "bio": "Group chat with all classmates."])
     var data: [[User]] = [[], [], []]
     let section_titles = ["Group Chat", "Recents", "All Classmates"]

@@ -28,8 +28,8 @@ import SwiftyJSON
 @testable import CourseSourcer
 
 var posts = 0
-var userid: String? = nil
-var courseid: String? = nil
+var userid: String?
+var courseid: String?
 
 func tryMore(){
     if posts == 2 {

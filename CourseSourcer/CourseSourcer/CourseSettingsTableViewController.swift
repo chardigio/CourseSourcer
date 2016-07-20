@@ -1,24 +1,30 @@
 //
-//  NewCourseTableViewController.swift
+//  CourseSettingsTableViewController.swift
 //  CourseSourcer
 //
-//  Created by Charlie on 7/19/16.
+//  Created by Charlie on 7/20/16.
 //  Copyright © 2016 cd17822. All rights reserved.
 //
 
 import UIKit
-import SwiftyJSON
 
-class NewCourseTableViewController: UITableViewController {
-    // not type [Course] since we wanna grab em from the network and put em in here as fast as possible
-    var network_courses = [JSON]()
-    let search_controller = UISearchController(searchResultsController: nil)
+class CourseSettingsTableViewController: UITableViewController {
+    var course: Course?
+    
+    @IBOutlet weak var pinkCell: UITableViewCell!
+    @IBOutlet weak var orangeCell: UITableViewCell!
+    @IBOutlet weak var beigeCell: UITableViewCell!
+    @IBOutlet weak var yellowCell: UITableViewCell!
+    @IBOutlet weak var blueCell: UITableViewCell!
+    
+    @IBOutlet weak var leaveCell: UITableViewCell!
+    
+    @IBOutlet weak var adminCell: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureSearchController()
-        getNetworkCourses("")
+
+        configureCellOutlets()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -31,62 +37,72 @@ class NewCourseTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        if DISMISS_JOIN_COURSE_CONTROLLER == true {
-            DISMISS_JOIN_COURSE_CONTROLLER = false
-            navigationController?.popViewControllerAnimated(true)
-        }
-    }
-    
+
     // MARK: - Personal
     
-    func configureSearchController() {
-        search_controller.searchResultsUpdater = self
-        search_controller.dimsBackgroundDuringPresentation = false
-        definesPresentationContext = true
+    func configureCellOutlets() {
+        pinkCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(pinkCellTapped)))
+        orangeCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(orangeCellTapped)))
+        beigeCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(beigeCellTapped)))
+        yellowCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(yellowCellTapped)))
+        blueCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(blueCellTapped)))
         
-        tableView.tableHeaderView = search_controller.searchBar
-        search_controller.searchBar.becomeFirstResponder() // DOESN'T WORK BUT I WANT IT TO
+        leaveCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(leaveCellTapped)))
+        
+        adminCell.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(adminCellTapped)))
     }
     
-    func getNetworkCourses(query: String) {
-        POST("/courses/search", parameters: ["query" : query,
-                                             "term" : currentTerm(),
-                                             "domain" : userDomain()],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self, overrideAndShow: true)
-            }else if res != nil {
-                self.network_courses = res!["courses"].arrayValue
-                
-                self.tableView.reloadData()
-            }
-        })
-    }
-
-    @IBAction func composeButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("NewCourseToStartCourse", sender: nil)
+    func pinkCellTapped() {
+        
     }
     
+    func orangeCellTapped() {
+        
+    }
+    
+    func beigeCellTapped() {
+        
+    }
+    
+    func yellowCellTapped() {
+        
+    }
+    
+    func blueCellTapped() {
+        
+    }
+    
+    func leaveCellTapped() {
+        
+    }
+    
+    func adminCellTapped() {
+        
+    }
+    
+    /*
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return network_courses.count
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
+    */
 
+    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewCourseCell", forIndexPath: indexPath) as! NewCourseTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
 
-        cell.title_label.text = network_courses[indexPath.row]["name"].stringValue
-        cell.subtitle_label.text = network_courses[indexPath.row]["school"].stringValue + " - " + network_courses[indexPath.row]["term"].stringValue
+        // Configure the cell...
 
         return cell
     }
+    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -132,10 +148,5 @@ class NewCourseTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-}
 
-extension NewCourseTableViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        getNetworkCourses(search_controller.searchBar.text ?? "")
-    }
 }

@@ -42,7 +42,7 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     func loadAssignments() {
-        /*loadRealmAssignments()
+        loadRealmAssignments()
         tableView.reloadData()
         configureContentOffset()
         
@@ -50,7 +50,7 @@ class HomeScheduleTableViewController: UITableViewController {
             self.loadRealmAssignments()
             self.tableView.reloadData()
             self.configureContentOffset()
-        }*/
+        }
     }
     
     func loadRealmAssignments() {
@@ -59,8 +59,6 @@ class HomeScheduleTableViewController: UITableViewController {
         let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
         
         assignments = realm.objects(Assignment).filter(predicate).sorted("time_begin").map { $0 }
-        
-        print(assignments)
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {

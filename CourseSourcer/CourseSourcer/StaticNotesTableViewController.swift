@@ -11,7 +11,7 @@ import RealmSwift
 import SwiftyJSON
 
 class StaticNotesTableViewController: UITableViewController {
-    var course: Course? = nil
+    var course: Course?
     var notes = [StaticNote]()
     
     override func viewDidLoad() {

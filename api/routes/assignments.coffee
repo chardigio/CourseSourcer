@@ -37,7 +37,7 @@ router.get '/of_user/:userId', (req, res, next) ->
         if err then next err
         else
           for assignment in assignments
-            assignment.user = null #if admin dont null it (or if it's you ?)
+            assignment.user = null #if admin dont null it
           res.send assignments: assignments
 
 module.exports = router

@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class NewNoteViewController: UIViewController {
-    var course: Course? = nil
+    var course: Course?
     
     @IBOutlet weak var date_label: UILabel!
     @IBOutlet weak var subject_textfield: UITextField!
@@ -56,7 +56,7 @@ class NewNoteViewController: UIViewController {
     }
     
     func doneTapped() {
-        var alert: UIAlertController? = nil
+        var alert: UIAlertController?
         
         if subject_textfield.text == nil || subject_textfield.text == "" {
             alert = UIAlertController(title: "Error", message: "Please enter a subject for your note.", preferredStyle: .Alert)

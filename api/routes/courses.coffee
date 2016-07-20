@@ -14,20 +14,16 @@ router.post '/', (req, res, next) ->
 
 #search for courses
 router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPLACES SPACES WITH %20
-  search = {$or:
+  search = {$and:
     [
-      {'school': {"$regex": req.body.term, "$options": "i"}}, #AND THIS WOULD BE REQ.QUERY.TERM
-      {'term': {"$regex": req.body.term, "$options": "i"}},
-      {'name': {"$regex": req.body.term, "$options": "i"}},
-      {'domain': {"$regex": req.body.term, "$options": "i"}}
+      {'name': {"$regex": req.body.query, "$options": "i"}},
+      {'domain': {"$regex": req.body.domain, "$options": "i"}}
     ]
   }
 
   Course.find(search).limit(15).sort('-created_at').exec (err, courses) ->
     if err then next err
-    else
-      console.log courses£
-      res.send courses: courses
+    else res.send courses: courses
 
 #get all courses for user
 router.get '/:userid', (req, res, next) ->

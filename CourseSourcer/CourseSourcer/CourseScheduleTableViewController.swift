@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class CourseScheduleTableViewController: UITableViewController {
     var assignments = [Assignment]()
-    var course: Course? = nil
+    var course: Course?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,7 +9,7 @@
 import UIKit
 
 class AssignmentViewController: UIViewController {
-    var assignment: Assignment? = nil
+    var assignment: Assignment?
     
     @IBOutlet weak var title_field: UITextField!
     

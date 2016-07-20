@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    var course: Course? = nil
+    var course: Course?
     
     @IBOutlet weak var title_field: UITextField!
     
@@ -30,8 +30,8 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBOutlet weak var date_ends_picker: UIDatePicker!
 
     var assignment_type: ASSIGNMENT_TYPES = ASSIGNMENT_TYPES.HOMEWORK
-    var date_due: NSDate? = nil
-    var date_ends: NSDate? = nil
+    var date_due: NSDate?
+    var date_ends: NSDate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,7 +126,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     }
     
     func doneTapped() {
-        var alert: UIAlertController? = nil
+        var alert: UIAlertController?
         
         if title_field.text == nil || title_field.text == "" {
             alert = UIAlertController(title: "Error", message: "Please enter a title for your assignment.", preferredStyle: .Alert)

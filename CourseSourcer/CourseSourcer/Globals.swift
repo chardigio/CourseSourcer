@@ -15,9 +15,9 @@ import RealmSwift
 let TESTING: Bool = true
 var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK
 
-var PREFS: NSUserDefaults? = nil
-var USER: User? = nil
-var CONFIRMED: Bool? = nil
+var PREFS: NSUserDefaults?
+var USER: User?
+var CONFIRMED: Bool?
 var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
 
 var ERROR_MESSAGE_SHOWN: Bool = false
@@ -141,9 +141,6 @@ func stringFromDate(date: NSDate) -> String {
 
 func currentTerm() -> String {
     let month_year_array = NSCalendar.currentCalendar().components([.Month, .Year], fromDate: NSDate())
-    
-    print("monthyeararray")
-    print(month_year_array)
     
     switch month_year_array.month {
     case 12, 1:

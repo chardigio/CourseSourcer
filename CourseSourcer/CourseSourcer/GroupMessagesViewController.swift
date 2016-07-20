@@ -12,11 +12,11 @@ import SwiftyJSON
 import RealmSwift
 
 class GroupMessagesViewController: JSQMessagesViewController {
-    var incomingBubble: JSQMessagesBubbleImage? = nil
-    var outgoingBubble: JSQMessagesBubbleImage? = nil
+    var incomingBubble: JSQMessagesBubbleImage?
+    var outgoingBubble: JSQMessagesBubbleImage?
 
     var messages = [JSQMessage]()
-    var course: Course? = nil
+    var course: Course?
     
     override func viewDidLoad() {
         super.viewDidLoad()

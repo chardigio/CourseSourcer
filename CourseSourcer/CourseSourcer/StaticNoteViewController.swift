@@ -9,8 +9,8 @@
 import UIKit
 
 class StaticNoteViewController: UIViewController {
-    var course: Course? = nil
-    var note: StaticNote? = nil
+    var course: Course?
+    var note: StaticNote?
     
     @IBOutlet weak var score_label: UILabel!
     @IBOutlet weak var content_textview: UITextView!

@@ -10,6 +10,7 @@
 		651032F4A3496E6AF82410AB /* Pods_CourseSourcerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A951AACE67CDF2040C8BF95 /* Pods_CourseSourcerTests.framework */; };
 		7959EC4C1094E1CF9B44AC8B /* Pods_CourseSourcerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327F7D93FFA3D46230379829 /* Pods_CourseSourcerUITests.framework */; };
 		87B73F5BA9683BC32FB69575 /* Pods_CourseSourcer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47418466D3F3DE07BB73FECA /* Pods_CourseSourcer.framework */; };
+		CB0171451D400D3B00FE2B2C /* CourseSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0171441D400D3B00FE2B2C /* CourseSettingsTableViewController.swift */; };
 		CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */; };
 		CB0B08051D3E550F00876347 /* NewCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */; };
 		CB0B08071D3E562100876347 /* NewCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */; };
@@ -28,7 +29,6 @@
 		CB278F991D0AE57B00217EB3 /* CoursesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278F981D0AE57B00217EB3 /* CoursesTableViewController.swift */; };
 		CB278F9B1D0AE5B000217EB3 /* GroupMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278F9A1D0AE5B000217EB3 /* GroupMessagesViewController.swift */; };
 		CB278F9D1D0AE5C000217EB3 /* DirectMessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278F9C1D0AE5C000217EB3 /* DirectMessagesViewController.swift */; };
-		CB278F9F1D0AE5D000217EB3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278F9E1D0AE5CF00217EB3 /* SettingsViewController.swift */; };
 		CB278FA11D0AE5E100217EB3 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FA01D0AE5E100217EB3 /* AboutViewController.swift */; };
 		CB278FA31D0AE5F700217EB3 /* StaticNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FA21D0AE5F700217EB3 /* StaticNoteViewController.swift */; };
 		CB278FA51D0AE61B00217EB3 /* AssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FA41D0AE61B00217EB3 /* AssignmentViewController.swift */; };
@@ -80,6 +80,7 @@
 		7F2146F7C1C9CFF2FBDE5502 /* Pods-CourseSourcerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcerUITests/Pods-CourseSourcerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9328EAC5D4205E6EB5DE3AA2 /* Pods-CourseSourcerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcerTests/Pods-CourseSourcerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A951AACE67CDF2040C8BF95 /* Pods_CourseSourcerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseSourcerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB0171441D400D3B00FE2B2C /* CourseSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseSettingsTableViewController.swift; sourceTree = "<group>"; };
 		CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAssignmentViewController.swift; sourceTree = "<group>"; };
 		CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewController.swift; sourceTree = "<group>"; };
 		CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewCell.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		CB278F981D0AE57B00217EB3 /* CoursesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CoursesTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB278F9A1D0AE5B000217EB3 /* GroupMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GroupMessagesViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB278F9C1D0AE5C000217EB3 /* DirectMessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectMessagesViewController.swift; sourceTree = "<group>"; };
-		CB278F9E1D0AE5CF00217EB3 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		CB278FA01D0AE5E100217EB3 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CB278FA21D0AE5F700217EB3 /* StaticNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticNoteViewController.swift; sourceTree = "<group>"; };
 		CB278FA41D0AE61B00217EB3 /* AssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignmentViewController.swift; sourceTree = "<group>"; };
@@ -220,7 +220,7 @@
 				CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */,
 				CB278FA81D0AE65100217EB3 /* StaticNotesTableViewController.swift */,
 				CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */,
-				CB278F9E1D0AE5CF00217EB3 /* SettingsViewController.swift */,
+				CB0171441D400D3B00FE2B2C /* CourseSettingsTableViewController.swift */,
 				CB278F9A1D0AE5B000217EB3 /* GroupMessagesViewController.swift */,
 				CB278F9C1D0AE5C000217EB3 /* DirectMessagesViewController.swift */,
 				CB278FA21D0AE5F700217EB3 /* StaticNoteViewController.swift */,
@@ -562,7 +562,7 @@
 				CB278FA31D0AE5F700217EB3 /* StaticNoteViewController.swift in Sources */,
 				CB11838B1D180F3B0064A693 /* ScheduleTableViewCell.swift in Sources */,
 				CB0B08051D3E550F00876347 /* NewCourseTableViewController.swift in Sources */,
-				CB278F9F1D0AE5D000217EB3 /* SettingsViewController.swift in Sources */,
+				CB0171451D400D3B00FE2B2C /* CourseSettingsTableViewController.swift in Sources */,
 				CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */,
 				CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */,
 				CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 
 class CourseViewController: UITabBarController {
-    var course: Course? = nil
+    var course: Course?
     
     override func viewDidLoad() {
         super.viewDidLoad()

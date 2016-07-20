@@ -10,12 +10,12 @@ import Foundation
 import RealmSwift
 
 class User: Object {
-    dynamic var id: String? = nil
+    dynamic var id: String?
     dynamic var me: Bool = false
     dynamic var name: String = ""
     dynamic var email: String = ""
-    dynamic var last_spoke: NSDate? = nil
-    dynamic var bio: String? = nil
+    dynamic var last_spoke: NSDate?
+    dynamic var bio: String?
     
     var courses = List<Course>()
     var admin_of = List<Course>()

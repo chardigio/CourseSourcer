@@ -11,6 +11,8 @@
 		7959EC4C1094E1CF9B44AC8B /* Pods_CourseSourcerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 327F7D93FFA3D46230379829 /* Pods_CourseSourcerUITests.framework */; };
 		87B73F5BA9683BC32FB69575 /* Pods_CourseSourcer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47418466D3F3DE07BB73FECA /* Pods_CourseSourcer.framework */; };
 		CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */; };
+		CB0B08051D3E550F00876347 /* NewCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */; };
+		CB0B08071D3E562100876347 /* NewCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */; };
 		CB1183831D180A980064A693 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183821D180A980064A693 /* CourseViewController.swift */; };
 		CB1183871D180F170064A693 /* CourseScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */; };
 		CB1183891D180F250064A693 /* HomeScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */; };
@@ -41,8 +43,6 @@
 		CB278FC01D0AE7DB00217EB3 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FBF1D0AE7DB00217EB3 /* Network.swift */; };
 		CB278FC41D0AEB7500217EB3 /* ClassmatesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC31D0AEB7500217EB3 /* ClassmatesTableViewController.swift */; };
 		CB278FC61D0BD72200217EB3 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */; };
-		CB278FC81D0CBDEE00217EB3 /* JoinCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */; };
-		CB278FCA1D0CBEA200217EB3 /* NewCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */; };
 		CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */; };
 		CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */; };
 		CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */; };
@@ -80,6 +80,8 @@
 		9328EAC5D4205E6EB5DE3AA2 /* Pods-CourseSourcerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourseSourcerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CourseSourcerTests/Pods-CourseSourcerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A951AACE67CDF2040C8BF95 /* Pods_CourseSourcerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CourseSourcerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAssignmentViewController.swift; sourceTree = "<group>"; };
+		CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewController.swift; sourceTree = "<group>"; };
+		CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewCell.swift; sourceTree = "<group>"; };
 		CB1183821D180A980064A693 /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CourseScheduleTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScheduleTableViewController.swift; sourceTree = "<group>"; };
@@ -113,8 +115,6 @@
 		CB278FBF1D0AE7DB00217EB3 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		CB278FC31D0AEB7500217EB3 /* ClassmatesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ClassmatesTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
-		CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinCourseViewController.swift; sourceTree = "<group>"; };
-		CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseViewController.swift; sourceTree = "<group>"; };
 		CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 				CB278FAC1D0AE68F00217EB3 /* CourseTableViewCell.swift */,
 				CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */,
 				CB11838A1D180F3B0064A693 /* ScheduleTableViewCell.swift */,
-				CB278FC71D0CBDEE00217EB3 /* JoinCourseViewController.swift */,
-				CB278FC91D0CBEA200217EB3 /* NewCourseViewController.swift */,
+				CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */,
+				CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */,
 				CB1183821D180A980064A693 /* CourseViewController.swift */,
 				CB278FC31D0AEB7500217EB3 /* ClassmatesTableViewController.swift */,
 				CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */,
@@ -544,7 +544,6 @@
 				CB278FC61D0BD72200217EB3 /* CredentialsViewController.swift in Sources */,
 				CB278FA91D0AE65100217EB3 /* StaticNotesTableViewController.swift in Sources */,
 				CB278F701D0AE17C00217EB3 /* CourseSourcer.xcdatamodeld in Sources */,
-				CB278FCA1D0CBEA200217EB3 /* NewCourseViewController.swift in Sources */,
 				CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */,
 				CB1183891D180F250064A693 /* HomeScheduleTableViewController.swift in Sources */,
 				CB278FA11D0AE5E100217EB3 /* AboutViewController.swift in Sources */,
@@ -553,10 +552,12 @@
 				CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */,
 				CB278FB01D0AE72300217EB3 /* Course.swift in Sources */,
 				CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */,
+				CB0B08071D3E562100876347 /* NewCourseTableViewCell.swift in Sources */,
 				CB1183871D180F170064A693 /* CourseScheduleTableViewController.swift in Sources */,
 				CB278F681D0AE17C00217EB3 /* AppDelegate.swift in Sources */,
 				CB278FA31D0AE5F700217EB3 /* StaticNoteViewController.swift in Sources */,
 				CB11838B1D180F3B0064A693 /* ScheduleTableViewCell.swift in Sources */,
+				CB0B08051D3E550F00876347 /* NewCourseTableViewController.swift in Sources */,
 				CB278F9F1D0AE5D000217EB3 /* SettingsViewController.swift in Sources */,
 				CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */,
 				CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */,
@@ -565,7 +566,6 @@
 				CB278FC01D0AE7DB00217EB3 /* Network.swift in Sources */,
 				CB1183831D180A980064A693 /* CourseViewController.swift in Sources */,
 				CB278FB81D0AE78400217EB3 /* User.swift in Sources */,
-				CB278FC81D0CBDEE00217EB3 /* JoinCourseViewController.swift in Sources */,
 				CB278FB21D0AE73A00217EB3 /* GroupMessage.swift in Sources */,
 				CB278FB41D0AE76500217EB3 /* DirectMessage.swift in Sources */,
 				CB278FAD1D0AE68F00217EB3 /* CourseTableViewCell.swift in Sources */,

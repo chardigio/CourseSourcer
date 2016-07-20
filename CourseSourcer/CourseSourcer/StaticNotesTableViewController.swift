@@ -33,7 +33,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        COURSE_ITEM_TAB = COURSE_ITEM_TABS.STATIC_NOTES
+        COURSE_ITEM_TAB = .STATIC_NOTES
         loadNotes()
     }
 

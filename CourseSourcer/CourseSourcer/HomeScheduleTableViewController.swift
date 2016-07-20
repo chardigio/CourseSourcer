@@ -32,6 +32,7 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
+        print("charlie")
         loadAssignments()
     }
     
@@ -59,6 +60,8 @@ class HomeScheduleTableViewController: UITableViewController {
         let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
         
         assignments = realm.objects(Assignment).filter(predicate).sorted("time_begin").map { $0 }
+        
+        print(assignments)
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {

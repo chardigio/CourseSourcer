@@ -13,7 +13,7 @@ import RealmSwift
 // MARK: - Misc
 
 let TESTING: Bool = true
-var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285"
+var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK
 
 var PREFS: NSUserDefaults? = nil
 var USER: User? = nil
@@ -60,8 +60,7 @@ enum PASTELS{
     
     static var count: Int {
         return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
-                                          // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
-    }
+    }                                     // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
 }
 
 // MARK: - Functions

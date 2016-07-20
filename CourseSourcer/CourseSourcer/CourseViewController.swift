@@ -59,7 +59,6 @@ class CourseViewController: UITabBarController {
     }
     
     func homeTapped() {
-        print("something")
         navigationController?.popViewControllerAnimated(true)
     }
     

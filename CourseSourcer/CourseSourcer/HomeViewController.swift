@@ -44,7 +44,7 @@ class HomeViewController: UIViewController {
     
     @IBAction func compose_button_pressed(sender: AnyObject) {
         if segment_controller.selectedSegmentIndex == 0 { // Courses selected
-            performSegueWithIdentifier("HomeToCourseSearch", sender: nil)
+            performSegueWithIdentifier("HomeToNewCourse", sender: nil)
         }else{ // Schedule Selected
             // present nib to create a new assignment/exam
         }

@@ -143,6 +143,7 @@ class CredentialsViewController: UIViewController {
                     showError(self)
                 }else if res != nil {
                     let realm = try! Realm()
+                    
                     try! realm.write {
                         if USER == nil {
                             USER = User()
@@ -152,6 +153,8 @@ class CredentialsViewController: UIViewController {
                         USER!.me = true
                         USER!.name = res!["user"]["name"].stringValue
                         USER!.bio = res!["user"]["bio"].string
+                        USER!.email = res!["user"]["email"].stringValue
+                        
                         realm.add(USER!, update: true)
                     }
                     

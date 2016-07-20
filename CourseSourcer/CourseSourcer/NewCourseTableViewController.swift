@@ -40,7 +40,7 @@ class NewCourseTableViewController: UITableViewController {
         definesPresentationContext = true
         
         tableView.tableHeaderView = search_controller.searchBar
-        search_controller.searchBar.becomeFirstResponder() // DOESN'T WORK
+        search_controller.searchBar.becomeFirstResponder() // DOESN'T WORK BUT I WANT IT TO
     }
     
     func getNetworkCourses(query: String) {

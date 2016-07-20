@@ -13,6 +13,7 @@
 		CB0B08011D3513C600876347 /* NewAssignmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */; };
 		CB0B08051D3E550F00876347 /* NewCourseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */; };
 		CB0B08071D3E562100876347 /* NewCourseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */; };
+		CB108A701D3F22CD00A9F17C /* StartCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB108A6F1D3F22CC00A9F17C /* StartCourseViewController.swift */; };
 		CB1183831D180A980064A693 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183821D180A980064A693 /* CourseViewController.swift */; };
 		CB1183871D180F170064A693 /* CourseScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */; };
 		CB1183891D180F250064A693 /* HomeScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */; };
@@ -82,6 +83,7 @@
 		CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAssignmentViewController.swift; sourceTree = "<group>"; };
 		CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewController.swift; sourceTree = "<group>"; };
 		CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCourseTableViewCell.swift; sourceTree = "<group>"; };
+		CB108A6F1D3F22CC00A9F17C /* StartCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartCourseViewController.swift; sourceTree = "<group>"; };
 		CB1183821D180A980064A693 /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		CB1183861D180F170064A693 /* CourseScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CourseScheduleTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		CB1183881D180F250064A693 /* HomeScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScheduleTableViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 				CB11838A1D180F3B0064A693 /* ScheduleTableViewCell.swift */,
 				CB0B08041D3E550F00876347 /* NewCourseTableViewController.swift */,
 				CB0B08061D3E562100876347 /* NewCourseTableViewCell.swift */,
+				CB108A6F1D3F22CC00A9F17C /* StartCourseViewController.swift */,
 				CB1183821D180A980064A693 /* CourseViewController.swift */,
 				CB278FC31D0AEB7500217EB3 /* ClassmatesTableViewController.swift */,
 				CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */,
@@ -549,6 +552,7 @@
 				CB278FA11D0AE5E100217EB3 /* AboutViewController.swift in Sources */,
 				CB278FBA1D0AE78F00217EB3 /* Assignment.swift in Sources */,
 				CB278F991D0AE57B00217EB3 /* CoursesTableViewController.swift in Sources */,
+				CB108A701D3F22CD00A9F17C /* StartCourseViewController.swift in Sources */,
 				CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */,
 				CB278FB01D0AE72300217EB3 /* Course.swift in Sources */,
 				CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */,

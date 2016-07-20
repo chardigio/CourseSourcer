@@ -767,7 +767,124 @@
             </objects>
             <point key="canvasLocation" x="2470" y="-1109"/>
         </scene>
-        <!--New Course Table View Controller-->
+        <!--Start Course View Controller-->
+        <scene sceneID="cTV-VJ-V3j">
+            <objects>
+                <viewController id="F0U-dP-I2N" customClass="StartCourseViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vhP-Kw-8qO"/>
+                        <viewControllerLayoutGuide type="bottom" id="XH1-wl-uPP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rAk-dk-Ij9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="term" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uv3-y0-2bO">
+                                <rect key="frame" x="225" y="162" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="GBN-FD-wWA"/>
+                                    <constraint firstAttribute="width" constant="150" id="kUb-cp-Mx4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="domain" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBc-4r-dYu">
+                                <rect key="frame" x="225" y="200" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="HwT-AT-rPc"/>
+                                    <constraint firstAttribute="height" constant="30" id="lvl-lf-ulU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Course" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wkg-yf-EhO">
+                                <rect key="frame" x="93" y="20" width="414" height="58"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="OZJ-jP-hPI"/>
+                                    <constraint firstAttribute="width" constant="414" id="xmd-FE-UBO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="42"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="OZJ-jP-hPI"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headshot" translatesAutoresizingMaskIntoConstraints="NO" id="wst-p6-2Qb">
+                                <rect key="frame" x="20" y="128" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="A4F-oN-hg2"/>
+                                    <constraint firstAttribute="height" constant="64" id="KbC-Pg-5dd"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="school" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SJO-jB-1va">
+                                <rect key="frame" x="225" y="86" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="5qu-5g-Asv"/>
+                                    <constraint firstAttribute="height" constant="30" id="oYJ-Pm-0sF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" alpha="0.89999997615814209" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="course name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w3C-Wm-ySX">
+                                <rect key="frame" x="225" y="124" width="150" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="mez-Uh-fFX"/>
+                                    <constraint firstAttribute="height" constant="30" id="qA5-M2-fjL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cDg-1g-Zjt">
+                                <rect key="frame" x="529" y="145" width="45" height="30"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <bool key="isElement" value="NO"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="2Xu-Gh-nDI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="createButtonPressed:" destination="F0U-dP-I2N" eventType="touchUpInside" id="nFC-u3-jeM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="uv3-y0-2bO" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="6gG-Cw-k2N"/>
+                            <constraint firstItem="w3C-Wm-ySX" firstAttribute="top" secondItem="SJO-jB-1va" secondAttribute="bottom" constant="8" id="8KD-lW-0Tn"/>
+                            <constraint firstItem="SJO-jB-1va" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="EEy-B3-jbQ"/>
+                            <constraint firstItem="vBc-4r-dYu" firstAttribute="top" secondItem="uv3-y0-2bO" secondAttribute="bottom" constant="8" id="HjO-LD-jAX"/>
+                            <constraint firstItem="wst-p6-2Qb" firstAttribute="leading" secondItem="rAk-dk-Ij9" secondAttribute="leadingMargin" id="JKn-Xo-3Fn"/>
+                            <constraint firstItem="Wkg-yf-EhO" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="PnA-s6-gdE"/>
+                            <constraint firstItem="uv3-y0-2bO" firstAttribute="top" secondItem="w3C-Wm-ySX" secondAttribute="bottom" constant="8" id="RJm-5N-Oow"/>
+                            <constraint firstItem="cDg-1g-Zjt" firstAttribute="centerY" secondItem="wst-p6-2Qb" secondAttribute="centerY" id="VhO-G0-ACz"/>
+                            <constraint firstItem="vBc-4r-dYu" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="XhF-1B-zHw"/>
+                            <constraint firstItem="wst-p6-2Qb" firstAttribute="top" secondItem="w3C-Wm-ySX" secondAttribute="top" constant="4" id="agH-uO-PNb"/>
+                            <constraint firstItem="Wkg-yf-EhO" firstAttribute="top" secondItem="vhP-Kw-8qO" secondAttribute="bottom" id="cv7-Bu-6El"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cDg-1g-Zjt" secondAttribute="trailing" constant="6" id="pt3-ey-PLE"/>
+                            <constraint firstItem="w3C-Wm-ySX" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="y2K-9C-LWo"/>
+                            <constraint firstItem="SJO-jB-1va" firstAttribute="top" secondItem="Wkg-yf-EhO" secondAttribute="bottom" constant="8" id="y46-dV-SvX"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="course_name_field" destination="w3C-Wm-ySX" id="hWa-6W-K4r"/>
+                        <outlet property="course_pic" destination="wst-p6-2Qb" id="lUU-uH-7po"/>
+                        <outlet property="domain_field" destination="vBc-4r-dYu" id="Dly-no-i4Y"/>
+                        <outlet property="school_field" destination="SJO-jB-1va" id="dHe-r3-7Qd"/>
+                        <outlet property="term_field" destination="uv3-y0-2bO" id="5Ac-LB-qsJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jj0-LQ-2mv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124" y="-1070"/>
+        </scene>
+        <!--Join Course-->
         <scene sceneID="giv-Z4-SoD">
             <objects>
                 <tableViewController id="b5P-hf-fmX" customClass="NewCourseTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
@@ -810,7 +927,14 @@
                             <outlet property="delegate" destination="b5P-hf-fmX" id="9ot-dq-NTT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Iy1-tR-Isv"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Join Course" id="Iy1-tR-Isv">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="TRD-do-9iJ"/>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="F0U-dP-I2N" kind="presentation" identifier="NewCourseToStartCourse" id="5gJ-II-kaL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q7t-bG-VaD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

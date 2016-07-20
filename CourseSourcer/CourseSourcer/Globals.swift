@@ -135,6 +135,26 @@ func stringFromDate(date: NSDate) -> String {
     return dateFormatter.stringFromDate(date)
 }
 
+func currentTerm() -> String {
+    let month_year_array = NSCalendar.currentCalendar().components([.Month, .Year], fromDate: NSDate())
+    
+    print("monthyeararray")
+    print(month_year_array)
+    
+    // would look so much nicer as a switch
+    if month_year_array.month == 12 || month_year_array == 1 {
+        return "Winter " + String(month_year_array.year)
+    }else if month_year_array.month >= 2 && month_year_array.month <= 5 {
+        return "Spring " + String(month_year_array.year)
+    }else if month_year_array.month >= 6 && month_year_array.month <= 7 {
+        return "Summer " + String(month_year_array.year)
+    }else if month_year_array.month >= 8 && month_year_array.month <= 11 {
+        return "Fall " + String(month_year_array.year)
+    }else{
+        return ""
+    }
+}
+
 // MARK: - Extensions
 
 extension NSDate {

@@ -112,12 +112,15 @@ class StaticNotesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-
-        return 1
+        if notes.count > 0 {
+            return 1
+        }else{
+            displayNoTableViewContentMessageFor("Notes", tableView: tableView)
+            return 0
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return notes.count
     }
 

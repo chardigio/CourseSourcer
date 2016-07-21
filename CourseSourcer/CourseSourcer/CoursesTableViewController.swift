@@ -158,7 +158,12 @@ class CoursesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if courses.count > 0 {
+            return 1
+        }else{
+            displayNoTableViewContentMessageFor("Courses", tableView: tableView)
+            return 0
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -127,7 +127,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadRealmClassmates() {
-        let recent_classmates = course!.users.filter("me == false").sorted("last_spoke").map { $0 }
+        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").map { $0 }
         
         data[1].removeAll()
         for i in [0, 1, 2] {
@@ -173,7 +173,7 @@ class ClassmatesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return data.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

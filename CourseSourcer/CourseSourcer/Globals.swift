@@ -160,6 +160,17 @@ func userDomain() -> String {
     return USER?.email.componentsSeparatedByString("@")[1] ?? ""
 }
 
+func displayNoTableViewContentMessageFor(cellCategorization: String, tableView: UITableView) {
+    let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height))
+    label.text = "No " + cellCategorization
+    label.textAlignment = .Center
+    label.font = UIFont(name: "Avenir Book", size: 24)
+    label.textColor = UIColor.lightGrayColor()
+    
+    tableView.backgroundView = label
+    tableView.separatorStyle = .None
+}
+
 // MARK: - Extensions
 
 extension NSDate {

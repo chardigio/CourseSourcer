@@ -71,7 +71,7 @@ class CourseSettingsTableViewController: UITableViewController {
     }
     
     func adminCellTapped() {
-        // TODO
+        // this will eventually just open an email with some pre-populated stuff
     }
     
     // MARK: - Table view data source

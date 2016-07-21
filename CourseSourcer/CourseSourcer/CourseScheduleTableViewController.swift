@@ -138,7 +138,12 @@ class CourseScheduleTableViewController: UITableViewController {
     // MARK: - TableView delegate functions
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        if assignments.count > 0 {
+            return 1
+        }else{
+            displayNoTableViewContentMessageFor("Assignments", tableView: tableView)
+            return 0
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -158,7 +163,6 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        print("selected")
         performSegueWithIdentifier("CourseScheduleToAssignment", sender: assignments[indexPath.row])
     }
 

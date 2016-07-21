@@ -173,12 +173,10 @@ class ClassmatesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
         return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         return data[section].count
     }
 

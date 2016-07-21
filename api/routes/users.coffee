@@ -54,4 +54,10 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
 
       res.send users: users
 
+#remove course from user
+### TODO
+router.put '/leaveCourse/:courseId', (req, res, next) ->
+  User.findByIdAndUpdate req.body.user,
+###
+
 module.exports = router

@@ -26,9 +26,7 @@ class CourseViewController: UITabBarController {
     override func willMoveToParentViewController(parent: UIViewController?) {
         navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
         
-        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
-        
-        navigationController!.navigationBar.shadowImage = UIImage()
+        hideHairline()
     }
     
     // MARK: - Personal
@@ -60,6 +58,12 @@ class CourseViewController: UITabBarController {
     
     func homeTapped() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func hideHairline() {
+        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        
+        navigationController!.navigationBar.shadowImage = UIImage()
     }
     
     // MARK: - Navigation

@@ -7,16 +7,15 @@ server = rek 'components/server'
 
 #post dm
 router.post '/', server.loadUser, (req, res, next) ->
-  User.findOne email: req.body.to, (err, partner) ->
+  User.findOne email: req.body.to_email, (err, partner) ->
     if err then next err
     else
-      console.log req.user
-      direct_message = new DirectMessage _.pick req.body, 'text', 'course'
+      direct_message = new DirectMessage _.pick req.body, 'text', 'course', 'to_email'
       direct_message.from = req.body.id
       direct_message.to = partner.id
+      direct_message.from_email = req.user.email
 
       direct_message.save (err, directMessage) ->
-        console.log "almost"
         if err then next err
         else res.status(201).send direct_message: directMessage
 
@@ -38,12 +37,16 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
 
       search = {$or: [
         {$and: [
-          {to: req.user.id}, {from: partner.id}
+          {to_email: req.user.email}, {from_email: partner.email}
         ]},
         {$and: [
-          {to: partner.id}, {from: req.user.id}
+          {to_email: partner.email}, {from_email: req.user.email}
         ]}
       ]}
+
+      console.log req.user
+      console.log partner
+      console.log search
 
       if lastId and lastId isnt null and lastId isnt ''
         DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->

@@ -152,7 +152,6 @@ class ClassmatesTableViewController: UITableViewController {
                     let classmate = User()
                     classmate.email = obj["email"].stringValue
                     classmate.name = obj["name"].stringValue
-                    classmate.last_spoke = dateFromString(obj["last_spoke"].stringValue)
                     classmate.courses.append(self.course!)
                     
                     network_classmates.append(classmate)

@@ -9,6 +9,7 @@ server = rek 'components/server'
 #post user
 router.post '/', (req, res, next) ->
   user = new User _.pick req.body, 'name', 'email', 'password', 'bio', 'admin_of', 'courses'
+  #user.token = String(req.body.password[1]) + String(req.body.password[3]) + String(req.body.password[4])
   user.confirmed = false
   user.save (err, user) ->
     if err then next err

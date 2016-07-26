@@ -9,17 +9,19 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
+import MessageUI
 
-class CourseSettingsTableViewController: UITableViewController {
+class CourseSettingsTableViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     var course: Course?
     
     let section_titles = ["Color", "Leave", "Admin"]
-    let cell_labels = [["Pink", "Orange", "Beige", "Yellow", "Blue"], ["Remove me from this course"], ["Request to become a course administrator"]]
+    var cell_labels = [["Pink", "Orange", "Beige", "Yellow", "Blue"], ["Remove me from this course"], ["Request to become a course administrator"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureCourse()
+        configureAdminButton()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,6 +40,12 @@ class CourseSettingsTableViewController: UITableViewController {
     func configureCourse() {
         if let parent = tabBarController as? CourseViewController {
             course = parent.course
+        }
+    }
+    
+    func configureAdminButton() {
+        if course!.admin_request_sent || course!.admin {
+            cell_labels.removeLast()
         }
     }
     
@@ -89,7 +97,17 @@ class CourseSettingsTableViewController: UITableViewController {
     }
     
     func adminCellTapped() {
-        // this will eventually just open an email with some pre-populated stuff
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["cd17822@gmail.com"]) // THIS WILL HAVE TO BE A COURSESOURCER EMAIL
+            mail.setSubject("CourseSourcer Admin Request")
+            mail.setMessageBody("Request coming from \(USER!.name) (\(USER!.email)) to be administrator of Course: \(course!.name) (ID: \(course!.id)).\n\nI acknowledge that only Professors and Teaching Assistants have the right to become administrators.\n\nProvide reasons to be an administrator below with links to back up claims.\n\n", isHTML: false)
+            
+            presentViewController(mail, animated: true, completion: nil)
+        }else{
+            showError(self, overrideAndShow: true, message: "Could not send mail.")
+        }
     }
     
     // MARK: - Table view data source
@@ -130,6 +148,23 @@ class CourseSettingsTableViewController: UITableViewController {
         default:
             print("ERROR:", "Picked a cell from an unexpected section:", indexPath.section)
         }
+    }
+    
+    // MARK: - MFMailComposeViewControllerDelegate
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        
+        if result == MFMailComposeResultSent {
+            let realm = try! Realm()
+            
+            try! realm.write {
+                course!.admin_request_sent = true
+            }
+        }else if result == MFMailComposeResultFailed {
+            showError(self, overrideAndShow: true, message: "Could not send mail.")
+        }
+        
+        controller.dismissViewControllerAnimated(true, completion: nil)
     }
     
     /*

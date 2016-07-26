@@ -8,6 +8,7 @@ schema = mongoose.Schema
   name: String
   email: String
   password: String
+  #token: String
   confirmed: Boolean
   bio: String
   admin_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]

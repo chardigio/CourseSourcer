@@ -673,16 +673,16 @@
         <scene sceneID="w78-UN-dnH">
             <objects>
                 <tableViewController id="X0P-QV-Hse" userLabel="Course Schedule" customClass="CourseScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" id="lXs-CD-hWL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScheduleCell" id="qzs-ZW-ahN">
-                                <rect key="frame" x="0.0" y="92" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qzs-ZW-ahN" id="1Ld-r8-65F">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HOj-Ks-EO4">
@@ -695,8 +695,8 @@
                                                         <constraint firstAttribute="width" constant="64" id="ia1-ad-eHz"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQD-Ln-F7y">
-                                                    <rect key="frame" x="86" y="8" width="171" height="50"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Replaced by a xib" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQD-Ln-F7y">
+                                                    <rect key="frame" x="86" y="8" width="287" height="50"/>
                                                     <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="36"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -723,7 +723,7 @@
                                         <constraint firstAttribute="trailingMargin" secondItem="HOj-Ks-EO4" secondAttribute="trailing" id="Bxx-sJ-2W1"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="HOj-Ks-EO4" secondAttribute="leading" id="Gfc-1b-1fr"/>
                                         <constraint firstItem="HOj-Ks-EO4" firstAttribute="top" secondItem="1Ld-r8-65F" secondAttribute="topMargin" constant="8" id="S8G-eo-oMG"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="HOj-Ks-EO4" secondAttribute="bottom" constant="-8" id="in4-C3-8sP"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="HOj-Ks-EO4" secondAttribute="bottom" constant="-22" id="in4-C3-8sP"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1063,11 +1063,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-ra-K48">
-                                            <rect key="frame" x="8" y="16" width="584" height="84"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-ra-K48">
+                                            <rect key="frame" x="8" y="16" width="584" height="94"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqt-G8-23r">
-                                                    <rect key="frame" x="8" y="10" width="64" height="64"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqt-G8-23r">
+                                                    <rect key="frame" x="8" y="15" width="64" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="64" id="BIw-tM-OKa"/>
                                                         <constraint firstAttribute="width" constant="64" id="ZWI-JJ-Llu"/>

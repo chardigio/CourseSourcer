@@ -113,9 +113,12 @@ func showError(vc: UIViewController, overrideAndShow: Bool = false, message: Str
         ERROR_MESSAGE_SHOWN = true
     }
     
+    print("ERROR:", message)
+    
     let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
     let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
     alertController.addAction(defaultAction)
+    
     vc.presentViewController(alertController, animated: true, completion: nil)
 }
 

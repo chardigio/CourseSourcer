@@ -140,7 +140,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     message.id = network_message["id"].stringValue
                     message.text = network_message["text"].stringValue
                     message.created_at = dateFromString(network_message["created_at"].stringValue)
-                    message.from_me = (network_message["from"].stringValue == USER!.email)
+                    message.from_me = (network_message["from_email"].stringValue == USER!.email)
                     message.user = self.classmate
                     message.course = realm.objectForPrimaryKey(Course.self, key: network_message["course"].stringValue)
                     
@@ -153,6 +153,10 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     }
                     
                     self.classmate!.last_spoke = network_messages.first?.created_at
+                    
+                    if network_messages.count > 0 {
+                        self.classmate!.last_spoke = network_messages.first!.created_at
+                    }
                 }
                 
                 callback()
@@ -200,7 +204,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         POST("/direct_messages", parameters: ["text": text,
                                               "course":course!.id,
                                               "user":USER!.id!,
-                                              "to":classmate!.email],
+                                              "to_email":classmate!.email],
                                  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)

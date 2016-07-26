@@ -61,6 +61,24 @@ class CourseSettingsTableViewController: UITableViewController {
                 }else if (res != nil) {
                     self.navigationController?.popViewControllerAnimated(true) // clear alert
                     self.navigationController?.popViewControllerAnimated(true) // go back to home screen
+                    
+                    let realm = try! Realm()
+                    
+                    try! realm.write {
+                        for user in self.course!.users.filter("me == false") {
+                            if user.courses.count == 1 {
+                                realm.delete(user)
+                            }else{
+                                removeCourseFromUser(self.course!, user: user)
+                            }
+                        }
+                        
+                        realm.delete(self.course!.static_notes)
+                        realm.delete(self.course!.assignments)
+                        realm.delete(self.course!.messages)
+                        
+                        realm.delete(self.course!)
+                    }
                 }
             })
         }))

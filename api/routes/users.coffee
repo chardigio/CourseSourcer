@@ -43,8 +43,6 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
 
         index_of_me = index if user.id is req.query.userid
         users.splice(index_of_me, 1) if index_of_me isnt -1
-        #what is splice doing, removing me?
-        #i hope it's removing me and not splitting@index
 
         user.id = null
         user.created_at = null
@@ -55,9 +53,10 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
       res.send users: users
 
 #remove course from user
-### TODO
 router.put '/leaveCourse/:courseId', (req, res, next) ->
-  User.findByIdAndUpdate req.body.user,
-###
+  User.findByIdAndUpdate req.body.user, $pull: courses: req.params.courseId, (err, user) ->
+    console.log user
+    if err then next err
+    else res.status(201).send user: user
 
 module.exports = router

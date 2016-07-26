@@ -13,6 +13,7 @@ class NewCourseTableViewController: UITableViewController {
     // not type [Course] since we wanna grab em from the network and put em in here as fast as possible
     var network_courses = [JSON]()
     let search_controller = UISearchController(searchResultsController: nil)
+    var no_content_label: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,9 +74,16 @@ class NewCourseTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if network_courses.count > 0 {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .SingleLine
+            
             return 1
         }else{
-            displayNoTableViewContentMessageFor("Courses Match Query", tableView: tableView)
+            no_content_label = noTableViewContentLabelFor("Courses Match Query", tableView: tableView)
+            
+            tableView.backgroundView = no_content_label
+            tableView.separatorStyle = .None
+            
             return 0
         }
     }

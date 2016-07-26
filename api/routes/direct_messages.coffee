@@ -6,15 +6,17 @@ User = rek 'models/user'
 server = rek 'components/server'
 
 #post dm
-router.post '/', (req, res, next) -> #server.loadUser was here
+router.post '/', server.loadUser, (req, res, next) ->
   User.findOne email: req.body.to, (err, partner) ->
     if err then next err
     else
+      console.log req.user
       direct_message = new DirectMessage _.pick req.body, 'text', 'course'
-      direct_message.from = req.body.user
+      direct_message.from = req.body.id
       direct_message.to = partner.id
 
       direct_message.save (err, directMessage) ->
+        console.log "almost"
         if err then next err
         else res.status(201).send direct_message: directMessage
 
@@ -44,21 +46,14 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
       ]}
 
       if lastId and lastId isnt null and lastId isnt ''
-        DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).exec (err, nextDirectMessages) ->
+        DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->
           if err then next err
-          else
-            for direct_message in nextDirectMessages
-              direct_message.to = direct_message.to.email
-              direct_message.from = direct_message.from.email
-            res.send direct_messages: nextDirectMessages
+          else res.send direct_messages: nextDirectMessages
       else
-        DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).exec (err, directMessages) ->
+        DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).populate('from').populate('to').exec (err, directMessages) ->
           if err then next err
           else
-            for direct_message in directMessages
-              direct_message.to = direct_message.to.email
-              direct_message.from = direct_message.from.email
-
+            console.log directMessages
             res.send direct_messages: directMessages
 
 module.exports = router

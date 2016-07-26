@@ -16,6 +16,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     var outgoingBubble: JSQMessagesBubbleImage?
     
     var messages = [JSQMessage]()
+    var message_courses = [Course?]()
     var course: Course?
     var classmate: User?
     
@@ -70,8 +71,12 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func configureBubbles() {
-        outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(course!.color))
+        outgoingBubble = outgoingBubbleWithColor(course!.color)
         incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+    }
+    
+    func outgoingBubbleWithColor(color: Int) -> JSQMessagesBubbleImage {
+        return JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(color))
     }
     
     func configureJSQ() {
@@ -95,16 +100,19 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func loadRealmMessages() {
+        message_courses.removeAll()
         messages.removeAll()
         
         let realm = try! Realm()
         
         for realm_message in (classmate?.messages.sorted("created_at"))! {
+            message_courses.append(realm_message.course)
+            
             var message: JSQMessage {
                 if realm_message.from_me {
-                    return JSQMessage(senderId: senderId, displayName: senderDisplayName, text: realm_message.text) // add date param
+                    return JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: realm_message.created_at, text: realm_message.text)
                 }else{
-                    return JSQMessage(senderId: "Classmate", displayName: classmate!.name, text: realm_message.text) // add date param
+                    return JSQMessage(senderId: "Classmate", senderDisplayName: classmate!.name, date: realm_message.created_at, text: realm_message.text)
                 }
             }
             
@@ -127,13 +135,14 @@ class DirectMessagesViewController: JSQMessagesViewController {
                 var network_messages = [DirectMessage]()
                 
                 for network_message in res!["direct_messages"].arrayValue {
+                    print(network_message)
                     let message = DirectMessage()
                     message.id = network_message["id"].stringValue
                     message.text = network_message["text"].stringValue
                     message.created_at = dateFromString(network_message["created_at"].stringValue)
                     message.from_me = (network_message["from"].stringValue == USER!.email)
                     message.user = self.classmate
-                    message.course = self.course
+                    message.course = realm.objectForPrimaryKey(Course.self, key: network_message["course"].stringValue)
                     
                     network_messages.append(message)
                 }
@@ -155,17 +164,14 @@ class DirectMessagesViewController: JSQMessagesViewController {
     // MARK: - JSQ
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return messages.count
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
-        
-        return self.messages[indexPath.row]
+        return messages[indexPath.row]
     }
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
-        
         messages.removeAtIndex(indexPath.row)
     }
     
@@ -173,7 +179,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         switch(messages[indexPath.row].senderId) {
         case senderId:
-            return outgoingBubble
+            return outgoingBubbleWithColor(message_courses[indexPath.row]?.color ?? course!.color)
         default:
             return incomingBubble
         }
@@ -187,6 +193,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
         self.messages.append(message)
+        self.message_courses.append(course)
         
         self.finishSendingMessage()
         

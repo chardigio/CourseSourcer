@@ -9,8 +9,9 @@
 import UIKit
 
 class ScheduleTableViewCell: UITableViewCell {
-    @IBOutlet weak var date_label: UITextField!
+    
     @IBOutlet weak var title_label: UILabel!
+    @IBOutlet weak var date_label: UITextField!
     @IBOutlet weak var subview: UIView!
     @IBOutlet weak var assignment_pic: UIImageView!
     

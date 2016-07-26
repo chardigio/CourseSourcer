@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class CoursesTableViewController: UITableViewController {
     var courses = [Course]()
+    var no_content_label: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,9 +160,15 @@ class CoursesTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if courses.count > 0 {
+            tableView.backgroundView = nil
+            
             return 1
         }else{
-            displayNoTableViewContentMessageFor("Courses", tableView: tableView)
+            no_content_label = noTableViewContentLabelFor("Courses", tableView: tableView)
+            
+            tableView.backgroundView = no_content_label
+            tableView.separatorStyle = .None
+            
             return 0
         }
     }

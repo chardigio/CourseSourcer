@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class HomeScheduleTableViewController: UITableViewController {
     var assignments = [Assignment]()
+    var no_content_label: UILabel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,9 +118,15 @@ class HomeScheduleTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if assignments.count > 0 {
+            tableView.backgroundView = nil
+            
             return 1
         }else{
-            displayNoTableViewContentMessageFor("Assignments", tableView: tableView)
+            no_content_label = noTableViewContentLabelFor("Assignments", tableView: tableView)
+            
+            tableView.backgroundView = no_content_label
+            tableView.separatorStyle = .None
+            
             return 0
         }
     }

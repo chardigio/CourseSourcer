@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import JSQMessagesViewController
 
 // MARK: - Misc
 
@@ -82,8 +83,12 @@ func pastelFromInt(color: Int) -> UIColor {
 }
 
 func getLeastUsedColor() -> Int {
+    let realm = try! Realm()
+    
     var counts = [Int](count: PASTELS.count, repeatedValue: 0)
-    for course in USER!.courses {
+    let courses = realm.objects(Course)
+    for course in courses {
+        print(course.color)
         counts[course.color] += 1
     }
     
@@ -160,15 +165,25 @@ func userDomain() -> String {
     return USER?.email.componentsSeparatedByString("@")[1] ?? ""
 }
 
-func displayNoTableViewContentMessageFor(cellCategorization: String, tableView: UITableView) {
+func noTableViewContentLabelFor(cellCategorization: String, tableView: UITableView) -> UILabel {
     let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height))
     label.text = "No " + cellCategorization
     label.textAlignment = .Center
     label.font = UIFont(name: "Avenir Book", size: 24)
     label.textColor = UIColor.lightGrayColor()
     
-    tableView.backgroundView = label
-    tableView.separatorStyle = .None
+    return label
+}
+
+// can only call this from within a realm.write
+func removeCourseFromUser(course: Course, user: User) {
+    var course_index = 0
+    for user_course in user.courses {
+        if user_course.id == course.id {
+            user.courses.removeAtIndex(course_index)
+        }
+        course_index += 1
+    }
 }
 
 // MARK: - Extensions

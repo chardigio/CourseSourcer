@@ -1051,22 +1051,22 @@
         <scene sceneID="Fh5-pK-guu">
             <objects>
                 <tableViewController id="SFZ-Wt-Ndg" userLabel="Home Schedule" customClass="HomeScheduleTableViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" id="b5i-Ry-K1o">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="492"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ScheduleCell" id="9Ms-A0-s0c">
-                                <rect key="frame" x="0.0" y="28" width="600" height="100"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="86"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Ms-A0-s0c" id="C0q-1n-IDt">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="86"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-ra-K48">
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JxU-ra-K48">
                                             <rect key="frame" x="8" y="16" width="584" height="84"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rqt-G8-23r">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rqt-G8-23r">
                                                     <rect key="frame" x="8" y="10" width="64" height="64"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="64" id="BIw-tM-OKa"/>
@@ -1099,7 +1099,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="JxU-ra-K48" firstAttribute="top" secondItem="C0q-1n-IDt" secondAttribute="topMargin" constant="8" id="10B-qz-7XD"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="JxU-ra-K48" secondAttribute="bottom" constant="-8" id="4ld-Em-y9g"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="JxU-ra-K48" secondAttribute="bottom" constant="-32" id="4ld-Em-y9g"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="JxU-ra-K48" secondAttribute="leading" id="9NF-Sq-PYu"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="JxU-ra-K48" secondAttribute="trailing" id="OFu-Ok-RfV"/>
                                     </constraints>
@@ -1365,7 +1365,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Notes: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oko-Oa-5RN">
-                                <rect key="frame" x="20" y="302" width="560" height="298"/>
+                                <rect key="frame" x="20" y="302" width="560" height="249"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

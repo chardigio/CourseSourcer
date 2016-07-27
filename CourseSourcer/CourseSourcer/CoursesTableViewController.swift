@@ -41,13 +41,11 @@ class CoursesTableViewController: UITableViewController {
         let realm = try! Realm()
 
         if USER == nil {
-            let users_that_are_me = realm.objects(User).filter("me == true")
-            
-            if users_that_are_me.count == 0 {
-                return
-            }
-            
-            USER = users_that_are_me[0]
+            USER = realm.objects(User).filter("me == true").first
+        }
+        
+        if USER == nil {
+            return
         }
         
         
@@ -58,13 +56,13 @@ class CoursesTableViewController: UITableViewController {
         POST("/courses", parameters: ["name":"Algorithms",
                                       "school":"Binghamton",
                                       "term":"Fall 2016",
-                                      "domain":"@binghamton.edu"],
+                                      "domain":"binghamton"],
                          callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": USER!.id!,
-                                                     "course_id": res!["course"]["id"].string!],
+                PUT("/users/addCourse", parameters: ["user": USER!.id!,
+                                                     "course_id": res!["course"]["id"].stringValue],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
@@ -76,13 +74,13 @@ class CoursesTableViewController: UITableViewController {
         POST("/courses", parameters: ["name":"Machine Learning",
                                       "school":"Binghamton",
                                       "term":"Fall 2016",
-                                      "domain":"@binghamton.edu"],
+                                      "domain":"binghamton"],
                          callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": USER!.id!,
-                                                     "course_id": res!["course"]["id"].string!],
+                PUT("/users/addCourse", parameters: ["user": USER!.id!,
+                                                     "course_id": res!["course"]["id"].stringValue],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
@@ -195,9 +193,10 @@ class CoursesTableViewController: UITableViewController {
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
-        return true
+        return false
     }
 
+    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
@@ -208,6 +207,7 @@ class CoursesTableViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
+    */
 
     /*
     // Override to support rearranging the table view.

@@ -16,10 +16,16 @@ router.post '/', (req, res, next) ->
     else res.status(201).send user: user
 
 #add course to user
-router.put '/addCourse', (req, res, next) ->
-  User.findByIdAndUpdate req.body.user_id, $addToSet: courses: req.body.course_id, (err, user) ->
+router.put '/addCourse', server.loadUser, (req, res, next) ->
+  Course.findById req.body.course_id, (err, course) ->
     if err then next err
-    else res.status(200).send user: user
+    else
+      if req.user.email.split('.edu')[0].split('@')[1] != course.domain
+        res.status(400).send error: "You do not have permission to join this course"
+      else
+        User.findByIdAndUpdate req.user.id, $addToSet: courses: req.body.course_id, (err, user) ->
+          if err then next err
+          else res.status(200).send user: user
 
 #update name of user
 router.put '/:userid', (req, res, next) -> # also needs pic handling
@@ -56,7 +62,6 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
 #remove course from user
 router.put '/leaveCourse/:courseId', (req, res, next) ->
   User.findByIdAndUpdate req.body.user, $pull: courses: req.params.courseId, (err, user) ->
-    console.log user
     if err then next err
     else res.status(201).send user: user
 

@@ -54,7 +54,7 @@ class NewCourseTableViewController: UITableViewController {
     func getNetworkCourses(query: String) {
         POST("/courses/search", parameters: ["query" : query,
                                              "term" : currentTerm(),
-                                             "domain" : userDomain()],
+                                             "domain" : userDomain(USER)],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)
@@ -99,6 +99,18 @@ class NewCourseTableViewController: UITableViewController {
         cell.subtitle_label.text = network_courses[indexPath.row]["school"].stringValue + " - " + network_courses[indexPath.row]["term"].stringValue
 
         return cell
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        PUT("/users/addCourse", parameters: ["user": USER!.id!,
+                                             "course_id": network_courses[indexPath.row]["id"].stringValue],
+            callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                if err != nil {
+                    showError(self)
+                }else{
+                    self.navigationController?.popViewControllerAnimated(true)
+                }
+        })
     }
 
     /*

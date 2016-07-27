@@ -12,7 +12,8 @@ class StaticNoteTableViewCell: UITableViewCell {
     @IBOutlet weak var title_label: UILabel!
     @IBOutlet weak var date_label: UILabel!
     @IBOutlet weak var preview_textview: UITextView!
-
+    @IBOutlet weak var user_label: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -23,5 +24,11 @@ class StaticNoteTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
+    
+    // MARK: - Personal
+    
+    func showUserLabel(handle: String) {
+        user_label.hidden = false
+        user_label.text  = handle
+    }
 }

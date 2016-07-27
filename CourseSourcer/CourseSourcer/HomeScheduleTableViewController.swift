@@ -18,6 +18,7 @@ class HomeScheduleTableViewController: UITableViewController {
         super.viewDidLoad()
 
         configureTableView()
+        configureRefreshControl()
         loadAssignments()
         
         // Uncomment the following line to preserve selection between presentations
@@ -40,6 +41,14 @@ class HomeScheduleTableViewController: UITableViewController {
     
     func configureTableView() {
         tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+    }
+    
+    func configureRefreshControl() {
+        refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
+    }
+    
+    func handleRefresh() {
+        loadAssignments()
     }
     
     func loadAssignments() {
@@ -111,7 +120,9 @@ class HomeScheduleTableViewController: UITableViewController {
             }
         }
         
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
+        if CGFloat(assignments.count) - CGFloat(num_overdue_assignments) > tableView.frame.height / tableView.rowHeight {
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        }
     }
     
     // MARK: - Table view data source
@@ -137,13 +148,15 @@ class HomeScheduleTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
-
-        cell.subview.backgroundColor = pastelFromInt(assignments[indexPath.row].course!.color)
-        //cell.assignment_pic = nil
-        cell.title_label.text = assignments[indexPath.row].title
         
-        cell.populateDateLabel(assignments[indexPath.row].time_begin, timeEnd: assignments[indexPath.row].time_end)
-
+        let assignment = assignments[indexPath.row]
+        
+        cell.subview.backgroundColor = pastelFromInt(assignment.course!.color)
+        //cell.assignment_pic = nil
+        cell.title_label.text = assignment.title
+        
+        cell.populateDateLabel(assignment.time_begin, timeEnd: assignment.time_end)
+        
         return cell
     }
     

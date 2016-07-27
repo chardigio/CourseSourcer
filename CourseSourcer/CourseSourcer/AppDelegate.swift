@@ -32,11 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let realm = try! Realm()
         
-        let users_that_are_me = realm.objects(User).filter("me == true")
+        USER = realm.objects(User).filter("me == true").first
         
-        if users_that_are_me.count > 0 && USER == nil {
-            //USER = users_that_are_me[0]
-        }else{
+        if USER == nil {
             CONFIRMED = nil // SANITY CHECK
 
             try! realm.write {

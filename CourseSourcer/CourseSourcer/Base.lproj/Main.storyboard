@@ -546,9 +546,17 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cdigiov1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dF0-ym-8aE">
+                                            <rect key="frame" x="527" y="55" width="65" height="24"/>
+                                            <color key="backgroundColor" red="0.98823529409999999" green="0.92156862750000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="dF0-ym-8aE" secondAttribute="trailing" id="0Q5-vM-vX6"/>
                                         <constraint firstItem="rt7-cO-y5n" firstAttribute="centerY" secondItem="L1e-g0-2WL" secondAttribute="centerY" id="6IG-51-9wj"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="dF0-ym-8aE" secondAttribute="bottom" id="FM3-Kp-TGu"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="rt7-cO-y5n" secondAttribute="trailing" id="Fhr-I9-6ki"/>
                                         <constraint firstItem="rt7-cO-y5n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L1e-g0-2WL" secondAttribute="trailing" constant="5" id="XAI-q3-0Qf"/>
                                         <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="-5" id="XCZ-fL-ML3"/>
@@ -563,6 +571,7 @@
                                     <outlet property="date_label" destination="rt7-cO-y5n" id="ope-bS-Zjv"/>
                                     <outlet property="preview_textview" destination="dQJ-ot-KW0" id="Fj5-x3-IIT"/>
                                     <outlet property="title_label" destination="L1e-g0-2WL" id="nmk-k2-fbT"/>
+                                    <outlet property="user_label" destination="dF0-ym-8aE" id="JO1-cl-kE3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

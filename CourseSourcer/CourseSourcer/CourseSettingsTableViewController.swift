@@ -44,7 +44,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     }
     
     func configureAdminButton() {
-        if course!.admin_request_sent || course!.admin {
+        if (course!.admin_request_sent || course!.admin) && cell_labels.count == 3 {
             cell_labels.removeLast()
         }
     }
@@ -160,6 +160,8 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
             try! realm.write {
                 course!.admin_request_sent = true
             }
+            
+            configureAdminButton()
         }else if result == MFMailComposeResultFailed {
             showError(self, overrideAndShow: true, message: "Could not send mail.")
         }

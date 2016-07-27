@@ -88,7 +88,6 @@ func getLeastUsedColor() -> Int {
     var counts = [Int](count: PASTELS.count, repeatedValue: 0)
     let courses = realm.objects(Course)
     for course in courses {
-        print(course.color)
         counts[course.color] += 1
     }
     
@@ -164,8 +163,12 @@ func currentTerm() -> String {
     }
 }
 
-func userDomain() -> String {
-    return USER?.email.componentsSeparatedByString("@")[1] ?? ""
+func userEmailHandle(user: User?) -> String {
+    return user?.email.componentsSeparatedByString("@")[0] ?? ""
+}
+
+func userDomain(user: User?) -> String {
+    return user?.email.componentsSeparatedByString(".edu")[0].componentsSeparatedByString("@")[1] ?? ""
 }
 
 func noTableViewContentLabelFor(cellCategorization: String, tableView: UITableView) -> UILabel {

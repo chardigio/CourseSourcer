@@ -152,7 +152,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
                        ["title"      : self.title_field.text!,
                         "type"       : self.assignment_type.rawValue,
                         "time_begin" : self.date_due!.description,
-                        "time_end"   : self.date_ends?.description ?? "",
+                        "time_end"   : (self.isTakeHomeAssignment()) ? "" : self.date_ends!.description,
                         "notes"      : self.notes_textview.text ?? "",
                         "course"     : self.course!.id,
                         "user"       : USER!.id!],

@@ -44,10 +44,6 @@ router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
         ]}
       ]}
 
-      console.log req.user
-      console.log partner
-      console.log search
-
       if lastId and lastId isnt null and lastId isnt ''
         DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->
           if err then next err

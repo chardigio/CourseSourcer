@@ -47,17 +47,16 @@ class ClassmatesTableViewController: UITableViewController {
             return
         }
         
-        let time = UInt32(NSDate().timeIntervalSinceReferenceDate)
-        srand(time)
+        srand(UInt32(NSDate().timeIntervalSinceReferenceDate))
         
         POST("/users", parameters: ["name": "Becky Hammond",
                                     "password": "bbgirl123",
-                                    "email": "bhammon\(rand() % 10000)@binghamton.edu"],
+                                    "email": "bhammon\(rand() % 10000)@.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue,
+                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue,
                                                      "course_id": self.course!.id],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
@@ -74,7 +73,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue, "course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue, "course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -89,7 +88,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user_id": res!["user"]["id"].stringValue,
+                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue,
                                                      "course_id": self.course!.id],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {

@@ -14,6 +14,7 @@ class ScheduleTableViewCell: UITableViewCell {
     @IBOutlet weak var date_label: UITextField!
     @IBOutlet weak var subview: UIView!
     @IBOutlet weak var assignment_pic: UIImageView!
+    @IBOutlet weak var user_label: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,5 +46,10 @@ class ScheduleTableViewCell: UITableViewCell {
                     timeEnd!.prettyTimeDescription
             }
         }
+    }
+    
+    func showUserLabel(handle: String) {
+        user_label.hidden = false
+        user_label.text  = handle
     }
 }

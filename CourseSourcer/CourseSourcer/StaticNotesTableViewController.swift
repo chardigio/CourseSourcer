@@ -18,6 +18,7 @@ class StaticNotesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureRefreshControl()
         configureCourse()
         loadNotes()
 
@@ -62,6 +63,14 @@ class StaticNotesTableViewController: UITableViewController {
         if let parent = tabBarController as? CourseViewController {
             course = parent.course
         }
+    }
+    
+    func configureRefreshControl() {
+        refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
+    }
+    
+    func handleRefresh() {
+        loadNotes()
     }
     
     func loadNotes() {
@@ -140,6 +149,10 @@ class StaticNotesTableViewController: UITableViewController {
         cell.date_label.text = note.created_at?.prettyDateDescription
         cell.preview_textview.text = note.text
         cell.preview_textview.setContentOffset(CGPointZero, animated: false)
+        
+        if course!.admin {
+            cell.showUserLabel(userEmailHandle(note.user))
+        }
         
         return cell
     }

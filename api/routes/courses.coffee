@@ -16,8 +16,8 @@ router.post '/', (req, res, next) ->
 router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPLACES SPACES WITH %20
   search = {$and:
     [
-      {'name': {"$regex": req.body.query, "$options": "i"}},
-      {'domain': {"$regex": req.body.domain, "$options": "i"}}
+      {name: {'$regex': req.body.query, '$options': "i"}},
+      {domain: req.body.domain}
     ]
   }
 

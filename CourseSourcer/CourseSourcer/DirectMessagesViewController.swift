@@ -135,7 +135,6 @@ class DirectMessagesViewController: JSQMessagesViewController {
                 var network_messages = [DirectMessage]()
                 
                 for network_message in res!["direct_messages"].arrayValue {
-                    print(network_message)
                     let message = DirectMessage()
                     message.id = network_message["id"].stringValue
                     message.text = network_message["text"].stringValue

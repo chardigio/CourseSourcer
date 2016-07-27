@@ -44,7 +44,7 @@ func tryMore(){
             })
         })
         
-        PUT("/users/addCourse", parameters: ["user_id": userid!, "course_id": courseid!],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        PUT("/users/addCourse", parameters: ["user": userid!, "course_id": courseid!],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             print("put course in user")
             if err != nil {print(err!)}
             if res != nil {print(res!)}

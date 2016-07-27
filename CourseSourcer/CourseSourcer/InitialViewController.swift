@@ -24,15 +24,12 @@ class InitialViewController: UINavigationController {
         // comment out this if-else block to override the credentials screen
         let realm = try! Realm()
         
-        let users_that_are_me = realm.objects(User).filter("me == true")
+        USER = realm.objects(User).filter("me == true").first
         
-        if users_that_are_me.count == 0 {
+        if USER == nil {
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
         } else if CONFIRMED == nil || !CONFIRMED! {
             performSegueWithIdentifier("InitialToConfirm", sender: nil)
-        } else {
-            USER = users_that_are_me[0]
-            print("USER ID:", USER!.id!)
         }
     }
 

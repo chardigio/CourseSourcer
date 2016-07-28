@@ -113,6 +113,7 @@ class CourseScheduleTableViewController: UITableViewController {
                     assignment.time_end = dateFromString(network_assignment["time_end"].string)
                     assignment.notes = network_assignment["notes"].string
                     assignment.course = self.course
+                    assignment.user_handle = network_assignment["user_handle"].string
                     
                     network_assignments.append(assignment)
                 }
@@ -181,7 +182,8 @@ class CourseScheduleTableViewController: UITableViewController {
         
         if course!.admin {
             print("adminass")
-            cell.showUserLabel(userEmailHandle(assignment.user))
+            print(assignment.user_handle)
+            cell.showHandleLabel(assignment.user_handle ?? "")
         }
         
         return cell

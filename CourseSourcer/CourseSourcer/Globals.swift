@@ -165,12 +165,12 @@ func currentTerm() -> String {
 }
 
 
-func userEmailHandle(user: User?) -> String {
-    return user?.email.componentsSeparatedByString("@")[0] ?? ""
+func handleOfEmail(email: String) -> String {
+    return email.componentsSeparatedByString("@")[0] ?? ""
 }
 
-func userDomain(user: User?) -> String {
-    return user?.email.componentsSeparatedByString(".edu")[0].componentsSeparatedByString("@")[1] ?? ""
+func domainOfEmail(email: String) -> String {
+    return email.componentsSeparatedByString(".edu")[0].componentsSeparatedByString("@")[1] ?? ""
 }
 
 func noTableViewContentLabelFor(cellCategorization: String, tableView: UITableView) -> UILabel {

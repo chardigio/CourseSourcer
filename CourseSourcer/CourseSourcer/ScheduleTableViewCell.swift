@@ -47,7 +47,7 @@ class ScheduleTableViewCell: UITableViewCell {
         }
     }
     
-    func showUserLabel(handle: String) {
+    func showHandleLabel(handle: String) {
         user_label.hidden = false
         user_label.text  = handle
     }

@@ -5,6 +5,7 @@ rek = require 'rekuire'
 User = rek 'models/user'
 Course = rek 'models/course'
 server = rek 'components/server'
+aux = rek 'aux'
 
 #post user
 router.post '/', (req, res, next) ->
@@ -20,7 +21,7 @@ router.put '/addCourse', server.loadUser, (req, res, next) ->
   Course.findById req.body.course_id, (err, course) ->
     if err then next err
     else
-      if req.user.email.split('.edu')[0].split('@')[1] != course.domain
+      if aux.domainOfEmail req.user.email != course.domain
         res.status(400).send error: "You do not have permission to join this course"
       else
         User.findByIdAndUpdate req.user.id, $addToSet: courses: req.body.course_id, (err, user) ->
@@ -37,9 +38,7 @@ router.put '/:userid', (req, res, next) -> # also needs pic handling
 router.get '/:userid', (req, res, next) ->
   User.findById(req.params.userid).populate('courses').exec (err, user) ->
     if err then next err
-    else
-      console.log user
-      res.status(200).send user: user
+    else res.status(200).send user: user
 
 #get classmates
 router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadUser

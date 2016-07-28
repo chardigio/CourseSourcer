@@ -54,7 +54,7 @@ class NewCourseTableViewController: UITableViewController {
     func getNetworkCourses(query: String) {
         POST("/courses/search", parameters: ["query" : query,
                                              "term" : currentTerm(),
-                                             "domain" : userDomain(USER)],
+                                             "domain" : domainOfEmail(USER!.email)],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)

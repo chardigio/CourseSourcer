@@ -15,9 +15,9 @@ class StaticNote: Object {
     dynamic var title: String = ""
     dynamic var text: String = ""
     dynamic var score: Int = 0
+    dynamic var user_handle: String?
     
     dynamic var course: Course?
-    dynamic var user: User?
     
     override static func primaryKey() -> String? {
         return "id"

@@ -9,10 +9,10 @@ schema = mongoose.Schema
   by_admin: Boolean
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'course'}
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}
-  user_email: String
+  user_handle: String
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
-  _.pick doc, 'id', 'created_at', 'text', 'score', 'by_admin', 'course', 'user'
+  _.pick doc, 'id', 'created_at', 'text', 'score', 'by_admin', 'course', 'user_handle'
 
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'

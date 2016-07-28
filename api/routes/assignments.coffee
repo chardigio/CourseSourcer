@@ -5,12 +5,13 @@ rek = require 'rekuire'
 Assignment = rek 'models/assignment'
 User = rek 'models/user'
 server = rek 'components/server'
+aux = rek 'aux'
 
 #post assignment
 router.post '/', server.loadUser, (req, res, next) ->
   assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'notes', 'course', 'user'
   assignment.score = 0
-  assignment.user_email = req.user.email
+  assignment.user_handle = aux.handleOfEmail req.user.email
 
   assignment.save (err, assignment) ->
     if err then next err
@@ -22,7 +23,7 @@ router.get '/of_course/:courseId', (req, res, next) ->
     if err then next err
     else
       for assignment in assignments
-        assignment.user = null #if admin dont null it
+        assignment.user_handle = null #if admin dont null it
       res.send assignments: assignments
 
 router.get '/of_user/:userId', (req, res, next) ->

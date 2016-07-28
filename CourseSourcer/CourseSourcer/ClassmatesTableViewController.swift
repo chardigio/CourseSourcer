@@ -156,7 +156,7 @@ class ClassmatesTableViewController: UITableViewController {
                     
                     network_classmates.append(classmate)
                 }
-                
+                print(network_classmates)
                 let realm = try! Realm()
                 try! realm.write {
                     for classmate in network_classmates {

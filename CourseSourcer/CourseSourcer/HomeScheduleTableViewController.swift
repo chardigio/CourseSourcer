@@ -92,6 +92,7 @@ class HomeScheduleTableViewController: UITableViewController {
                     assignment.time_end = dateFromString(network_assignment["time_end"].string)
                     assignment.notes = network_assignment["notes"].string
                     assignment.course = realm.objectForPrimaryKey(Course.self, key: network_assignment["course"].stringValue)
+                    assignment.user_handle = network_assignment["user_handle"].string
                     
                     network_assignments.append(assignment)
                 }
@@ -156,6 +157,11 @@ class HomeScheduleTableViewController: UITableViewController {
         cell.title_label.text = assignment.title
         
         cell.populateDateLabel(assignment.time_begin, timeEnd: assignment.time_end)
+        
+        if assignment.course!.admin {
+            print("adminass")
+            cell.showHandleLabel(assignment.user_handle ?? "")
+        }
         
         return cell
     }

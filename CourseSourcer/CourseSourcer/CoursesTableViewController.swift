@@ -137,13 +137,14 @@ class CoursesTableViewController: UITableViewController {
                 }
                 
                 try! realm.write {
+                    for course in network_courses {
+                        realm.add(course, update: true)
+                    }
+                    
                     USER!.name = res!["user"]["name"].stringValue
                     USER!.bio  = res!["user"]["bio"].string
                     
-                    print(res!["user"].object)
-                    
                     for course_id in res!["user"]["admin_of"].arrayValue {
-                        print(course_id)
                         if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
                             course.admin = true
                             course.admin_request_sent = true
@@ -152,10 +153,6 @@ class CoursesTableViewController: UITableViewController {
                             
                             print("ADMIN OF: ", course.name)
                         }
-                    }
-                    
-                    for course in network_courses {
-                        realm.add(course, update: true)
                     }
                     
                     realm.add(USER!, update: true)

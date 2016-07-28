@@ -42,7 +42,7 @@ class StartCourseViewController: UIViewController {
     func guessSchool() ->  String {
         let realm = try! Realm()
         
-        return realm.objects(Course).first?.school ?? USER!.email.componentsSeparatedByString("@")[0].capitalizedString
+        return realm.objects(Course).first?.school ?? domainOfEmail(USER!.email).capitalizedString
     }
     
     @IBAction func schoolEditingChanged(sender: AnyObject) {
@@ -81,7 +81,7 @@ class StartCourseViewController: UIViewController {
         POST("/courses", parameters: ["name":course_name_field.text!,
                                       "school": school_field.text!,
                                       "term": term_field.text!,
-                                      "domain": userDomain(USER)],
+                                      "domain": domainOfEmail(USER!.email)],
                          callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

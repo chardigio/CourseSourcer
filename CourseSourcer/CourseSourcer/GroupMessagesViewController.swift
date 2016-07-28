@@ -142,7 +142,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         for realm_message in (course?.messages.sorted("created_at"))! {
             var message: JSQMessage {
-                if realm_message.user != nil {
+                if realm_message.user_handle == handleOfEmail(USER!.email) {
                     return JSQMessage(senderId: senderId, displayName: senderDisplayName, text: realm_message.text) // add date param
                 }else{
                     return JSQMessage(senderId: "Server", displayName: "Server", text: realm_message.text) // add date param
@@ -172,7 +172,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
                     message.score = network_message["score"].intValue
                     message.course = self.course
                     message.created_at = dateFromString(network_message["created_at"].stringValue)
-                    message.user = network_message["user"].string == nil ? nil : USER!
+                    message.user_handle = network_message["user_handle"].string
                     
                     network_messages.append(message)
                 }

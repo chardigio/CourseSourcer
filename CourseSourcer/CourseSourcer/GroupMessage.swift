@@ -14,8 +14,8 @@ class GroupMessage: Object {
     dynamic var created_at: NSDate?
     dynamic var text: String = ""
     dynamic var score: Int = 0
+    dynamic var user_handle: String?
     
-    dynamic var user: User?
     dynamic var course: Course?
     
     override static func primaryKey() -> String {

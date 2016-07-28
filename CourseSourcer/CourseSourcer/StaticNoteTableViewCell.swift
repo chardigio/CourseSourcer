@@ -27,7 +27,7 @@ class StaticNoteTableViewCell: UITableViewCell {
     
     // MARK: - Personal
     
-    func showUserLabel(handle: String) {
+    func showHandleLabel(handle: String) {
         user_label.hidden = false
         user_label.text  = handle
     }

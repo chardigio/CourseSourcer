@@ -103,6 +103,7 @@ class StaticNotesTableViewController: UITableViewController {
                     note.title = network_static_note["title"].stringValue
                     note.text = network_static_note["text"].stringValue
                     note.course = self.course
+                    note.user_handle = network_static_note["user_handle"].string
                     
                     network_notes.append(note)
                 }
@@ -151,8 +152,10 @@ class StaticNotesTableViewController: UITableViewController {
         cell.preview_textview.setContentOffset(CGPointZero, animated: false)
         
         if course!.admin {
-            print("adminnotes, user:", note.user)
-            cell.showUserLabel(userEmailHandle(note.user))
+            print("adminnotes, user:", note.user_handle)
+            cell.showHandleLabel(note.user_handle ?? "")
+        }else{
+            print("Not admin")
         }
         
         return cell

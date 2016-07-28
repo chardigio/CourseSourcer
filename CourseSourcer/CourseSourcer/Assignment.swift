@@ -18,9 +18,9 @@ class Assignment: Object {
     dynamic var time_end: NSDate? // will be nil for assignments but not exams
     dynamic var notes: String?
     dynamic var score: Int = 0
+    dynamic var user_handle: String?
     
     dynamic var course: Course?
-    dynamic var user: User?
     
     override static func primaryKey() -> String {
         return "id"

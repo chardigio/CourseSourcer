@@ -145,25 +145,28 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                var network_classmates = [User]()
-                
-                for network_user in res!["users"].arrayValue {
-                    let classmate = User()
-                    classmate.email = network_user["email"].stringValue
-                    classmate.name = network_user["name"].stringValue
-                    classmate.bio = network_user["bio"].stringValue
-                    classmate.courses.append(self.course!)
-                    
-                    network_classmates.append(classmate)
-                }
-                print(network_classmates)
                 let realm = try! Realm()
+                
                 try! realm.write {
-                    for classmate in network_classmates {
-                        realm.add(classmate, update: true)
+                    for network_user in res!["users"].arrayValue {
+                        var classmate = realm.objectForPrimaryKey(User.self, key: network_user["email"].stringValue)
+                        
+                        if classmate == nil {
+                            classmate = User()
+                            classmate!.email = network_user["email"].stringValue
+                        }
+                        
+                        classmate!.name = network_user["name"].stringValue
+                        classmate!.bio = network_user["bio"].stringValue
+                        
+                        if !classmate!.courses.contains(self.course!) {
+                            classmate!.courses.append(self.course!)
+                        }
+                        
+                        realm.add(classmate!, update: true)
                     }
                 }
-                
+
                 callback()
             }
         })

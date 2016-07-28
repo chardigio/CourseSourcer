@@ -11,7 +11,15 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-let env = "localhost" //"192.168.1.4"
+/*
+#if (TARGET_OS_SIMULATOR)
+    let env = "localhost"
+#else
+    let env = "192.168.1.4"
+#endif
+*/
+
+let env = "localhost"
 
 func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
     Alamofire.request(.GET, "http://\(env):3005\(endpoint)").responseJSON { response in

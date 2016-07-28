@@ -159,7 +159,6 @@ class HomeScheduleTableViewController: UITableViewController {
         cell.populateDateLabel(assignment.time_begin, timeEnd: assignment.time_end)
         
         if assignment.course!.admin {
-            print("adminass")
             cell.showHandleLabel(assignment.user_handle ?? "")
         }
         

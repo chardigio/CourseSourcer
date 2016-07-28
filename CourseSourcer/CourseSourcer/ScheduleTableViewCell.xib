@@ -40,7 +40,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q4P-AE-UY4">
-                                        <rect key="frame" x="553" y="36" width="42" height="24"/>
+                                        <rect key="frame" x="545" y="36" width="42" height="24"/>
                                         <color key="backgroundColor" red="0.98823529409999999" green="0.92156862750000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -49,7 +49,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.90588235289999997" green="0.71017481390000003" blue="0.79162215709999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="q4P-AE-UY4" secondAttribute="trailing" constant="8" id="2nG-Cx-7CI"/>
+                                    <constraint firstAttribute="trailing" secondItem="q4P-AE-UY4" secondAttribute="trailing" constant="16" id="2nG-Cx-7CI"/>
                                     <constraint firstItem="8xI-0I-3tN" firstAttribute="leading" secondItem="JUb-ZQ-8KT" secondAttribute="trailing" constant="14" id="Mro-Ay-xkL"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rGU-oD-mvh" secondAttribute="trailing" id="St7-MW-bgp"/>
                                     <constraint firstAttribute="bottom" secondItem="q4P-AE-UY4" secondAttribute="bottom" constant="3" id="Wd8-HD-fOl"/>

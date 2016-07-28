@@ -9,7 +9,7 @@ aux = rek 'aux'
 
 #post assignment
 router.post '/', server.loadUser, (req, res, next) ->
-  assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'notes', 'course', 'user'
+  assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'assignments', 'course', 'user'
   assignment.score = 0
   assignment.user_handle = aux.handleOfEmail req.user.email
 
@@ -18,12 +18,13 @@ router.post '/', server.loadUser, (req, res, next) ->
     else res.status(201).send assignment: assignment
 
 #get course assignments
-router.get '/of_course/:courseId', (req, res, next) ->
+router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
   Assignment.find(course: req.params.courseId).sort('-time_begin').exec (err, assignments) ->
     if err then next err
     else
-      for assignment in assignments
-        assignment.user_handle = null #if admin dont null it
+      if assignments.length > 0 and not assignments[0].course in req.user.admin_of
+          for assignment in assignments
+            assignment.user_handle = null
       res.send assignments: assignments
 
 router.get '/of_user/:userId', (req, res, next) ->
@@ -32,15 +33,15 @@ router.get '/of_user/:userId', (req, res, next) ->
     else
       if not user or user.courses.length == 0
         res.send assignments: []
-        return
+      else
+        or_query = $or: (course: course_id for course_id in user.courses)
 
-      or_query = $or: (course: course_id for course_id in user.courses)
-
-      Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
-        if err then next err
-        else
-          for assignment in assignments
-            assignment.user = null #if admin dont null it
-          res.send assignments: assignments
+        Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
+          if err then next err
+          else
+            for assignment in assignments
+              if assignment.course in user.admin_of
+                assignment.user_handle = null
+            res.send assignments: assignments
 
 module.exports = router

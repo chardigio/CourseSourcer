@@ -99,7 +99,7 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
-        GET("/assignments/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/assignments/of_course/\(course!.id)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -181,8 +181,6 @@ class CourseScheduleTableViewController: UITableViewController {
         cell.populateDateLabel(assignment.time_begin, timeEnd: assignment.time_end)
         
         if course!.admin {
-            print("adminass")
-            print(assignment.user_handle)
             cell.showHandleLabel(assignment.user_handle ?? "")
         }
         

@@ -49,27 +49,21 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
 
   if nullQuery offset then offset = 0
 
-  #admin = (req.user.admin_of.indexOf req.params.courseId > -1)
-  admin = no
-
   if lastId and lastId isnt null and lastId isnt ''
     GroupMessage.find(_id: $gt: lastId, course: req.params.courseId).sort('-created_at').limit(limit).populate('user').exec (err, nextGroupMessages) ->
       if err then next err
       else ## NOT NOTES; this also has to be done for assignments
-        if notes.length > 0 and not notes[0].course in req.user.admin_of
-          for note in notes
-            note.user_handle = null
-        res.send group_messages: nextGroupMessages #.reverse()
+        if nextGroupMessages.length > 0 and not nextGroupMessages[0].course in req.user.admin_of
+          for groupMessage in nextGroupMessages
+            groupMessage.user_handle = null
+        res.send group_messages: nextGroupMessages
   else
     GroupMessage.find(course: req.params.courseId).sort('-created_at').skip(offset).limit(limit).populate('user').exec (err, groupMessages) ->
       if err then next err
       else
-        if not admin
-          for group_message in groupMessages
-            if req.user and group_message.user.id isnt req.user.id
-              group_message.user = null
-            else
-              group_message.user = aux.handleOfEmail req.user.email
-        res.send group_messages: groupMessages #.reverse()
+        if groupMessages.length > 0 and not groupMessages[0].course in req.user.admin_of
+          for groupMessage in groupMessages
+            groupMessage.user_handle = null
+        res.send group_messages: groupMessages
 
 module.exports = router

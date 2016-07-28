@@ -44,6 +44,20 @@ class AboutViewController: UIViewController {
                     USER!.name = res!["user"]["name"].stringValue
                     USER!.bio  = res!["user"]["bio"].string
                     
+                    print(res!["user"].object)
+                    
+                    for course_id in res!["user"]["admin_of"].arrayValue {
+                        print(course_id)
+                        if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
+                            course.admin = true
+                            course.admin_request_sent = true
+                            
+                            realm.add(course, update: true)
+                            
+                            print("ADMIN OF: ", course.name)
+                        }
+                    }
+                    
                     realm.add(USER!, update: true)
                 }
                 

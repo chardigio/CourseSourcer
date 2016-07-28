@@ -96,12 +96,12 @@ class StaticNotesTableViewController: UITableViewController {
             }else if res != nil {
                 var network_notes = [StaticNote]()
                 
-                for obj in res!["static_notes"].arrayValue {
+                for network_static_note in res!["static_notes"].arrayValue {
                     let note = StaticNote()
-                    note.id = obj["id"].stringValue
-                    note.created_at = dateFromString(obj["created_at"].stringValue)
-                    note.title = obj["title"].stringValue
-                    note.text = obj["text"].stringValue
+                    note.id = network_static_note["id"].stringValue
+                    note.created_at = dateFromString(network_static_note["created_at"].stringValue)
+                    note.title = network_static_note["title"].stringValue
+                    note.text = network_static_note["text"].stringValue
                     note.course = self.course
                     
                     network_notes.append(note)
@@ -151,6 +151,7 @@ class StaticNotesTableViewController: UITableViewController {
         cell.preview_textview.setContentOffset(CGPointZero, animated: false)
         
         if course!.admin {
+            print("adminnotes, user:", note.user)
             cell.showUserLabel(userEmailHandle(note.user))
         }
         

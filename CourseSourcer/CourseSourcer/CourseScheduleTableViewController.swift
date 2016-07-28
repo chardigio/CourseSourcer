@@ -105,13 +105,13 @@ class CourseScheduleTableViewController: UITableViewController {
             }else if res != nil {
                 var network_assignments = [Assignment]()
                 
-                for obj in res!["assignments"].arrayValue {
+                for network_assignment in res!["assignments"].arrayValue {
                     let assignment = Assignment()
-                    assignment.id = obj["id"].stringValue
-                    assignment.title = obj["title"].stringValue
-                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)!
-                    assignment.time_end = dateFromString(obj["time_end"].string)
-                    assignment.notes = obj["notes"].string
+                    assignment.id = network_assignment["id"].stringValue
+                    assignment.title = network_assignment["title"].stringValue
+                    assignment.time_begin = dateFromString(network_assignment["time_begin"].stringValue)!
+                    assignment.time_end = dateFromString(network_assignment["time_end"].string)
+                    assignment.notes = network_assignment["notes"].string
                     assignment.course = self.course
                     
                     network_assignments.append(assignment)
@@ -180,6 +180,7 @@ class CourseScheduleTableViewController: UITableViewController {
         cell.populateDateLabel(assignment.time_begin, timeEnd: assignment.time_end)
         
         if course!.admin {
+            print("adminass")
             cell.showUserLabel(userEmailHandle(assignment.user))
         }
         

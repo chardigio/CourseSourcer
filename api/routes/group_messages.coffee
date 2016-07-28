@@ -8,7 +8,7 @@ server = rek 'server'
 router.post '/', server.loadUser, (req, res, next) -> #load user and check for by_admin
   msg = new GroupMessage _.pick req.body, 'text', 'course', 'user'
   msg.score = 0
-  # msg.by_admin = (req.user.admin_of.indexOf msg.course > -1)
+  msg.user_email = req.user.email
 
   msg.save (err, groupMessage) ->
     if err then next err

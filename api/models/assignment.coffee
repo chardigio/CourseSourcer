@@ -11,6 +11,7 @@ schema = mongoose.Schema
   score: Number
   course: {type: mongoose.Schema.Types.ObjectId, ref: 'course'}
   user: {type: mongoose.Schema.Types.ObjectId, ref: 'user'}
+  user_email: String
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
   _.pick doc, 'id', 'created_at', 'title', 'notes', 'score', 'course', 'time_begin', 'time_end'

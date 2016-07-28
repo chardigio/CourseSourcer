@@ -37,7 +37,9 @@ router.put '/:userid', (req, res, next) -> # also needs pic handling
 router.get '/:userid', (req, res, next) ->
   User.findById(req.params.userid).populate('courses').exec (err, user) ->
     if err then next err
-    else res.status(200).send user: user
+    else
+      console.log user
+      res.status(200).send user: user
 
 #get classmates
 router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadUser
@@ -65,4 +67,6 @@ router.put '/leaveCourse/:courseId', (req, res, next) ->
     if err then next err
     else res.status(201).send user: user
 
+#adminMe and blockMe should not be endpoints; only manual database updates
+#make a script to do em (:
 module.exports = router

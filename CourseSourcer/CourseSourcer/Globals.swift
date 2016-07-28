@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import SwiftyJSON
 import JSQMessagesViewController
 
 // MARK: - Misc
@@ -162,6 +163,7 @@ func currentTerm() -> String {
         return ""
     }
 }
+
 
 func userEmailHandle(user: User?) -> String {
     return user?.email.componentsSeparatedByString("@")[0] ?? ""

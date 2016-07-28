@@ -8,8 +8,6 @@ schema = mongoose.Schema
   term: String
   school: String
   domain: String
-  blocked: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}]
-  admins: [{type: mongoose.Schema.Types.ObjectId, ref: 'user'}]
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
   _.pick doc, 'id', 'created_at', 'name', 'term', 'school', 'domain', 'blocked', 'admins'

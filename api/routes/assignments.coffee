@@ -7,9 +7,11 @@ User = rek 'models/user'
 server = rek 'components/server'
 
 #post assignment
-router.post '/', (req, res, next) ->
+router.post '/', server.loadUser, (req, res, next) ->
   assignment = new Assignment _.pick req.body, 'title', 'time_begin', 'time_end', 'notes', 'course', 'user'
   assignment.score = 0
+  assignment.user_email = req.user.email
+
   assignment.save (err, assignment) ->
     if err then next err
     else res.status(201).send assignment: assignment

@@ -147,10 +147,11 @@ class ClassmatesTableViewController: UITableViewController {
             }else if res != nil {
                 var network_classmates = [User]()
                 
-                for obj in res!["users"].arrayValue {
+                for network_user in res!["users"].arrayValue {
                     let classmate = User()
-                    classmate.email = obj["email"].stringValue
-                    classmate.name = obj["name"].stringValue
+                    classmate.email = network_user["email"].stringValue
+                    classmate.name = network_user["name"].stringValue
+                    classmate.bio = network_user["bio"].stringValue
                     classmate.courses.append(self.course!)
                     
                     network_classmates.append(classmate)

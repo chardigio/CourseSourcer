@@ -10,15 +10,14 @@ import Foundation
 import RealmSwift
 
 class User: Object {
-    dynamic var id: String?
+    dynamic var id: String? // only used for USER 
     dynamic var me: Bool = false
     dynamic var name: String = ""
     dynamic var email: String = ""
     dynamic var last_spoke: NSDate?
     dynamic var bio: String?
     
-    var courses = List<Course>()
-    var admin_of = List<Course>()
+    var courses = List<Course>() // only used for classmates
     
     var messages = LinkingObjects(fromType: DirectMessage.self, property: "user")
     

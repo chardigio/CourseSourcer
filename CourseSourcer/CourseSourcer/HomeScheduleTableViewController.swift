@@ -84,14 +84,14 @@ class HomeScheduleTableViewController: UITableViewController {
                 
                 var network_assignments = [Assignment]()
                 
-                for obj in res!["assignments"].arrayValue {
+                for network_assignment in res!["assignments"].arrayValue {
                     let assignment = Assignment()
-                    assignment.id = obj["id"].stringValue
-                    assignment.title = obj["title"].stringValue
-                    assignment.time_begin = dateFromString(obj["time_begin"].stringValue)!
-                    assignment.time_end = dateFromString(obj["time_end"].string)
-                    assignment.notes = obj["notes"].string
-                    assignment.course = realm.objectForPrimaryKey(Course.self, key: obj["course"].stringValue)
+                    assignment.id = network_assignment["id"].stringValue
+                    assignment.title = network_assignment["title"].stringValue
+                    assignment.time_begin = dateFromString(network_assignment["time_begin"].stringValue)!
+                    assignment.time_end = dateFromString(network_assignment["time_end"].string)
+                    assignment.notes = network_assignment["notes"].string
+                    assignment.course = realm.objectForPrimaryKey(Course.self, key: network_assignment["course"].stringValue)
                     
                     network_assignments.append(assignment)
                 }

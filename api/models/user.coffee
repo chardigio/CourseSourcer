@@ -12,6 +12,7 @@ schema = mongoose.Schema
   confirmed: Boolean
   bio: String
   admin_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
+  blocked_from: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
   courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
 
 schema.set 'toJSON', transform: (doc, ret, options) ->

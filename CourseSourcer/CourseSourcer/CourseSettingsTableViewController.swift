@@ -15,7 +15,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     var course: Course?
     
     let section_titles = ["Color", "Leave", "Admin"]
-    var cell_labels = [["Pink", "Orange", "Beige", "Yellow", "Blue"], ["Remove me from this course"], ["Request to become a course administrator"]]
+    var cell_labels = [["Red", "Orange", "Green", "Blue", "Purple"], ["Remove me from this course"], ["Request to become a course administrator"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         }
         
         navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
+        UITabBar.appearance().tintColor = pastelFromInt(course!.color)
     }
     
     func leaveCellTapped() {

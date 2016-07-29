@@ -58,11 +58,11 @@ enum ASSIGNMENT_TYPES: String {
 
 enum PASTELS{
     case
-        PINK,
+        RED,
         ORANGE,
-        BEIGE,
-        YELLOW,
-        BLUE
+        GREEN,
+        BLUE,
+        PURPLE
     
     static var count: Int {
         return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
@@ -73,12 +73,12 @@ enum PASTELS{
 
 func pastelFromInt(color: Int) -> UIColor {
     switch color {
-        case PASTELS.PINK.hashValue:   return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00);
-        case PASTELS.ORANGE.hashValue: return UIColor(red:1.00, green:0.76, blue:0.72, alpha:1.00);
-        case PASTELS.BEIGE.hashValue:  return UIColor(red:0.91, green:0.87, blue:0.76, alpha:1.00);
-        case PASTELS.YELLOW.hashValue: return UIColor(red:1.00, green:0.93, blue:0.58, alpha:1.00);
-        case PASTELS.BLUE.hashValue:   return UIColor(red:0.77, green:1.00, blue:0.96, alpha:1.00);
-        default:                       return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00);
+        case PASTELS.RED.hashValue:   return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00)
+        case PASTELS.ORANGE.hashValue: return UIColor(red:1.00, green:0.65, blue:0.51, alpha:1.00)
+        case PASTELS.GREEN.hashValue:  return UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
+        case PASTELS.BLUE.hashValue:   return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
+        case PASTELS.PURPLE.hashValue: return UIColor(red:0.85, green:0.72, blue:0.99, alpha:1.00)
+        default:                       return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
         // SHOULD NEVER DEFAULT
     }
 }

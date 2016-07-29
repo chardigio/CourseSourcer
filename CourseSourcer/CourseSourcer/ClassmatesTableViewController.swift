@@ -51,6 +51,7 @@ class ClassmatesTableViewController: UITableViewController {
         
         POST("/users", parameters: ["name": "Becky Hammond",
                                     "password": "bbgirl123",
+                                    "bio": "Killa in the buildin",
                                     "email": "bhammon\(rand() % 10000)@.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
@@ -68,6 +69,7 @@ class ClassmatesTableViewController: UITableViewController {
         
         POST("/users", parameters: ["name": "Grethward Mai",
                                     "password": "noragrets",
+                                    "bio": "Never nothin but greatness",
                                     "email": "gmai\(rand() % 10000)@binghamton.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
@@ -83,6 +85,7 @@ class ClassmatesTableViewController: UITableViewController {
         
         POST("/users", parameters: ["name": "Henry Liebowitz",
                                     "password": "hlibbaby",
+                                    "bio": "Into the abyss goes my mind",
                                     "email": "hliebow\(rand() % 10000)@binghamton.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
@@ -126,7 +129,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadRealmClassmates() {
-        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").map { $0 }
+        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").reverse().map { $0 }
         
         data[1].removeAll()
         for i in [0, 1, 2] {

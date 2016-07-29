@@ -11,17 +11,18 @@ import SwiftyJSON
 import RealmSwift
 
 class CredentialsViewController: UIViewController {
-    @IBOutlet weak var profile_pic: UIImageView!
     @IBOutlet weak var email_field: UITextField!
     @IBOutlet weak var password_field: UITextField!
     @IBOutlet weak var name_field: UITextField!
     @IBOutlet weak var login_button: UIButton!
     @IBOutlet weak var signup_button: UIButton!
+    @IBOutlet weak var mode_button: UIButton!
     
-    @IBOutlet weak var signup_button_top: NSLayoutConstraint!
-    @IBOutlet weak var signup_button_bottom: NSLayoutConstraint!
-    @IBOutlet weak var login_button_top: NSLayoutConstraint!
-    @IBOutlet weak var login_button_bottom: NSLayoutConstraint!
+    var profile_pic = UIImageView(image: UIImage(named: "headshot"))
+    
+//    @IBOutlet weak var pseudo_profile_pic_leading_constraint: NSLayoutConstraint!
+//    @IBOutlet weak var profile_pic_leading_constraint: NSLayoutConstraint!
+//    @IBOutlet weak var profile_pic_trailing_constraint: NSLayoutConstraint!
     
     var logging_in: Bool = true
     
@@ -44,10 +45,19 @@ class CredentialsViewController: UIViewController {
         navigationController?.navigationBarHidden = true
     }
     
-    func configureProfilePic() {
+    func configureProfilePic() { // PROBABLY NOT SCALABLE
+        let side_length: CGFloat = 64
+        
+        let x: CGFloat = (password_field.frame.minX / 2) - (side_length / 2) - 50
+        let y: CGFloat = password_field.frame.maxY - (side_length / 2)
+        profile_pic.frame = CGRectMake(x, y, side_length, side_length)
+
         profile_pic.asACircle()
         profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
         profile_pic.layer.borderWidth = 1
+        profile_pic.alpha = 0
+    
+        view.addSubview(profile_pic)
     }
     
     func enableButton(button: UIButton) {
@@ -57,7 +67,7 @@ class CredentialsViewController: UIViewController {
     
     func disableButton(button: UIButton) {
         button.enabled = false
-        button.alpha = 0.3
+        button.alpha = 0.4
     }
     
     func enableLoginCheck(){
@@ -71,8 +81,6 @@ class CredentialsViewController: UIViewController {
             }else{
                 disableButton(login_button)
             }
-        }else{
-            enableButton(login_button)
         }
     }
     
@@ -89,8 +97,6 @@ class CredentialsViewController: UIViewController {
             }else{
                 disableButton(signup_button)
             }
-        }else{
-            enableButton(signup_button)
         }
     }
     
@@ -107,33 +113,46 @@ class CredentialsViewController: UIViewController {
         enableSignupCheck()
     }
     
-    @IBAction func loginButtonPressed(sender: AnyObject) {
-        if logging_in {
-            //send login info to server
-        }else{
-            logging_in = true
-            
-            UIView.animateWithDuration(0.5, animations: {
-                    self.name_field.alpha = 0
-                    self.profile_pic.alpha = 0
-                    self.disableButton(self.login_button)
-                    self.enableButton(self.signup_button)
-                }, completion: nil)
-        }
-    }
-    
-    @IBAction func signupButtonPressed(sender: AnyObject) {
+    @IBAction func modeButtonPressed(sender: AnyObject) {
         if logging_in {
             logging_in = false
+            self.mode_button.setTitle("Returning?", forState: .Normal)
             
             UIView.animateWithDuration(0.5, animations: {
                 self.name_field.alpha = 0.9 // .9 is the standard field opacity so this is basically unhiding
                 self.profile_pic.alpha = 1
                 
-                self.enableButton(self.login_button)
-                self.disableButton(self.signup_button)
+                self.login_button.alpha = 0
+                self.login_button.enabled = false
+                self.signup_button.alpha = 1
+                
+                self.enableSignupCheck()
             }, completion: nil)
         }else{
+            logging_in = true
+            self.mode_button.setTitle("First Time?", forState: .Normal)
+            
+            UIView.animateWithDuration(0.5, animations: {
+                self.name_field.alpha = 0
+                self.profile_pic.alpha = 0
+                
+                self.login_button.alpha = 1
+                self.signup_button.alpha = 0
+                self.signup_button.enabled = false
+                
+                self.enableLoginCheck()
+            }, completion: nil)
+        }
+    }
+    
+    @IBAction func loginButtonPressed(sender: AnyObject) {
+        if logging_in {
+            //send login info to server
+        }
+    }
+    
+    @IBAction func signupButtonPressed(sender: AnyObject) {
+        if !logging_in {
             POST("/users", parameters: ["name":name_field.text!,
                                         "password":password_field.text!,
                                         "email":email_field.text!,

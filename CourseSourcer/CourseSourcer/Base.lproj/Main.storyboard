@@ -139,10 +139,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CourseSourcer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wp-Oq-Cbs">
-                                <rect key="frame" x="93" y="20" width="414" height="58"/>
+                                <rect key="frame" x="162" y="20" width="276" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="49" id="7h6-uL-dAI"/>
-                                    <constraint firstAttribute="width" constant="414" id="tMe-Ys-9bl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="42"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -205,26 +204,6 @@
                                     <action selector="loginButtonPressed:" destination="anh-3h-oJu" eventType="touchUpInside" id="NSk-X0-CnA"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headshot" translatesAutoresizingMaskIntoConstraints="NO" id="zOd-5d-A30">
-                                <rect key="frame" x="10" y="107" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="UWv-hG-GjU"/>
-                                    <constraint firstAttribute="width" constant="64" id="gw4-MQ-6Uk"/>
-                                </constraints>
-                            </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-Os-VYX">
-                                <rect key="frame" x="526" y="162" width="54" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="3fp-iD-lag"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
-                                <state key="normal" title="Sign Up">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="signupButtonPressed:" destination="anh-3h-oJu" eventType="touchUpInside" id="k33-Td-DdE"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHT-yK-vg8">
                                 <rect key="frame" x="507" y="86" width="73" height="30"/>
                                 <accessibility key="accessibilityConfiguration">
@@ -238,7 +217,20 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="loginButtonPressed:" destination="anh-3h-oJu" eventType="touchUpInside" id="qgn-cN-cbR"/>
+                                    <action selector="modeButtonPressed:" destination="anh-3h-oJu" eventType="touchUpInside" id="nVO-dj-bp2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SwT-Os-VYX">
+                                <rect key="frame" x="526" y="162" width="54" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="3fp-iD-lag"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="signupButtonPressed:" destination="anh-3h-oJu" eventType="touchUpInside" id="k33-Td-DdE"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -249,11 +241,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="mDd-Ev-fae" secondAttribute="trailing" id="6Xu-Hd-fWf"/>
                             <constraint firstItem="SwT-Os-VYX" firstAttribute="centerY" secondItem="OcY-HD-4bW" secondAttribute="centerY" id="DY2-MX-dSH"/>
                             <constraint firstItem="mDd-Ev-fae" firstAttribute="centerY" secondItem="5mW-gB-vsb" secondAttribute="centerY" id="Gar-MR-zsA"/>
-                            <constraint firstItem="zOd-5d-A30" firstAttribute="leading" secondItem="pBg-vH-bfJ" secondAttribute="leadingMargin" constant="-10" id="JIi-Ya-Z5q"/>
                             <constraint firstItem="UkJ-58-91n" firstAttribute="top" secondItem="UyQ-TB-p5W" secondAttribute="bottom" constant="86" id="KfJ-xf-yga"/>
                             <constraint firstItem="OcY-HD-4bW" firstAttribute="top" secondItem="5mW-gB-vsb" secondAttribute="bottom" constant="8" id="R8j-kf-nID"/>
                             <constraint firstItem="4Wp-Oq-Cbs" firstAttribute="top" secondItem="UyQ-TB-p5W" secondAttribute="bottom" constant="20" id="T5W-EC-IEf"/>
-                            <constraint firstItem="5mW-gB-vsb" firstAttribute="centerY" secondItem="zOd-5d-A30" secondAttribute="centerY" id="T7h-8C-GsB"/>
                             <constraint firstItem="WHT-yK-vg8" firstAttribute="trailing" secondItem="mDd-Ev-fae" secondAttribute="trailing" id="Vxi-Y2-pOF"/>
                             <constraint firstItem="UkJ-58-91n" firstAttribute="centerX" secondItem="pBg-vH-bfJ" secondAttribute="centerX" id="kcC-P9-fYF"/>
                             <constraint firstItem="5mW-gB-vsb" firstAttribute="top" secondItem="UkJ-58-91n" secondAttribute="bottom" constant="8" id="mSg-M9-clA"/>
@@ -267,9 +257,9 @@
                     <connections>
                         <outlet property="email_field" destination="UkJ-58-91n" id="gAj-Qw-GKD"/>
                         <outlet property="login_button" destination="mDd-Ev-fae" id="9n6-qN-EoD"/>
+                        <outlet property="mode_button" destination="WHT-yK-vg8" id="mQM-mn-JSt"/>
                         <outlet property="name_field" destination="OcY-HD-4bW" id="kna-VY-dmr"/>
                         <outlet property="password_field" destination="5mW-gB-vsb" id="1su-xt-Zhu"/>
-                        <outlet property="profile_pic" destination="zOd-5d-A30" id="w77-Pn-4un"/>
                         <outlet property="signup_button" destination="SwT-Os-VYX" id="Ya7-ed-NI5"/>
                         <segue destination="tl5-0E-dvg" kind="show" identifier="CredentialsToInitial" id="qJl-dh-Tkx"/>
                     </connections>
@@ -460,7 +450,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="This will be a classmate's biography or catch phrase who knows" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Af1-Lh-oxF">
-                                            <rect key="frame" x="92" y="35" width="460" height="30"/>
+                                            <rect key="frame" x="92" y="43" width="460" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="Ycn-T4-CfD"/>
                                             </constraints>
@@ -471,7 +461,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="Bbm-aW-R1T" secondAttribute="trailing" constant="40" id="GNZ-yT-Hy1"/>
-                                        <constraint firstItem="Af1-Lh-oxF" firstAttribute="top" secondItem="Bbm-aW-R1T" secondAttribute="bottom" constant="-13" id="QtS-pk-IHo"/>
+                                        <constraint firstItem="Af1-Lh-oxF" firstAttribute="top" secondItem="Bbm-aW-R1T" secondAttribute="bottom" constant="-5" id="QtS-pk-IHo"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="1yN-G8-pte" secondAttribute="leading" id="RHo-5R-jtv"/>
                                         <constraint firstItem="1yN-G8-pte" firstAttribute="centerY" secondItem="1Oe-yu-oaZ" secondAttribute="centerY" id="aY0-S0-XS7"/>
                                         <constraint firstItem="Af1-Lh-oxF" firstAttribute="leading" secondItem="1yN-G8-pte" secondAttribute="trailing" constant="20" id="cCd-DU-3rx"/>

@@ -17,12 +17,7 @@ class CredentialsViewController: UIViewController {
     @IBOutlet weak var login_button: UIButton!
     @IBOutlet weak var signup_button: UIButton!
     @IBOutlet weak var mode_button: UIButton!
-    
-    var profile_pic = UIImageView(image: UIImage(named: "headshot"))
-    
-//    @IBOutlet weak var pseudo_profile_pic_leading_constraint: NSLayoutConstraint!
-//    @IBOutlet weak var profile_pic_leading_constraint: NSLayoutConstraint!
-//    @IBOutlet weak var profile_pic_trailing_constraint: NSLayoutConstraint!
+    @IBOutlet weak var profile_pic: UIImageView!
     
     var logging_in: Bool = true
     
@@ -45,19 +40,10 @@ class CredentialsViewController: UIViewController {
         navigationController?.navigationBarHidden = true
     }
     
-    func configureProfilePic() { // PROBABLY NOT SCALABLE
-        let side_length: CGFloat = 64
-        
-        let x: CGFloat = (password_field.frame.minX / 2) - (side_length / 2) - 50
-        let y: CGFloat = password_field.frame.maxY - (side_length / 2)
-        profile_pic.frame = CGRectMake(x, y, side_length, side_length)
-
+    func configureProfilePic() {
         profile_pic.asACircle()
         profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
         profile_pic.layer.borderWidth = 1
-        profile_pic.alpha = 0
-    
-        view.addSubview(profile_pic)
     }
     
     func enableButton(button: UIButton) {

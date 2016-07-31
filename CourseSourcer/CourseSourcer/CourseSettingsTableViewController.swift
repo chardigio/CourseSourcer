@@ -57,7 +57,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         }
         
         navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
-        UITabBar.appearance().tintColor = pastelFromInt(course!.color)
+        tabBarController?.tabBar.tintColor = pastelFromInt(course!.color)
     }
     
     func leaveCellTapped() {

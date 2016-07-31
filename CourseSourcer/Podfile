@@ -9,6 +9,7 @@ target 'CourseSourcer' do
   pod 'RSKImageCropper'
   pod 'JSQMessagesViewController'
   pod 'Alamofire', '~> 3.4'
+  pod 'AlamofireImage', '~> 2.0'
   pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 
   target 'CourseSourcerTests' do

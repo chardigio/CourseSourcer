@@ -18,10 +18,7 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadNetworkUser() {
-            self.configureFields()
-            self.configurePic()
-        }
+        loadUser()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +27,13 @@ class AboutViewController: UIViewController {
     }
     
     // MARK: - Personal
+    
+    func loadUser() {
+        loadNetworkUser() {
+            self.configureFields()
+            self.configurePic()
+        }
+    }
     
     func loadNetworkUser(callback: Void -> Void) {
         GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
@@ -43,8 +47,6 @@ class AboutViewController: UIViewController {
                 try! realm.write {
                     USER!.name = res!["user"]["name"].stringValue
                     USER!.bio  = res!["user"]["bio"].string
-                    
-                    print(res!["user"].object)
                     
                     for course_id in res!["user"]["admin_of"].arrayValue {
                         if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
@@ -71,6 +73,7 @@ class AboutViewController: UIViewController {
     }
     
     func configurePic() {
+        profile_pic.setImageWithUrl("")
         profile_pic.asACircle()
     }
     

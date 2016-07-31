@@ -21,6 +21,8 @@ import SwiftyJSON
 
 let env = "localhost"
 
+// MARK: - Alamofire
+
 func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
     Alamofire.request(.GET, "http://\(env):3005\(endpoint)").responseJSON { response in
         print("GET:", "http://\(env):3005\(endpoint)")

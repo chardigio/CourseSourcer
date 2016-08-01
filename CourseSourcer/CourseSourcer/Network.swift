@@ -21,9 +21,11 @@ let ENV = "http://192.168.1.4:3005"
 // MARK: - Alamofire
 
 func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.GET, "\(ENV)\(endpoint)\(idParamString)").responseJSON { response in
-        print("GET:", "\(ENV)\(endpoint)\(idParamString)\(idParamString)")
-        
+    let url = "\(ENV)\(endpoint)\(idParamString())"
+    
+    Alamofire.request(.GET, url).responseJSON { response in
+        print("GET:", url)
+
         switch response.result {
         case .Success:
             if let res = response.result.value {
@@ -32,14 +34,17 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
+            
             callback(err: ["error": error], res: nil)
         }
     }
 }
 
 func POST(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.POST, "\(ENV)\(endpoint)\(idParamString)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("POST:", "\(ENV)\(endpoint)\(idParamString)")
+    let url = "\(ENV)\(endpoint)\(idParamString())"
+    
+    Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("POST:", url)
         
         switch response.result {
         case .Success:
@@ -55,8 +60,10 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
 }
 
 func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.PUT, "\(ENV)\(endpoint)\(idParamString)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("PUT:", "\(ENV)\(endpoint)\(idParamString)")
+    let url = "\(ENV)\(endpoint)\(idParamString())"
+    
+    Alamofire.request(.PUT, url, parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("PUT:", url)
         
         switch response.result {
         case .Success:
@@ -89,7 +96,7 @@ extension UIImageView {
     }
 }
 
-// MARK: - Helpers
+// MARK: - Aux
 
 func idParamString() -> String {
     if USER == nil {

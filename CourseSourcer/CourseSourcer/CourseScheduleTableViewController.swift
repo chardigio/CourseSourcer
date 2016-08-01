@@ -98,7 +98,7 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func loadNetworkAssignments(callback: Void -> Void) {
-        GET("/assignments/of_course/\(course!.id)"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/assignments/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

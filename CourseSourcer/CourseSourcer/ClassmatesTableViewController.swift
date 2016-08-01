@@ -142,7 +142,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadNetworkClassmates(callback: Void -> Void) {
-        GET("/users/of_course/\(self.course!.id)/*?user=\(USER!.id)*/&", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/users/of_course/\(self.course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

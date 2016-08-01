@@ -89,7 +89,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadNetworkNotes(callback: Void -> Void) {
-        GET("/static_notes/of_course/\(self.course!.id)"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/static_notes/of_course/\(self.course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

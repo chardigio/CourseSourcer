@@ -126,7 +126,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
 
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/direct_messages/\(classmate!.id)"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/direct_messages/\(classmate!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

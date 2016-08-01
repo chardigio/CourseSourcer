@@ -777,7 +777,7 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
-                    <tabBarItem key="tabBarItem" title="Schedule" image="schedule" id="oe7-iV-1TF"/>
+                    <tabBarItem key="tabBarItem" title="Assignments" image="schedule" id="oe7-iV-1TF"/>
                     <navigationItem key="navigationItem" title="Schedule" id="oFN-GX-owx"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLU-TQ-Jb4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1507,6 +1507,6 @@
         <image name="x" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b9d-dF-I1D"/>
+        <segue reference="lW8-jW-Aok"/>
     </inferredMetricsTieBreakers>
 </document>

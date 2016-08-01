@@ -25,26 +25,18 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
       if assignments.length > 0 and not assignments[0].course in req.user.admin_of
           for assignment in assignments
             assignment.user_handle = null
-      console.log assignments
-      console.log '^^ this should not have user ids'
       res.send assignments: assignments
 
 #get user's assignments
-router.get '/of_user', server.loadUser (req, res, next) ->
-  User.findById req.params.userId, (err, user) ->
+router.get '/of_user', server.loadUser, (req, res, next) ->
+  or_query = $or: (course: course_id for course_id in req.user.courses)
+
+  Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
     if err then next err
     else
-      if not user or user.courses.length == 0
-        res.send assignments: []
-      else
-        or_query = $or: (course: course_id for course_id in user.courses)
-
-        Assignment.find(or_query).sort('-time_begin').exec (err, assignments) ->
-          if err then next err
-          else
-            for assignment in assignments
-              if assignment.course in user.admin_of
-                assignment.user_handle = null
-            res.send assignments: assignments
+      for assignment in assignments
+        if assignment.course in req.user.admin_of
+          assignment.user_handle = null
+      res.send assignments: assignments
 
 module.exports = router

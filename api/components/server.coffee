@@ -6,7 +6,7 @@ module.exports.sendError = (res, status, type, message, params) ->
 
 module.exports.loadUser = (req, res, next) ->
   User.findById req.query.user, (err, user) ->
-    if err then res.sendStatus 401
+    if err or not user then res.sendStatus 401
     else if not req.query.device in user.devices
       console.log "BAD DEVICE IN QUERY:", req.query
       res.sendStatus 400

@@ -104,7 +104,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/group_messages/of_course/\(course!.id)/"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/group_messages/of_course/\(course!.id)/", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

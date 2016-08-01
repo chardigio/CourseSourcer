@@ -107,7 +107,7 @@ func getLeastUsedColor() -> Int {
 }
 
 func showError(vc: UIViewController, overrideAndShow: Bool = false, message: String = "Could not connect to server.") {
-    if ERROR_MESSAGE_SHOWN && !overrideAndShow {
+    if ERROR_MESSAGE_SHOWN && !overrideAndShow && !TESTING {
         return
     }else {
         ERROR_MESSAGE_SHOWN = true

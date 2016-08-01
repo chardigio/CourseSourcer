@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import RealmSwift
-import AlamofireImage
 import SwiftyJSON
 import JSQMessagesViewController
 
@@ -235,11 +234,5 @@ extension UIImageView {
         
         self.layer.masksToBounds = false
         self.clipsToBounds = true
-    }
-    
-    func setImageWithUrl(url: String) {
-        if let nsurl = NSURL(string: url) {
-            self.af_setImageWithURL(nsurl)
-        }
     }
 }

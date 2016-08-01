@@ -73,7 +73,7 @@ class AboutViewController: UIViewController {
     }
     
     func configurePic() {
-        profile_pic.setImageWithUrl("")
+        profile_pic.setImageOfUser(USER!)
         profile_pic.asACircle()
     }
     

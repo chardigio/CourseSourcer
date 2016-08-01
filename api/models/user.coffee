@@ -14,6 +14,7 @@ schema = mongoose.Schema
   admin_of: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
   blocked_from: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
   courses: [{type: mongoose.Schema.Types.ObjectId, ref: 'course'}]
+  devices: [String]
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
   _.pick doc, 'id', 'name', 'email', 'confirmed', 'bio', 'admin_of', 'courses'

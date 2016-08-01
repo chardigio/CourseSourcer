@@ -37,9 +37,8 @@ class CourseViewController: UITabBarController {
         navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
-//
-//        navigationItem.leftBarButtonItem  = UIBarButtonItem(title: "Home", style: .Plain, target: self, action: #selector(homeTapped))
-        navigationItem.leftBarButtonItem  = UIBarButtonItem(image: UIImage(named: "home"), style: .Plain, target: self, action: #selector(homeTapped))
+        
+        //navigationItem.leftBarButtonItem  = UIBarButtonItem(image: UIImage(named: "home"), style: .Plain, target: self, action: #selector(homeTapped))
     }
 
     func configureTabBar(){

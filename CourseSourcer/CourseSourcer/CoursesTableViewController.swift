@@ -192,6 +192,9 @@ class CoursesTableViewController: UITableViewController {
         cell.course_label.text = course.name
         cell.term_field.text = course.term
         
+        cell.course_pic.setImageOfCourse(course)
+        cell.course_pic.asACircle()
+        
         return cell
     }
     

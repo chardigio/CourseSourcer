@@ -192,6 +192,13 @@ class ClassmatesTableViewController: UITableViewController {
         cell.name_label.text = classmate.name
         cell.bio_field.text = classmate.bio
 
+        if indexPath.section == 0 { // if the cell is the "All Classmates" cell
+            cell.classmate_pic.setImageOfCourse(course)
+        }else{
+           cell.classmate_pic.setImageOfUser(classmate)
+        }
+        cell.classmate_pic.asACircle()
+        
         return cell
     }
 

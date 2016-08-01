@@ -41,6 +41,7 @@ class CredentialsViewController: UIViewController {
     }
     
     func configureProfilePic() {
+        profile_pic.setImageOfUser(nil)
         profile_pic.asACircle()
         profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
         profile_pic.layer.borderWidth = 1

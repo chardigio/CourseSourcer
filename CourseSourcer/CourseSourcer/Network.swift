@@ -9,23 +9,20 @@
 import Foundation
 import UIKit
 import Alamofire
+import AlamofireImage
 import SwiftyJSON
 
-/*
-#if (TARGET_OS_SIMULATOR)
-    let env = "localhost"
-#else
-    let env = "192.168.1.4"
+#if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
+let ENV = "http://localhost:3005"
+#else                                       // otherwise, route to my machine via IP address
+let ENV = "http://192.168.1.4:3005"
 #endif
-*/
-
-let env = "localhost"
 
 // MARK: - Alamofire
 
 func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.GET, "http://\(env):3005\(endpoint)").responseJSON { response in
-        print("GET:", "http://\(env):3005\(endpoint)")
+    Alamofire.request(.GET, "\(ENV)\(endpoint)").responseJSON { response in
+        print("GET:", "\(ENV)\(endpoint)")
         
         switch response.result {
         case .Success:
@@ -41,8 +38,8 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
 }
 
 func POST(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.POST, "http://\(env):3005\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("POST:", "http://\(env):3005\(endpoint)")
+    Alamofire.request(.POST, "\(ENV)\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("POST:", "\(ENV)\(endpoint)")
         
         switch response.result {
         case .Success:
@@ -58,8 +55,8 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
 }
 
 func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.PUT, "http://\(env):3005\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("PUT:", "http://\(env):3005\(endpoint)")
+    Alamofire.request(.PUT, "\(ENV)\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("PUT:", "\(ENV)\(endpoint)")
         
         switch response.result {
         case .Success:
@@ -70,6 +67,24 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
         case .Failure(let error):
             print("NETWORK ERROR:", response)
             callback(err: ["error": error], res: nil)
+        }
+    }
+}
+
+// MARK: - AlamofireImage
+
+extension UIImageView {
+    func setImageOfUser(user: User?) {
+        if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.email).png") {
+            print("GET IMAGE:", url)
+            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
+        }
+    }
+    
+    func setImageOfCourse(course: Course?) {
+        if course != nil, let url = NSURL(string: "\(ENV)/images/courses/\(course!.id)") {
+            print("GET IMAGE:", url)
+            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }
     }
 }

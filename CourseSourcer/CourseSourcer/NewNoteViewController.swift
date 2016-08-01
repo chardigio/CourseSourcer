@@ -70,8 +70,7 @@ class NewNoteViewController: UIViewController {
                 POST("/static_notes", parameters:
                        ["text": self.content_textview.text!,
                         "title": self.subject_textfield.text!,
-                        "course": self.course!.id,
-                        "user": USER!.id],
+                        "course": self.course!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
                             showError(self)

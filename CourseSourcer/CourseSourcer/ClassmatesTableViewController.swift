@@ -57,8 +57,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue,
-                                                     "course_id": self.course!.id],
+                PUT("/users/addCourse", parameters: ["course_id": self.course!.id],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
@@ -75,7 +74,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue, "course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -91,8 +90,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["user": res!["user"]["id"].stringValue,
-                                                     "course_id": self.course!.id],
+                PUT("/users/addCourse", parameters: ["course_id": self.course!.id],
                                         callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)

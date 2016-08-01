@@ -30,7 +30,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
       res.send assignments: assignments
 
 #get user's assignments
-router.get '/of_user/:userId', (req, res, next) ->
+router.get '/of_user', server.loadUser (req, res, next) ->
   User.findById req.params.userId, (err, user) ->
     if err then next err
     else

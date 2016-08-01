@@ -76,7 +76,7 @@ class HomeScheduleTableViewController: UITableViewController {
             return
         }
         
-        GET("/assignments/of_user/\(USER!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/assignments/of_user", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {

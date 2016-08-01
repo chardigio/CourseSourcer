@@ -204,7 +204,6 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         POST("/direct_messages", parameters: ["text": text,
                                               "course":course!.id,
-                                              "user":USER!.id,
                                               "to_email":classmate!.email],
                                  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {

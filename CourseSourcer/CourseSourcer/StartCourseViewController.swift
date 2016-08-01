@@ -86,8 +86,7 @@ class StartCourseViewController: UIViewController {
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["user": USER!.id,
-                                                        "course_id": res!["course"]["id"].stringValue],
+                PUT("/users/addCourse", parameters: ["course_id": res!["course"]["id"].stringValue],
                                             callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)

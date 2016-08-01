@@ -8,11 +8,11 @@ server = rek 'components/server'
 #post dm
 router.post '/', server.loadUser, (req, res, next) ->
   direct_message = new DirectMessage _.pick req.body, 'text', 'course', 'to'
-    direct_message.from = req.user.id
+  direct_message.from = req.user.id
 
-    direct_message.save (err, directMessage) ->
-      if err then next err
-      else res.status(201).send direct_message: directMessage
+  direct_message.save (err, directMessage) ->
+    if err then next err
+    else res.status(201).send direct_message: directMessage
 
 #get dms
 router.get '/:partnerId', server.loadUser, (req, res, next) ->

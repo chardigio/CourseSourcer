@@ -21,8 +21,8 @@ let ENV = "http://192.168.1.4:3005"
 // MARK: - Alamofire
 
 func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.GET, "\(ENV)\(endpoint)").responseJSON { response in
-        print("GET:", "\(ENV)\(endpoint)")
+    Alamofire.request(.GET, "\(ENV)\(endpoint)\(idParamString)").responseJSON { response in
+        print("GET:", "\(ENV)\(endpoint)\(idParamString)\(idParamString)")
         
         switch response.result {
         case .Success:
@@ -38,8 +38,8 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
 }
 
 func POST(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.POST, "\(ENV)\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("POST:", "\(ENV)\(endpoint)")
+    Alamofire.request(.POST, "\(ENV)\(endpoint)\(idParamString)", parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("POST:", "\(ENV)\(endpoint)\(idParamString)")
         
         switch response.result {
         case .Success:
@@ -55,8 +55,8 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
 }
 
 func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    Alamofire.request(.PUT, "\(ENV)\(endpoint)", parameters: parameters, encoding: .JSON).responseJSON { response in
-        print("PUT:", "\(ENV)\(endpoint)")
+    Alamofire.request(.PUT, "\(ENV)\(endpoint)\(idParamString)", parameters: parameters, encoding: .JSON).responseJSON { response in
+        print("PUT:", "\(ENV)\(endpoint)\(idParamString)")
         
         switch response.result {
         case .Success:
@@ -87,4 +87,14 @@ extension UIImageView {
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }
     }
+}
+
+// MARK: - Helpers
+
+func idParamString() -> String {
+    if USER == nil {
+        return ""
+    }
+    
+    return "?user=\(USER!.id)&device=\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
 }

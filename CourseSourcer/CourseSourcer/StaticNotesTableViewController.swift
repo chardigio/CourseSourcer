@@ -48,8 +48,7 @@ class StaticNotesTableViewController: UITableViewController {
         
         POST("/static_notes", parameters: ["text": "Lorem ipsum in my cripsum",
                                            "title":"Welcome",
-                                           "course":self.course!.id,
-                                           "user":USER!.id],
+                                           "course":self.course!.id],
                               callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

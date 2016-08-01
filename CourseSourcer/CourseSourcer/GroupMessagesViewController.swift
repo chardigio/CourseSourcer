@@ -35,59 +35,6 @@ class GroupMessagesViewController: JSQMessagesViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Testing
-    
-    func postTestMessages() {
-        if course!.messages.count > 0 {
-            return
-        }
-        
-        POST("/group_messages", parameters: ["text":"Hey",
-                                             "course":course!.id,
-                                             "user": USER!.id],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        
-        POST("/group_messages", parameters: ["text":"Hola!",
-                                             "course":course!.id,
-                                             "user":"5777d51dde21d034fb98dc0b"],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        
-        POST("/group_messages", parameters: ["text":"Whatsup",
-                                             "course":course!.id,
-                                             "user": USER!.id],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        
-        POST("/group_messages", parameters: ["text":"Nm yo",
-                                             "course":course!.id,
-                                             "user":"5777d51dde21d034fb98dc0b"],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-        
-        POST("/group_messages", parameters: ["text":"Hello",
-                                             "course":course!.id,
-                                             "user": USER!.id],
-                                callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }
-        })
-    }
-    
     // MARK: - Personal
     
     func reloadMessagesView() {
@@ -123,8 +70,6 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func loadMessages() {
-        if TESTING { postTestMessages() }
-        
         loadRealmMessages()
         reloadMessagesView()
         
@@ -229,8 +174,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         self.finishSendingMessage()
         
         POST("/group_messages", parameters: ["text":text,
-                                             "course":course!.id,
-                                             "user":USER!.id],
+                                             "course":course!.id],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)

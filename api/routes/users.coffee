@@ -11,7 +11,7 @@ aux = rek 'aux'
 router.post '/', (req, res, next) ->
   user = new User _.pick req.body, 'name', 'email', 'password', 'bio', 'admin_of', 'courses'
   user.confirmed = no
-  user.devices = [req.body.user.device]
+  user.devices = [req.body.device]
 
   user.save (err, user) ->
     if err then next err

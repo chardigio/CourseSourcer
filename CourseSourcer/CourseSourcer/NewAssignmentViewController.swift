@@ -154,8 +154,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
                         "time_begin": self.date_due!.description,
                         "time_end": (self.isTakeHomeAssignment()) ? "" : self.date_ends!.description,
                         "notes": self.notes_textview.text ?? "",
-                        "course": self.course!.id,
-                        "user": USER!.id],
+                        "course": self.course!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
                             showError(self)

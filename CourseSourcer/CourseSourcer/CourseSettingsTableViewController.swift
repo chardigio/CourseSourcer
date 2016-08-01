@@ -64,7 +64,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         let alert = UIAlertController(title: "Leave", message: "Do you wish to be permanently removed from this class?", preferredStyle: UIAlertControllerStyle.Alert)
         
         alert.addAction(UIAlertAction(title: "Leave", style: UIAlertActionStyle.Destructive, handler: {action in
-            PUT("/users/leaveCourse/\(self.course!.id)", parameters: ["user": USER!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            PUT("/users/leaveCourse/\(self.course!.id)", parameters: [:], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if (err != nil) {
                     showError(self)
                 }else if (res != nil) {

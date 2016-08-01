@@ -49,8 +49,7 @@ class CourseScheduleTableViewController: UITableViewController {
         
         POST("/assignments", parameters: ["title": "Lab 1",
                                           "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)),
-                                          "course":self.course!.id,
-                                          "user":USER!.id],
+                                          "course":self.course!.id],
                              callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)

@@ -32,7 +32,8 @@ router.get '/:noteId', (req, res, next) ->
   Note.findById req.params.noteId, (err, note) ->
     if err then next err
     else
-      note.user = null
+      console.log note
+      console.log "^^ this should just be an id"
       res.send static_note: note
 
 #like note

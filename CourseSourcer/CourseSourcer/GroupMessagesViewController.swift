@@ -44,7 +44,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         POST("/group_messages", parameters: ["text":"Hey",
                                              "course":course!.id,
-                                             "user": USER!.id!],
+                                             "user": USER!.id],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -62,7 +62,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         POST("/group_messages", parameters: ["text":"Whatsup",
                                              "course":course!.id,
-                                             "user": USER!.id!],
+                                             "user": USER!.id],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -80,7 +80,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         POST("/group_messages", parameters: ["text":"Hello",
                                              "course":course!.id,
-                                             "user": USER!.id!],
+                                             "user": USER!.id],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -107,7 +107,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureSender() {
-        senderId = USER!.id!
+        senderId = USER!.id
         senderDisplayName = USER!.name
     }
     
@@ -159,7 +159,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/group_messages/of_course/\(course!.id)/?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/group_messages/of_course/\(course!.id)/"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -230,7 +230,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         POST("/group_messages", parameters: ["text":text,
                                              "course":course!.id,
-                                             "user":USER!.id!],
+                                             "user":USER!.id],
                                 callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true)

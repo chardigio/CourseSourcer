@@ -71,7 +71,7 @@ class NewNoteViewController: UIViewController {
                        ["text": self.content_textview.text!,
                         "title": self.subject_textfield.text!,
                         "course": self.course!.id,
-                        "user": USER!.id!],
+                        "user": USER!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
                             showError(self)

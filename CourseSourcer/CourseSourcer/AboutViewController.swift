@@ -36,7 +36,7 @@ class AboutViewController: UIViewController {
     }
     
     func loadNetworkUser(callback: Void -> Void) {
-        GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/users/\(USER!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
@@ -78,7 +78,7 @@ class AboutViewController: UIViewController {
     }
     
     @IBAction func homeButtonPressed(sender: AnyObject) { // WILL EVENTUALLY BE ABLE TO UPDATE PIC HERE
-        PUT("/users/\(USER!.id!)", parameters: ["name": name_field.text!,
+        PUT("/users/\(USER!.id)", parameters: ["name": name_field.text!,
                                                 "bio": bio_field.text ?? ""],
                                    callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if (err != nil) {

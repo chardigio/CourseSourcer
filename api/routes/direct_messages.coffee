@@ -7,20 +7,16 @@ server = rek 'components/server'
 
 #post dm
 router.post '/', server.loadUser, (req, res, next) ->
-  User.findOne email: req.body.to_email, (err, partner) ->
-    if err then next err
-    else
-      direct_message = new DirectMessage _.pick req.body, 'text', 'course', 'to_email'
-      direct_message.from = req.body.id
-      direct_message.to = partner.id
-      direct_message.from_email = req.user.email
+  direct_message = new DirectMessage _.pick req.body, 'text', 'course', 'to'
+    direct_message.from = req.user.id
 
-      direct_message.save (err, directMessage) ->
-        if err then next err
-        else res.status(201).send direct_message: directMessage
+    direct_message.save (err, directMessage) ->
+      if err then next err
+      else res.status(201).send direct_message: directMessage
 
-router.get '/:partnerEmail', server.loadUser, (req, res, next) ->
-  User.findOne email: req.params.partnerEmail, (err, partner) ->
+#get dms
+router.get '/:partnerId', server.loadUser, (req, res, next) ->
+  User.findById req.params.partnerId, (err, partner) ->
     if err then next err
     else
       nullQuery = (query) -> query is '' or isNaN(+query) or Math.round(+query <= 0)

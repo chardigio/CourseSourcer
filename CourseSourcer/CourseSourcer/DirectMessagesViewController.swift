@@ -66,7 +66,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func configureSender() {
-        senderId = USER!.id!
+        senderId = USER!.id
         senderDisplayName = USER!.name
     }
     
@@ -126,7 +126,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
 
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
-        GET("/direct_messages/\(classmate!.email)?userid=\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/direct_messages/\(classmate!.id)"/*?user=\(USER!.id)*/, callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             }else if res != nil {
@@ -139,7 +139,9 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     message.id = network_message["id"].stringValue
                     message.text = network_message["text"].stringValue
                     message.created_at = dateFromString(network_message["created_at"].stringValue)
-                    message.from_me = (network_message["from_email"].stringValue == USER!.email)
+                    print(network_message["from"])
+                    message.from_me = (network_message["from"].stringValue == USER!.id)
+                    print(message.from_me)
                     message.user = self.classmate
                     message.course = realm.objectForPrimaryKey(Course.self, key: network_message["course"].stringValue)
                     
@@ -202,7 +204,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         POST("/direct_messages", parameters: ["text": text,
                                               "course":course!.id,
-                                              "user":USER!.id!,
+                                              "user":USER!.id,
                                               "to_email":classmate!.email],
                                  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {

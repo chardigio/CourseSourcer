@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 class User: Object {
-    dynamic var id: String? // only used for USER 
+    dynamic var id: String = ""
     dynamic var me: Bool = false
     dynamic var name: String = ""
     dynamic var email: String = ""
@@ -22,6 +22,6 @@ class User: Object {
     var messages = LinkingObjects(fromType: DirectMessage.self, property: "user")
     
     override static func primaryKey() -> String {
-        return "email"
+        return "id"
     }
 }

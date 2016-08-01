@@ -25,7 +25,7 @@ class ConfirmViewController: UIViewController {
     // MARK: - Personal
     
     func confirmationCheck() {
-        GET("/users/\(USER!.id!)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/users/\(USER!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if res?["user"]["confirmed"] == true {
                 PREFS!.setValue(true, forKey: "emailConfirmed")
                 CONFIRMED = true

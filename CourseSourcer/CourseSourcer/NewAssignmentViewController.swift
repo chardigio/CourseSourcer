@@ -149,13 +149,13 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
             
             alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
                 POST("/assignments", parameters:
-                       ["title"      : self.title_field.text!,
-                        "type"       : self.assignment_type.rawValue,
-                        "time_begin" : self.date_due!.description,
-                        "time_end"   : (self.isTakeHomeAssignment()) ? "" : self.date_ends!.description,
-                        "notes"      : self.notes_textview.text ?? "",
-                        "course"     : self.course!.id,
-                        "user"       : USER!.id!],
+                       ["title": self.title_field.text!,
+                        "type": self.assignment_type.rawValue,
+                        "time_begin": self.date_due!.description,
+                        "time_end": (self.isTakeHomeAssignment()) ? "" : self.date_ends!.description,
+                        "notes": self.notes_textview.text ?? "",
+                        "course": self.course!.id,
+                        "user": USER!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                         if (err != nil) {
                             showError(self)

@@ -28,12 +28,12 @@ import SwiftyJSON
 @testable import CourseSourcer
 
 var posts = 0
-var userid: String?
+var user: String?
 var courseid: String?
 
 func tryMore(){
     if posts == 2 {
-        POST("/static_notes", parameters: ["text": "texty","title": "titley","course": courseid!,"user": userid!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        POST("/static_notes", parameters: ["text": "texty","title": "titley","course": courseid!,"user": user!], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             print("post notes")
             if err != nil {print(err!)}
             if res != nil {print(res!)}
@@ -44,7 +44,7 @@ func tryMore(){
             })
         })
         
-        PUT("/users/addCourse", parameters: ["user": userid!, "course_id": courseid!],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        PUT("/users/addCourse", parameters: ["user": user!, "course_id": courseid!],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             print("put course in user")
             if err != nil {print(err!)}
             if res != nil {print(res!)}
@@ -56,7 +56,7 @@ func testRequests(){
     POST("/users", parameters: ["name":"Charlie", "email":"cdg@bing.edu", "password":"nsonat"], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
         print("post user")
         if err != nil {print(err!)}
-        if res != nil {print(res!); userid = res!["user"]["id"].string; posts += 1; tryMore()}
+        if res != nil {print(res!); user = res!["user"]["id"].string; posts += 1; tryMore()}
     })
     
     POST("/courses", parameters: ["name": "Graph Theory","term": "Fall 2016","school": "Binghamton"],  callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in

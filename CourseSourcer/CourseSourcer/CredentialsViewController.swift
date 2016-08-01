@@ -143,7 +143,8 @@ class CredentialsViewController: UIViewController {
             POST("/users", parameters: ["name":name_field.text!,
                                         "password":password_field.text!,
                                         "email":email_field.text!,
-                                        "bio":"New to CourseSourcer!"],
+                                        "bio":"New to CourseSourcer!",
+                                        "device": UIDevice.currentDevice().identifierForVendor!.UUIDString],
                            callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {
                     showError(self)

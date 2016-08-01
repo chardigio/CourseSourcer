@@ -10,8 +10,9 @@ aux = rek 'aux'
 #post user
 router.post '/', (req, res, next) ->
   user = new User _.pick req.body, 'name', 'email', 'password', 'bio', 'admin_of', 'courses'
-  #user.token = String(req.body.password[1]) + String(req.body.password[3]) + String(req.body.password[4])
-  user.confirmed = false
+  user.confirmed = no
+  user.devices = [req.body.user.device]
+
   user.save (err, user) ->
     if err then next err
     else res.status(201).send user: user
@@ -52,7 +53,7 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
         index_of_me = index if user.id is req.query.userid
         users.splice(index_of_me, 1) if index_of_me isnt -1
 
-        user.id = null
+        user.email = null
         user.created_at = null
         user.admin_of = null
         user.courses = null

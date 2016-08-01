@@ -102,7 +102,7 @@ class NewCourseTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        PUT("/users/addCourse", parameters: ["user": USER!.id!,
+        PUT("/users/addCourse", parameters: ["user": USER!.id,
                                              "course_id": network_courses[indexPath.row]["id"].stringValue],
             callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {

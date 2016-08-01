@@ -52,10 +52,11 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
   if lastId and lastId isnt null and lastId isnt ''
     GroupMessage.find(_id: $gt: lastId, course: req.params.courseId).sort('-created_at').limit(limit).populate('user').exec (err, nextGroupMessages) ->
       if err then next err
-      else ## NOT NOTES; this also has to be done for assignments
+      else
         if nextGroupMessages.length > 0 and not nextGroupMessages[0].course in req.user.admin_of
           for groupMessage in nextGroupMessages
             groupMessage.user_handle = null
+        console.log '^^ no userids'
         res.send group_messages: nextGroupMessages
   else
     GroupMessage.find(course: req.params.courseId).sort('-created_at').skip(offset).limit(limit).populate('user').exec (err, groupMessages) ->
@@ -64,6 +65,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
         if groupMessages.length > 0 and not groupMessages[0].course in req.user.admin_of
           for groupMessage in groupMessages
             groupMessage.user_handle = null
+        console.log '^^ no userids'
         res.send group_messages: groupMessages
 
 module.exports = router

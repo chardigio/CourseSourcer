@@ -37,8 +37,6 @@ class CourseViewController: UITabBarController {
         navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
-        
-        //navigationItem.leftBarButtonItem  = UIBarButtonItem(image: UIImage(named: "home"), style: .Plain, target: self, action: #selector(homeTapped))
     }
 
     func configureTabBar(){
@@ -54,10 +52,6 @@ class CourseViewController: UITabBarController {
         }else if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
             performSegueWithIdentifier("CourseToNewNote", sender: nil)
         }
-    }
-    
-    func homeTapped() {
-        navigationController?.popViewControllerAnimated(true)
     }
     
     func hideHairline() {

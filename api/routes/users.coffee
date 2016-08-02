@@ -11,7 +11,7 @@ aux = rek 'aux'
 router.post '/', (req, res, next) ->
   user = new User _.pick req.body, 'name', 'email', 'password', 'bio', 'admin_of', 'courses'
   user.confirmed = no
-  user.devices = [req.body.device]
+  user.devices = [req.query.device]
 
   user.save (err, user) ->
     if err then next err
@@ -59,17 +59,23 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) -> #should 
         user.admin_of = null
         user.courses = null
         user.confirmed = null
-      console.log req.user
+
       if index_of_me == -1 then users = [] #to make sure the person is in the class theyre asking for
 
       res.send users: users
 
 #remove course from user
-router.put '/leaveCourse/:courseId', (req, res, next) ->
+router.put '/leaveCourse/:courseId', server.loadUser, (req, res, next) ->
   User.findByIdAndUpdate req.body.user, $pull: courses: req.params.courseId, (err, user) ->
+    if err then next err
+    else res.status(201).send user: user
+
+router.put '/logout', server.loadUser, (req, res, next) ->
+  User.findByIdAndUpdate req.body.user, $pull: devices: req.query.device, (err, user) ->
     if err then next err
     else res.status(201).send user: user
 
 #adminMe and blockMe should not be endpoints; only manual database updates
 #make a script to do em (:
+
 module.exports = router

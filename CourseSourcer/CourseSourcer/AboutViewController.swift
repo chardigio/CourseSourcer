@@ -81,12 +81,24 @@ class AboutViewController: UIViewController {
         PUT("/users/\(USER!.id)", parameters: ["name": name_field.text!,
                                                 "bio": bio_field.text ?? ""],
                                    callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if (err != nil) {
+            if err != nil {
                 showError(self, overrideAndShow: true, message: "Could not update account info.")
             }
         })
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func logOutButtonPressed(sender: AnyObject) {
+        PUT("/users/logout", parameters: [:], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+            if err != nil {
+                showError(self, overrideAndShow: true, message: "Could not log out safely.")
+            }else{
+                LOG_OUT = true
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        })
     }
     
     /*

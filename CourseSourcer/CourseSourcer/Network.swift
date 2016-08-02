@@ -35,6 +35,10 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
         case .Failure(let error):
             print("NETWORK ERROR:", response)
             
+            if error.code == 403 {
+                LOG_OUT = true
+            }
+            
             callback(err: ["error": error], res: nil)
         }
     }
@@ -54,6 +58,11 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
+            
+            if error.code == 403 {
+                LOG_OUT = true
+            }
+            
             callback(err: ["error": error], res: nil)
         }
     }
@@ -73,6 +82,11 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
+            
+            if error.code == 403 {
+                LOG_OUT = true
+            }
+            
             callback(err: ["error": error], res: nil)
         }
     }

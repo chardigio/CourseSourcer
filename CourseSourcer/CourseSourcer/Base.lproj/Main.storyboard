@@ -61,12 +61,23 @@
                                     <action selector="homeButtonPressed:" destination="LeC-Xj-MBo" eventType="touchUpInside" id="Azl-fl-dCq"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egV-VG-tlH">
+                                <rect key="frame" x="525" y="25" width="55" height="30"/>
+                                <state key="normal" title="Log Out">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logOutButtonPressed:" destination="LeC-Xj-MBo" eventType="touchUpInside" id="hud-lR-HbS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.59143092239999995" green="0.90588235289999997" blue="0.33270563149999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2RA-jz-AL5" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="059-mP-xjg"/>
                             <constraint firstItem="a29-Su-5Dw" firstAttribute="top" secondItem="MtR-hO-4cM" secondAttribute="bottom" constant="8" id="0RU-ef-9Xm"/>
+                            <constraint firstItem="egV-VG-tlH" firstAttribute="centerY" secondItem="HHU-6A-OcZ" secondAttribute="centerY" id="Cky-Wa-f20"/>
                             <constraint firstItem="SBI-UL-sSW" firstAttribute="top" secondItem="PEz-ZA-NoB" secondAttribute="bottom" constant="103" id="Lqt-mA-ocL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="egV-VG-tlH" secondAttribute="trailing" id="OA2-FI-Log"/>
                             <constraint firstItem="MtR-hO-4cM" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="QiV-O2-9w5"/>
                             <constraint firstItem="a29-Su-5Dw" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="UZ7-cW-7X0"/>
                             <constraint firstItem="a29-Su-5Dw" firstAttribute="width" secondItem="u2S-d4-Jes" secondAttribute="width" id="XO4-8I-ing"/>

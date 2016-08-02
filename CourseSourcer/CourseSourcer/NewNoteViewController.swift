@@ -72,7 +72,7 @@ class NewNoteViewController: UIViewController {
                         "title": self.subject_textfield.text!,
                         "course": self.course!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                        if (err != nil) {
+                        if err != nil {
                             showError(self)
                         }else if (res != nil) {
                             self.navigationController?.popViewControllerAnimated(true)

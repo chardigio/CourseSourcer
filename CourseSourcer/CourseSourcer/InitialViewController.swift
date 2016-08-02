@@ -17,7 +17,7 @@ class InitialViewController: UINavigationController {
         
         configureNavigationBar()
         
-        // testNewUser()
+        // nullifyUser()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -26,7 +26,9 @@ class InitialViewController: UINavigationController {
         
         USER = realm.objects(User).filter("me == true").first
         
-        if USER == nil {
+        if USER == nil || LOG_OUT {
+            nullifyUser()
+            
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
         } else if CONFIRMED == nil || !CONFIRMED! {
             performSegueWithIdentifier("InitialToConfirm", sender: nil)
@@ -40,7 +42,7 @@ class InitialViewController: UINavigationController {
     
     // MARK: - Testing
     
-    func testNewUser() {
+    func nullifyUser() {
         USER = nil
         
         PREFS!.setValue(nil, forKey: "emailConfirmed")

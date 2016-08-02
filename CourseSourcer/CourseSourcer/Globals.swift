@@ -21,6 +21,7 @@ var PREFS: NSUserDefaults?
 var USER: User?
 var CONFIRMED: Bool?
 var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
+var LOG_OUT: Bool = false // if initialView appears, login screen is presented
 
 var ERROR_MESSAGE_SHOWN: Bool = false
 

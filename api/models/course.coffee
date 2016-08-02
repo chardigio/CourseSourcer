@@ -8,6 +8,7 @@ schema = mongoose.Schema
   term: String
   school: String
   domain: String
+  admin: Boolean #only populated and sent to user to indicate they are a course admin, not stored in db
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
   _.pick doc, 'id', 'created_at', 'name', 'term', 'school', 'domain', 'admin'

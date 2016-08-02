@@ -65,7 +65,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         
         alert.addAction(UIAlertAction(title: "Leave", style: UIAlertActionStyle.Destructive, handler: {action in
             PUT("/users/leaveCourse/\(self.course!.id)", parameters: [:], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-                if (err != nil) {
+                if err != nil {
                     showError(self)
                 }else if (res != nil) {
                     self.navigationController?.popViewControllerAnimated(true) // clear alert

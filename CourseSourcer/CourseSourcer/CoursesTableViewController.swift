@@ -127,12 +127,12 @@ class CoursesTableViewController: UITableViewController {
                     course.name = network_course["name"].stringValue
                     course.term = network_course["term"].stringValue
                     course.school = network_course["school"].stringValue
-                    course.admin = ()
-                    course.admin_request_sent = ()
+                    course.admin = network_course["admin"].bool ?? false
+                    course.admin_request_sent = network_course["admin"].bool ?? false
                     
                     let saved_course = realm.objectForPrimaryKey(Course.self, key: course.id)
                     course.color = (saved_course != nil) ? saved_course!.color : getLeastUsedColor()
-                    print(network_course)
+                    
                     network_courses.append(course)
                 }
                 
@@ -140,19 +140,6 @@ class CoursesTableViewController: UITableViewController {
                     for course in network_courses {
                         realm.add(course, update: true)
                     }
-                    /*
-                    for course_id in res!["user"]["admin_of"].arrayValue {
-                        if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
-                            course.admin = true
-                            course.admin_request_sent = true
-                            
-                            realm.add(course, update: true)
-                            
-                            print("ADMIN OF: ", course.name)
-                        }
-                    }
-                    */
-                    realm.add(USER!, update: true)
                 }
                 
                 callback()

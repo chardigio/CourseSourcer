@@ -21,9 +21,9 @@ router.get '/:partnerId', server.loadUser, (req, res, next) ->
     else
       nullQuery = (query) -> query is '' or isNaN(+query) or Math.round(+query <= 0)
 
-      limit = req.query.limit
-      offset = req.query.offset
-      lastId = req.query.lastId
+      limit = req.body.limit
+      offset = req.body.offset
+      lastId = req.body.lastId
 
       if nullQuery limit then limit = 25 #if limit isnt specified, return 25
       else if +limit > 50 then limit = 50 #max is 50

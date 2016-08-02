@@ -27,21 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func initGlobals(){
         PREFS = NSUserDefaults.standardUserDefaults()
         CONFIRMED = PREFS!.boolForKey("emailConfirmed")
-        
-        print("REALM FILE:", Realm.Configuration.defaultConfiguration.fileURL!, "\n")
-        
-        let realm = try! Realm()
-        
-        USER = realm.objects(User).filter("me == true").first
-        
-        if USER == nil {
-            CONFIRMED = nil // SANITY CHECK
-
-            try! realm.write {
-                realm.deleteAll()
-                print("REALM WIPED: SUCCESS")
-            }
-        }
     }
     
     func initStatusBarStyle() {

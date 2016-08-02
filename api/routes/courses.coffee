@@ -4,6 +4,7 @@ mongoose = require 'mongoose'
 rek = require 'rekuire'
 Course = rek 'models/course'
 User = rek 'models/user'
+server = rek 'server'
 
 #post course
 router.post '/', (req, res, next) ->
@@ -26,14 +27,22 @@ router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPL
     else res.send courses: courses
 
 #get all courses for user
-router.get '/:userid', (req, res, next) ->
-  User.findById(req.params.userid).populate('courses').exec (err, user) ->
+router.get '/', server.loadUser, (req, res, next) ->
+  or_query = $or: (_id: course_id for course_id in req.user.courses)
+
+  Course.find or_query, (err, courses) ->
     if err then next err
-    else res.status(200).send courses: user.courses
+    else
+      for course_id in req.user.admin_of
+        for course in courses
+          if course_id.toString() == course.id
+            course.admin = true
+
+      res.send courses: courses
 
 #add user to course's blocked list
 router.put '/block', (req, res, next) ->
-  Course.findByIdAndUpdate {_id: req.body.courseid}, {$addToSet: {blocked: req.body.userid}}, (err, course) ->
+  Course.findByIdAndUpdate req.body.courseid, {$addToSet: {blocked: req.body.userid}}, (err, course) ->
     if err then next err
     else res.status(200).send course: course
 

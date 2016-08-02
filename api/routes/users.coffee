@@ -30,19 +30,20 @@ router.put '/addCourse', server.loadUser, (req, res, next) ->
           else res.status(200).send user: user
 
 #update name of user
-router.put '/:userid', (req, res, next) -> # also needs pic handling
-  User.findByIdAndUpdate req.params.userid, {$set: {name: req.body.name, bio: req.body.bio}}, (err, user) ->
+router.put '/me', server.loadUser, (req, res, next) -> # also needs pic handling
+  req.user.name = req.body.name
+  req.user.bio = req.body.bio
+
+  req.user.save (err, user) ->
     if err then next err
-    else res.status(200).send user: user
+    else res.status(201).send user: user
 
 #get user
-router.get '/:userid', (req, res, next) ->
-  User.findById(req.params.userid).populate('courses').exec (err, user) ->
-    if err then next err
-    else res.status(200).send user: user
+router.get '/me', server.loadUser, (req, res, next) ->
+  res.send user: req.user
 
 #get classmates
-router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadUser
+router.get '/of_course/:courseId', server.loadUser, (req, res, next) -> #should have server.loadUser
   User.find courses: $elemMatch: $eq: req.params.courseId, (err, users) ->
     if err then next err
     else
@@ -50,7 +51,7 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
       for user, index in users
         if not user then break # this shouldnt have to exist
 
-        index_of_me = index if user.id is req.query.userid
+        index_of_me = index if user.id is req.user.id
         users.splice(index_of_me, 1) if index_of_me isnt -1
 
         user.email = null
@@ -58,6 +59,8 @@ router.get '/of_course/:courseId', (req, res, next) -> #should have server.loadU
         user.admin_of = null
         user.courses = null
         user.confirmed = null
+      console.log req.user
+      if index_of_me == -1 then users = [] #to make sure the person is in the class theyre asking for
 
       res.send users: users
 

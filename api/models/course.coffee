@@ -10,7 +10,7 @@ schema = mongoose.Schema
   domain: String
 
 schema.set 'toJSON', transform: (doc, ret, options) ->
-  _.pick doc, 'id', 'created_at', 'name', 'term', 'school', 'domain', 'blocked', 'admins'
+  _.pick doc, 'id', 'created_at', 'name', 'term', 'school', 'domain', 'admin'
 
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'

@@ -40,7 +40,7 @@ class InitialViewController: UINavigationController {
     
     // MARK: - Testing
     
-    func testNewUser(){
+    func testNewUser() {
         USER = nil
         
         PREFS!.setValue(nil, forKey: "emailConfirmed")

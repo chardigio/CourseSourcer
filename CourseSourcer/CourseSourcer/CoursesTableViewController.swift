@@ -113,7 +113,7 @@ class CoursesTableViewController: UITableViewController {
             return
         }
         
-        GET("/users/\(USER!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/courses", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {
@@ -121,16 +121,18 @@ class CoursesTableViewController: UITableViewController {
                 
                 var network_courses = [Course]()
                 
-                for network_course in res!["user"]["courses"].arrayValue {
+                for network_course in res!["courses"].arrayValue {
                     let course = Course()
                     course.id = network_course["id"].stringValue
                     course.name = network_course["name"].stringValue
                     course.term = network_course["term"].stringValue
                     course.school = network_course["school"].stringValue
+                    course.admin = ()
+                    course.admin_request_sent = ()
                     
                     let saved_course = realm.objectForPrimaryKey(Course.self, key: course.id)
-                    course.color = (saved_course == nil) ? getLeastUsedColor() : saved_course!.color
-                    
+                    course.color = (saved_course != nil) ? saved_course!.color : getLeastUsedColor()
+                    print(network_course)
                     network_courses.append(course)
                 }
                 
@@ -138,10 +140,7 @@ class CoursesTableViewController: UITableViewController {
                     for course in network_courses {
                         realm.add(course, update: true)
                     }
-                    
-                    USER!.name = res!["user"]["name"].stringValue
-                    USER!.bio  = res!["user"]["bio"].string
-                    
+                    /*
                     for course_id in res!["user"]["admin_of"].arrayValue {
                         if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
                             course.admin = true
@@ -152,7 +151,7 @@ class CoursesTableViewController: UITableViewController {
                             print("ADMIN OF: ", course.name)
                         }
                     }
-                    
+                    */
                     realm.add(USER!, update: true)
                 }
                 

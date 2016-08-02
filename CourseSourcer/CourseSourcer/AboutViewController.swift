@@ -36,7 +36,7 @@ class AboutViewController: UIViewController {
     }
     
     func loadNetworkUser(callback: Void -> Void) {
-        GET("/users/\(USER!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+        GET("/users/me", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
             } else if res != nil {

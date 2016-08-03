@@ -25,7 +25,8 @@ router.put '/addCourse', server.loadUser, (req, res, next) ->
       if aux.domainOfEmail req.user.email != course.domain
         res.status(400).send error: "You do not have permission to join this course"
       else
-        User.findByIdAndUpdate req.user.id, $addToSet: courses: req.body.course_id, (err, user) ->
+        course_limit = 50
+        User.findByIdAndUpdate req.user.id, $addToSet: courses: {$each: [req.body.course_id], $slice: course_limit}, (err, user) ->
           if err then next err
           else res.status(200).send user: user
 

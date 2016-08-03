@@ -151,10 +151,7 @@ class StaticNotesTableViewController: UITableViewController {
         cell.preview_textview.setContentOffset(CGPointZero, animated: false)
         
         if course!.admin {
-            print("adminnotes, user:", note.user_handle)
             cell.showHandleLabel(note.user_handle ?? "")
-        }else{
-            print("Not admin")
         }
         
         return cell

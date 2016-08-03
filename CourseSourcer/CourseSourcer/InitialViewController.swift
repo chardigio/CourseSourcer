@@ -16,18 +16,17 @@ class InitialViewController: UINavigationController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        
-        // nullifyUser()
     }
     
     override func viewDidAppear(animated: Bool) {
-        // comment out this if-else block to override the credentials screen
         let realm = try! Realm()
         
         USER = realm.objects(User).filter("me == true").first
         
         if USER == nil || LOG_OUT {
             nullifyUser()
+            
+            LOG_OUT = false
             
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
         } else if CONFIRMED == nil || !CONFIRMED! {
@@ -65,19 +64,6 @@ class InitialViewController: UINavigationController {
         navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
         navigationBar.shadowImage = UIImage()
     }
-    
-    /*
-    // Seems to make the bar have a weird tint after going to a different vc and returning
-    func hideHairline() {
-        for parent in navigationBar.subviews {
-            for child in parent.subviews {
-                if child is UIImageView {
-                    child.removeFromSuperview()
-                }
-            }
-        }
-    }
-    */
     
     /*
     // MARK: - Navigation

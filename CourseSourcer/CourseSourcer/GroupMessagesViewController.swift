@@ -65,6 +65,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     
     func configureJSQ() {
         automaticallyScrollsToMostRecentMessage = true
+        inputToolbar.contentView.leftBarButtonItem = nil // hides attachment button
         
         reloadMessagesView()
     }

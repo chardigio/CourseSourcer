@@ -31,10 +31,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
 router.get '/:noteId', (req, res, next) ->
   Note.findById req.params.noteId, (err, note) ->
     if err then next err
-    else
-      console.log note
-      console.log "^^ this should just be an id"
-      res.send static_note: note
+    else res.send static_note: note
 
 #like note
 router.put '/like', (req, res,next) ->

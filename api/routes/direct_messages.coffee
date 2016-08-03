@@ -16,39 +16,39 @@ router.post '/', server.loadUser, (req, res, next) ->
 
 #get dms
 router.get '/:partnerId', server.loadUser, (req, res, next) ->
-  User.findById req.params.partnerId, (err, partner) ->
-    if err then next err
-    else
-      nullQuery = (query) -> query is '' or isNaN(+query) or Math.round(+query <= 0)
+  nullQuery = (query) -> query is '' or isNaN(+query) or Math.round(+query <= 0)
 
-      limit = req.body.limit
-      offset = req.body.offset
-      lastId = req.body.lastId
+  limit = req.body.limit
+  offset = req.body.offset
+  lastId = req.body.lastId
 
-      if nullQuery limit then limit = 25 #if limit isnt specified, return 25
-      else if +limit > 50 then limit = 50 #max is 50
-      else limit = Math.ceil +limit #otherwise just return however many are asked for
+  if nullQuery limit then limit = 25 #if limit isnt specified, return 25
+  else if +limit > 50 then limit = 50 #max is 50
+  else limit = Math.ceil +limit #otherwise just return however many are asked for
 
-      if nullQuery offset then offset = 0
+  if nullQuery offset then offset = 0
 
-      search = {$or: [
-        {$and: [
-          {to_email: req.user.email}, {from_email: partner.email}
-        ]},
-        {$and: [
-          {to_email: partner.email}, {from_email: req.user.email}
-        ]}
-      ]}
+  search = {$or: [
+    {$and: [
+      {to: req.user.id}, {from: req.params.partnerId}
+    ]},
+    {$and: [
+      {to: req.params.partnerId}, {from: req.user.id}
+    ]}
+  ]}
 
-      if lastId and lastId isnt null and lastId isnt ''
-        DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->
-          if err then next err
-          else res.send direct_messages: nextDirectMessages
-      else
-        DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).populate('from').populate('to').exec (err, directMessages) ->
-          if err then next err
-          else
-            console.log directMessages
-            res.send direct_messages: directMessages
+  formatted = (directMessages) ->
+    for direct_message in directMessages
+      if direct_message.from.id == req.user.id
+        direct_message.from_me = true
+
+  if lastId and lastId isnt null and lastId isnt ''
+    DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->
+      if err then next err
+      else res.send direct_messages: formatted nextDirectMessages
+  else
+    DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).populate('from').populate('to').exec (err, directMessages) ->
+      if err then next err
+      else res.send direct_messages: formatted directMessages
 
 module.exports = router

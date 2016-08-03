@@ -62,7 +62,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egV-VG-tlH">
-                                <rect key="frame" x="525" y="25" width="55" height="30"/>
+                                <rect key="frame" x="524" y="24" width="56" height="33"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                 <state key="normal" title="Log Out">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -475,7 +476,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classmate Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bbm-aW-R1T">
-                                            <rect key="frame" x="92" y="8" width="460" height="40"/>
+                                            <rect key="frame" x="92" y="8" width="189" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="fEr-TU-xUN"/>
                                             </constraints>
@@ -484,25 +485,25 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="This will be a classmate's biography or catch phrase who knows" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Af1-Lh-oxF">
-                                            <rect key="frame" x="92" y="43" width="460" height="30"/>
+                                            <rect key="frame" x="92" y="40" width="428" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="Ycn-T4-CfD"/>
                                             </constraints>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
+                                            <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailingMargin" secondItem="Bbm-aW-R1T" secondAttribute="trailing" constant="40" id="GNZ-yT-Hy1"/>
-                                        <constraint firstItem="Af1-Lh-oxF" firstAttribute="top" secondItem="Bbm-aW-R1T" secondAttribute="bottom" constant="-5" id="QtS-pk-IHo"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Bbm-aW-R1T" secondAttribute="trailing" id="GNZ-yT-Hy1"/>
+                                        <constraint firstItem="Af1-Lh-oxF" firstAttribute="top" secondItem="Bbm-aW-R1T" secondAttribute="bottom" constant="-8" id="QtS-pk-IHo"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="1yN-G8-pte" secondAttribute="leading" id="RHo-5R-jtv"/>
                                         <constraint firstItem="1yN-G8-pte" firstAttribute="centerY" secondItem="1Oe-yu-oaZ" secondAttribute="centerY" id="aY0-S0-XS7"/>
                                         <constraint firstItem="Af1-Lh-oxF" firstAttribute="leading" secondItem="1yN-G8-pte" secondAttribute="trailing" constant="20" id="cCd-DU-3rx"/>
-                                        <constraint firstItem="Af1-Lh-oxF" firstAttribute="width" secondItem="Bbm-aW-R1T" secondAttribute="width" id="eK8-7B-QbO"/>
                                         <constraint firstItem="Bbm-aW-R1T" firstAttribute="leading" secondItem="1yN-G8-pte" secondAttribute="trailing" constant="20" id="f83-uD-eNS"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="1yN-G8-pte" secondAttribute="leading" id="hkG-O8-vy9"/>
                                         <constraint firstAttribute="topMargin" secondItem="Bbm-aW-R1T" secondAttribute="top" id="lpA-EH-dGS"/>
+                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Af1-Lh-oxF" secondAttribute="trailing" id="w6u-rX-oxk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -1036,7 +1037,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="55" sectionHeaderHeight="18" sectionFooterHeight="18" id="1bh-UX-Vlv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingsCell" id="Jg1-w5-rUd" customClass="CourseSettingsTableViewCell" customModule="CourseSourcer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="114" width="600" height="55"/>
@@ -1056,7 +1057,7 @@
                                         <constraint firstItem="rqw-fU-eQH" firstAttribute="centerX" secondItem="zSi-cZ-fbg" secondAttribute="centerX" id="Iwu-qh-tZc"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="label" destination="rqw-fU-eQH" id="05d-ez-hDA"/>
                                 </connections>
@@ -1419,7 +1420,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="Notes: " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="oko-Oa-5RN">
-                                <rect key="frame" x="20" y="302" width="560" height="298"/>
+                                <rect key="frame" x="20" y="302" width="560" height="249"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

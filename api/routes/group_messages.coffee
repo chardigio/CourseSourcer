@@ -56,6 +56,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
         if nextGroupMessages.length > 0 and not nextGroupMessages[0].course in req.user.admin_of
           for groupMessage in nextGroupMessages
             groupMessage.user_handle = null
+        console.log nextGroupMessagesgroupMessages
         console.log '^^ no userids'
         res.send group_messages: nextGroupMessages
   else
@@ -65,6 +66,7 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
         if groupMessages.length > 0 and not groupMessages[0].course in req.user.admin_of
           for groupMessage in groupMessages
             groupMessage.user_handle = null
+        console.log groupMessages
         console.log '^^ no userids'
         res.send group_messages: groupMessages
 

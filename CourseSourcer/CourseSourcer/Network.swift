@@ -98,6 +98,7 @@ extension UIImageView {
     func setImageOfUser(user: User?) {
         if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.email).png") {
             print("GET IMAGE:", url)
+            
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }
     }
@@ -105,6 +106,7 @@ extension UIImageView {
     func setImageOfCourse(course: Course?) {
         if course != nil, let url = NSURL(string: "\(ENV)/images/courses/\(course!.id)") {
             print("GET IMAGE:", url)
+            
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }
     }

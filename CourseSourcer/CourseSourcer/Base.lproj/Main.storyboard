@@ -62,8 +62,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="egV-VG-tlH">
-                                <rect key="frame" x="524" y="24" width="56" height="33"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="15"/>
+                                <rect key="frame" x="505" y="20" width="75" height="40"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
                                 <state key="normal" title="Log Out">
                                     <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -76,7 +76,7 @@
                         <constraints>
                             <constraint firstItem="2RA-jz-AL5" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="059-mP-xjg"/>
                             <constraint firstItem="a29-Su-5Dw" firstAttribute="top" secondItem="MtR-hO-4cM" secondAttribute="bottom" constant="8" id="0RU-ef-9Xm"/>
-                            <constraint firstItem="egV-VG-tlH" firstAttribute="centerY" secondItem="HHU-6A-OcZ" secondAttribute="centerY" id="Cky-Wa-f20"/>
+                            <constraint firstItem="egV-VG-tlH" firstAttribute="centerY" secondItem="HHU-6A-OcZ" secondAttribute="centerY" id="4hU-0a-QLm"/>
                             <constraint firstItem="SBI-UL-sSW" firstAttribute="top" secondItem="PEz-ZA-NoB" secondAttribute="bottom" constant="103" id="Lqt-mA-ocL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="egV-VG-tlH" secondAttribute="trailing" id="OA2-FI-Log"/>
                             <constraint firstItem="MtR-hO-4cM" firstAttribute="centerX" secondItem="u2S-d4-Jes" secondAttribute="centerX" id="QiV-O2-9w5"/>

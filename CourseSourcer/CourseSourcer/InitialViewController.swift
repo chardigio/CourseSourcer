@@ -11,7 +11,7 @@ import UIKit
 import RealmSwift
 
 class InitialViewController: UINavigationController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,32 +24,25 @@ class InitialViewController: UINavigationController {
         USER = realm.objects(User).filter("me == true").first
         
         if USER == nil || LOG_OUT {
-            nullifyUser()
+            wipeData()
             
             LOG_OUT = false
             
             performSegueWithIdentifier("InitialToCredentials", sender: nil)
-        } else if CONFIRMED == nil || !CONFIRMED! {
+        }else if CONFIRMED == nil || !CONFIRMED! {
             performSegueWithIdentifier("InitialToConfirm", sender: nil)
+        }else{
+            reloadCoursesTable()
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - Testing
-    
-    func nullifyUser() {
-        USER = nil
-        
-        PREFS!.setValue(nil, forKey: "emailConfirmed")
-        CONFIRMED = false
-    }
-    
     // MARK: - Personal
-
+    
     func configureNavigationBar() {
         // set title font
         navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 24)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
@@ -65,14 +58,45 @@ class InitialViewController: UINavigationController {
         navigationBar.shadowImage = UIImage()
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func wipeData() {
+        USER = nil
+        CONFIRMED = nil
+        PREFS!.setValue(nil, forKey: "emailConfirmed")
+        
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.deleteAll()
+            print("REALM WIPED: SUCCESS")
+        }
     }
-    */
-
+    
+    func reloadCoursesTable() {
+        print("reload try")
+        for child in childViewControllers {
+            print(child)
+            if let home_vc = child as? HomeViewController {
+                for subchild in home_vc.childViewControllers {
+                    if let courses_table_vc = subchild as? CoursesTableViewController {
+                        courses_table_vc.loadUserAndCourses()
+                        
+                        break
+                    }
+                }
+                
+                break
+            }
+        }
+    }
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }
+

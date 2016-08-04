@@ -41,11 +41,12 @@ router.get '/:partnerId', server.loadUser, (req, res, next) ->
     for direct_message in directMessages
       if direct_message.from.id == req.user.id
         direct_message.from_me = true
+    return directMessages
 
   if lastId and lastId isnt null and lastId isnt ''
-    DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, nextDirectMessages) ->
+    DirectMessage.find({$and: [search, {_id: {$gt: lastId}}]}).sort('-created_at').limit(limit).populate('from').exec (err, directMessages) ->
       if err then next err
-      else res.send direct_messages: formatted nextDirectMessages
+      else res.send direct_messages: formatted directMessages
   else
     DirectMessage.find(search).sort('-created_at').skip(offset).limit(limit).populate('from').populate('to').exec (err, directMessages) ->
       if err then next err

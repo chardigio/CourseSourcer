@@ -110,8 +110,10 @@ class DirectMessagesViewController: JSQMessagesViewController {
             
             var message: JSQMessage {
                 if realm_message.from_me {
+                    print(realm_message.created_at)
                     return JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: realm_message.created_at, text: realm_message.text)
                 }else{
+                    print(realm_message.created_at)
                     return JSQMessage(senderId: "Classmate", senderDisplayName: classmate!.name, date: realm_message.created_at, text: realm_message.text)
                 }
             }

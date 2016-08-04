@@ -24,7 +24,6 @@ class CredentialsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        wipeData()
         configureNavigationBar()
         configureProfilePic()
         disableButton(login_button)
@@ -36,18 +35,6 @@ class CredentialsViewController: UIViewController {
     }
     
     // MARK: - Personal
-    
-    func wipeData() {
-        USER = nil
-        CONFIRMED = nil
-        
-        let realm = try! Realm()
-        
-        try! realm.write {
-            realm.deleteAll()
-            print("REALM WIPED: SUCCESS")
-        }
-    }
     
     func configureNavigationBar() {
         navigationController?.navigationBarHidden = true

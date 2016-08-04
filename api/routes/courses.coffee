@@ -28,17 +28,20 @@ router.post '/search', (req, res, next) -> #IDEALLY THIS IS A GET AND SWIFT REPL
 
 #get all courses for user
 router.get '/', server.loadUser, (req, res, next) ->
-  or_query = $or: (_id: course_id for course_id in req.user.courses)
+  if req.user.courses.length == 0
+    res.send courses: []
+  else
+    or_query = $or: (_id: course_id for course_id in req.user.courses)
 
-  Course.find or_query, (err, courses) ->
-    if err then next err
-    else
-      for course_id in req.user.admin_of
-        for course in courses
-          if course_id.toString() == course.id
-            course.admin = true
+    Course.find or_query, (err, courses) ->
+      if err then next err
+      else
+        for course_id in req.user.admin_of
+          for course in courses
+            if course_id.toString() == course.id
+              course.admin = true
 
-      res.send courses: courses
+    res.send courses: courses
 
 #add user to course's blocked list
 router.put '/block', (req, res, next) ->

@@ -26,14 +26,16 @@ class ConfirmViewController: UIViewController {
     
     func confirmationCheck() {
         GET("/users/me", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
-            if err != nil {
-                showError(self)
-            }else if res!["user"]["confirmed"] == true {
+            if res!["user"]["confirmed"] == true {
                 PREFS!.setValue(true, forKey: "emailConfirmed")
                 CONFIRMED = true
                 
                 self.dismissViewControllerAnimated(true, completion: nil)
             }else{
+                if err != nil {
+                    showError(self)
+                }
+                
                 sleep(2)
                 self.confirmationCheck()
             }

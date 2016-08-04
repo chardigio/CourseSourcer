@@ -23,8 +23,8 @@ router.get '/of_course/:courseId', server.loadUser, (req, res, next) ->
     if err then next err
     else
       if assignments.length > 0 and not assignments[0].course in req.user.admin_of
-          for assignment in assignments
-            assignment.user_handle = null
+        for assignment in assignments
+          assignment.user_handle = null
       res.send assignments: assignments
 
 #get user's assignments

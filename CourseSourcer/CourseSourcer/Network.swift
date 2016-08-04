@@ -96,7 +96,7 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
 
 extension UIImageView {
     func setImageOfUser(user: User?) {
-        if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.email).png") {
+        if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.id).png") {
             print("GET IMAGE:", url)
             
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)

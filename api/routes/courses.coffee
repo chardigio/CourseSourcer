@@ -41,7 +41,7 @@ router.get '/', server.loadUser, (req, res, next) ->
             if course_id.toString() == course.id
               course.admin = true
 
-    res.send courses: courses
+        res.send courses: courses
 
 #add user to course's blocked list
 router.put '/block', (req, res, next) ->

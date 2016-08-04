@@ -20,8 +20,8 @@ let ENV = "http://192.168.1.4:3005"
 
 // MARK: - Alamofire
 
-func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    let url = "\(ENV)\(endpoint)\(idParamString())"
+func GET(endpoint: String, id: String? = nil, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+    let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
     Alamofire.request(.GET, url).responseJSON { response in
         print("GET:", url)
@@ -31,6 +31,7 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
+            
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
@@ -44,8 +45,8 @@ func GET(endpoint: String, callback: (err: [String:AnyObject]?, res: JSON?) -> V
     }
 }
 
-func POST(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    let url = "\(ENV)\(endpoint)\(idParamString())"
+func POST(endpoint: String, id: String? = nil, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+    let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
     Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON).responseJSON { response in
         print("POST:", url)
@@ -55,6 +56,7 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
+            
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
@@ -68,8 +70,8 @@ func POST(endpoint: String, parameters: [String:String], callback: (err: [String
     }
 }
 
-func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
-    let url = "\(ENV)\(endpoint)\(idParamString())"
+func PUT(endpoint: String, id: String? = nil, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+    let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
     Alamofire.request(.PUT, url, parameters: parameters, encoding: .JSON).responseJSON { response in
         print("PUT:", url)
@@ -79,6 +81,7 @@ func PUT(endpoint: String, parameters: [String:String], callback: (err: [String:
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
+            
             break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
@@ -114,10 +117,10 @@ extension UIImageView {
 
 // MARK: - Aux
 
-func idParamString() -> String {
+func idParamString(id: String? = nil) -> String {
     if USER == nil {
         return ""
     }
     
-    return "?user=\(USER!.id)&device=\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
+    return "?user=\(id ?? USER!.id)&device=\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
 }

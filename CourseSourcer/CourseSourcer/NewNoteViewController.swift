@@ -9,13 +9,22 @@
 import UIKit
 import SwiftyJSON
 
-class NewNoteViewController: UIViewController {
+enum SlideDirections {
+    case Up
+    case Down
+}
+
+class NewNoteViewController: UIViewController, UITextViewDelegate {
     var course: Course?
     
     @IBOutlet weak var date_label: UILabel!
     @IBOutlet weak var subject_textfield: UITextField!
     @IBOutlet weak var content_textview: UITextView!
     @IBOutlet weak var delimiter_view: UIView!
+    @IBOutlet weak var content_textview_bottom_constraint: NSLayoutConstraint!
+    
+    var frame_is_offset = false
+    let keyboard_height: CGFloat = 200
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +38,10 @@ class NewNoteViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        configureTextView()
     }
     
     // MARK: - Personal
@@ -47,12 +60,37 @@ class NewNoteViewController: UIViewController {
 
     func configureContent() {
         content_textview.becomeFirstResponder()
-        
-        // content_textview.text = course!.name + " - " + NSDate().prettyDateDescription + "\n\n"
     }
     
     func configureDelimiter() {
         delimiter_view.backgroundColor = pastelFromInt(course!.color)
+    }
+    
+    func configureTextView() {
+        content_textview.delegate = self
+        
+        slideView(.Up)
+    }
+    
+    func textViewDidBeginEditing(textView: UITextView) {
+        slideView(.Up)
+    }
+    
+    func textViewDidEndEditing(textView: UITextView) {
+        slideView(.Down)
+    }
+    
+    func slideView(dir: SlideDirections) {
+        if frame_is_offset == (dir == .Up) {
+            return
+        }
+        
+        UIView.animateWithDuration(0.5, animations: {
+                //RAISE BOTTOM CONSTRAINT
+                self.view.frame.offsetInPlace(dx: 0, dy: (dir == .Up ? -self.keyboard_height : self.keyboard_height))
+            }, completion: { Void in
+                self.frame_is_offset = (dir == .Up)
+        })
     }
     
     func doneTapped() {

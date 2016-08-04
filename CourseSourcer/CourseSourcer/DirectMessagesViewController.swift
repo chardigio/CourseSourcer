@@ -152,9 +152,13 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     for message in network_messages {
                         realm.add(message, update: true)
                     }
-                    
+                    print(network_messages.count)
+                    print(network_messages.first)
                     self.classmate!.last_spoke = network_messages.first?.created_at
+                    print(self.classmate!.last_spoke)
                 }
+                
+                print(self.classmate!.last_spoke)
                 
                 callback()
             }

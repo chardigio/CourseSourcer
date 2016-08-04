@@ -44,7 +44,7 @@ class ClassmatesTableViewController: UITableViewController {
     
     func postTestClassmates() {
         if course!.users.filter("me == false").count > 0 {
-            return
+            return // this doesn't work, probably because of asynchrosity
         }
         
         srand(UInt32(NSDate().timeIntervalSinceReferenceDate))
@@ -57,8 +57,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["course_id": self.course!.id],
-                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", id: res!["user"]["id"].string, parameters: ["course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -74,7 +73,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", id: res!["user"]["id"].string, parameters: ["course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -90,8 +89,7 @@ class ClassmatesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             }else if res != nil {
-                PUT("/users/addCourse", parameters: ["course_id": self.course!.id],
-                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", id: res!["user"]["id"].string, parameters: ["course_id": self.course!.id], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -150,7 +148,7 @@ class ClassmatesTableViewController: UITableViewController {
                 
                 try! realm.write {
                     for network_user in res!["users"].arrayValue {
-                        var classmate = realm.objectForPrimaryKey(User.self, key: network_user["email"].stringValue)
+                        var classmate = realm.objectForPrimaryKey(User.self, key: network_user["id"].stringValue)
                         
                         if classmate == nil {
                             classmate = User()

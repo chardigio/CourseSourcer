@@ -26,11 +26,9 @@ router.put '/addCourse', server.loadUser, (req, res, next) ->
         res.status(400).send error: "You do not have permission to join this course"
       else
         course_limit = 50
-        console.log "ADD BEGIN"
         User.findByIdAndUpdate req.user.id, {$addToSet: {courses: {$each: [req.body.course_id], $slice: course_limit}}}, (err, user) ->
           if err then next err
           else res.status(200).send user: user
-          console.log "ADD END"
 
 #update name of user
 router.put '/me', server.loadUser, (req, res, next) -> # also needs pic handling

@@ -114,7 +114,7 @@ class CredentialsViewController: UIViewController {
                 self.signup_button.alpha = 1
                 
                 self.enableSignupCheck()
-            }, completion: nil)
+            })
         }else{
             logging_in = true
             self.mode_button.setTitle("First Time?", forState: .Normal)
@@ -128,7 +128,7 @@ class CredentialsViewController: UIViewController {
                 self.signup_button.enabled = false
                 
                 self.enableLoginCheck()
-            }, completion: nil)
+            })
         }
     }
     

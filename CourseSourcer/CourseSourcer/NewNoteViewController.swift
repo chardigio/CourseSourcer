@@ -9,11 +9,6 @@
 import UIKit
 import SwiftyJSON
 
-enum SlideDirections {
-    case Up
-    case Down
-}
-
 class NewNoteViewController: UIViewController, UITextViewDelegate {
     var course: Course?
     
@@ -23,9 +18,6 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var delimiter_view: UIView!
     @IBOutlet weak var content_textview_bottom_constraint: NSLayoutConstraint!
     
-    var frame_is_offset = false
-    let keyboard_height: CGFloat = 200
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,15 +25,12 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         configureDate()
         configureContent()
         configureDelimiter()
+        configureKeyboardNotification()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        configureTextView()
     }
     
     // MARK: - Personal
@@ -66,30 +55,13 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         delimiter_view.backgroundColor = pastelFromInt(course!.color)
     }
     
-    func configureTextView() {
-        content_textview.delegate = self
-        
-        slideView(.Up)
+    func configureKeyboardNotification() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(changeContentViewBottomConstraint), name: UIKeyboardWillChangeFrameNotification, object: nil)
     }
     
-    func textViewDidBeginEditing(textView: UITextView) {
-        slideView(.Up)
-    }
-    
-    func textViewDidEndEditing(textView: UITextView) {
-        slideView(.Down)
-    }
-    
-    func slideView(dir: SlideDirections) {
-        if frame_is_offset == (dir == .Up) {
-            return
-        }
-        
+    func changeContentViewBottomConstraint(notification: NSNotification) {
         UIView.animateWithDuration(0.5, animations: {
-                //RAISE BOTTOM CONSTRAINT
-                self.view.frame.offsetInPlace(dx: 0, dy: (dir == .Up ? -self.keyboard_height : self.keyboard_height))
-            }, completion: { Void in
-                self.frame_is_offset = (dir == .Up)
+            self.content_textview_bottom_constraint.constant = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue().size.height
         })
     }
     

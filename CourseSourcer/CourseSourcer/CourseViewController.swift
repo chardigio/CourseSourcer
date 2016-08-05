@@ -10,10 +10,12 @@ import UIKit
 
 class CourseViewController: UITabBarController {
     var course: Course?
+    var add_button: UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        configureAddButton()
         configureNavigationBar()
         configureTabBar()
     }
@@ -31,12 +33,16 @@ class CourseViewController: UITabBarController {
     
     // MARK: - Personal
     
+    func configureAddButton() {
+        add_button = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
+    }
+    
     func configureNavigationBar() {
         navigationItem.title = course!.name
         
         navigationController?.navigationBar.barTintColor = pastelFromInt(course!.color)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = add_button
     }
 
     func configureTabBar(){
@@ -58,6 +64,16 @@ class CourseViewController: UITabBarController {
         navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
         
         navigationController!.navigationBar.shadowImage = UIImage()
+    }
+    
+    func switchTab(tab: COURSE_ITEM_TABS) {
+        COURSE_ITEM_TAB = tab
+        
+        if tab == .SETTINGS {
+            navigationItem.rightBarButtonItem = nil
+        }else{
+            navigationItem.rightBarButtonItem = add_button
+        }
     }
     
     // MARK: - Navigation

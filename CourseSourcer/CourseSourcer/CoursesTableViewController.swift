@@ -17,6 +17,8 @@ class CoursesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureRefreshControl()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -88,6 +90,10 @@ class CoursesTableViewController: UITableViewController {
     
     // MARK: - Personal
     
+    func configureRefreshControl() {
+        refreshControl?.addTarget(self, action: #selector(loadUserAndCourses), forControlEvents: .ValueChanged)
+    }
+    
     func loadUserAndCourses() {
         if TESTING { postTestUserAndCourses() }
         
@@ -97,6 +103,7 @@ class CoursesTableViewController: UITableViewController {
         loadNetworkUserAndCourses() {
             self.loadRealmUserAndCourses()
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
     

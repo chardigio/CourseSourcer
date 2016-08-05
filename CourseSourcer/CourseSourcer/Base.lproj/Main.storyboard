@@ -368,11 +368,12 @@
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="9tD-74-xFZ">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="compose_button_pressed:" destination="Oif-Ge-wdf" id="VG9-gS-1QK"/>
+                                <action selector="addButtonPressed:" destination="Oif-Ge-wdf" id="uHo-RN-Cf9"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="add_bar_button" destination="9tD-74-xFZ" id="U6X-uK-NDi"/>
                         <outlet property="courses_container" destination="xP9-db-aK3" id="PoH-ry-SoW"/>
                         <outlet property="me_bar_button" destination="8wg-8C-INs" id="ci2-ZT-nkX"/>
                         <outlet property="schedule_container" destination="F6z-Vu-PRD" id="T6z-nD-gBc"/>
@@ -569,8 +570,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
-                                            <rect key="frame" x="8" y="36" width="584" height="43"/>
+                                        <textView userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
+                                            <rect key="frame" x="8" y="36" width="516" height="43"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -595,6 +596,9 @@
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bP-LD-uEe">
+                                            <rect key="frame" x="534" y="33" width="50" height="50"/>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailingMargin" secondItem="dF0-ym-8aE" secondAttribute="trailing" id="0Q5-vM-vX6"/>
@@ -604,7 +608,6 @@
                                         <constraint firstItem="rt7-cO-y5n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="L1e-g0-2WL" secondAttribute="trailing" constant="5" id="XAI-q3-0Qf"/>
                                         <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="-5" id="XCZ-fL-ML3"/>
                                         <constraint firstAttribute="topMargin" secondItem="L1e-g0-2WL" secondAttribute="top" id="XsX-SJ-apL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="dQJ-ot-KW0" secondAttribute="trailing" id="ZZS-jl-8gP"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="dQJ-ot-KW0" secondAttribute="bottom" id="ZeT-oM-BXF"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="dQJ-ot-KW0" secondAttribute="leading" id="eza-R7-UeQ"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="L1e-g0-2WL" secondAttribute="leading" id="wmI-Da-Xtn"/>
@@ -1520,6 +1523,6 @@
         <image name="x" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lW8-jW-Aok"/>
+        <segue reference="b9d-dF-I1D"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -21,7 +21,7 @@ class ClassmatesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configureCourse()
-        loadClassmates()
+        configureRefreshControl()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,6 +37,8 @@ class ClassmatesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
+        
+        
         loadClassmates()
     }
     
@@ -106,6 +108,10 @@ class ClassmatesTableViewController: UITableViewController {
         }
     }
     
+    func configureRefreshControl() {
+        refreshControl?.addTarget(self, action: #selector(loadClassmates), forControlEvents: .ValueChanged)
+    }
+    
     func loadClassmates() {
         if TESTING { postTestClassmates() }
         
@@ -116,6 +122,7 @@ class ClassmatesTableViewController: UITableViewController {
         loadNetworkClassmates() {
             self.loadRealmClassmates()
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
     

@@ -44,11 +44,7 @@ class HomeScheduleTableViewController: UITableViewController {
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
-    }
-    
-    func handleRefresh() {
-        loadAssignments()
+        refreshControl?.addTarget(self, action: #selector(loadAssignments), forControlEvents: .ValueChanged)
     }
     
     func loadAssignments() {
@@ -60,6 +56,7 @@ class HomeScheduleTableViewController: UITableViewController {
             self.loadRealmAssignments()
             self.tableView.reloadData()
             self.configureContentOffset()
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -122,7 +119,7 @@ class HomeScheduleTableViewController: UITableViewController {
         }
         
         if CGFloat(assignments.count) - CGFloat(num_overdue_assignments) > tableView.frame.height / tableView.rowHeight {
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
     }
     

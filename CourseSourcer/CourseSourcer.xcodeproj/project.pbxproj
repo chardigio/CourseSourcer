@@ -50,6 +50,7 @@
 		CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */; };
 		CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */; };
 		CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EB7931D142300000A58FD /* HomeViewController.swift */; };
+		CBD1ADBB1D54BFBF003E338A /* ValidityBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBD1ADBA1D54BFBF003E338A /* ValidityBadge.xib */; };
 		CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */; };
 		CBF920421D2217AF00D2862D /* StaticNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */; };
 		CBF920441D25483800D2862D /* ScheduleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBF920431D25483800D2862D /* ScheduleTableViewCell.xib */; };
@@ -127,6 +128,7 @@
 		CBB29CD21D15E8F900FBB9B4 /* CourseSourcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseSourcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB29CD31D15E8F900FBB9B4 /* CourseSourcerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseSourcerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB29CD41D15E8F900FBB9B4 /* CourseSourcerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseSourcerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBD1ADBA1D54BFBF003E338A /* ValidityBadge.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ValidityBadge.xib; sourceTree = "<group>"; };
 		CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassmateTableViewCell.swift; sourceTree = "<group>"; };
 		CBF920411D2217AF00D2862D /* StaticNoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticNoteTableViewCell.swift; sourceTree = "<group>"; };
 		CBF920431D25483800D2862D /* ScheduleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleTableViewCell.xib; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				CB278FAE1D0AE6AC00217EB3 /* RealmModels */,
 				CB278F6B1D0AE17C00217EB3 /* Main.storyboard */,
 				CBF920431D25483800D2862D /* ScheduleTableViewCell.xib */,
+				CBD1ADBA1D54BFBF003E338A /* ValidityBadge.xib */,
 				CB278F711D0AE17C00217EB3 /* Assets.xcassets */,
 				CB278F731D0AE17C00217EB3 /* LaunchScreen.storyboard */,
 				CB278F761D0AE17C00217EB3 /* Info.plist */,
@@ -394,6 +397,7 @@
 				CB278F721D0AE17C00217EB3 /* Assets.xcassets in Resources */,
 				CBF920441D25483800D2862D /* ScheduleTableViewCell.xib in Resources */,
 				CB278F6D1D0AE17C00217EB3 /* Main.storyboard in Resources */,
+				CBD1ADBB1D54BFBF003E338A /* ValidityBadge.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -36,6 +36,7 @@ class StaticNotesTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = .STATIC_NOTES
+        
         loadNotes()
     }
 
@@ -65,11 +66,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
-    }
-    
-    func handleRefresh() {
-        loadNotes()
+        refreshControl?.addTarget(self, action: #selector(loadNotes), forControlEvents: .ValueChanged)
     }
     
     func loadNotes() {
@@ -81,6 +78,7 @@ class StaticNotesTableViewController: UITableViewController {
         loadNetworkNotes() {
             self.loadRealmNotes()
             self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
         }
     }
     

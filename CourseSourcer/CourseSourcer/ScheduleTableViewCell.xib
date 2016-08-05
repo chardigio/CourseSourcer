@@ -43,7 +43,7 @@
                                         <rect key="frame" x="545" y="36" width="42" height="24"/>
                                         <color key="backgroundColor" red="0.98823529409999999" green="0.92156862750000001" blue="0.47843137250000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

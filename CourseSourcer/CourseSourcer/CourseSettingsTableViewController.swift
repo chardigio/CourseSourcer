@@ -35,6 +35,13 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewDidAppear(animated: Bool) {
+        //COURSE_ITEM_TAB = .STATIC_NOTES
+        if let course_vc = presentingViewController as? CourseViewController {
+            course_vc.tabSwitchTo(.SETTINGS)
+        }
+    }
+    
     // MARK: - Personal
     
     func configureCourse() {

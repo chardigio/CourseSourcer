@@ -37,6 +37,7 @@ class CourseScheduleTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         COURSE_ITEM_TAB = COURSE_ITEM_TABS.SCHEDULE
+        
         loadAssignments()
     }
     
@@ -64,13 +65,9 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(handleRefresh), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadAssignments), forControlEvents: .ValueChanged)
     }
-    
-    func handleRefresh() {
-        loadAssignments()
-    }
-    
+
     func configureCourse() {
         if let parent = tabBarController as? CourseViewController {
             course = parent.course
@@ -88,6 +85,7 @@ class CourseScheduleTableViewController: UITableViewController {
             self.loadRealmAssignments()
             self.tableView.reloadData()
             self.configureContentOffset()
+            self.refreshControl?.endRefreshing()
         }
     }
     
@@ -143,7 +141,7 @@ class CourseScheduleTableViewController: UITableViewController {
         }
         
         if CGFloat(assignments.count) - CGFloat(num_overdue_assignments) > tableView.frame.height / tableView.rowHeight {
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
         }
     }
     

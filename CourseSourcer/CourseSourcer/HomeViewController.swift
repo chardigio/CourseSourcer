@@ -9,11 +9,18 @@
 import UIKit
 import RealmSwift
 
+enum Segments: Int {
+    case Courses  = 0
+    case Schedule = 1
+}
+
 class HomeViewController: UIViewController {
     @IBOutlet weak var courses_container: UIView!
     @IBOutlet weak var schedule_container: UIView!
     @IBOutlet weak var segment_controller: UISegmentedControl!
     @IBOutlet weak var me_bar_button: UIBarButtonItem!
+    @IBOutlet weak var add_bar_button: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +40,7 @@ class HomeViewController: UIViewController {
     }
     
     func segmentChanged(gesture: UIGestureRecognizer){
-        if segment_controller.selectedSegmentIndex == 0 {
+        if segment_controller.selectedSegmentIndex == Segments.Courses.rawValue {
             courses_container.hidden = false
             schedule_container.hidden = true
         }else{
@@ -42,7 +49,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func compose_button_pressed(sender: AnyObject) {
+    @IBAction func addButtonPressed(sender: AnyObject) {
         performSegueWithIdentifier("HomeToNewCourse", sender: nil)
     }
     

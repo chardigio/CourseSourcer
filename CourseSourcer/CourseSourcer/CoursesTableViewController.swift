@@ -44,12 +44,7 @@ class CoursesTableViewController: UITableViewController {
             USER = realm.objects(User).filter("me == true").first
         }
         
-        if USER == nil {
-            return
-        }
-        
-        
-        if realm.objects(Course).count > 0 {
+        if USER == nil || realm.objects(Course).count > 0 {
             return
         }
         
@@ -61,8 +56,7 @@ class CoursesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["course_id": res!["course"]["id"].stringValue],
-                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["course_id": res!["course"]["id"].stringValue], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }
@@ -78,8 +72,7 @@ class CoursesTableViewController: UITableViewController {
             if err != nil {
                 showError(self)
             } else if res != nil {
-                PUT("/users/addCourse", parameters: ["course_id": res!["course"]["id"].stringValue],
-                                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
+                PUT("/users/addCourse", parameters: ["course_id": res!["course"]["id"].stringValue], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                     if err != nil {
                         showError(self)
                     }

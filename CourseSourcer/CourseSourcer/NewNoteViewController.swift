@@ -78,7 +78,7 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
             
             alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
                 POST("/static_notes", parameters:
-                       ["text": self.content_textview.text!,
+                       ["text": self.content_textview.text ?? "",
                         "title": self.subject_textfield.text!,
                         "course": self.course!.id],
                     callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in

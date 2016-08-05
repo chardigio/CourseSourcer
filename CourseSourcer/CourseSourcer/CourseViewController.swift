@@ -53,10 +53,11 @@ class CourseViewController: UITabBarController {
     }
     
     func addTapped() {
-        if COURSE_ITEM_TAB == COURSE_ITEM_TABS.SCHEDULE {
-            performSegueWithIdentifier("CourseToNewAssignment", sender: nil)
-        }else if COURSE_ITEM_TAB == COURSE_ITEM_TABS.STATIC_NOTES {
-            performSegueWithIdentifier("CourseToNewNote", sender: nil)
+        switch COURSE_ITEM_TAB {
+        case .CLASSMATES   : return // invite a freind to coursesourcer
+        case .SCHEDULE     : performSegueWithIdentifier("CourseToNewAssignment", sender: nil)
+        case .STATIC_NOTES : performSegueWithIdentifier("CourseToNewNote", sender: nil)
+        case .SETTINGS     : return
         }
     }
     
@@ -66,14 +67,11 @@ class CourseViewController: UITabBarController {
         navigationController!.navigationBar.shadowImage = UIImage()
     }
     
-    func switchTab(tab: COURSE_ITEM_TABS) {
+    func switchTabTo(tab: COURSE_ITEM_TABS) {
         COURSE_ITEM_TAB = tab
-        
-        if tab == .SETTINGS {
-            navigationItem.rightBarButtonItem = nil
-        }else{
-            navigationItem.rightBarButtonItem = add_button
-        }
+        print("TAB:", tab)
+
+        navigationItem.rightBarButtonItem = (tab == .SETTINGS) ? nil : add_button
     }
     
     // MARK: - Navigation

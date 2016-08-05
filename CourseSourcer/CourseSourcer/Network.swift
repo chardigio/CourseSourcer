@@ -31,8 +31,6 @@ func GET(endpoint: String, id: String? = nil, callback: (err: [String:AnyObject]
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-            
-            break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
             
@@ -56,8 +54,6 @@ func POST(endpoint: String, id: String? = nil, parameters: [String:String], call
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-            
-            break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
             
@@ -81,8 +77,6 @@ func PUT(endpoint: String, id: String? = nil, parameters: [String:String], callb
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-            
-            break
         case .Failure(let error):
             print("NETWORK ERROR:", response)
             
@@ -100,7 +94,7 @@ func PUT(endpoint: String, id: String? = nil, parameters: [String:String], callb
 extension UIImageView {
     func setImageOfUser(user: User?) {
         if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.id).png") {
-            print("GET IMAGE:", url)
+            //print("GET IMAGE:", url)
             
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }
@@ -108,7 +102,7 @@ extension UIImageView {
     
     func setImageOfCourse(course: Course?) {
         if course != nil, let url = NSURL(string: "\(ENV)/images/courses/\(course!.id)") {
-            print("GET IMAGE:", url)
+            //print("GET IMAGE:", url)
             
             self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
         }

@@ -110,10 +110,8 @@ class DirectMessagesViewController: JSQMessagesViewController {
             
             var message: JSQMessage {
                 if realm_message.from_me {
-                    print(realm_message.created_at)
                     return JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: realm_message.created_at, text: realm_message.text)
                 }else{
-                    print(realm_message.created_at)
                     return JSQMessage(senderId: "Classmate", senderDisplayName: classmate!.name, date: realm_message.created_at, text: realm_message.text)
                 }
             }
@@ -152,13 +150,9 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     for message in network_messages {
                         realm.add(message, update: true)
                     }
-                    print(network_messages.count)
-                    print(network_messages.first)
+                    
                     self.classmate!.last_spoke = network_messages.first?.created_at
-                    print(self.classmate!.last_spoke)
                 }
-                
-                print(self.classmate!.last_spoke)
                 
                 callback()
             }
@@ -182,10 +176,9 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
         
-        switch(messages[indexPath.row].senderId) {
-        case senderId:
+        if messages[indexPath.row].senderId == senderId {
             return outgoingBubbleWithColor(message_courses[indexPath.row]?.color ?? course!.color)
-        default:
+        }else{
             return incomingBubble
         }
     }

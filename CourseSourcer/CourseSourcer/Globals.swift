@@ -74,13 +74,13 @@ enum PASTELS{
 
 func pastelFromInt(color: Int) -> UIColor {
     switch color {
-        case PASTELS.RED.hashValue:   return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00)
-        case PASTELS.ORANGE.hashValue: return UIColor(red:1.00, green:0.65, blue:0.51, alpha:1.00)
-        case PASTELS.GREEN.hashValue:  return UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
-        case PASTELS.BLUE.hashValue:   return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
-        case PASTELS.PURPLE.hashValue: return UIColor(red:0.85, green:0.72, blue:0.99, alpha:1.00)
-        default:                       return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
-        // SHOULD NEVER DEFAULT
+    case PASTELS.RED.hashValue    : return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00)
+    case PASTELS.ORANGE.hashValue : return UIColor(red:1.00, green:0.65, blue:0.51, alpha:1.00)
+    case PASTELS.GREEN.hashValue  : return UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
+    case PASTELS.BLUE.hashValue   : return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
+    case PASTELS.PURPLE.hashValue : return UIColor(red:0.85, green:0.72, blue:0.99, alpha:1.00)
+    default                       : return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
+    // SHOULD NEVER DEFAULT
     }
 }
 
@@ -152,16 +152,11 @@ func currentTerm() -> String {
     let month_year_array = NSCalendar.currentCalendar().components([.Month, .Year], fromDate: NSDate())
     
     switch month_year_array.month {
-    case 12, 1:
-        return "Winter " + String(month_year_array.year)
-    case 2, 3, 4, 5:
-        return "Spring " + String(month_year_array.year)
-    case 6, 7:
-        return "Summer " + String(month_year_array.year)
-    case 8, 9, 10, 11:
-        return "Fall " + String(month_year_array.year)
-    default:
-        return ""
+    case 12, 1        : return "Winter " + String(month_year_array.year)
+    case 2, 3, 4, 5   : return "Spring " + String(month_year_array.year)
+    case 6, 7         : return "Summer " + String(month_year_array.year)
+    case 8, 9, 10, 11 : return "Fall " + String(month_year_array.year)
+    default           : return ""
     }
 }
 

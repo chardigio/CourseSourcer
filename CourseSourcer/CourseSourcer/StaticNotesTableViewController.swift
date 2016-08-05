@@ -20,7 +20,6 @@ class StaticNotesTableViewController: UITableViewController {
         
         configureRefreshControl()
         configureCourse()
-        loadNotes()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -35,7 +34,9 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        COURSE_ITEM_TAB = .STATIC_NOTES
+        if let course_vc = parentViewController as? CourseViewController {
+            course_vc.switchTabTo(.STATIC_NOTES)
+        }
         
         loadNotes()
     }

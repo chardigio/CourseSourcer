@@ -570,8 +570,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="87"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textView userInteractionEnabled="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
-                                            <rect key="frame" x="8" y="36" width="516" height="43"/>
+                                        <textView userInteractionEnabled="NO" contentMode="scaleToFill" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dQJ-ot-KW0">
+                                            <rect key="frame" x="8" y="36" width="526" height="43"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -596,8 +596,12 @@
                                             <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0bP-LD-uEe">
-                                            <rect key="frame" x="534" y="33" width="50" height="50"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0bP-LD-uEe">
+                                            <rect key="frame" x="544" y="39" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="5VO-N1-xdd"/>
+                                                <constraint firstAttribute="width" constant="40" id="eZo-1a-9gO"/>
+                                            </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -609,7 +613,10 @@
                                         <constraint firstItem="dQJ-ot-KW0" firstAttribute="top" secondItem="L1e-g0-2WL" secondAttribute="bottom" constant="-5" id="XCZ-fL-ML3"/>
                                         <constraint firstAttribute="topMargin" secondItem="L1e-g0-2WL" secondAttribute="top" id="XsX-SJ-apL"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="dQJ-ot-KW0" secondAttribute="bottom" id="ZeT-oM-BXF"/>
+                                        <constraint firstItem="0bP-LD-uEe" firstAttribute="bottom" secondItem="dQJ-ot-KW0" secondAttribute="bottom" id="ZtA-sP-Hw8"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="dQJ-ot-KW0" secondAttribute="leading" id="eza-R7-UeQ"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="0bP-LD-uEe" secondAttribute="trailing" constant="8" id="nca-en-zVf"/>
+                                        <constraint firstItem="0bP-LD-uEe" firstAttribute="leading" secondItem="dQJ-ot-KW0" secondAttribute="trailing" constant="10" id="pMD-8t-oXX"/>
                                         <constraint firstAttribute="leadingMargin" secondItem="L1e-g0-2WL" secondAttribute="leading" id="wmI-Da-Xtn"/>
                                     </constraints>
                                 </tableViewCellContentView>

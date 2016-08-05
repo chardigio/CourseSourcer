@@ -17,11 +17,17 @@ schema.set 'toJSON', transform: (doc, ret, options) ->
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
-###
+
 #validations
-schema.path('text').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 10000
-}, 'Text cannot exceed 10000 characters.')
-###
+(schema.path 'text').validate (val) ->
+  val?.length >= 1
+, 'Text is too short.'
+
+(schema.path 'text').validate (val) ->
+  val?.length <= 1000
+, 'Text is too long.'
+
+(schema.path 'user_handle').required yes, 'Internal Error: No user handle.'
+
 #export Model
 module.exports = GroupMessage = mongoose.model 'group_message', schema

@@ -18,5 +18,14 @@ schema.set 'toJSON', transform: (doc, ret, options) ->
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
 
+#validations
+(schema.path 'text').validate (val) ->
+  val?.length >= 1
+, 'Text is too short.'
+
+(schema.path 'text').validate (val) ->
+  val?.length <= 1000
+, 'Text is too long.'
+
 #export Model
 module.exports = DirectMessage = mongoose.model 'direct_message', schema

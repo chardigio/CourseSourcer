@@ -36,8 +36,9 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
-        
+        if let course_vc = parentViewController as? CourseViewController {
+            course_vc.switchTabTo(.CLASSMATES)
+        }
         
         loadClassmates()
     }

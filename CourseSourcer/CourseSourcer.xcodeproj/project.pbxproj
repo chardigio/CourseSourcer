@@ -205,7 +205,6 @@
 			children = (
 				CB278F671D0AE17C00217EB3 /* AppDelegate.swift */,
 				CB278FBD1D0AE7D300217EB3 /* Globals.swift */,
-				CB278FBF1D0AE7DB00217EB3 /* Network.swift */,
 				CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */,
 				CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */,
 				CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */,
@@ -232,6 +231,7 @@
 				CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */,
 				CB278FA41D0AE61B00217EB3 /* AssignmentViewController.swift */,
 				CB0B08001D3513C600876347 /* NewAssignmentViewController.swift */,
+				CB278FBF1D0AE7DB00217EB3 /* Network.swift */,
 				CB278FAE1D0AE6AC00217EB3 /* RealmModels */,
 				CB278F6B1D0AE17C00217EB3 /* Main.storyboard */,
 				CBF920431D25483800D2862D /* ScheduleTableViewCell.xib */,

@@ -21,7 +21,6 @@ class CourseScheduleTableViewController: UITableViewController {
         configureTableView()
         configureRefreshControl()
         configureCourse()
-        loadAssignments()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,7 +35,9 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        COURSE_ITEM_TAB = COURSE_ITEM_TABS.SCHEDULE
+        if let course_vc = parentViewController as? CourseViewController {
+            course_vc.switchTabTo(.SCHEDULE)
+        }
         
         loadAssignments()
     }

@@ -72,9 +72,7 @@ class InitialViewController: UINavigationController {
     }
     
     func reloadCoursesTable() {
-        print("reload try")
         for child in childViewControllers {
-            print(child)
             if let home_vc = child as? HomeViewController {
                 for subchild in home_vc.childViewControllers {
                     if let courses_table_vc = subchild as? CoursesTableViewController {

@@ -36,9 +36,8 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     }
 
     override func viewDidAppear(animated: Bool) {
-        //COURSE_ITEM_TAB = .STATIC_NOTES
-        if let course_vc = presentingViewController as? CourseViewController {
-            course_vc.tabSwitchTo(.SETTINGS)
+        if let course_vc = parentViewController as? CourseViewController {
+            course_vc.switchTabTo(.SETTINGS)
         }
     }
     
@@ -147,14 +146,10 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.section {
-        case 0:
-            colorCellTapped(indexPath.row)
-        case 1:
-            leaveCellTapped()
-        case 2:
-            adminCellTapped()
-        default:
-            print("ERROR:", "Picked a cell from an unexpected section:", indexPath.section)
+        case 0: colorCellTapped(indexPath.row)
+        case 1: leaveCellTapped()
+        case 2: adminCellTapped()
+        default: print("ERROR:", "Picked a cell from an unexpected section:", indexPath.section)
         }
     }
     

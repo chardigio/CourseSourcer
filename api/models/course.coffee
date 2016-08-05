@@ -17,31 +17,38 @@ schema.set 'toJSON', transform: (doc, ret, options) ->
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
 
-###
-#validation
-schema.path('name').required(true, 'Course name is required.')
+#validations
+(schema.path 'name').required yes, 'Name is required.'
 
-schema.path('name').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Course name is too many characters.')
+(schema.path 'name').validate (val) ->
+  val?.length >= 1
+,'Name is too short.'
 
-schema.path('term').required(true, 'Term is required.')
+(schema.path 'name').validate (val) ->
+  val?.length <= 100
+, 'Name is too long.'
 
-schema.path('term').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Term is too many characters.')
+(schema.path 'term').required yes, 'Term is required.'
 
-#this should eventually be a regular expression (regex) that checks that there is a '.'
-schema.path('domain').validate(function(val) {
-  return /\S+@\S+\.\S+/.test(val)
-}, 'Invalid domain.')
+(schema.path 'term').validate (val) ->
+  val?.length >= 1
+,'Term is too short.'
 
-schema.path('domain').required(true, 'Domain is required.')
+(schema.path 'term').validate (val) ->
+  val?.length <= 50
+, 'Term is too long.'
 
-schema.path('domain').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Domain is too many characters.')
-###
+(schema.path 'school').required yes, 'School is required.'
+
+(schema.path 'school').validate (val) ->
+  val?.length >= 1
+,'School is too short.'
+
+(schema.path 'school').validate (val) ->
+  val?.length <= 100
+, 'School is too long.'
+
+(schema.path 'domain').required yes, 'Internal Error: No domain.'
 
 #export Model
 module.exports = Course = mongoose.model 'course', schema

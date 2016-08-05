@@ -26,48 +26,44 @@ schema.pre 'save', (next) ->
 #plugins
 schema.plugin idValidator, message : 'Invalid {PATH}.'
 schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
-###
-#validation
-schema.path('name').required(true, 'First name is required.')
 
-schema.path('name').validate(function(val) {
-  return (val != null ? val.length : void 0) > 1
-}, 'Name is too short.')
+#validations
+(schema.path 'name').required yes, 'Name is required.'
 
-schema.path('name').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Name is too long.')
+(schema.path 'name').validate (val) ->
+  val?.length >= 3
+,'Name is too short.'
 
-schema.path('email').required(true, 'Email name is required.')
+(schema.path 'name').validate (val) ->
+  val?.length <= 100
+, 'Name is too long.'
 
-schema.path('email').unique(true)
+#validate that the name has at least one space
 
-schema.path('email').validate(function(val) {
-  return /\S+@\S+\.\S+/.test(val)
-}, 'Invalid email address.')
+(schema.path 'email').required yes, 'Email is required.'
 
-schema.path('email').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Email is too long.')
+(schema.path 'email').unique yes
 
-schema.path('password').required(true, 'Password is required.')
+(schema.path 'email').validate (val) ->
+  /\S+@\S+\.\S+/.test(val)
+, 'Invalid email address.'
 
-schema.path('password').validate(function(val) {
-  return (val != null ? val.length : void 0) > 5
-}, 'Passwords must have at least 6 characters.')
+(schema.path 'password').required yes, 'Password is required.'
 
-schema.path('password').validate(function(val) {
-  return (val != null ? val.length : void 0) <= 100
-}, 'Password is too long.')
+(schema.path 'password').validate (val) ->
+  val?.length >= 6
+, 'Passwords must have at least 6 characters.'
 
-#sanitization
-schema.path('name').set(function(val) {
-  return val.trim()
-})
-schema.path('email').set(function(val) {
-  return val.trim().toLowerCase()
-})
-###
+(schema.path 'password').validate (val) ->
+  val?.length <= 25
+, 'Password is too long.'
+
+(schema.path 'bio').validate (val) ->
+  val?.length <= 100
+, 'Bio is too long.'
+
+#validate device string length
+
 #export Model
 module.exports = User = mongoose.model 'user', schema
 

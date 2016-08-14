@@ -4,7 +4,7 @@ timestamps = require 'mongoose-timestamp'
 idValidator = require 'mongoose-id-validator'
 
 schema = mongoose.Schema
-  title: String
+  notes: String
   time_begin: Date
   time_end: Date
   notes: String
@@ -31,9 +31,9 @@ schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
   val?.length <= 100
 , 'Title is too long.'
 
-(schema.path 'text').validate (val) ->
-  val?.length <= 20000
-, 'Text is too long.'
+(schema.path 'notes').validate (val) ->
+  val?.length <= 1000
+, 'Notes are too long.'
 
 (schema.path 'user_handle').required yes, 'Internal Error: No user handle.'
 

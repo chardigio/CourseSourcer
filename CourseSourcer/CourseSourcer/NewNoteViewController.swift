@@ -72,7 +72,6 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
             alert = UIAlertController(title: "Error", message: "Please enter a subject for your note.", preferredStyle: .Alert)
             
             alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            
         }else{
             alert = UIAlertController(title: "Exit", message: "Do you wish to save this note and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
             
@@ -126,5 +125,4 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

@@ -48,6 +48,8 @@ schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
   /\S+@\S+\.\S+/.test(val)
 , 'Invalid email address.'
 
+#validate the email ends in .edu
+
 (schema.path 'password').required yes, 'Password is required.'
 
 (schema.path 'password').validate (val) ->

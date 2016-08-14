@@ -4,7 +4,7 @@ timestamps = require 'mongoose-timestamp'
 idValidator = require 'mongoose-id-validator'
 
 schema = mongoose.Schema
-  notes: String
+  title: String
   time_begin: Date
   time_end: Date
   notes: String

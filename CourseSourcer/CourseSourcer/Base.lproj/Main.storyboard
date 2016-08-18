@@ -29,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="216" width="600" height="20"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CourseSourcer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ijU-22-Iiy">
                                 <rect key="frame" x="143" y="366" width="315" height="66"/>
@@ -47,7 +47,7 @@
                                 <rect key="frame" x="210" y="180" width="181" height="28"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHU-6A-OcZ">
                                 <rect key="frame" x="20" y="30" width="20" height="20"/>
@@ -847,7 +847,7 @@
                                     <constraint firstAttribute="width" constant="150" id="kUb-cp-Mx4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
                                     <action selector="courseNameEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="zYf-s0-8Ec"/>
                                 </connections>
@@ -874,7 +874,7 @@
                                     <constraint firstAttribute="height" constant="30" id="oYJ-Pm-0sF"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
                                     <action selector="schoolEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="xc9-MQ-LID"/>
                                 </connections>
@@ -886,7 +886,7 @@
                                     <constraint firstAttribute="height" constant="30" id="qA5-M2-fjL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
                                     <action selector="termEditingChanged:" destination="F0U-dP-I2N" eventType="editingChanged" id="eox-NM-vx1"/>
                                 </connections>
@@ -1219,7 +1219,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Abd-jG-Ac4">
                                 <rect key="frame" x="20" y="76" width="98" height="41"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="BzX-lD-Azj">
                                 <rect key="frame" x="20" y="164" width="560" height="387"/>
@@ -1275,7 +1275,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mfl-Ik-dyZ">
                                 <rect key="frame" x="20" y="88" width="560" height="41"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="30"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                 <connections>
                                     <action selector="titleFieldDidBeginEditing:" destination="dQO-Hd-je7" eventType="editingDidBegin" id="kpf-Rc-zIC"/>
                                 </connections>

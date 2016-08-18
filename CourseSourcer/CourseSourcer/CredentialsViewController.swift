@@ -27,6 +27,7 @@ class CredentialsViewController: UIViewController {
         configureNavigationBar()
         configureProfilePic()
         disableButton(login_button)
+        configureFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +46,10 @@ class CredentialsViewController: UIViewController {
         profile_pic.asACircle()
         profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
         profile_pic.layer.borderWidth = 1
+    }
+    
+    func configureFirstResponder() {
+        email_field.becomeFirstResponder()
     }
     
     func enableButton(button: UIButton) {

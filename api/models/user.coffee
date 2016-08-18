@@ -64,7 +64,7 @@ schema.plugin timestamps, createdAt: 'created_at', updatedAt: 'updated_at'
   val?.length <= 100
 , 'Bio is too long.'
 
-Array((schema.path 'devices')).every (val) ->
+Array(schema.path 'devices').every (val) ->
   val?.length <= 500
 , 'Device string is too long.'
 

@@ -23,6 +23,7 @@ class StartCourseViewController: UIViewController {
         super.viewDidLoad()
 
         configureFieldDefaults()
+        configureFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,6 +38,10 @@ class StartCourseViewController: UIViewController {
         term_field.text = currentTerm()
         
         course_pic.asACircle()
+    }
+    
+    func configureFirstResponder() {
+        course_name_field.becomeFirstResponder()
     }
     
     func guessSchool() ->  String {
@@ -99,7 +104,7 @@ class StartCourseViewController: UIViewController {
         })
     }
     
-    @IBAction func cancelButtonTapped(sender: AnyObject) {
+    @IBAction func cancelTapped(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     

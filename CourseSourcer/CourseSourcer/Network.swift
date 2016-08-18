@@ -12,12 +12,6 @@ import Alamofire
 import AlamofireImage
 import SwiftyJSON
 
-#if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
-let ENV = "http://localhost:3005"
-#else                                       // otherwise, route to Charlied.me server
-let ENV = "http://104.131.167.230:3005"
-#endif
-
 // MARK: - Alamofire
 
 func GET(endpoint: String, id: String? = nil, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {

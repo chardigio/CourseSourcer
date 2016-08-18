@@ -23,9 +23,9 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         
         configureNavigationBar()
         configureDate()
-        configureContent()
         configureDelimiter()
         configureKeyboardNotification()
+        configureFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,7 +47,7 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         date_label.text = NSDate().prettyDateTimeDescription
     }
 
-    func configureContent() {
+    func configureFirstResponder() {
         content_textview.becomeFirstResponder()
     }
     

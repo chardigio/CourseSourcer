@@ -145,6 +145,7 @@
         <!--Credentials View Controller-->
         <scene sceneID="yBA-fJ-nET">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b0N-cE-v1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="anh-3h-oJu" customClass="CredentialsViewController" customModule="CourseSourcer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UyQ-TB-p5W"/>
@@ -299,7 +300,6 @@
                         <segue destination="tl5-0E-dvg" kind="show" identifier="CredentialsToInitial" id="qJl-dh-Tkx"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b0N-cE-v1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-654" y="-348"/>
         </scene>
@@ -915,7 +915,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNz-QD-djU">
-                                <rect key="frame" x="20" y="20" width="20" height="20"/>
+                                <rect key="frame" x="20" y="30" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="OpY-hW-oX7"/>
                                     <constraint firstAttribute="width" constant="20" id="yYw-3y-DxB"/>
@@ -923,7 +923,7 @@
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="18"/>
                                 <state key="normal" image="x"/>
                                 <connections>
-                                    <action selector="homeButtonPressed:" destination="LeC-Xj-MBo" eventType="touchUpInside" id="4Yd-Q2-gsH"/>
+                                    <action selector="cancelTapped:" destination="F0U-dP-I2N" eventType="touchUpInside" id="4fI-dv-5cI"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -931,7 +931,7 @@
                         <constraints>
                             <constraint firstItem="uv3-y0-2bO" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="6gG-Cw-k2N"/>
                             <constraint firstItem="w3C-Wm-ySX" firstAttribute="top" secondItem="SJO-jB-1va" secondAttribute="bottom" constant="8" id="8KD-lW-0Tn"/>
-                            <constraint firstItem="JNz-QD-djU" firstAttribute="top" secondItem="vhP-Kw-8qO" secondAttribute="bottom" id="ArF-iK-h0E"/>
+                            <constraint firstItem="JNz-QD-djU" firstAttribute="top" secondItem="vhP-Kw-8qO" secondAttribute="bottom" constant="10" id="ArF-iK-h0E"/>
                             <constraint firstItem="SJO-jB-1va" firstAttribute="centerX" secondItem="rAk-dk-Ij9" secondAttribute="centerX" id="EEy-B3-jbQ"/>
                             <constraint firstAttribute="leadingMargin" secondItem="JNz-QD-djU" secondAttribute="leading" id="Itb-Py-rtd"/>
                             <constraint firstItem="wst-p6-2Qb" firstAttribute="leading" secondItem="rAk-dk-Ij9" secondAttribute="leadingMargin" id="JKn-Xo-3Fn"/>

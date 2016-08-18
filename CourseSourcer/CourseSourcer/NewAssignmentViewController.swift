@@ -42,6 +42,7 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         configureDelimiter()
         configureLabels()
         configureLabelOutlets()
+        configureFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -85,6 +86,10 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         type_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(typeLabelTapped)))
         date_due_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dateDueLabelTapped)))
         date_ends_label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dateEndsLabelTapped)))
+    }
+    
+    func configureFirstResponder() {
+        title_field.becomeFirstResponder()
     }
     
     func typeLabelTapped() {

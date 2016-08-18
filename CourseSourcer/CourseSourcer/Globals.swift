@@ -12,9 +12,15 @@ import RealmSwift
 import SwiftyJSON
 import JSQMessagesViewController
 
-// MARK: - Misc
-
+#if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
+let ENV = "http://localhost:3005"
 let TESTING: Bool = true
+#else                                       // otherwise, route to Charlied.me server
+let ENV = "http://104.131.167.230:3005"
+let TESTING: Bool = false
+#endif
+
+// MARK: - Misc
 var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK
 
 var PREFS: NSUserDefaults?
@@ -66,7 +72,7 @@ enum PASTELS{
         PURPLE
     
     static var count: Int {
-        return PASTELS.BLUE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
+        return PASTELS.PURPLE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
     }                                     // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
 }
 

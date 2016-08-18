@@ -105,9 +105,16 @@ class CourseScheduleTableViewController: UITableViewController {
                 
                 for network_assignment in res!["assignments"].arrayValue {
                     let assignment = Assignment()
+                    
+                    if let time_begin = dateFromString(network_assignment["time_begin"].stringValue) {
+                        assignment.time_begin = time_begin
+                    }else{
+                        print("ERROR:", "TIME_BEGIN:", network_assignment)
+                        continue
+                    }
+                    
                     assignment.id = network_assignment["id"].stringValue
                     assignment.title = network_assignment["title"].stringValue
-                    assignment.time_begin = dateFromString(network_assignment["time_begin"].stringValue)!
                     assignment.time_end = dateFromString(network_assignment["time_end"].string)
                     assignment.notes = network_assignment["notes"].string
                     assignment.course = self.course

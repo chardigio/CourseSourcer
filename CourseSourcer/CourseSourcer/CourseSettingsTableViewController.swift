@@ -109,7 +109,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
             mail.mailComposeDelegate = self
             mail.setToRecipients(["cd17822@gmail.com"]) // THIS WILL HAVE TO BE A COURSESOURCER EMAIL
             mail.setSubject("CourseSourcer Admin Request")
-            mail.setMessageBody("Request coming from \(USER!.name) (\(USER!.email)) to be administrator of Course: \(course!.name) (ID: \(course!.id)).\n\nI acknowledge that only Professors and Teaching Assistants have the right to become administrators.\n\nProvide reasons to be an administrator below with links to back up claims.\n\n", isHTML: false)
+            mail.setMessageBody("Request coming from \(USER!.name) (\(USER!.email)) to be administrator of Course: \(course!.name) (ID: \(course!.id)).\n\nI acknowledge that only Professors and Teaching Assistants have the right to become administrators.\n\nProvide reasons to be an administrator below with links to back up claims:\n\n", isHTML: false)
             
             presentViewController(mail, animated: true, completion: nil)
         }else{

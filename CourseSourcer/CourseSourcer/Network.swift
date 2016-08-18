@@ -14,8 +14,8 @@ import SwiftyJSON
 
 #if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
 let ENV = "http://localhost:3005"
-#else                                       // otherwise, route to my machine via IP address
-let ENV = "http://192.168.1.4:3005"
+#else                                       // otherwise, route to Charlied.me server
+let ENV = "http://104.131.167.230:3005"
 #endif
 
 // MARK: - Alamofire

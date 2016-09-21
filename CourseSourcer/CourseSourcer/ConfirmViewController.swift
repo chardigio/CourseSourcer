@@ -30,7 +30,7 @@ class ConfirmViewController: UIViewController {
                 PREFS!.setValue(true, forKey: "emailConfirmed")
                 CONFIRMED = true
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }else{
                 if err != nil {
                     showError(self)

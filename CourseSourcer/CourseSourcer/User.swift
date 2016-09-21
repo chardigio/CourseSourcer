@@ -14,7 +14,7 @@ class User: Object {
     dynamic var me: Bool = false
     dynamic var name: String = ""
     dynamic var email: String = ""
-    dynamic var last_spoke: NSDate?
+    dynamic var last_spoke: Date?
     dynamic var bio: String?
     
     var courses = List<Course>() // only used for classmates

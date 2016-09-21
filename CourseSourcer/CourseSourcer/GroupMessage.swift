@@ -11,7 +11,7 @@ import RealmSwift
 
 class GroupMessage: Object {
     dynamic var id: String = ""
-    dynamic var created_at: NSDate?
+    dynamic var created_at: Date?
     dynamic var text: String = ""
     dynamic var score: Int = 0
     dynamic var user_handle: String?

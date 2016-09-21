@@ -30,8 +30,8 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     @IBOutlet weak var date_ends_picker: UIDatePicker!
 
     var assignment_type: ASSIGNMENT_TYPES = ASSIGNMENT_TYPES.HOMEWORK
-    var date_due: NSDate?
-    var date_ends: NSDate?
+    var date_due: Date?
+    var date_ends: Date?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +55,9 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     func configureNavigationBar() {
         navigationItem.setHidesBackButton(true, animated: true)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped))
     }
     
     func configurePickerView() {
@@ -95,37 +95,37 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     func typeLabelTapped() {
         view.endEditing(true)
         hidePickers()
-        type_picker.hidden = false
+        type_picker.isHidden = false
     }
 
     func dateDueLabelTapped() {
         view.endEditing(true)
         hidePickers()
-        date_due_picker.hidden = false
+        date_due_picker.isHidden = false
     }
     
     func dateEndsLabelTapped() {
         view.endEditing(true)
         hidePickers()
-        date_ends_picker.hidden = false
+        date_ends_picker.isHidden = false
     }
     
     func hidePickers() {
-        type_picker.hidden = true
-        date_due_picker.hidden = true
-        date_ends_picker.hidden = true
+        type_picker.isHidden = true
+        date_due_picker.isHidden = true
+        date_ends_picker.isHidden = true
     }
     
-    @IBAction func titleFieldDidBeginEditing(sender: AnyObject) {
+    @IBAction func titleFieldDidBeginEditing(_ sender: AnyObject) {
         hidePickers()
     }
     
-    @IBAction func dateDuePickerValueChanged(sender: AnyObject) {
+    @IBAction func dateDuePickerValueChanged(_ sender: AnyObject) {
         configureDates()
         configureLabels()
     }
     
-    @IBAction func dateEndsPickerValueChanged(sender: AnyObject) {
+    @IBAction func dateEndsPickerValueChanged(_ sender: AnyObject) {
         configureDates()
         configureLabels()
     }
@@ -134,25 +134,25 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
         var alert: UIAlertController?
         
         if title_field.text == nil || title_field.text == "" {
-            alert = UIAlertController(title: "Error", message: "Please enter a title for your assignment.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter a title for your assignment.", preferredStyle: .alert)
             
-            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }else if date_due == nil && isTakeHomeAssignment() {
-            alert = UIAlertController(title: "Error", message: "Please enter a due date/time for your assignment.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter a due date/time for your assignment.", preferredStyle: .alert)
             
-            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }else if date_due == nil && !isTakeHomeAssignment() {
-            alert = UIAlertController(title: "Error", message: "Please enter a start date/time for your assignment.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter a start date/time for your assignment.", preferredStyle: .alert)
             
-            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }else if date_ends == nil && !isTakeHomeAssignment() {
-            alert = UIAlertController(title: "Error", message: "Please enter an end date/time for your assignment.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter an end date/time for your assignment.", preferredStyle: .alert)
             
-            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }else{
-            alert = UIAlertController(title: "Exit", message: "Do you wish to save this assignment and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert = UIAlertController(title: "Exit", message: "Do you wish to save this assignment and share it with the class?", preferredStyle: UIAlertControllerStyle.alert)
             
-            alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
+            alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.default, handler: {action in
                 POST("/assignments", parameters:
                        ["title": self.title_field.text!,
                         "type": self.assignment_type.rawValue,
@@ -164,19 +164,19 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
                         if err != nil {
                             showError(self)
                         }else if (res != nil) {
-                            self.navigationController?.popViewControllerAnimated(true)
+                            self.navigationController?.popViewController(animated: true)
                         }
                 })
             }))
             
-            alert!.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.Destructive, handler: {action in
-                self.navigationController?.popViewControllerAnimated(true)
+            alert!.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.destructive, handler: {action in
+                self.navigationController?.popViewController(animated: true)
             }))
             
-            alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         }
         
-        presentViewController(alert!, animated: true, completion: nil)
+        present(alert!, animated: true, completion: nil)
     }
     
     func isTakeHomeAssignment() -> Bool {
@@ -187,44 +187,44 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     
     func cancelTapped() {
         if title_field.text == nil || title_field.text == "" {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }else{
-            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this assignment?", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this assignment?", preferredStyle: UIAlertControllerStyle.alert)
             
-            alert.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.Destructive, handler: {action in
-                self.navigationController?.popViewControllerAnimated(true)
+            alert.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.destructive, handler: {action in
+                self.navigationController?.popViewController(animated: true)
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: - PickerView delegate methods
     
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return ASSIGNMENT_TYPES.values.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return ASSIGNMENT_TYPES.values[row].rawValue
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         assignment_type = ASSIGNMENT_TYPES.values[row]
         type_label.text = assignment_type.rawValue
         
         if isTakeHomeAssignment() {
-            ends_label.hidden = true
-            date_ends_label.hidden = true
+            ends_label.isHidden = true
+            date_ends_label.isHidden = true
         }else{
-            ends_label.hidden = false
-            date_ends_label.hidden = false
+            ends_label.isHidden = false
+            date_ends_label.isHidden = false
         }
     }
     

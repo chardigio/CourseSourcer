@@ -11,7 +11,7 @@ import RealmSwift
 
 class DirectMessage: Object {
     dynamic var id: String = ""
-    dynamic var created_at: NSDate?
+    dynamic var created_at: Date?
     dynamic var text: String = ""
     dynamic var from_me: Bool = false
     

@@ -35,7 +35,7 @@ class AboutViewController: UIViewController {
         }
     }
     
-    func loadNetworkUser(callback: Void -> Void) {
+    func loadNetworkUser(_ callback: @escaping (Void) -> Void) {
         GET("/users/me", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -77,7 +77,7 @@ class AboutViewController: UIViewController {
         profile_pic.asACircle()
     }
     
-    @IBAction func homeButtonPressed(sender: AnyObject) { // WILL EVENTUALLY BE ABLE TO UPDATE PIC HERE
+    @IBAction func homeButtonPressed(_ sender: AnyObject) { // WILL EVENTUALLY BE ABLE TO UPDATE PIC HERE
         PUT("/users/\(USER!.id)", parameters: ["name": name_field.text!,
                                                 "bio": bio_field.text ?? ""],
                                    callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
@@ -86,17 +86,17 @@ class AboutViewController: UIViewController {
             }
         })
         
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func logOutButtonPressed(sender: AnyObject) {
+    @IBAction func logOutButtonPressed(_ sender: AnyObject) {
         PUT("/users/logout", parameters: [:], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self, overrideAndShow: true, message: "Could not log out safely.")
             }else{
                 LOG_OUT = true
                 
-                self.dismissViewControllerAnimated(true, completion: nil)
+                self.dismiss(animated: true, completion: nil)
             }
         })
     }

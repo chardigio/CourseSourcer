@@ -25,7 +25,7 @@ class CourseViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func willMoveToParentViewController(parent: UIViewController?) {
+    override func willMove(toParentViewController parent: UIViewController?) {
         navigationController?.navigationBar.barTintColor = DEFAULT_COLOR
         
         hideHairline()
@@ -34,7 +34,7 @@ class CourseViewController: UITabBarController {
     // MARK: - Personal
     
     func configureAddButton() {
-        add_button = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(addTapped))
+        add_button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
     }
     
     func configureNavigationBar() {
@@ -48,41 +48,41 @@ class CourseViewController: UITabBarController {
     func configureTabBar(){
         UITabBar.appearance().tintColor = pastelFromInt(course!.color)
         
-        navigationController!.navigationBar.setBackgroundImage(nil, forBarMetrics: .Default)
+        navigationController!.navigationBar.setBackgroundImage(nil, for: .default)
         navigationController!.navigationBar.shadowImage = nil
     }
     
     func addTapped() {
         switch COURSE_ITEM_TAB {
-        case .CLASSMATES   : return // invite a freind to coursesourcer
-        case .SCHEDULE     : performSegueWithIdentifier("CourseToNewAssignment", sender: nil)
-        case .STATIC_NOTES : performSegueWithIdentifier("CourseToNewNote", sender: nil)
-        case .SETTINGS     : return
+        case .classmates   : return // invite a freind to coursesourcer
+        case .schedule     : performSegue(withIdentifier: "CourseToNewAssignment", sender: nil)
+        case .static_NOTES : performSegue(withIdentifier: "CourseToNewNote", sender: nil)
+        case .settings     : return
         }
     }
     
     func hideHairline() {
-        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), for: .default)
         
         navigationController!.navigationBar.shadowImage = UIImage()
     }
     
-    func switchTabTo(tab: COURSE_ITEM_TABS) {
+    func switchTabTo(_ tab: COURSE_ITEM_TABS) {
         COURSE_ITEM_TAB = tab
         print("TAB:", tab)
 
-        navigationItem.rightBarButtonItem = (tab == .SETTINGS) ? nil : add_button
+        navigationItem.rightBarButtonItem = (tab == .settings) ? nil : add_button
     }
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CourseToNewNote" {
-            let vc = segue.destinationViewController as! NewNoteViewController
+            let vc = segue.destination as! NewNoteViewController
             vc.course = course
         }else if segue.identifier == "CourseToNewAssignment" {
-            let vc = segue.destinationViewController as! NewAssignmentViewController
+            let vc = segue.destination as! NewAssignmentViewController
             vc.course = course
         }
     }

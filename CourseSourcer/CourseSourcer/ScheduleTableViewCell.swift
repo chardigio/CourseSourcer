@@ -22,18 +22,18 @@ class ScheduleTableViewCell: UITableViewCell {
         configureStyling()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
     // MARK: - Personal
     
     func configureStyling() {
-        selectionStyle = UITableViewCellSelectionStyle.None // don't know why this doesn't work non-programatically
+        selectionStyle = UITableViewCellSelectionStyle.none // don't know why this doesn't work non-programatically
         subview.layer.cornerRadius = 30
     }
     
-    func populateDateLabel(timeBegin:NSDate, timeEnd: NSDate?) {
+    func populateDateLabel(_ timeBegin:Date, timeEnd: Date?) {
         if timeEnd == nil {
             date_label.text = "Due: " + timeBegin.prettyButShortDateTimeDescription
         }else{
@@ -47,8 +47,8 @@ class ScheduleTableViewCell: UITableViewCell {
         }
     }
     
-    func showHandleLabel(handle: String) {
-        user_label.hidden = false
+    func showHandleLabel(_ handle: String) {
+        user_label.isHidden = false
         user_label.text  = handle
     }
 }

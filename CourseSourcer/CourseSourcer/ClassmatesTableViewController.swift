@@ -35,9 +35,9 @@ class ClassmatesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if let course_vc = parentViewController as? CourseViewController {
-            course_vc.switchTabTo(.CLASSMATES)
+    override func viewDidAppear(_ animated: Bool) {
+        if let course_vc = parent as? CourseViewController {
+            course_vc.switchTabTo(.classmates)
         }
         
         loadClassmates()
@@ -50,12 +50,12 @@ class ClassmatesTableViewController: UITableViewController {
             return // this doesn't work, probably because of asynchrosity
         }
         
-        srand(UInt32(NSDate().timeIntervalSinceReferenceDate))
+        srand(UInt32(Date().timeIntervalSinceReferenceDate))
         
         POST("/users", parameters: ["name": "Becky Hammond",
                                     "password": "bbgirl123",
                                     "bio": "Killa in the buildin",
-                                    "email": "bhammon\(rand() % 10000)@.edu"],
+                                    "email": "bhammon\(arc4random() % 10000)@.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -71,7 +71,7 @@ class ClassmatesTableViewController: UITableViewController {
         POST("/users", parameters: ["name": "Grethward Mai",
                                     "password": "noragrets",
                                     "bio": "Never nothin but greatness",
-                                    "email": "gmai\(rand() % 10000)@binghamton.edu"],
+                                    "email": "gmai\(arc4random() % 10000)@binghamton.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -87,7 +87,7 @@ class ClassmatesTableViewController: UITableViewController {
         POST("/users", parameters: ["name": "Henry Liebowitz",
                                     "password": "hlibbaby",
                                     "bio": "Into the abyss goes my mind",
-                                    "email": "hliebow\(rand() % 10000)@binghamton.edu"],
+                                    "email": "hliebow\(arc4random() % 10000)@binghamton.edu"],
                        callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -110,7 +110,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(loadClassmates), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadClassmates), for: .valueChanged)
     }
     
     func loadClassmates() {
@@ -133,7 +133,7 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadRealmClassmates() {
-        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").reverse().map { $0 }
+        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").reversed().map { $0 }
         
         data[1].removeAll()
         for i in [0, 1, 2] {
@@ -147,7 +147,7 @@ class ClassmatesTableViewController: UITableViewController {
         data[2] = all_classmates
     }
     
-    func loadNetworkClassmates(callback: Void -> Void) {
+    func loadNetworkClassmates(_ callback: @escaping (Void) -> Void) {
         GET("/users/of_course/\(self.course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -181,22 +181,22 @@ class ClassmatesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return data.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data[section].count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ClassmateCell", forIndexPath: indexPath) as! ClassmateTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ClassmateCell", for: indexPath) as! ClassmateTableViewCell
         
-        let classmate = data[indexPath.section][indexPath.row]
+        let classmate = data[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         cell.name_label.text = classmate.name
         cell.bio_field.text = classmate.bio
 
-        if indexPath.section == 0 { // if the cell is the "All Classmates" cell
+        if (indexPath as NSIndexPath).section == 0 { // if the cell is the "All Classmates" cell
             cell.classmate_pic.setImageOfCourse(course)
         }else{
            cell.classmate_pic.setImageOfUser(classmate)
@@ -207,20 +207,20 @@ class ClassmatesTableViewController: UITableViewController {
     }
 
     // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section_titles[section]
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 0 {
-            performSegueWithIdentifier("ClassmatesToGroupMessages", sender: nil)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath as NSIndexPath).section == 0 {
+            performSegue(withIdentifier: "ClassmatesToGroupMessages", sender: nil)
         }else{
-            performSegueWithIdentifier("ClassmatesToDirectMessages", sender: data[indexPath.section][indexPath.row])
+            performSegue(withIdentifier: "ClassmatesToDirectMessages", sender: data[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row])
         }
     }
     
@@ -254,12 +254,12 @@ class ClassmatesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ClassmatesToGroupMessages" {
-            let vc = segue.destinationViewController as! GroupMessagesViewController
+            let vc = segue.destination as! GroupMessagesViewController
             vc.course = course
         }else if segue.identifier == "ClassmatesToDirectMessages" {
-            let vc = segue.destinationViewController as! DirectMessagesViewController
+            let vc = segue.destination as! DirectMessagesViewController
             vc.course = course
             vc.classmate = sender as? User
         }

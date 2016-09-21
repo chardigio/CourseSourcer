@@ -14,18 +14,18 @@ import SwiftyJSON
 
 // MARK: - Alamofire
 
-func GET(endpoint: String, id: String? = nil, callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+func GET(_ endpoint: String, id: String? = nil, callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
     Alamofire.request(.GET, url).responseJSON { response in
         print("GET:", url)
 
         switch response.result {
-        case .Success:
+        case .success:
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-        case .Failure(let error):
+        case .failure(let error):
             print("NETWORK ERROR:", response)
             
             if error.code == 403 {
@@ -37,18 +37,18 @@ func GET(endpoint: String, id: String? = nil, callback: (err: [String:AnyObject]
     }
 }
 
-func POST(endpoint: String, id: String? = nil, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+func POST(_ endpoint: String, id: String? = nil, parameters: [String:String], callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
-    Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON).responseJSON { response in
+    Alamofire.request(.POST, url, parameters: parameters, encoding: .json).responseJSON { response in
         print("POST:", url)
         
         switch response.result {
-        case .Success:
+        case .success:
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-        case .Failure(let error):
+        case .failure(let error):
             print("NETWORK ERROR:", response)
             
             if error.code == 403 {
@@ -60,18 +60,18 @@ func POST(endpoint: String, id: String? = nil, parameters: [String:String], call
     }
 }
 
-func PUT(endpoint: String, id: String? = nil, parameters: [String:String], callback: (err: [String:AnyObject]?, res: JSON?) -> Void) {
+func PUT(_ endpoint: String, id: String? = nil, parameters: [String:String], callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
-    Alamofire.request(.PUT, url, parameters: parameters, encoding: .JSON).responseJSON { response in
+    Alamofire.request(.PUT, url, parameters: parameters, encoding: .json).responseJSON { response in
         print("PUT:", url)
         
         switch response.result {
-        case .Success:
+        case .success:
             if let res = response.result.value {
                 callback(err: nil, res: JSON(res))
             }
-        case .Failure(let error):
+        case .failure(let error):
             print("NETWORK ERROR:", response)
             
             if error.code == 403 {
@@ -86,29 +86,29 @@ func PUT(endpoint: String, id: String? = nil, parameters: [String:String], callb
 // MARK: - AlamofireImage
 
 extension UIImageView {
-    func setImageOfUser(user: User?) {
-        if user != nil, let url = NSURL(string: "\(ENV)/images/users/\(user!.id).png") {
+    func setImageOfUser(_ user: User?) {
+        if user != nil, let url = URL(string: "\(ENV)/images/users/\(user!.id).png") {
             //print("GET IMAGE:", url)
             
-            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
+            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .none, runImageTransitionIfCached: false, completion: nil)
         }
     }
     
-    func setImageOfCourse(course: Course?) {
-        if course != nil, let url = NSURL(string: "\(ENV)/images/courses/\(course!.id)") {
+    func setImageOfCourse(_ course: Course?) {
+        if course != nil, let url = URL(string: "\(ENV)/images/courses/\(course!.id)") {
             //print("GET IMAGE:", url)
             
-            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  dispatch_get_main_queue(), imageTransition: .None, runImageTransitionIfCached: false, completion: nil)
+            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .none, runImageTransitionIfCached: false, completion: nil)
         }
     }
 }
 
 // MARK: - Aux
 
-func idParamString(id: String? = nil) -> String {
+func idParamString(_ id: String? = nil) -> String {
     if USER == nil {
         return ""
     }
     
-    return "?user=\(id ?? USER!.id)&device=\(UIDevice.currentDevice().identifierForVendor!.UUIDString)"
+    return "?user=\(id ?? USER!.id)&device=\(UIDevice.current.identifierForVendor!.uuidString)"
 }

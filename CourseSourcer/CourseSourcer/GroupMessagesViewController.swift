@@ -48,7 +48,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureNavigationBar() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil) // DOESN'T WORK
         
         navigationItem.title = course!.name
     }
@@ -59,8 +59,8 @@ class GroupMessagesViewController: JSQMessagesViewController {
     }
     
     func configureBubbles() {
-        outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(course!.color))
-        incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+        outgoingBubble = JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: pastelFromInt(course!.color))
+        incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }
     
     func configureJSQ() {
@@ -101,7 +101,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         finishReceivingMessage()
     }
     
-    func loadNetworkMessages(callback: Void -> Void) {
+    func loadNetworkMessages(_ callback: @escaping (Void) -> Void) {
         
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
@@ -138,22 +138,22 @@ class GroupMessagesViewController: JSQMessagesViewController {
     
     // MARK: - JSQ
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return messages.count
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         
         return self.messages[indexPath.row]
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
         
-        messages.removeAtIndex(indexPath.row)
+        messages.remove(at: indexPath.row)
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         switch(messages[indexPath.row].senderId) {
         case senderId:
@@ -163,14 +163,14 @@ class GroupMessagesViewController: JSQMessagesViewController {
         }
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
         return nil
     }
     
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-        self.messages.append(message)
+        self.messages.append(message!)
         
         self.finishSendingMessage()
         
@@ -185,7 +185,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         })
     }
     
-    override func didPressAccessoryButton(sender: UIButton!) {}
+    override func didPressAccessoryButton(_ sender: UIButton!) {}
     
     /*
     // MARK: - Navigation

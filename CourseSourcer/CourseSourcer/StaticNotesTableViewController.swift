@@ -9,6 +9,26 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class StaticNotesTableViewController: UITableViewController {
     var course: Course?
@@ -33,9 +53,9 @@ class StaticNotesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if let course_vc = parentViewController as? CourseViewController {
-            course_vc.switchTabTo(.STATIC_NOTES)
+    override func viewDidAppear(_ animated: Bool) {
+        if let course_vc = parent as? CourseViewController {
+            course_vc.switchTabTo(.static_NOTES)
         }
         
         loadNotes()
@@ -67,7 +87,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(loadNotes), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadNotes), for: .valueChanged)
     }
     
     func loadNotes() {
@@ -87,7 +107,7 @@ class StaticNotesTableViewController: UITableViewController {
         notes = course!.static_notes.sorted("created_at").map { $0 }
     }
     
-    func loadNetworkNotes(callback: Void -> Void) {
+    func loadNetworkNotes(_ callback: @escaping (Void) -> Void) {
         GET("/static_notes/of_course/\(self.course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -120,34 +140,34 @@ class StaticNotesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if notes.count > 0 {
             tableView.backgroundView = nil
-            tableView.separatorStyle = .SingleLine
+            tableView.separatorStyle = .singleLine
             
             return 1
         }else{
             no_content_label = noTableViewContentLabelFor("Notes", tableView: tableView)
             
             tableView.backgroundView = no_content_label
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             
             return 0
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return notes.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("StaticNoteCell", forIndexPath: indexPath) as! StaticNoteTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "StaticNoteCell", for: indexPath) as! StaticNoteTableViewCell
 
-        let note = notes[indexPath.row]
+        let note = notes[(indexPath as NSIndexPath).row]
         cell.title_label.text = note.title
         cell.date_label.text = note.created_at?.prettyDateDescription
         cell.preview_textview.text = note.text
-        cell.preview_textview.setContentOffset(CGPointZero, animated: false)
+        cell.preview_textview.setContentOffset(CGPoint.zero, animated: false)
         
         if course!.admin {
             cell.showHandleLabel(note.user_handle ?? "")
@@ -156,8 +176,8 @@ class StaticNotesTableViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("StaticNotesToStaticNote", sender: notes[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "StaticNotesToStaticNote", sender: notes[(indexPath as NSIndexPath).row])
     }
     
     /*
@@ -190,9 +210,9 @@ class StaticNotesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "StaticNotesToStaticNote" {
-            let vc = segue.destinationViewController as! StaticNoteViewController
+            let vc = segue.destination as! StaticNoteViewController
             
             vc.course = course
             vc.note = sender as? StaticNote

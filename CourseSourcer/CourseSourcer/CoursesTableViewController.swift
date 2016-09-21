@@ -31,7 +31,7 @@ class CoursesTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         loadUserAndCourses()
     }
     
@@ -84,7 +84,7 @@ class CoursesTableViewController: UITableViewController {
     // MARK: - Personal
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(loadUserAndCourses), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadUserAndCourses), for: .valueChanged)
     }
     
     func loadUserAndCourses() {
@@ -106,7 +106,7 @@ class CoursesTableViewController: UITableViewController {
         courses = realm.objects(Course).map { $0 }
     }
     
-    func loadNetworkUserAndCourses(callback: Void -> Void) {
+    func loadNetworkUserAndCourses(_ callback: @escaping (Void) -> Void) {
         if USER == nil {
             return
         }
@@ -147,7 +147,7 @@ class CoursesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if courses.count > 0 {
             tableView.backgroundView = nil
             
@@ -156,20 +156,20 @@ class CoursesTableViewController: UITableViewController {
             no_content_label = noTableViewContentLabelFor("Courses", tableView: tableView)
             
             tableView.backgroundView = no_content_label
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             
             return 0
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return courses.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CourseCell", forIndexPath: indexPath) as! CourseTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CourseCell", for: indexPath) as! CourseTableViewCell
         
-        let course = courses[indexPath.row]
+        let course = courses[(indexPath as NSIndexPath).row]
         cell.subview.backgroundColor = pastelFromInt(course.color)
         cell.course_label.text = course.name
         cell.term_field.text = course.term
@@ -180,12 +180,12 @@ class CoursesTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        parentViewController?.performSegueWithIdentifier("HomeToCourse", sender: courses[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        parent?.performSegue(withIdentifier: "HomeToCourse", sender: courses[(indexPath as NSIndexPath).row])
     }
 
     // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
     }
@@ -221,7 +221,7 @@ class CoursesTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }

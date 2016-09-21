@@ -47,18 +47,18 @@ class StartCourseViewController: UIViewController {
     func guessSchool() ->  String {
         let realm = try! Realm()
         
-        return realm.objects(Course).first?.school ?? domainOfEmail(USER!.email).capitalizedString
+        return realm.objects(Course).first?.school ?? domainOfEmail(USER!.email).capitalized
     }
     
-    @IBAction func schoolEditingChanged(sender: AnyObject) {
+    @IBAction func schoolEditingChanged(_ sender: AnyObject) {
         enableCreateCheck()
     }
     
-    @IBAction func termEditingChanged(sender: AnyObject) {
+    @IBAction func termEditingChanged(_ sender: AnyObject) {
         enableCreateCheck()
     }
     
-    @IBAction func courseNameEditingChanged(sender: AnyObject) {
+    @IBAction func courseNameEditingChanged(_ sender: AnyObject) {
         enableCreateCheck()
     }
     
@@ -73,16 +73,16 @@ class StartCourseViewController: UIViewController {
     }
     
     func enableCreateButton() {
-        create_button.enabled = true
+        create_button.isEnabled = true
         create_button.alpha = 1
     }
     
     func disableCreateButton() {
-        create_button.enabled = false
+        create_button.isEnabled = false
         create_button.alpha = 0.3
     }
     
-    @IBAction func createButtonPressed(sender: AnyObject) {
+    @IBAction func createButtonPressed(_ sender: AnyObject) {
         POST("/courses", parameters: ["name":course_name_field.text!,
                                       "school": school_field.text!,
                                       "term": term_field.text!,
@@ -97,15 +97,15 @@ class StartCourseViewController: UIViewController {
                         showError(self)
                     }else{
                         DISMISS_JOIN_COURSE_CONTROLLER = true
-                        self.dismissViewControllerAnimated(true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     }
                 })
             }
         })
     }
     
-    @IBAction func cancelTapped(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelTapped(_ sender: AnyObject) {
+        dismiss(animated: true, completion: nil)
     }
     
     /*

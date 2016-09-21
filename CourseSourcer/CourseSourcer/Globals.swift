@@ -23,7 +23,7 @@ let TESTING: Bool = false
 // MARK: - Misc
 var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK
 
-var PREFS: NSUserDefaults?
+var PREFS: UserDefaults?
 var USER: User?
 var CONFIRMED: Bool?
 var LOGGED_IN: Bool = (USER != nil && CONFIRMED != nil && CONFIRMED!)
@@ -36,7 +36,7 @@ let DEFAULT_COLOR = UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
 let TEN_DAYS : Double = 60*60*24*10
 let TWO_WEEKS: Double = 60*60*24*14
 
-var COURSE_ITEM_TAB = COURSE_ITEM_TABS.CLASSMATES
+var COURSE_ITEM_TAB = COURSE_ITEM_TABS.classmates
 
 // MARK: - Hacky vars
 
@@ -46,10 +46,10 @@ var DISMISS_JOIN_COURSE_CONTROLLER: Bool = false
 
 enum COURSE_ITEM_TABS {
     case
-        CLASSMATES,
-        SCHEDULE,
-        STATIC_NOTES,
-        SETTINGS
+        classmates,
+        schedule,
+        static_NOTES,
+        settings
 }
 
 enum ASSIGNMENT_TYPES: String {
@@ -65,26 +65,26 @@ enum ASSIGNMENT_TYPES: String {
 
 enum PASTELS{
     case
-        RED,
-        ORANGE,
-        GREEN,
-        BLUE,
-        PURPLE
+        red,
+        orange,
+        green,
+        blue,
+        purple
     
     static var count: Int {
-        return PASTELS.PURPLE.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
+        return PASTELS.purple.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
     }                                     // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
 }
 
 // MARK: - Functions
 
-func pastelFromInt(color: Int) -> UIColor {
+func pastelFromInt(_ color: Int) -> UIColor {
     switch color {
-    case PASTELS.RED.hashValue    : return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00)
-    case PASTELS.ORANGE.hashValue : return UIColor(red:1.00, green:0.65, blue:0.51, alpha:1.00)
-    case PASTELS.GREEN.hashValue  : return UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
-    case PASTELS.BLUE.hashValue   : return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
-    case PASTELS.PURPLE.hashValue : return UIColor(red:0.85, green:0.72, blue:0.99, alpha:1.00)
+    case PASTELS.red.hashValue    : return UIColor(red:1.00, green:0.49, blue:0.59, alpha:1.00)
+    case PASTELS.orange.hashValue : return UIColor(red:1.00, green:0.65, blue:0.51, alpha:1.00)
+    case PASTELS.green.hashValue  : return UIColor(red:0.65, green:0.91, blue:0.43, alpha:1.00)
+    case PASTELS.blue.hashValue   : return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
+    case PASTELS.purple.hashValue : return UIColor(red:0.85, green:0.72, blue:0.99, alpha:1.00)
     default                       : return UIColor(red:0.49, green:0.74, blue:0.99, alpha:1.00)
     // SHOULD NEVER DEFAULT
     }
@@ -93,7 +93,7 @@ func pastelFromInt(color: Int) -> UIColor {
 func getLeastUsedColor() -> Int {
     let realm = try! Realm()
     
-    var counts = [Int](count: PASTELS.count, repeatedValue: 0)
+    var counts = [Int](repeating: 0, count: PASTELS.count)
     let courses = realm.objects(Course)
     for course in courses {
         counts[course.color] += 1
@@ -113,7 +113,7 @@ func getLeastUsedColor() -> Int {
     return lowestIndex
 }
 
-func showError(vc: UIViewController, overrideAndShow: Bool = false, message: String = "Could not connect to server.") {
+func showError(_ vc: UIViewController, overrideAndShow: Bool = false, message: String = "Could not connect to server.") {
     if ERROR_MESSAGE_SHOWN && !overrideAndShow && !TESTING {
         return
     }else {
@@ -122,22 +122,22 @@ func showError(vc: UIViewController, overrideAndShow: Bool = false, message: Str
     
     print("ERROR:", message)
     
-    let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .Alert)
-    let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
     alertController.addAction(defaultAction)
     
-    vc.presentViewController(alertController, animated: true, completion: nil)
+    vc.present(alertController, animated: true, completion: nil)
 }
 
-func dateFromString(dateString: String?) -> NSDate? {
+func dateFromString(_ dateString: String?) -> Date? {
     if dateString == nil {
         return nil
     }
     
-    let dateFormatter: NSDateFormatter = NSDateFormatter()
+    let dateFormatter: DateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSZZ"
     
-    var date = dateFormatter.dateFromString(dateString!)
+    var date = dateFormatter.date(from: dateString!)
     
     if (date == nil) {
         print("ERROR:", "Could not parse date:", dateString!) //, ". Using NOW as date")
@@ -147,46 +147,45 @@ func dateFromString(dateString: String?) -> NSDate? {
     return date
 }
 
-func stringFromDate(date: NSDate) -> String {
-    let dateFormatter: NSDateFormatter = NSDateFormatter()
+func stringFromDate(_ date: Date) -> String {
+    let dateFormatter: DateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'SSSZZ"
     
-    return dateFormatter.stringFromDate(date)
+    return dateFormatter.string(from: date)
 }
 
 func currentTerm() -> String {
-    let month_year_array = NSCalendar.currentCalendar().components([.Month, .Year], fromDate: NSDate())
+    let month_year_array = (Calendar.current as NSCalendar).components([.month, .year], from: Date())
     
     switch month_year_array.month {
-    case 12, 1        : return "Winter " + String(month_year_array.year)
-    case 2, 3, 4, 5   : return "Spring " + String(month_year_array.year)
-    case 6, 7         : return "Summer " + String(month_year_array.year)
-    case 8, 9, 10, 11 : return "Fall " + String(month_year_array.year)
+    case 12, 1        : return "Winter " + String(describing: month_year_array.year)
+    case 2, 3, 4, 5   : return "Spring " + String(describing: month_year_array.year)
+    case 6, 7         : return "Summer " + String(describing: month_year_array.year)
+    case 8, 9, 10, 11 : return "Fall " + String(describing: month_year_array.year)
     default           : return ""
     }
 }
 
-
-func handleOfEmail(email: String) -> String {
-    return email.componentsSeparatedByString("@")[0] ?? ""
+func handleOfEmail(_ email: String) -> String {
+    return email.components(separatedBy: "@")[0] ?? ""
 }
 
-func domainOfEmail(email: String) -> String {
-    return email.componentsSeparatedByString(".edu")[0].componentsSeparatedByString("@")[1] ?? ""
+func domainOfEmail(_ email: String) -> String {
+    return email.components(separatedBy: ".edu")[0].components(separatedBy: "@")[1] ?? ""
 }
 
-func noTableViewContentLabelFor(cellCategorization: String, tableView: UITableView) -> UILabel {
+func noTableViewContentLabelFor(_ cellCategorization: String, tableView: UITableView) -> UILabel {
     let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: tableView.frame.height))
     label.text = "No " + cellCategorization
-    label.textAlignment = .Center
+    label.textAlignment = .center
     label.font = UIFont(name: "Avenir Book", size: 24)
-    label.textColor = UIColor.lightGrayColor()
+    label.textColor = UIColor.lightGray
     
     return label
 }
 
 // can only call this from within a realm.write
-func removeCourseFromUser(course: Course, user: User) {
+func removeCourseFromUser(_ course: Course, user: User) {
     var course_index = 0
     for user_course in user.courses {
         if user_course.id == course.id {
@@ -198,35 +197,35 @@ func removeCourseFromUser(course: Course, user: User) {
 
 // MARK: - Extensions
 
-extension NSDate {
+extension Date {
     var prettyButShortDateTimeDescription: String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .ShortStyle
-        formatter.timeStyle = .ShortStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        formatter.timeStyle = .short
         
-        return formatter.stringFromDate(self).componentsSeparatedByString(" at ").joinWithSeparator(" ")
+        return formatter.string(from: self).components(separatedBy: " at ").joined(separator: " ")
     }
     
     var prettyDateTimeDescription: String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .LongStyle
-        formatter.timeStyle = .ShortStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
         
-        return formatter.stringFromDate(self).componentsSeparatedByString(" at ").joinWithSeparator(" ")
+        return formatter.string(from: self).components(separatedBy: " at ").joined(separator: " ")
     }
     
     var prettyDateDescription: String {
-        let formatter = NSDateFormatter()
-        formatter.dateStyle = .LongStyle
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
         
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
     
     var prettyTimeDescription: String {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .ShortStyle
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
         
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
 }
 

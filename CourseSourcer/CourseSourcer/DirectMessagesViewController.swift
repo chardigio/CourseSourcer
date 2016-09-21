@@ -60,7 +60,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
     }
     
     func configureNavigationBar() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil) // DOESN'T WORK
         
         navigationItem.title = classmate!.name
     }
@@ -72,11 +72,11 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     func configureBubbles() {
         outgoingBubble = outgoingBubbleWithColor(course!.color)
-        incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleLightGrayColor())
+        incomingBubble = JSQMessagesBubbleImageFactory().incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }
     
-    func outgoingBubbleWithColor(color: Int) -> JSQMessagesBubbleImage {
-        return JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImageWithColor(pastelFromInt(color))
+    func outgoingBubbleWithColor(_ color: Int) -> JSQMessagesBubbleImage {
+        return JSQMessagesBubbleImageFactory().outgoingMessagesBubbleImage(with: pastelFromInt(color))
     }
     
     func configureJSQ() {
@@ -122,7 +122,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         finishReceivingMessage()
     }
     
-    func loadNetworkMessages(callback: Void -> Void) {
+    func loadNetworkMessages(_ callback: @escaping (Void) -> Void) {
 
         // &lastId=\((course?.messages.sorted("created_at").last?.id)!)
         
@@ -162,19 +162,19 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     // MARK: - JSQ
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageData! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageDataForItemAt indexPath: IndexPath!) -> JSQMessageData! {
         return messages[indexPath.row]
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, didDeleteMessageAtIndexPath indexPath: NSIndexPath!) {
-        messages.removeAtIndex(indexPath.row)
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, didDeleteMessageAt indexPath: IndexPath!) {
+        messages.remove(at: indexPath.row)
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageBubbleImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, messageBubbleImageDataForItemAt indexPath: IndexPath!) -> JSQMessageBubbleImageDataSource! {
         
         if messages[indexPath.row].senderId == senderId {
             return outgoingBubbleWithColor(message_courses[indexPath.row]?.color ?? course!.color)
@@ -183,14 +183,14 @@ class DirectMessagesViewController: JSQMessagesViewController {
         }
     }
     
-    override func collectionView(collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAtIndexPath indexPath: NSIndexPath!) -> JSQMessageAvatarImageDataSource! {
+    override func collectionView(_ collectionView: JSQMessagesCollectionView!, avatarImageDataForItemAt indexPath: IndexPath!) -> JSQMessageAvatarImageDataSource! {
         
         return nil
     }
     
-    override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
+    override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!) {
         let message = JSQMessage(senderId: senderId, senderDisplayName: senderDisplayName, date: date, text: text)
-        self.messages.append(message)
+        self.messages.append(message!)
         self.message_courses.append(course)
         
         self.finishSendingMessage()
@@ -207,7 +207,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         })
     }
     
-    override func didPressAccessoryButton(sender: UIButton!) {}
+    override func didPressAccessoryButton(_ sender: UIButton!) {}
     
     /*
      // MARK: - Navigation

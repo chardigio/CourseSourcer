@@ -38,7 +38,7 @@ class AssignmentViewController: UIViewController {
     // MARK: - Personal
     
     func configureNavigationBar() {
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: nil, action: nil) // DOESN'T WORK
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil) // DOESN'T WORK
         
         navigationItem.title = assignment!.course!.name
         
@@ -51,8 +51,8 @@ class AssignmentViewController: UIViewController {
         date_due_label.text = assignment!.time_begin.prettyDateTimeDescription
         
         if assignment!.time_end != nil {
-            ends_label.hidden = false
-            date_ends_label.hidden = false
+            ends_label.isHidden = false
+            date_ends_label.isHidden = false
             date_ends_label.text = assignment!.time_end!.prettyDateTimeDescription
         }
         

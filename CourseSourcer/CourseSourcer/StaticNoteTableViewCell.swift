@@ -19,7 +19,7 @@ class StaticNoteTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
@@ -27,8 +27,8 @@ class StaticNoteTableViewCell: UITableViewCell {
     
     // MARK: - Personal
     
-    func showHandleLabel(handle: String) {
-        user_label.hidden = false
+    func showHandleLabel(_ handle: String) {
+        user_label.isHidden = false
         user_label.text  = handle
     }
 }

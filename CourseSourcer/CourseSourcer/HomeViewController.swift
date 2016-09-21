@@ -10,8 +10,8 @@ import UIKit
 import RealmSwift
 
 enum Segments: Int {
-    case Courses  = 0
-    case Schedule = 1
+    case courses  = 0
+    case schedule = 1
 }
 
 class HomeViewController: UIViewController {
@@ -35,35 +35,35 @@ class HomeViewController: UIViewController {
     
     // MARK: - Personal
     func configureSegmentController() {
-        segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], forState: .Application)
-        segment_controller.addTarget(self, action: #selector(segmentChanged), forControlEvents: .ValueChanged)
+        segment_controller.setTitleTextAttributes(["font": "Avenir Book 12"], for: .application)
+        segment_controller.addTarget(self, action: #selector(segmentChanged), for: .valueChanged)
     }
     
-    func segmentChanged(gesture: UIGestureRecognizer){
-        if segment_controller.selectedSegmentIndex == Segments.Courses.rawValue {
-            courses_container.hidden = false
-            schedule_container.hidden = true
+    func segmentChanged(_ gesture: UIGestureRecognizer){
+        if segment_controller.selectedSegmentIndex == Segments.courses.rawValue {
+            courses_container.isHidden = false
+            schedule_container.isHidden = true
         }else{
-            courses_container.hidden = true
-            schedule_container.hidden = false
+            courses_container.isHidden = true
+            schedule_container.isHidden = false
         }
     }
     
-    @IBAction func addButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("HomeToNewCourse", sender: nil)
+    @IBAction func addButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "HomeToNewCourse", sender: nil)
     }
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "HomeToCourse" {
-            let vc = segue.destinationViewController as! CourseViewController
+            let vc = segue.destination as! CourseViewController
             vc.course = sender as? Course
 
             print("COURSE:", (vc.course?.name)!)
         }else if segue.identifier == "HomeToAssignment" {
-            let vc = segue.destinationViewController as! AssignmentViewController
+            let vc = segue.destination as! AssignmentViewController
             vc.assignment = sender as? Assignment
         }
     }

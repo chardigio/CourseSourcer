@@ -38,13 +38,13 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
     func configureNavigationBar() {
         navigationItem.setHidesBackButton(true, animated: true)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(doneTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneTapped))
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: #selector(cancelTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelTapped))
     }
     
     func configureDate() {
-        date_label.text = NSDate().prettyDateTimeDescription
+        date_label.text = Date().prettyDateTimeDescription
     }
 
     func configureFirstResponder() {
@@ -56,12 +56,12 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
     }
     
     func configureKeyboardNotification() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(changeContentViewBottomConstraint), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeContentViewBottomConstraint), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
     }
     
-    func changeContentViewBottomConstraint(notification: NSNotification) {
-        UIView.animateWithDuration(0.5, animations: {
-            self.content_textview_bottom_constraint.constant = notification.userInfo![UIKeyboardFrameEndUserInfoKey]!.CGRectValue().size.height
+    func changeContentViewBottomConstraint(_ notification: Notification) {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.content_textview_bottom_constraint.constant = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue.size.height
         })
     }
     
@@ -69,13 +69,13 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
         var alert: UIAlertController?
         
         if subject_textfield.text == nil || subject_textfield.text == "" {
-            alert = UIAlertController(title: "Error", message: "Please enter a subject for your note.", preferredStyle: .Alert)
+            alert = UIAlertController(title: "Error", message: "Please enter a subject for your note.", preferredStyle: .alert)
             
-            alert!.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            alert!.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         }else{
-            alert = UIAlertController(title: "Exit", message: "Do you wish to save this note and share it with the class?", preferredStyle: UIAlertControllerStyle.Alert)
+            alert = UIAlertController(title: "Exit", message: "Do you wish to save this note and share it with the class?", preferredStyle: UIAlertControllerStyle.alert)
             
-            alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.Default, handler: {action in
+            alert!.addAction(UIAlertAction(title: "Save and Exit", style: UIAlertActionStyle.default, handler: {action in
                 POST("/static_notes", parameters:
                        ["text": self.content_textview.text ?? "",
                         "title": self.subject_textfield.text!,
@@ -84,35 +84,35 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
                         if err != nil {
                             showError(self)
                         }else if (res != nil) {
-                            self.navigationController?.popViewControllerAnimated(true)
+                            self.navigationController?.popViewController(animated: true)
                         }
                 })
             }))
             
-            alert!.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.Destructive, handler: {action in
-                self.navigationController?.popViewControllerAnimated(true)
+            alert!.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.destructive, handler: {action in
+                self.navigationController?.popViewController(animated: true)
             }))
             
-            alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         }
         
-        presentViewController(alert!, animated: true, completion: nil)
+        present(alert!, animated: true, completion: nil)
     }
     
     func cancelTapped() {
         if (subject_textfield.text == nil || subject_textfield.text == "") &&
            (content_textview.text  == nil || content_textview.text  == "") {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }else{
-            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this note?", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this note?", preferredStyle: UIAlertControllerStyle.alert)
             
-            alert.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.Destructive, handler: {action in
-                self.navigationController?.popViewControllerAnimated(true)
+            alert.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.destructive, handler: {action in
+                self.navigationController?.popViewController(animated: true)
             }))
             
-            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
             
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
     

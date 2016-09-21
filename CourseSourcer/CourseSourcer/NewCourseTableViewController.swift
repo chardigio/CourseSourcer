@@ -33,10 +33,10 @@ class NewCourseTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         if DISMISS_JOIN_COURSE_CONTROLLER == true {
             DISMISS_JOIN_COURSE_CONTROLLER = false
-            navigationController?.popViewControllerAnimated(true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -51,7 +51,7 @@ class NewCourseTableViewController: UITableViewController {
         search_controller.searchBar.becomeFirstResponder() // DOESN'T WORK BUT I WANT IT TO
     }
     
-    func getNetworkCourses(query: String) {
+    func getNetworkCourses(_ query: String) {
         POST("/courses/search", parameters: ["query" : query,
                                              "term" : currentTerm(),
                                              "domain" : domainOfEmail(USER!.email)],
@@ -66,48 +66,48 @@ class NewCourseTableViewController: UITableViewController {
         })
     }
 
-    @IBAction func composeButtonPressed(sender: AnyObject) {
-        performSegueWithIdentifier("NewCourseToStartCourse", sender: nil)
+    @IBAction func composeButtonPressed(_ sender: AnyObject) {
+        performSegue(withIdentifier: "NewCourseToStartCourse", sender: nil)
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if network_courses.count > 0 {
             tableView.backgroundView = nil
-            tableView.separatorStyle = .SingleLine
+            tableView.separatorStyle = .singleLine
             
             return 1
         }else{
             no_content_label = noTableViewContentLabelFor("Courses Match Query", tableView: tableView)
             
             tableView.backgroundView = no_content_label
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             
             return 0
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return network_courses.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewCourseCell", forIndexPath: indexPath) as! NewCourseTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "NewCourseCell", for: indexPath) as! NewCourseTableViewCell
 
-        cell.title_label.text = network_courses[indexPath.row]["name"].stringValue
-        cell.subtitle_label.text = network_courses[indexPath.row]["school"].stringValue + " - " + network_courses[indexPath.row]["term"].stringValue
+        cell.title_label.text = network_courses[(indexPath as NSIndexPath).row]["name"].stringValue
+        cell.subtitle_label.text = network_courses[(indexPath as NSIndexPath).row]["school"].stringValue + " - " + network_courses[(indexPath as NSIndexPath).row]["term"].stringValue
 
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        PUT("/users/addCourse", parameters: ["course_id": network_courses[indexPath.row]["id"].stringValue],
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        PUT("/users/addCourse", parameters: ["course_id": network_courses[(indexPath as NSIndexPath).row]["id"].stringValue],
             callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {
                     showError(self)
                 }else{
-                    self.navigationController?.popViewControllerAnimated(true)
+                    self.navigationController?.popViewController(animated: true)
                 }
         })
     }
@@ -159,7 +159,7 @@ class NewCourseTableViewController: UITableViewController {
 }
 
 extension NewCourseTableViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         getNetworkCourses(search_controller.searchBar.text ?? "")
     }
 }

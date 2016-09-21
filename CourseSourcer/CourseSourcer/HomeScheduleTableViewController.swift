@@ -33,18 +33,18 @@ class HomeScheduleTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         loadAssignments()
     }
     
     // MARK: - Personal
     
     func configureTableView() {
-        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+        tableView.register(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(loadAssignments), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadAssignments), for: .valueChanged)
     }
     
     func loadAssignments() {
@@ -63,12 +63,12 @@ class HomeScheduleTableViewController: UITableViewController {
     func loadRealmAssignments() {
         let realm = try! Realm()
         
-        let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
+        let predicate = NSPredicate(format: "time_begin > %@", Date().addingTimeInterval(-TWO_WEEKS) as CVarArg)
         
         assignments = realm.objects(Assignment).filter(predicate).sorted("time_begin").map { $0 }
     }
     
-    func loadNetworkAssignments(callback: Void -> Void) {
+    func loadNetworkAssignments(_ callback: @escaping (Void) -> Void) {
         if USER == nil {
             return
         }
@@ -113,19 +113,19 @@ class HomeScheduleTableViewController: UITableViewController {
         var num_overdue_assignments = 0
         
         for assignment in assignments {
-            if assignment.time_begin.compare(NSDate()) == .OrderedAscending {
+            if assignment.time_begin.compare(Date()) == .orderedAscending {
                 num_overdue_assignments += 1
             }
         }
         
         if CGFloat(assignments.count) - CGFloat(num_overdue_assignments) > tableView.frame.height / tableView.rowHeight {
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: num_overdue_assignments, section: 0), at: UITableViewScrollPosition.top, animated: true)
         }
     }
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if assignments.count > 0 {
             tableView.backgroundView = nil
             
@@ -134,20 +134,20 @@ class HomeScheduleTableViewController: UITableViewController {
             no_content_label = noTableViewContentLabelFor("Assignments", tableView: tableView)
             
             tableView.backgroundView = no_content_label
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             
             return 0
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return assignments.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableViewCell", for: indexPath) as! ScheduleTableViewCell
         
-        let assignment = assignments[indexPath.row]
+        let assignment = assignments[(indexPath as NSIndexPath).row]
         
         cell.subview.backgroundColor = pastelFromInt(assignment.course!.color)
         //cell.assignment_pic = nil
@@ -162,8 +162,8 @@ class HomeScheduleTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        parentViewController?.performSegueWithIdentifier("HomeToAssignment", sender: assignments[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        parent?.performSegue(withIdentifier: "HomeToAssignment", sender: assignments[(indexPath as NSIndexPath).row])
     }
     
     /*

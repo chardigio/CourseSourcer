@@ -35,9 +35,9 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         // Dispose of any resources that can be recreated.
     }
 
-    override func viewDidAppear(animated: Bool) {
-        if let course_vc = parentViewController as? CourseViewController {
-            course_vc.switchTabTo(.SETTINGS)
+    override func viewDidAppear(_ animated: Bool) {
+        if let course_vc = parent as? CourseViewController {
+            course_vc.switchTabTo(.settings)
         }
     }
     
@@ -55,7 +55,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         }
     }
     
-    func colorCellTapped(row: Int) {
+    func colorCellTapped(_ row: Int) {
         let realm = try! Realm()
         
         try! realm.write {
@@ -67,15 +67,15 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     }
     
     func leaveCellTapped() {
-        let alert = UIAlertController(title: "Leave", message: "Do you wish to be permanently removed from this class?", preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Leave", message: "Do you wish to be permanently removed from this class?", preferredStyle: UIAlertControllerStyle.alert)
         
-        alert.addAction(UIAlertAction(title: "Leave", style: UIAlertActionStyle.Destructive, handler: {action in
+        alert.addAction(UIAlertAction(title: "Leave", style: UIAlertActionStyle.destructive, handler: {action in
             PUT("/users/leaveCourse/\(self.course!.id)", parameters: [:], callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
                 if err != nil {
                     showError(self)
                 }else if (res != nil) {
-                    self.navigationController?.popViewControllerAnimated(true) // clear alert
-                    self.navigationController?.popViewControllerAnimated(true) // go back to home screen
+                    self.navigationController?.popViewController(animated: true) // clear alert
+                    self.navigationController?.popViewController(animated: true) // go back to home screen
                     
                     let realm = try! Realm()
                     
@@ -98,9 +98,9 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
             })
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         
-        presentViewController(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     func adminCellTapped() {
@@ -111,7 +111,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
             mail.setSubject("CourseSourcer Admin Request")
             mail.setMessageBody("Request coming from \(USER!.name) (\(USER!.email)) to be administrator of Course: \(course!.name) (ID: \(course!.id)).\n\nI acknowledge that only Professors and Teaching Assistants have the right to become administrators.\n\nProvide reasons to be an administrator below with links to back up claims:\n\n", isHTML: false)
             
-            presentViewController(mail, animated: true, completion: nil)
+            present(mail, animated: true, completion: nil)
         }else{
             showError(self, overrideAndShow: true, message: "Could not send mail.")
         }
@@ -119,45 +119,45 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return cell_labels.count
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cell_labels[section].count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SettingsCell", forIndexPath: indexPath) as! CourseSettingsTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! CourseSettingsTableViewCell
 
-        cell.label.text = cell_labels[indexPath.section][indexPath.row]
+        cell.label.text = cell_labels[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         
-        if indexPath.section == 0 {
-            cell.label.textColor = UIColor.whiteColor()
-            cell.backgroundColor = pastelFromInt(indexPath.row)
+        if (indexPath as NSIndexPath).section == 0 {
+            cell.label.textColor = UIColor.white
+            cell.backgroundColor = pastelFromInt((indexPath as NSIndexPath).row)
         }
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section_titles[section]
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section {
-        case 0: colorCellTapped(indexPath.row)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch (indexPath as NSIndexPath).section {
+        case 0: colorCellTapped((indexPath as NSIndexPath).row)
         case 1: leaveCellTapped()
         case 2: adminCellTapped()
-        default: print("ERROR:", "Picked a cell from an unexpected section:", indexPath.section)
+        default: print("ERROR:", "Picked a cell from an unexpected section:", (indexPath as NSIndexPath).section)
         }
     }
     
     // MARK: - MFMailComposeViewControllerDelegate
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         
-        if result == MFMailComposeResultSent {
+        if result == MFMailComposeResult.sent {
             let realm = try! Realm()
             
             try! realm.write {
@@ -165,11 +165,11 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
             }
             
             configureAdminButton()
-        }else if result == MFMailComposeResultFailed {
+        }else if result == MFMailComposeResult.failed {
             showError(self, overrideAndShow: true, message: "Could not send mail.")
         }
         
-        controller.dismissViewControllerAnimated(true, completion: nil)
+        controller.dismiss(animated: true, completion: nil)
     }
     
     /*

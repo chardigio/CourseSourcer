@@ -38,13 +38,13 @@ class CredentialsViewController: UIViewController {
     // MARK: - Personal
     
     func configureNavigationBar() {
-        navigationController?.navigationBarHidden = true
+        navigationController?.isNavigationBarHidden = true
     }
     
     func configureProfilePic() {
         profile_pic.setImageOfUser(nil)
         profile_pic.asACircle()
-        profile_pic.layer.borderColor = UIColor.whiteColor().CGColor
+        profile_pic.layer.borderColor = UIColor.white.cgColor
         profile_pic.layer.borderWidth = 1
     }
     
@@ -52,13 +52,13 @@ class CredentialsViewController: UIViewController {
         email_field.becomeFirstResponder()
     }
     
-    func enableButton(button: UIButton) {
-        button.enabled = true
+    func enableButton(_ button: UIButton) {
+        button.isEnabled = true
         button.alpha = 1
     }
     
-    func disableButton(button: UIButton) {
-        button.enabled = false
+    func disableButton(_ button: UIButton) {
+        button.isEnabled = false
         button.alpha = 0.4
     }
     
@@ -66,7 +66,7 @@ class CredentialsViewController: UIViewController {
         if logging_in {
             if email_field.text != nil &&
                password_field.text != nil &&
-               email_field.text!.containsString("@") &&
+               email_field.text!.contains("@") &&
                email_field.text!.hasSuffix(".edu") &&
                password_field.text!.characters.count >= 6 {
                 enableButton(login_button)
@@ -81,10 +81,10 @@ class CredentialsViewController: UIViewController {
             if email_field.text != nil &&
                password_field.text != nil &&
                name_field.text != nil &&
-               email_field.text!.containsString("@") &&
+               email_field.text!.contains("@") &&
                email_field.text!.hasSuffix(".edu") &&
                password_field.text!.characters.count >= 6 &&
-               name_field.text!.componentsSeparatedByString(" ").count >= 2 {
+               name_field.text!.components(separatedBy: " ").count >= 2 {
                 enableButton(signup_button)
             }else{
                 disableButton(signup_button)
@@ -92,58 +92,58 @@ class CredentialsViewController: UIViewController {
         }
     }
     
-    @IBAction func emailFieldEditingChanged(sender: AnyObject) {
+    @IBAction func emailFieldEditingChanged(_ sender: AnyObject) {
         enableLoginCheck()
         enableSignupCheck()
     }
     
-    @IBAction func passwordFieldEditingChanged(sender: AnyObject) {
+    @IBAction func passwordFieldEditingChanged(_ sender: AnyObject) {
         enableLoginCheck()
         enableSignupCheck()
     }
-    @IBAction func nameFieldEditingChanged(sender: AnyObject) {
+    @IBAction func nameFieldEditingChanged(_ sender: AnyObject) {
         enableSignupCheck()
     }
     
-    @IBAction func modeButtonPressed(sender: AnyObject) {
+    @IBAction func modeButtonPressed(_ sender: AnyObject) {
         if logging_in {
             logging_in = false
-            self.mode_button.setTitle("Returning?", forState: .Normal)
+            self.mode_button.setTitle("Returning?", for: UIControlState())
             
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.name_field.alpha = 0.9 // .9 is the standard field opacity so this is basically unhiding
                 self.profile_pic.alpha = 1
                 
                 self.login_button.alpha = 0
-                self.login_button.enabled = false
+                self.login_button.isEnabled = false
                 self.signup_button.alpha = 1
                 
                 self.enableSignupCheck()
             })
         }else{
             logging_in = true
-            self.mode_button.setTitle("First Time?", forState: .Normal)
+            self.mode_button.setTitle("First Time?", for: UIControlState())
             
-            UIView.animateWithDuration(0.5, animations: {
+            UIView.animate(withDuration: 0.5, animations: {
                 self.name_field.alpha = 0
                 self.profile_pic.alpha = 0
                 
                 self.login_button.alpha = 1
                 self.signup_button.alpha = 0
-                self.signup_button.enabled = false
+                self.signup_button.isEnabled = false
                 
                 self.enableLoginCheck()
             })
         }
     }
     
-    @IBAction func loginButtonPressed(sender: AnyObject) {
+    @IBAction func loginButtonPressed(_ sender: AnyObject) {
         if logging_in {
             //send login info to server
         }
     }
     
-    @IBAction func signupButtonPressed(sender: AnyObject) {
+    @IBAction func signupButtonPressed(_ sender: AnyObject) {
         if !logging_in {
             POST("/users", parameters: ["name":name_field.text!,
                                         "password":password_field.text!,
@@ -169,7 +169,7 @@ class CredentialsViewController: UIViewController {
                         realm.add(USER!, update: true)
                     }
                     
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                    self.dismiss(animated: true, completion: nil)
                 }
             })
         }

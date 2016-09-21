@@ -18,7 +18,7 @@ class InitialViewController: UINavigationController {
         configureNavigationBar()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         let realm = try! Realm()
         
         USER = realm.objects(User).filter("me == true").first
@@ -28,9 +28,9 @@ class InitialViewController: UINavigationController {
             
             LOG_OUT = false
             
-            performSegueWithIdentifier("InitialToCredentials", sender: nil)
+            performSegue(withIdentifier: "InitialToCredentials", sender: nil)
         }else if CONFIRMED == nil || !CONFIRMED! {
-            performSegueWithIdentifier("InitialToConfirm", sender: nil)
+            performSegue(withIdentifier: "InitialToConfirm", sender: nil)
         }else{
             reloadCoursesTable()
         }
@@ -45,16 +45,16 @@ class InitialViewController: UINavigationController {
     
     func configureNavigationBar() {
         // set title font
-        navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 24)!, NSForegroundColorAttributeName: UIColor.whiteColor()]
+        navigationBar.titleTextAttributes = [ NSFontAttributeName: UIFont(name: "Avenir Book", size: 24)!, NSForegroundColorAttributeName: UIColor.white]
         
         // set Me font
-        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.whiteColor()], forState: UIControlState.Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "Avenir Book", size: 20)!, NSForegroundColorAttributeName: UIColor.white], for: UIControlState())
         
         hideHairline()
     }
     
     func hideHairline() {
-        navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), forBarMetrics: .Default)
+        navigationBar.setBackgroundImage(UIImage(named: "navbarbackground"), for: .default)
         navigationBar.shadowImage = UIImage()
     }
     

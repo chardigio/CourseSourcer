@@ -9,6 +9,26 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class CourseScheduleTableViewController: UITableViewController {
     var assignments = [Assignment]()
@@ -34,9 +54,9 @@ class CourseScheduleTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if let course_vc = parentViewController as? CourseViewController {
-            course_vc.switchTabTo(.SCHEDULE)
+    override func viewDidAppear(_ animated: Bool) {
+        if let course_vc = parent as? CourseViewController {
+            course_vc.switchTabTo(.schedule)
         }
         
         loadAssignments()
@@ -50,7 +70,7 @@ class CourseScheduleTableViewController: UITableViewController {
         }
         
         POST("/assignments", parameters: ["title": "Lab 1",
-                                          "time_begin": stringFromDate(NSDate().dateByAddingTimeInterval(TEN_DAYS)),
+                                          "time_begin": stringFromDate(Date().addingTimeInterval(TEN_DAYS)),
                                           "course":self.course!.id],
                              callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
@@ -62,11 +82,11 @@ class CourseScheduleTableViewController: UITableViewController {
     // MARK: - Personal
     
     func configureTableView() {
-        tableView.registerNib(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
+        tableView.register(UINib(nibName: "ScheduleTableViewCell", bundle: nil), forCellReuseIdentifier: "ScheduleTableViewCell")
     }
     
     func configureRefreshControl() {
-        refreshControl?.addTarget(self, action: #selector(loadAssignments), forControlEvents: .ValueChanged)
+        refreshControl?.addTarget(self, action: #selector(loadAssignments), for: .valueChanged)
     }
 
     func configureCourse() {
@@ -91,12 +111,12 @@ class CourseScheduleTableViewController: UITableViewController {
     }
     
     func loadRealmAssignments() {
-        let predicate = NSPredicate(format: "time_begin > %@", NSDate().dateByAddingTimeInterval(-TWO_WEEKS))
+        let predicate = NSPredicate(format: "time_begin > %@", Date().addingTimeInterval(-TWO_WEEKS) as CVarArg)
         
-        assignments = (course?.assignments.filter(predicate).sorted("created_at").reverse().map { $0 })!
+        assignments = (course?.assignments.filter(predicate).sorted("created_at").reversed().map { $0 })!
     }
     
-    func loadNetworkAssignments(callback: Void -> Void) {
+    func loadNetworkAssignments(_ callback: @escaping (Void) -> Void) {
         GET("/assignments/of_course/\(course!.id)", callback: {(err: [String:AnyObject]?, res: JSON?) -> Void in
             if err != nil {
                 showError(self)
@@ -143,19 +163,19 @@ class CourseScheduleTableViewController: UITableViewController {
         var num_overdue_assignments = 0
         
         for assignment in assignments {
-            if assignment.time_begin.compare(NSDate()) == .OrderedAscending {
+            if assignment.time_begin.compare(Date()) == .orderedAscending {
                 num_overdue_assignments += 1
             }
         }
         
         if CGFloat(assignments.count) - CGFloat(num_overdue_assignments) > tableView.frame.height / tableView.rowHeight {
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: num_overdue_assignments, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: num_overdue_assignments, section: 0), at: UITableViewScrollPosition.top, animated: true)
         }
     }
     
     // MARK: - TableView delegate functions
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         if assignments.count > 0 {
             tableView.backgroundView = nil
             
@@ -164,20 +184,20 @@ class CourseScheduleTableViewController: UITableViewController {
             no_content_label = noTableViewContentLabelFor("Assignments", tableView: tableView)
             
             tableView.backgroundView = no_content_label
-            tableView.separatorStyle = .None
+            tableView.separatorStyle = .none
             
             return 0
         }
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return assignments.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ScheduleTableViewCell", forIndexPath: indexPath) as! ScheduleTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableViewCell", for: indexPath) as! ScheduleTableViewCell
         
-        let assignment = assignments[indexPath.row]
+        let assignment = assignments[(indexPath as NSIndexPath).row]
         
         cell.subview.backgroundColor = pastelFromInt(assignment.course!.color)
         //cell.assignment_pic = nil
@@ -192,15 +212,15 @@ class CourseScheduleTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("CourseScheduleToAssignment", sender: assignments[indexPath.row])
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "CourseScheduleToAssignment", sender: assignments[(indexPath as NSIndexPath).row])
     }
 
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CourseScheduleToAssignment" {
-            let vc = segue.destinationViewController as! AssignmentViewController
+            let vc = segue.destination as! AssignmentViewController
             
             vc.assignment = sender as? Assignment
         }

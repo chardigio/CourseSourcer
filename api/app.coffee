@@ -1,5 +1,4 @@
 express = require 'express'
-app = express()
 mongoose = require 'mongoose'
 bodyParser = require 'body-parser'
 rek = require 'rekuire'
@@ -11,6 +10,9 @@ directMessagesRouter = rek 'routes/direct_messages'
 assignmentsRouter = rek 'routes/assignments'
 configs = rek 'config'
 server = rek 'components/server'
+
+#start app
+app = express()
 
 #connect to mongo
 mongoose.connect configs.MONGO_URI

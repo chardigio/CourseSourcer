@@ -29,7 +29,7 @@ class ScheduleTableViewCell: UITableViewCell {
     // MARK: - Personal
     
     func configureStyling() {
-        selectionStyle = UITableViewCellSelectionStyle.none // don't know why this doesn't work non-programatically
+        selectionStyle = UITableViewCellSelectionStyle.none // this doesn't work non-programatically
         subview.layer.cornerRadius = 30
     }
     

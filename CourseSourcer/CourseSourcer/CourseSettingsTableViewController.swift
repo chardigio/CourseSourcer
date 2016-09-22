@@ -148,8 +148,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
     
     // MARK: - MFMailComposeViewControllerDelegate
     
-    /* PROBLEM
-    private func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    private func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: AnyObject?) {
         
         if result == MFMailComposeResult.sent {
             let realm = try! Realm()
@@ -165,7 +164,6 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         
         controller.dismiss(animated: true, completion: nil)
     }
-    */
     
     /*
     // MARK: - Navigation

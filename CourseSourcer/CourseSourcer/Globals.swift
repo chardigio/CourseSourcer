@@ -15,12 +15,13 @@ import JSQMessagesViewController
 #if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
 let ENV = "http://localhost:3005"
 let TESTING: Bool = false //true
-#else                                       // otherwise, route to Charlied.me server
+#else                                       // otherwise, route to CharlieD.me server
 let ENV = "http://104.131.167.230:3005"
 let TESTING: Bool = false
 #endif
 
 // MARK: - Misc
+
 var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK UNLESS UPDATED
 
 var PREFS: UserDefaults?

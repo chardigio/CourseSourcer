@@ -30,7 +30,6 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal
@@ -84,13 +83,13 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
                         if err != nil {
                             showError(self)
                         }else if (res != nil) {
-                            self.navigationController?.popViewController(animated: true)
+                            let _ = self.navigationController?.popViewController(animated: true)
                         }
                 })
             }))
             
             alert!.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.destructive, handler: {action in
-                self.navigationController?.popViewController(animated: true)
+                let _ = self.navigationController?.popViewController(animated: true)
             }))
             
             alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
@@ -102,12 +101,12 @@ class NewNoteViewController: UIViewController, UITextViewDelegate {
     func cancelTapped() {
         if (subject_textfield.text == nil || subject_textfield.text == "") &&
            (content_textview.text  == nil || content_textview.text  == "") {
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         }else{
             let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this note?", preferredStyle: UIAlertControllerStyle.alert)
             
             alert.addAction(UIAlertAction(title: "Abandon Note", style: UIAlertActionStyle.destructive, handler: {action in
-                self.navigationController?.popViewController(animated: true)
+                let _ = self.navigationController?.popViewController(animated: true)
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))

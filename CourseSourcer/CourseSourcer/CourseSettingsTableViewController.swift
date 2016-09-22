@@ -22,17 +22,10 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         
         configureCourse()
         configureAdminButton()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -74,8 +67,8 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
                 if err != nil {
                     showError(self)
                 }else if (res != nil) {
-                    self.navigationController?.popViewController(animated: true) // clear alert
-                    self.navigationController?.popViewController(animated: true) // go back to home screen
+                    let _ = self.navigationController?.popViewController(animated: true) // clear alert
+                    let _ = self.navigationController?.popViewController(animated: true) // go back to home screen
                     
                     let realm = try! Realm()
                     
@@ -146,16 +139,17 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath as NSIndexPath).section {
-        case 0: colorCellTapped((indexPath as NSIndexPath).row)
-        case 1: leaveCellTapped()
-        case 2: adminCellTapped()
-        default: print("ERROR:", "Picked a cell from an unexpected section:", (indexPath as NSIndexPath).section)
+        case 0  : colorCellTapped((indexPath as NSIndexPath).row)
+        case 1  : leaveCellTapped()
+        case 2  : adminCellTapped()
+        default : print("ERROR:", "Picked a cell from an unexpected section:", (indexPath as NSIndexPath).section)
         }
     }
     
     // MARK: - MFMailComposeViewControllerDelegate
     
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    /* PROBLEM
+    private func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         
         if result == MFMailComposeResult.sent {
             let realm = try! Realm()
@@ -171,6 +165,7 @@ class CourseSettingsTableViewController: UITableViewController, MFMailComposeVie
         
         controller.dismiss(animated: true, completion: nil)
     }
+    */
     
     /*
     // MARK: - Navigation

@@ -22,7 +22,6 @@ class CourseViewController: UITabBarController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func willMove(toParentViewController parent: UIViewController?) {
@@ -56,7 +55,7 @@ class CourseViewController: UITabBarController {
         switch COURSE_ITEM_TAB {
         case .classmates   : return // invite a freind to coursesourcer
         case .schedule     : performSegue(withIdentifier: "CourseToNewAssignment", sender: nil)
-        case .static_NOTES : performSegue(withIdentifier: "CourseToNewNote", sender: nil)
+        case .static_notes : performSegue(withIdentifier: "CourseToNewNote", sender: nil)
         case .settings     : return
         }
     }

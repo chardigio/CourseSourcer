@@ -47,7 +47,6 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal
@@ -164,13 +163,13 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
                         if err != nil {
                             showError(self)
                         }else if (res != nil) {
-                            self.navigationController?.popViewController(animated: true)
+                            let _ = self.navigationController?.popViewController(animated: true)
                         }
                 })
             }))
             
             alert!.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.destructive, handler: {action in
-                self.navigationController?.popViewController(animated: true)
+                let _ = self.navigationController?.popViewController(animated: true)
             }))
             
             alert!.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
@@ -187,12 +186,12 @@ class NewAssignmentViewController: UIViewController, UIPickerViewDataSource, UIP
     
     func cancelTapped() {
         if title_field.text == nil || title_field.text == "" {
-            self.navigationController?.popViewController(animated: true)
+            let _ = self.navigationController?.popViewController(animated: true)
         }else{
             let alert = UIAlertController(title: "Exit", message: "Are you sure you want to abandon this assignment?", preferredStyle: UIAlertControllerStyle.alert)
             
             alert.addAction(UIAlertAction(title: "Abandon Assignment", style: UIAlertActionStyle.destructive, handler: {action in
-                self.navigationController?.popViewController(animated: true)
+                let _ = self.navigationController?.popViewController(animated: true)
             }))
             
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))

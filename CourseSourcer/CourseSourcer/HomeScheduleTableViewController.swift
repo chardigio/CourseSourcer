@@ -20,17 +20,10 @@ class HomeScheduleTableViewController: UITableViewController {
         configureTableView()
         configureRefreshControl()
         loadAssignments()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +58,7 @@ class HomeScheduleTableViewController: UITableViewController {
         
         let predicate = NSPredicate(format: "time_begin > %@", Date().addingTimeInterval(-TWO_WEEKS) as CVarArg)
         
-        assignments = realm.objects(Assignment).filter(predicate).sorted("time_begin").map { $0 }
+        assignments = realm.objects(Assignment.self).filter(predicate).sorted(byProperty: "time_begin").map { $0 }
     }
     
     func loadNetworkAssignments(_ callback: @escaping (Void) -> Void) {
@@ -88,7 +81,7 @@ class HomeScheduleTableViewController: UITableViewController {
                     assignment.time_begin = dateFromString(network_assignment["time_begin"].stringValue)!
                     assignment.time_end = dateFromString(network_assignment["time_end"].string)
                     assignment.notes = network_assignment["notes"].string
-                    assignment.course = realm.objectForPrimaryKey(Course.self, key: network_assignment["course"].stringValue)
+                    assignment.course = realm.object(ofType: Course.self, forPrimaryKey: network_assignment["course"].stringValue as AnyObject)
                     assignment.user_handle = network_assignment["user_handle"].string
                     
                     network_assignments.append(assignment)

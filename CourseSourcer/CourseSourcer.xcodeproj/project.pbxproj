@@ -47,8 +47,8 @@
 		CB278FC61D0BD72200217EB3 /* CredentialsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */; };
 		CB278FCC1D0EE5A100217EB3 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */; };
 		CB278FCE1D0EE8B100217EB3 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */; };
+		CB6A3E901D9333CA0090333E /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6A3E8F1D9333CA0090333E /* NetworkTests.swift */; };
 		CB6F0E991D2C54FD000A93AB /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */; };
-		CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */; };
 		CB8EB7941D142300000A58FD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8EB7931D142300000A58FD /* HomeViewController.swift */; };
 		CBD1ADBB1D54BFBF003E338A /* ValidityBadge.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBD1ADBA1D54BFBF003E338A /* ValidityBadge.xib */; };
 		CBF9203E1D1C932B00D2862D /* ClassmateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBF9203D1D1C932B00D2862D /* ClassmateTableViewCell.swift */; };
@@ -122,8 +122,9 @@
 		CB278FC51D0BD72200217EB3 /* CredentialsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CredentialsViewController.swift; sourceTree = "<group>"; };
 		CB278FCB1D0EE5A100217EB3 /* InitialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
 		CB278FCD1D0EE8B100217EB3 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
+		CB6A3E8E1D9330A50090333E /* 1.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = 1.0.0.xcdatamodel; sourceTree = "<group>"; };
+		CB6A3E8F1D9333CA0090333E /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		CB6F0E981D2C54FD000A93AB /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
-		CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkTests.swift; sourceTree = "<group>"; };
 		CB8EB7931D142300000A58FD /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CBB29CD21D15E8F900FBB9B4 /* CourseSourcer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CourseSourcer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB29CD31D15E8F900FBB9B4 /* CourseSourcerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CourseSourcerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,7 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				CB278F7F1D0AE17D00217EB3 /* CourseSourcerTests.swift */,
-				CB71D95E1D1360EE003A7BD4 /* NetworkTests.swift */,
+				CB6A3E8F1D9333CA0090333E /* NetworkTests.swift */,
 				CB278F811D0AE17D00217EB3 /* Info.plist */,
 			);
 			path = CourseSourcerTests;
@@ -591,7 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB71D95F1D1360EE003A7BD4 /* NetworkTests.swift in Sources */,
+				CB6A3E901D9333CA0090333E /* NetworkTests.swift in Sources */,
 				CB278F801D0AE17D00217EB3 /* CourseSourcerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -858,6 +859,7 @@
 		CB278F6E1D0AE17C00217EB3 /* CourseSourcer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CB6A3E8E1D9330A50090333E /* 1.0.0.xcdatamodel */,
 				CB278F6F1D0AE17C00217EB3 /* CourseSourcer.xcdatamodel */,
 			);
 			currentVersion = CB278F6F1D0AE17C00217EB3 /* CourseSourcer.xcdatamodel */;

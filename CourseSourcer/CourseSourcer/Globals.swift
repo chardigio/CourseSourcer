@@ -14,14 +14,14 @@ import JSQMessagesViewController
 
 #if (arch(i386) || arch(x86_64)) && os(iOS) // if running on simulator, route to localhost
 let ENV = "http://localhost:3005"
-let TESTING: Bool = true
+let TESTING: Bool = false //true
 #else                                       // otherwise, route to Charlied.me server
 let ENV = "http://104.131.167.230:3005"
 let TESTING: Bool = false
 #endif
 
 // MARK: - Misc
-var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK
+var TESTING_CLASSMATE_ID: String = "57765bee7cf69056b8c10285" // THIS DOESN'T WORK UNLESS UPDATED
 
 var PREFS: UserDefaults?
 var USER: User?
@@ -48,7 +48,7 @@ enum COURSE_ITEM_TABS {
     case
         classmates,
         schedule,
-        static_NOTES,
+        static_notes,
         settings
 }
 
@@ -73,7 +73,7 @@ enum PASTELS{
     
     static var count: Int {
         return PASTELS.purple.hashValue + 1 // MAKE SURE THIS IS ALWAYS THE LAST VALUE
-    }                                     // DON'T JUST INSERT IN THE MIDDLE OF THE LIST
+    }                                       // DON'T JUST ADD TO THIS LIST
 }
 
 // MARK: - Functions
@@ -94,7 +94,7 @@ func getLeastUsedColor() -> Int {
     let realm = try! Realm()
     
     var counts = [Int](repeating: 0, count: PASTELS.count)
-    let courses = realm.objects(Course)
+    let courses = realm.objects(Course.self)
     for course in courses {
         counts[course.color] += 1
     }
@@ -158,20 +158,20 @@ func currentTerm() -> String {
     let month_year_array = (Calendar.current as NSCalendar).components([.month, .year], from: Date())
     
     switch month_year_array.month {
-    case 12, 1        : return "Winter " + String(describing: month_year_array.year)
-    case 2, 3, 4, 5   : return "Spring " + String(describing: month_year_array.year)
-    case 6, 7         : return "Summer " + String(describing: month_year_array.year)
-    case 8, 9, 10, 11 : return "Fall " + String(describing: month_year_array.year)
-    default           : return ""
+    case 12?, 1?          : return "Winter " + String(describing: month_year_array.year!)
+    case 2?, 3?, 4?, 5?   : return "Spring " + String(describing: month_year_array.year!)
+    case 6?, 7?           : return "Summer " + String(describing: month_year_array.year!)
+    case 8?, 9?, 10?, 11? : return "Fall "   + String(describing: month_year_array.year!)
+    default               : return ""
     }
 }
 
 func handleOfEmail(_ email: String) -> String {
-    return email.components(separatedBy: "@")[0] ?? ""
+    return email.components(separatedBy: "@")[0]
 }
 
 func domainOfEmail(_ email: String) -> String {
-    return email.components(separatedBy: ".edu")[0].components(separatedBy: "@")[1] ?? ""
+    return email.components(separatedBy: ".edu")[0].components(separatedBy: "@")[1]
 }
 
 func noTableViewContentLabelFor(_ cellCategorization: String, tableView: UITableView) -> UILabel {
@@ -189,7 +189,7 @@ func removeCourseFromUser(_ course: Course, user: User) {
     var course_index = 0
     for user_course in user.courses {
         if user_course.id == course.id {
-            user.courses.removeAtIndex(course_index)
+            user.courses.remove(at: course_index)
         }
         course_index += 1
     }

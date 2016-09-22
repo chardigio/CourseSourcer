@@ -15,12 +15,12 @@
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 /*  Tests account for the following endpoints:
-    POST /users
-    POST /courses
-    POST /static_notes
-    GET  /static_notes/<courseid>
-    PUT  /users/addCourse
-*/
+ POST /users
+ POST /courses
+ POST /static_notes
+ GET  /static_notes/<courseid>
+ PUT  /users/addCourse
+ */
 
 import Foundation
 import Alamofire

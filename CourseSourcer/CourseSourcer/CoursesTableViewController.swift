@@ -18,17 +18,10 @@ class CoursesTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configureRefreshControl()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -41,10 +34,10 @@ class CoursesTableViewController: UITableViewController {
         let realm = try! Realm()
 
         if USER == nil {
-            USER = realm.objects(User).filter("me == true").first
+            USER = realm.objects(User.self).filter("me == true").first
         }
         
-        if USER == nil || realm.objects(Course).count > 0 {
+        if USER == nil || realm.objects(Course.self).count > 0 {
             return
         }
         
@@ -103,7 +96,7 @@ class CoursesTableViewController: UITableViewController {
     func loadRealmUserAndCourses() {
         let realm = try! Realm()
         
-        courses = realm.objects(Course).map { $0 }
+        courses = realm.objects(Course.self).map { $0 }
     }
     
     func loadNetworkUserAndCourses(_ callback: @escaping (Void) -> Void) {
@@ -128,7 +121,7 @@ class CoursesTableViewController: UITableViewController {
                     course.admin = network_course["admin"].bool ?? false
                     course.admin_request_sent = network_course["admin"].bool ?? false
                     
-                    let saved_course = realm.objectForPrimaryKey(Course.self, key: course.id)
+                    let saved_course = realm.object(ofType: Course.self, forPrimaryKey: course.id as AnyObject)
                     course.color = (saved_course != nil) ? saved_course!.color : getLeastUsedColor()
                     
                     network_courses.append(course)

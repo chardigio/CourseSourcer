@@ -21,7 +21,7 @@ class InitialViewController: UINavigationController {
     override func viewDidAppear(_ animated: Bool) {
         let realm = try! Realm()
         
-        USER = realm.objects(User).filter("me == true").first
+        USER = realm.objects(User.self).filter("me == true").first
         
         if USER == nil || LOG_OUT {
             wipeData()
@@ -38,7 +38,6 @@ class InitialViewController: UINavigationController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal

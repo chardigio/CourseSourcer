@@ -34,7 +34,6 @@ class DirectMessagesViewController: JSQMessagesViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Testing
@@ -105,7 +104,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
         
         let realm = try! Realm()
         
-        for realm_message in (classmate?.messages.sorted("created_at"))! {
+        for realm_message in (classmate?.messages.sorted(byProperty: "created_at"))! {
             message_courses.append(realm_message.course)
             
             var message: JSQMessage {
@@ -141,7 +140,7 @@ class DirectMessagesViewController: JSQMessagesViewController {
                     message.created_at = dateFromString(network_message["created_at"].stringValue)
                     message.from_me = network_message["from_me"].bool ?? false
                     message.user = self.classmate
-                    message.course = realm.objectForPrimaryKey(Course.self, key: network_message["course"].stringValue)
+                    message.course = realm.object(ofType: Course.self, forPrimaryKey: network_message["course"].stringValue as AnyObject)
                     
                     network_messages.append(message)
                 }

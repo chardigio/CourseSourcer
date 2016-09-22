@@ -23,7 +23,6 @@ class AboutViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal
@@ -49,7 +48,7 @@ class AboutViewController: UIViewController {
                     USER!.bio  = res!["user"]["bio"].string
                     
                     for course_id in res!["user"]["admin_of"].arrayValue {
-                        if let course = realm.objectForPrimaryKey(Course.self, key: course_id.stringValue) {
+                        if let course = realm.object(ofType: Course.self, forPrimaryKey: course_id.stringValue as AnyObject) {
                             course.admin = true
                             course.admin_request_sent = true
                             

@@ -28,7 +28,6 @@ class StartCourseViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal
@@ -47,7 +46,7 @@ class StartCourseViewController: UIViewController {
     func guessSchool() ->  String {
         let realm = try! Realm()
         
-        return realm.objects(Course).first?.school ?? domainOfEmail(USER!.email).capitalized
+        return realm.objects(Course.self).first?.school ?? domainOfEmail(USER!.email).capitalized
     }
     
     @IBAction func schoolEditingChanged(_ sender: AnyObject) {

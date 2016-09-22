@@ -22,17 +22,10 @@ class ClassmatesTableViewController: UITableViewController {
         
         configureCourse()
         configureRefreshControl()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -47,10 +40,10 @@ class ClassmatesTableViewController: UITableViewController {
     
     func postTestClassmates() {
         if course!.users.filter("me == false").count > 0 {
-            return // this doesn't work, probably because of asynchrosity
+            return // this doesn't work, probably because of a race condition
         }
         
-        srand(UInt32(Date().timeIntervalSinceReferenceDate))
+        arc4random() //UInt32(Date().timeIntervalSinceReferenceDate))
         
         POST("/users", parameters: ["name": "Becky Hammond",
                                     "password": "bbgirl123",
@@ -133,18 +126,16 @@ class ClassmatesTableViewController: UITableViewController {
     }
     
     func loadRealmClassmates() {
-        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted("last_spoke").reversed().map { $0 }
+        let recent_classmates = course!.users.filter("me == false AND last_spoke != nil").sorted(byProperty: "last_spoke").reversed()
         
         data[1].removeAll()
-        for i in [0, 1, 2] {
-            if (recent_classmates.count > i) {
-                data[1].append(recent_classmates[i])
-            }
+        for classmate in recent_classmates.map({ $0 }) {
+            data[1].append(classmate)
         }
         
         data[2].removeAll()
-        let all_classmates = course!.users.filter("me == false").sorted("name").map { $0 }
-        data[2] = all_classmates
+        let all_classmates = course!.users.filter("me == false").sorted(byProperty: "name")
+        data[2] = all_classmates.map { $0 }
     }
     
     func loadNetworkClassmates(_ callback: @escaping (Void) -> Void) {
@@ -156,7 +147,7 @@ class ClassmatesTableViewController: UITableViewController {
                 
                 try! realm.write {
                     for network_user in res!["users"].arrayValue {
-                        var classmate = realm.objectForPrimaryKey(User.self, key: network_user["id"].stringValue)
+                        var classmate = realm.object(ofType: User.self, forPrimaryKey: network_user["id"].stringValue as AnyObject)
                         
                         if classmate == nil {
                             classmate = User()

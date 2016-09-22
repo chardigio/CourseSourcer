@@ -20,23 +20,16 @@ class NewCourseTableViewController: UITableViewController {
         
         configureSearchController()
         getNetworkCourses("")
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if DISMISS_JOIN_COURSE_CONTROLLER == true {
             DISMISS_JOIN_COURSE_CONTROLLER = false
-            navigationController?.popViewController(animated: true)
+            let _ = navigationController?.popViewController(animated: true)
         }
     }
     
@@ -107,7 +100,7 @@ class NewCourseTableViewController: UITableViewController {
                 if err != nil {
                     showError(self)
                 }else{
-                    self.navigationController?.popViewController(animated: true)
+                    let _ = self.navigationController?.popViewController(animated: true)
                 }
         })
     }

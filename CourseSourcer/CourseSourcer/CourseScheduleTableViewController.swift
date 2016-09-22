@@ -9,26 +9,6 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class CourseScheduleTableViewController: UITableViewController {
     var assignments = [Assignment]()
@@ -41,17 +21,10 @@ class CourseScheduleTableViewController: UITableViewController {
         configureTableView()
         configureRefreshControl()
         configureCourse()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +38,7 @@ class CourseScheduleTableViewController: UITableViewController {
     // MARK: - Testing
     
     func postTestAssignments() {
-        if course?.assignments.count > 0 {
+        if course == nil || course!.assignments.count > 0 {
             return
         }
         
@@ -113,7 +86,7 @@ class CourseScheduleTableViewController: UITableViewController {
     func loadRealmAssignments() {
         let predicate = NSPredicate(format: "time_begin > %@", Date().addingTimeInterval(-TWO_WEEKS) as CVarArg)
         
-        assignments = (course?.assignments.filter(predicate).sorted("created_at").reversed().map { $0 })!
+        assignments = (course?.assignments.filter(predicate).sorted(byProperty: "created_at").reversed().map { $0 })!
     }
     
     func loadNetworkAssignments(_ callback: @escaping (Void) -> Void) {

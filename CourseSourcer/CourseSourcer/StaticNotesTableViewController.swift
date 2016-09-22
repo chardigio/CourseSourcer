@@ -9,26 +9,6 @@
 import UIKit
 import RealmSwift
 import SwiftyJSON
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class StaticNotesTableViewController: UITableViewController {
     var course: Course?
@@ -40,22 +20,15 @@ class StaticNotesTableViewController: UITableViewController {
         
         configureRefreshControl()
         configureCourse()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if let course_vc = parent as? CourseViewController {
-            course_vc.switchTabTo(.static_NOTES)
+            course_vc.switchTabTo(.static_notes)
         }
         
         loadNotes()
@@ -64,7 +37,7 @@ class StaticNotesTableViewController: UITableViewController {
     // MARK: - Testing
     
     func postTestNotes() {
-        if course?.static_notes.count > 0 {
+        if course == nil || course!.static_notes.count > 0 {
             return
         }
         
@@ -104,7 +77,7 @@ class StaticNotesTableViewController: UITableViewController {
     }
     
     func loadRealmNotes() {
-        notes = course!.static_notes.sorted("created_at").map { $0 }
+        notes = course!.static_notes.sorted(byProperty: "created_at").map { $0 }
     }
     
     func loadNetworkNotes(_ callback: @escaping (Void) -> Void) {

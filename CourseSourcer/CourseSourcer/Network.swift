@@ -14,71 +14,71 @@ import SwiftyJSON
 
 // MARK: - Alamofire
 
-func GET(_ endpoint: String, id: String? = nil, callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
+func GET(_ endpoint: String, id: String? = nil, callback: @escaping (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
-    Alamofire.request(.GET, url).responseJSON { response in
+    Alamofire.request(url).responseJSON { response in
         print("GET:", url)
 
         switch response.result {
         case .success:
             if let res = response.result.value {
-                callback(err: nil, res: JSON(res))
+                callback(nil, JSON(res))
             }
         case .failure(let error):
             print("NETWORK ERROR:", response)
             
-            if error.code == 403 {
+            if error._code == 403 {
                 LOG_OUT = true
             }
             
-            callback(err: ["error": error], res: nil)
+            callback(["error": error as AnyObject], nil)
         }
     }
 }
 
-func POST(_ endpoint: String, id: String? = nil, parameters: [String:String], callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
+func POST(_ endpoint: String, id: String? = nil, parameters: [String: String], callback: @escaping (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
-    Alamofire.request(.POST, url, parameters: parameters, encoding: .json).responseJSON { response in
+    Alamofire.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
         print("POST:", url)
         
         switch response.result {
         case .success:
             if let res = response.result.value {
-                callback(err: nil, res: JSON(res))
+                callback(nil, JSON(res))
             }
         case .failure(let error):
             print("NETWORK ERROR:", response)
             
-            if error.code == 403 {
+            if error._code == 403 {
                 LOG_OUT = true
             }
             
-            callback(err: ["error": error], res: nil)
+            callback(["error": error as AnyObject], nil)
         }
     }
 }
 
-func PUT(_ endpoint: String, id: String? = nil, parameters: [String:String], callback: (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
+func PUT(_ endpoint: String, id: String? = nil, parameters: [String:String], callback: @escaping (_ err: [String:AnyObject]?, _ res: JSON?) -> Void) {
     let url = "\(ENV)\(endpoint)\(idParamString(id))"
     
-    Alamofire.request(.PUT, url, parameters: parameters, encoding: .json).responseJSON { response in
+    Alamofire.request(url, method: .put, parameters: parameters, encoding: JSONEncoding.default, headers: nil).responseJSON { response in
         print("PUT:", url)
         
         switch response.result {
         case .success:
             if let res = response.result.value {
-                callback(err: nil, res: JSON(res))
+                callback(nil, JSON(res))
             }
         case .failure(let error):
             print("NETWORK ERROR:", response)
             
-            if error.code == 403 {
+            if error._code == 403 {
                 LOG_OUT = true
             }
             
-            callback(err: ["error": error], res: nil)
+            callback(["error": error as AnyObject], nil)
         }
     }
 }
@@ -90,7 +90,7 @@ extension UIImageView {
         if user != nil, let url = URL(string: "\(ENV)/images/users/\(user!.id).png") {
             //print("GET IMAGE:", url)
             
-            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .none, runImageTransitionIfCached: false, completion: nil)
+            self.af_setImage(withURL: url, placeholderImage: UIImage(named: "default_user.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
         }
     }
     
@@ -98,7 +98,7 @@ extension UIImageView {
         if course != nil, let url = URL(string: "\(ENV)/images/courses/\(course!.id)") {
             //print("GET IMAGE:", url)
             
-            self.af_setImageWithURL(url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .none, runImageTransitionIfCached: false, completion: nil)
+            self.af_setImage(withURL: url, placeholderImage: UIImage(named: "default_course.png"), filter: nil, progress: nil, progressQueue:  DispatchQueue.main, imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
         }
     }
 }

@@ -32,7 +32,6 @@ class GroupMessagesViewController: JSQMessagesViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Personal
@@ -86,7 +85,7 @@ class GroupMessagesViewController: JSQMessagesViewController {
         
         let realm = try! Realm()
         
-        for realm_message in (course?.messages.sorted("created_at"))! {
+        for realm_message in (course?.messages.sorted(byProperty: "created_at"))! {
             var message: JSQMessage {
                 if realm_message.user_handle == handleOfEmail(USER!.email) {
                     return JSQMessage(senderId: senderId, displayName: senderDisplayName, text: realm_message.text) // add date param

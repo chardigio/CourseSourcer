@@ -1,8 +1,5 @@
 #CourseSourcer - Fearlessly connecting ideas.
 
-<br>
-<br>
-
 ###Summary
 CourseSourcer is a way for students to connect anonymously to help each other's success. Rather than worrying about an individual's reputation, CourseSourcer simply puts ideas in a central location in the form of messages, notes, and assignment details so that everyone can be kept in the loop.
 

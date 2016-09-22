@@ -1,5 +1,4 @@
-#CourseSourcer
-##Fearlessly connecting ideas.
+#CourseSourcer - Fearlessly connecting ideas.
 
 <br>
 <br>
